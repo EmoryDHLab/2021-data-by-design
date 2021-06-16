@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "packages": {
+    "google-docs-parser": {
+      "signature": "49169fa157ed525807877ca8d4c7cae9",
+      "file": true
+    },
+    "google-docs-components": {
+      "signature": "d47bd83db7e4b40424bdf9f32a978953",
+      "file": true
+    }
+  }
+}

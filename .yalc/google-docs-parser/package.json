@@ -1,0 +1,31 @@
+{
+  "name": "google-docs-parser",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json",
+    "watch": "watch 'yarn yalc' ./src",
+    "yalc": "yalc push --scripts",
+    "test": "jest"
+  },
+  "files": [
+    "/dist"
+  ],
+  "jest": {
+    "transform": {
+      "\\.[jt]sx?$": [
+        "babel-jest",
+        {
+          "rootMode": "upward"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "@googleapis/docs": "^0.2.0",
+    "@googleapis/drive": "^0.3.1"
+  },
+  "yalcSig": "49169fa157ed525807877ca8d4c7cae9"
+}

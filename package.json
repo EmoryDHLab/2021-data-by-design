@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "core-js": "^3.9.1",
+    "google-docs-components": "file:.yalc/google-docs-components",
+    "google-docs-parser": "file:.yalc/google-docs-parser",
     "nuxt": "^2.15.3"
   },
   "devDependencies": {

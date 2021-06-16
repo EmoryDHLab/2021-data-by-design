@@ -1,0 +1,29 @@
+{
+  "name": "google-docs-components",
+  "version": "1.0.0",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json",
+    "yalc": "yalc push --scripts",
+    "watch": "watch 'yarn yalc' ./src"
+  },
+  "files": [
+    "/dist"
+  ],
+  "jest": {
+    "transform": {
+      "\\.[jt]sx?$": [
+        "babel-jest",
+        {
+          "rootMode": "upward"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "google-docs-parser": "1.0.0"
+  },
+  "yalcSig": "d47bd83db7e4b40424bdf9f32a978953"
+}

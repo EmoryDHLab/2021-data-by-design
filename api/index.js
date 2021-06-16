@@ -1,10 +1,12 @@
 import express from "express";
+import livedoc from "./livedoc";
 const app = express();
 
 app.get("/test", function (req, res) {
-  console.log("endpoint hit");
-  res.send("<b>Hi</b>")
+  const html = "<p>test</p>"
+  res.send(html);
 });
 
-export default app;
+app.use("/livedoc", livedoc);
 
+export default app;
