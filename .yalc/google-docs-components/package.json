@@ -1,6 +1,6 @@
 {
   "name": "google-docs-components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -23,7 +23,7 @@
     }
   },
   "dependencies": {
-    "google-docs-parser": "1.0.0"
+    "google-docs-parser": "1.0.1"
   },
-  "yalcSig": "d47bd83db7e4b40424bdf9f32a978953"
+  "yalcSig": "ec4976c4bf36046821ac183393959267"
 }

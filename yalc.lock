@@ -2,11 +2,15 @@
   "version": "v1",
   "packages": {
     "google-docs-parser": {
-      "signature": "49169fa157ed525807877ca8d4c7cae9",
+      "signature": "550f1628cc761605c5df592c1e781a7e",
       "file": true
     },
     "google-docs-components": {
-      "signature": "d47bd83db7e4b40424bdf9f32a978953",
+      "signature": "ec4976c4bf36046821ac183393959267",
+      "file": true
+    },
+    "docs-renderer-vue2": {
+      "signature": "9bc8ff73d58341a9c6bc43e6f297dd25",
       "file": true
     }
   }

@@ -1,0 +1,23 @@
+{
+  "name": "docs-renderer-vue2",
+  "version": "0.1.1",
+  "main": "./dist/docsRenderer.common.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --target lib --name docsRenderer src/components/Renderer.ts",
+    "yalc": "yalc push --scripts"
+  },
+  "files": [
+    "/dist"
+  ],
+  "dependencies": {
+    "google-docs-components": "1.0.1",
+    "vue": "^2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "yalcSig": "9bc8ff73d58341a9c6bc43e6f297dd25"
+}
