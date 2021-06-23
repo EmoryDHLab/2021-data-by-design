@@ -12,8 +12,8 @@
     "@nuxt/http": "^0.6.4",
     "core-js": "^3.9.1",
     "docs-renderer-vue2": "latest",
-    "google-docs-components": "latest",
-    "google-docs-parser": "latest",
+    "google-docs-components": "file:.yalc/google-docs-components",
+    "google-docs-parser": "file:.yalc/google-docs-parser",
     "nuxt": "^2.15.3"
   },
   "devDependencies": {

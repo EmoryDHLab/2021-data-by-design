@@ -37,6 +37,8 @@ export default {
     "@nuxt/http"
   ],
 
+  target: "static",
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {}
 }

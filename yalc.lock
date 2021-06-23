@@ -2,12 +2,14 @@
   "version": "v1",
   "packages": {
     "google-docs-parser": {
-      "signature": "550f1628cc761605c5df592c1e781a7e",
-      "file": true
+      "signature": "ca78eb3a2871320e26af30caa66a3bb0",
+      "file": true,
+      "replaced": "latest"
     },
     "google-docs-components": {
-      "signature": "ec4976c4bf36046821ac183393959267",
-      "file": true
+      "signature": "61be228e2ac2088731a56fec6440a2ac",
+      "file": true,
+      "replaced": "latest"
     },
     "docs-renderer-vue2": {
       "signature": "9bc8ff73d58341a9c6bc43e6f297dd25",

@@ -1,14 +1,11 @@
 <template>
   <div>
-    <Renderer v-if="content" :content="content">
-      <template v-slot:Hover1="{inner}">
-        <b>{{ inner }}</b>
-      </template>
-    </Renderer>
+    <PageLayout :docData="docsData"></PageLayout>
   </div>
 </template>
 
 <script>
+import PageLayout from "~/components/PageLayout";
 import Renderer from "docs-renderer-vue2"
 
 import chaptersConfig from "@/chapters-config"
@@ -21,15 +18,8 @@ export default {
     return { docsData }
   },
   computed: {
-    content () {
-      if (this.docsData) {
-        const parsed = componentsFromDoc({components: []}, this.docsData);
-        return parsed.body;
-      }
-    }
   },
   mounted () {
-    console.log(this.docsData)
   },
   components: {Renderer},
   layout: "chapter"
