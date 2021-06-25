@@ -2,12 +2,12 @@
   "version": "v1",
   "packages": {
     "google-docs-parser": {
-      "signature": "ca78eb3a2871320e26af30caa66a3bb0",
+      "signature": "1912030c42fa19e46313d494be735cb4",
       "file": true,
       "replaced": "latest"
     },
     "google-docs-components": {
-      "signature": "61be228e2ac2088731a56fec6440a2ac",
+      "signature": "3fa92ad5fcbee72d993e534cc684c983",
       "file": true,
       "replaced": "latest"
     },

@@ -90,3 +90,7 @@ sw.*
 *.swp
 
 **/docsconfig.json
+
+.yalc
+
+yalc.lock

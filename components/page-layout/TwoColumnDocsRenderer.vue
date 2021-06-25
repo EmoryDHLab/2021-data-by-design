@@ -16,7 +16,6 @@ export default {
   },
   mounted () {
     if (this.docsComponents) {
-      console.log(findSections);
     }
   }
 }

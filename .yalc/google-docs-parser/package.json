@@ -3,7 +3,7 @@
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json",
     "watch": "watch 'yarn yalc' ./src",
@@ -27,5 +27,5 @@
     "@googleapis/docs": "^0.2.0",
     "@googleapis/drive": "^0.3.1"
   },
-  "yalcSig": "ca78eb3a2871320e26af30caa66a3bb0"
+  "yalcSig": "1912030c42fa19e46313d494be735cb4"
 }

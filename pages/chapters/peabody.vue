@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import PageLayout from "~/components/PageLayout";
+import PageLayout from "~/components/page-layout/ChapterLayout";
 import Renderer from "docs-renderer-vue2"
 
 import chaptersConfig from "@/chapters-config"
@@ -21,7 +21,7 @@ export default {
   },
   mounted () {
   },
-  components: {Renderer},
+  components: {PageLayout},
   layout: "chapter"
 }
 </script>
