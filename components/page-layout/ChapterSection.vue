@@ -4,13 +4,7 @@
       <GridLayout v-if=" 'components' in group">
         <DocsRenderer class="span-middle-10" :content="group.components"></DocsRenderer>
       </GridLayout>
-      <LeaderFollowPair v-else>
-        <template v-slot:left>
-          <DocsRenderer :content="group.left"></DocsRenderer>
-        </template>
-        <template v-slot:right>
-          <DocsRenderer :content="group.right"></DocsRenderer>
-        </template>
+      <LeaderFollowPair v-else :left-content="group.left" :right-content="group.right">
       </LeaderFollowPair>
     </template>
   </div>

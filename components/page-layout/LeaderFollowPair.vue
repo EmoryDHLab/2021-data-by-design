@@ -1,42 +1,43 @@
 <template>
   <grid-layout>
-    <div class="left-col">
-      <slot name="left"></slot>
-    </div>
-    <div class="right-col">
-      <slot name="right"></slot>
-    </div>
+    <DocsRenderer class="left-col" :content="leftContent"></DocsRenderer>
+    <DocsRenderer class="right-col" :content="rightContent"></DocsRenderer>
   </grid-layout>
 </template>
 
 <script>
 import GridLayout from "./GridLayout"
+import DocsRenderer from "docs-renderer-vue2";
 export default {
   name: "LeaderFollowPair",
-  components: {GridLayout}
+  components: {GridLayout, DocsRenderer},
+  props: {
+    leftContent: {
+      type: Array,
+      required: true
+    },
+    rightContent: {
+      type: Array,
+      required: true
+    }
+  }
 }
 </script>
 
 <style>
-  .span-left {
-    grid-column-start: 2;
-    grid-column-end: 7;
-  }
-  .span-right {
-    grid-column-start: 7;
-    grid-column-end: 12;
-  }
-
-  .left-col, .right-col, .left-col > div, .right-col > div {
+  .left-col, .right-col {
     display: contents
   }
 
-  .left-col p {
-    grid-column-start: 2;
+  .left-col > * {
     grid-column-end: 7;
   }
 
-  .right-col p {
+  .left-col > p {
+    grid-column-start: 2;
+  }
+
+  .right-col > * {
     grid-column-start: 7;
     grid-column-end: 12;
   }
