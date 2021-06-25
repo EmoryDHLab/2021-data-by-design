@@ -66,6 +66,28 @@ export default {
       }
 
       return groups;
+    },
+    renderGroups () {
+      const idIndexMap = {}
+      return this.componentGroups.reduce ( (acc, curr, i, source) => {
+        if (curr.alignment) {
+          if (curr.pairingId in idIndexMap) {
+            const pair = acc[idIndexMap[curr.pairingId]];
+            if (curr.alignment in pair) {
+              console.warning(`There are two groups labeled ${curr.alignment}:${curr.pairingId}. Joining them`)
+              pair[curr.alignment].push(...curr.components);
+              return acc;
+            }
+            pair[curr.alignment] = [...curr.components];
+            return acc;
+          }
+          idIndexMap[curr.pairingId] = acc.length;
+          acc.push({[curr.alignment]: [...curr.components]});
+          return acc;
+        }
+        acc.push({components: [...curr.components]});
+        return acc;
+      }, []);
     }
   }
 }
