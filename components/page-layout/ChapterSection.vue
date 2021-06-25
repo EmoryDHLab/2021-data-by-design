@@ -46,6 +46,7 @@ export default {
 
         const [alignment, pairingId] = startString
           .replace("\n", "")
+          .replace(/-/g, "")
           .split(":")
           .map(s => s.trim().toLowerCase() );
 
