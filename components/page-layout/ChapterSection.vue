@@ -1,12 +1,25 @@
 <template>
-  <GridLayout>
-
-  </GridLayout>
+  <div>
+    <template v-for="group in renderGroups">
+      <GridLayout v-if=" 'components' in group">
+        <DocsRenderer class="span-middle-10" :content="group.components"></DocsRenderer>
+      </GridLayout>
+      <LeaderFollowPair v-else>
+        <template v-slot:left>
+          <DocsRenderer :content="group.left"></DocsRenderer>
+        </template>
+        <template v-slot:right>
+          <DocsRenderer :content="group.right"></DocsRenderer>
+        </template>
+      </LeaderFollowPair>
+    </template>
+  </div>
 </template>
 
 <script>
 import GridLayout from "~/components/page-layout/GridLayout";
-import TwoColumnDocsRenderer from "~/components/page-layout/TwoColumnDocsRenderer";
+import LeaderFollowPair from "~/components/page-layout/LeaderFollowPair";
+import DocsRenderer from "docs-renderer-vue2"
 import { findSections } from "google-docs-components"
 
 export default {
@@ -17,7 +30,7 @@ export default {
       required: true
     }
   },
-  components: {GridLayout},
+  components: {GridLayout, DocsRenderer, LeaderFollowPair},
   computed: {
     divisions () {
       const def = {
@@ -94,5 +107,8 @@ export default {
 </script>
 
 <style scoped>
-
+  .span-middle-10 {
+    grid-column-start: 2;
+    grid-column-end: 12
+  }
 </style>

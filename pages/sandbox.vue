@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import LeaderFollow from "~/components/page-layout/LeaderFollow";
+import LeaderFollow from "~/components/page-layout/LeaderFollowDemo";
 export default {
   components: {LeaderFollow}
 }

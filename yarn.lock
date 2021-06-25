@@ -3079,10 +3079,10 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-docs-renderer-vue2@latest:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/docs-renderer-vue2/-/docs-renderer-vue2-0.1.1.tgz#6eef0fdecb854e32ad9513d6d5777281d4e4386b"
-  integrity sha512-tZ/FFmLy/TIflYb0Q0aCxAMI4jWm9yp2EWs5IlMCcYHWYEQoAoy0XkwHXT2EDWwGt6X1tGLO2WPdVObXcdXvAg==
+docs-renderer-vue2@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/docs-renderer-vue2/-/docs-renderer-vue2-0.1.2.tgz#3e7acbd17cdb6c6ba55730474339d09607d5c953"
+  integrity sha512-gCROuOUmhxvnlK1mvskhoWSpwU72mODYLnp+XfDwYuKHw3F0/J6KP9TwUDibWB0J1y1vEoWx+dD31Wbb+byO2g==
   dependencies:
     google-docs-components "workspace:*"
     vue "^2.6.11"
