@@ -30,16 +30,16 @@ export default {
   }
 
   .left-col > * {
-    grid-column-end: 7;
+    grid-column-end: 8;
   }
 
   .left-col > p {
-    grid-column-start: 2;
+    grid-column-start: 3;
   }
 
   .right-col > * {
-    grid-column-start: 7;
-    grid-column-end: 12;
+    grid-column-start: 9;
+    grid-column-end: 14;
   }
 
 </style>

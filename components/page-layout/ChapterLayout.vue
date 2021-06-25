@@ -96,7 +96,7 @@ export default {
 .flex {
   display: flex;
   flex-direction: row;
-  background-color: #FFFFFF;
+  background-color: #FAF1E9;
 }
 
 .chapter-content {

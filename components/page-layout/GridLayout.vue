@@ -13,6 +13,6 @@ export default {
 <style scoped>
   .grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(14, 1fr);
   }
 </style>

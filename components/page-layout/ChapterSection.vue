@@ -2,7 +2,7 @@
   <div>
     <template v-for="group in renderGroups">
       <GridLayout v-if=" 'components' in group">
-        <DocsRenderer class="span-middle-10" :content="group.components"></DocsRenderer>
+        <DocsRenderer class="span-middle-8" :content="group.components"></DocsRenderer>
       </GridLayout>
       <LeaderFollowPair v-else :left-content="group.left" :right-content="group.right">
       </LeaderFollowPair>
@@ -101,8 +101,8 @@ export default {
 </script>
 
 <style scoped>
-  .span-middle-10 {
-    grid-column-start: 2;
+  .span-middle-8 {
+    grid-column-start: 4;
     grid-column-end: 12
   }
 </style>
