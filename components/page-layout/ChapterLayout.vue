@@ -16,9 +16,9 @@
 
 <script>
 import {componentsFromDoc, findSections} from "google-docs-components"
-import TwoColumnDocsRenderer from "~/components/page-layout/TwoColumnDocsRenderer";
 import GridLayout from "~/components/page-layout/GridLayout";
 import ChapterSection from "~/components/page-layout/ChapterSection";
+import globalDocsDefs from "~/components/global/docsDefs"
 export default {
   props: {
     docData: {
@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     components() {
-      return componentsFromDoc({components: []}, this.docData).body;
+      return componentsFromDoc({components: globalDocsDefs}, this.docData).body;
     },
     divisions() {
       const metadataDef = {

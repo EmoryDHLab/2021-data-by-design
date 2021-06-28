@@ -1,11 +1,19 @@
 <template>
-  <LeaderFollow></LeaderFollow>
+  <GridLayout>
+    <Pullquote>
+      <template v-slot:title>
+        But what, more precisely, does data visualization reveal?
+      </template>
+      <template v-slot:subtitle>
+        For Tufte, it's any number of "complex qualitative ideas" that might otherwise be difficult to convey
+      </template>
+    </Pullquote>
+  </GridLayout>
 </template>
 
 <script>
-import LeaderFollow from "~/components/page-layout/LeaderFollowDemo";
+
 export default {
-  components: {LeaderFollow}
 }
 </script>
 

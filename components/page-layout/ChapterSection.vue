@@ -4,16 +4,14 @@
       <GridLayout v-if=" 'components' in group">
         <DocsRenderer class="span-middle-8" :content="group.components"></DocsRenderer>
       </GridLayout>
-      <LeaderFollowPair v-else :left-content="group.left" :right-content="group.right">
+      <LeaderFollowPair v-else :left-content="group.left" :right-content="group.right || []">
       </LeaderFollowPair>
     </template>
   </div>
 </template>
 
 <script>
-import GridLayout from "~/components/page-layout/GridLayout";
-import LeaderFollowPair from "~/components/page-layout/LeaderFollowPair";
-import DocsRenderer from "docs-renderer-vue2"
+import DocsRenderer from "./DocsRenderer"
 import { findSections } from "google-docs-components"
 
 export default {
@@ -24,7 +22,7 @@ export default {
       required: true
     }
   },
-  components: {GridLayout, DocsRenderer, LeaderFollowPair},
+  components: {DocsRenderer},
   computed: {
     divisions () {
       const def = {

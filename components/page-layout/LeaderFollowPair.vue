@@ -7,7 +7,7 @@
 
 <script>
 import GridLayout from "./GridLayout"
-import DocsRenderer from "docs-renderer-vue2";
+import DocsRenderer from "./DocsRenderer";
 export default {
   name: "LeaderFollowPair",
   components: {GridLayout, DocsRenderer},
