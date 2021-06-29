@@ -1,0 +1,31 @@
+<template>
+  <div>
+    <ChapterLayout v-if="docsData" :docData="docsData" :config="config"></ChapterLayout>
+  </div>
+</template>
+
+<script>
+import ChapterLayout from "~/components/page-layout/ChapterLayout";
+import Renderer from "docs-renderer-vue2"
+
+import chaptersConfig from "@/chapters-config"
+
+import { componentsFromDoc } from "google-docs-components"
+export default {
+  async asyncData({ params, $http }) {
+    const config = chaptersConfig[params.name];
+    if (config) {
+      const docsData = await $http.$get(`/api/livedoc/${config.doc}`)
+      return { docsData, config }
+    }
+  },
+  computed: {
+  },
+  mounted () {
+  },
+  components: {ChapterLayout},
+}
+</script>
+
+<style>
+</style>

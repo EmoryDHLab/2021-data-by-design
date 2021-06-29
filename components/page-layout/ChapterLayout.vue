@@ -1,14 +1,14 @@
 <template>
 
-  <div class="flex">
-    <div class="margin">
+  <div class="chapter-root">
+    <div class="chapter-margin">
     </div>
     <div class="chapter-content">
       <template v-for="section in chapterSections">
         <ChapterSection :title="section.title" :components="section.components"></ChapterSection>
       </template>
     </div>
-    <div class="margin">
+    <div class="chapter-margin">
     </div>
   </div>
 
@@ -24,9 +24,17 @@ export default {
     docData: {
       type: Object,
       required: true
+    },
+    config: {
+      type: Object
     }
   },
   components: {ChapterSection},
+  provide () {
+    return {
+      theme: this.config.theme
+    }
+  },
   mounted() {
     console.log(this.components);
   },
@@ -91,19 +99,20 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
-.flex {
+.chapter-root {
   display: flex;
   flex-direction: row;
   background-color: #FAF1E9;
 }
 
-.chapter-content {
-  width: 1440px;
-}
+.chapter-content p {
+    font-family: "neue-haas-unica";
+    font-size: 20px;
+  }
 
-.margin {
+.chapter-margin {
   height: 100%;
   flex-grow: 1;
 }

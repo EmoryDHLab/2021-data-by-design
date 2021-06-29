@@ -1,5 +1,9 @@
 <template>
-  <Renderer :content="content" :components="components"></Renderer>
+  <Renderer :content="content" :ignoreCss="ignoreCssProperties" :components="components">
+    <template v-slot:Hover1>
+      Hover1 test
+    </template>
+  </Renderer>
 </template>
 
 <script>
@@ -18,6 +22,9 @@ export default {
   computed: {
     components () {
       return globalComponents;
+    },
+    ignoreCssProperties () {
+      return ["font-family", "font-size"]
     }
   }
 }

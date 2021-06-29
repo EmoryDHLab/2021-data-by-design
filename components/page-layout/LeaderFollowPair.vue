@@ -34,7 +34,7 @@ export default {
   }
 
   .left-col > p {
-    grid-column-start: 3;
+    grid-column-start: 2;
   }
 
   .right-col > * {

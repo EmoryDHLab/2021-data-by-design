@@ -21,7 +21,7 @@ export default {
     },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ["@/layouts/fonts.css"],
+  css: ["@/assets/fonts.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],

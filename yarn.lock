@@ -3080,9 +3080,9 @@ dir-glob@^3.0.1:
     path-type "^4.0.0"
 
 docs-renderer-vue2@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/docs-renderer-vue2/-/docs-renderer-vue2-0.1.2.tgz#3e7acbd17cdb6c6ba55730474339d09607d5c953"
-  integrity sha512-gCROuOUmhxvnlK1mvskhoWSpwU72mODYLnp+XfDwYuKHw3F0/J6KP9TwUDibWB0J1y1vEoWx+dD31Wbb+byO2g==
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/docs-renderer-vue2/-/docs-renderer-vue2-0.1.3.tgz#33971f5545b529506b94107f6e90d18ac1c38b39"
+  integrity sha512-1TNjWCYaY+qZ22GhiJ0/En0ujnFq4o8pBKbDiAYqmZplK7t6WcPr6vsbwniY5mXXy+wpDSPZdkpwu32oJXYjhw==
   dependencies:
     google-docs-components "workspace:*"
     vue "^2.6.11"
@@ -3892,14 +3892,14 @@ google-auth-library@^7.0.2:
     lru-cache "^6.0.0"
 
 "google-docs-components@file:.yalc/google-docs-components":
-  version "1.0.4"
+  version "1.0.5"
   dependencies:
     google-docs-parser "1.0.5"
 
 "google-docs-components@workspace:*":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/google-docs-components/-/google-docs-components-1.0.4.tgz#2021c17f4bf40c32740bf8c7f4cba1a9e836a351"
-  integrity sha512-AM0S57zhCao8wt+xxmXtCclYccN/ghXuYTXTz9uBKYC6a7MctCI9s5MjItMeDNpMBi3Cp6e4qtYt07J6svAIRA==
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/google-docs-components/-/google-docs-components-1.0.5.tgz#ba2d6b373e11de7971b24a3adebd3c4ecfda3670"
+  integrity sha512-Ya+TzTE3HPwxxoUIgzxBHDa7mCV8qxCk9r3XrNhDlf+VqdF2qqSXYiqzdYiXNibzAur0dbn0o6gRiUQhZFl5UQ==
   dependencies:
     google-docs-parser "workspace:*"
 

@@ -1,10 +1,15 @@
-<template functional>
+<template>
   <div class="root">
-    <div class="big">
-      <slot name="title"></slot>
+    <div class="extension" :style="backgroundColor">
+
     </div>
-    <div class="small">
-      <slot name="subtitle"></slot>
+    <div class="content" :style="backgroundColor">
+      <div class="big">
+        <slot name="title"></slot>
+      </div>
+      <div class="small">
+        <slot name="subtitle"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -16,23 +21,45 @@ export const docsDefinition = {
   slots: {
     title: {},
     subtitle: {}
-  }
+  },
 }
 export default {
+  inject: ["theme"],
+  computed: {
+   backgroundColor () {
+      return {
+        backgroundColor: this.theme?.primaryColor || "black",
+      }
+    }
+  }
 }
 </script>
 
 <style scoped>
-div.root {
-  font-family: "VTC William", sans-serif;
+.root {
+  display: contents;
 }
 
-.big {
-  font-size: 36pt;
+div.extension {
+  grid-column-start: 1;
+}
+div.content {
+  font-family: "VTC William", sans-serif;
+  color: white;
+  padding-right: 20px;
+  grid-column-start: 2;
+  grid-column-end: inherit;
+}
+
+.big p {
+  font-size: 36px;
   line-height: 150%;
 }
-.small {
-  font-size: 24pt;
+.big p:last-child {
+  margin-block-end: 0.5em;
+}
+.small p {
+  font-size: 24px;
   line-height: 150%;
 }
 
