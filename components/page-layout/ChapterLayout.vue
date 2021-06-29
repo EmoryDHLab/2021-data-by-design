@@ -32,7 +32,8 @@ export default {
   components: {ChapterSection},
   provide () {
     return {
-      theme: this.config.theme
+      theme: this.config.theme,
+      slotsFile: this.config.slotsFile
     }
   },
   mounted() {
