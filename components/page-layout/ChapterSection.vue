@@ -1,5 +1,5 @@
 <template>
-  <div v-if="mounted">
+  <div>
     <template v-for="group in renderGroups">
       <GridLayout v-if=" 'components' in group">
         <Component class="span-middle-8" :is="docsRenderer" :docContent="group.components"></Component>
@@ -23,14 +23,6 @@ export default {
     }
   },
   inject: ["docsRenderer"],
-  data () {
-    return {
-      mounted: false
-    }
-  },
-  mounted () {
-    this.mounted = true;
-  },
   computed: {
     divisions () {
       const def = {

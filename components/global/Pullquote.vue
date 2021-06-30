@@ -1,9 +1,6 @@
 <template>
   <div class="root">
-    <div class="extension" :style="backgroundColor">
-
-    </div>
-    <div class="content" :style="backgroundColor">
+    <div class="content" :style="contentStyles">
       <div class="big">
         <slot name="title"></slot>
       </div>
@@ -26,38 +23,40 @@ export const docsDefinition = {
 export default {
   inject: ["theme"],
   computed: {
-   backgroundColor () {
+    contentStyles() {
       return {
         backgroundColor: this.theme?.primaryColor || "black",
+        color: this.theme.primaryColorText || "white"
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style scoped>
 .root {
-  display: contents;
+  grid-column-start: 1;
+  margin: var(--vertical-gap-small) 0;
 }
 
-div.extension {
-  grid-column-start: 1;
-}
 div.content {
-  font-family: "VTC William", sans-serif;
   color: white;
-  padding-right: 20px;
-  grid-column-start: 2;
-  grid-column-end: inherit;
+  padding: 36px var(--col-width);
+}
+
+div.content p {
+  font-family: "VTC William", sans-serif;
 }
 
 .big p {
   font-size: 36px;
   line-height: 150%;
 }
+
 .big p:last-child {
   margin-block-end: 0.5em;
 }
+
 .small p {
   font-size: 24px;
   line-height: 150%;

@@ -1,6 +1,5 @@
 <template>
-
-  <div class="chapter-root">
+  <div v-if="mounted" class="chapter-root">
     <div class="chapter-margin">
     </div>
     <div class="chapter-content">
@@ -11,7 +10,6 @@
     <div class="chapter-margin">
     </div>
   </div>
-
 </template>
 
 <script>
@@ -36,13 +34,20 @@ export default {
       docsRenderer: this.docsRendererComponent,
     }
   },
-  mounted() {
-    console.log(this.components);
+  data () {
+    return {
+      mounted: false
+    }
+  },
+  mounted () {
+    this.mounted = true;
   },
   computed: {
     docsRendererComponent () {
       if (this.config.slotsFile) {
         //https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
+        //Loads the correct slots component from the chapter-slots folder. That component
+        //handles the doc rendering, injecting the specified slots into the docs renderer.
         return () => import("../chapter-slots/" + this.config.slotsFile)
       }
     },
@@ -108,6 +113,13 @@ export default {
 
 <style>
 
+.chapter-root {
+  --col-width: 80px;
+  --col-gutter-width: 24px;
+  --vertical-gap-small: 72px;
+  --vertical-gap-medium: 100px;
+  --vertical-gap-large: 200px;
+}
 .chapter-root {
   display: flex;
   flex-direction: row;

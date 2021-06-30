@@ -4,7 +4,11 @@ export default {
     doc: "1Ii4MDQaXRTCSyRWpgbNdPuA0IbVL9EZanYDNapLjpzc",
     slotsFile: "peabody",
     theme: {
-      primaryColor: "#3B6FE0"
+      primaryColor: "#93E3BD",
+      primaryColorText: "black",
     }
+  },
+  playfair: {
+
   }
 }

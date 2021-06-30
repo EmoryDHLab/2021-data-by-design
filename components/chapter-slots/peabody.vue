@@ -1,7 +1,7 @@
 <template>
   <Slots>
     <template v-slot:Hover1="{inner}">
-      This is hover 1 {{inner}}
+      This is a
     </template>
   </Slots>
 </template>
@@ -9,7 +9,12 @@
 <script>
 import ChapterSlots from "@/components/chapter-slots/mixin/ChapterSlots";
 export default {
-  mixins: [ChapterSlots]
+  mixins: [ChapterSlots],
+  data () {
+    return {
+      counter: 0
+    }
+  }
 }
 </script>
 
