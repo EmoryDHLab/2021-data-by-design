@@ -1,8 +1,6 @@
 <template>
-  <Renderer :content="content" :ignoreCss="ignoreCssProperties" :components="components">
-    <template v-slot:Hover1>
-      Hover1 test
-    </template>
+  <Renderer :content="docContent" :ignoreCss="ignoreCssProperties" :components="components">
+    <template v-for="(_, name) in $scopedSlots" :slot="name" slot-scope="slotData"><slot :name="name" v-bind="slotData" /></template>
   </Renderer>
 </template>
 
@@ -13,20 +11,16 @@ import globalComponents from "@/components/global"
 export default {
   components: {Renderer},
   props: {
-    content: Array,
-    chapter: {
-      type: String,
-      required: false
-    }
+    docContent: Array,
   },
   computed: {
-    components () {
+    components() {
       return globalComponents;
     },
-    ignoreCssProperties () {
+    ignoreCssProperties() {
       return ["font-family", "font-size"]
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div v-if="mounted">
     <template v-for="group in renderGroups">
       <GridLayout v-if=" 'components' in group">
-        <DocsRenderer class="span-middle-8" :content="group.components"></DocsRenderer>
+        <Component class="span-middle-8" :is="docsRenderer" :docContent="group.components"></Component>
+        <!--        <DocsRenderer class="span-middle-8" :content="group.components"></DocsRenderer>-->
       </GridLayout>
       <LeaderFollowPair v-else :left-content="group.left" :right-content="group.right || []">
       </LeaderFollowPair>
@@ -11,7 +12,6 @@
 </template>
 
 <script>
-import DocsRenderer from "./DocsRenderer"
 import { findSections } from "google-docs-components"
 
 export default {
@@ -22,7 +22,15 @@ export default {
       required: true
     }
   },
-  components: {DocsRenderer},
+  inject: ["docsRenderer"],
+  data () {
+    return {
+      mounted: false
+    }
+  },
+  mounted () {
+    this.mounted = true;
+  },
   computed: {
     divisions () {
       const def = {
@@ -32,7 +40,6 @@ export default {
         endByNextStart: true,
         endByContentEnd: true
       }
-
       const sectionData = findSections(this.components, [def]).align;
       return sectionData;
     },

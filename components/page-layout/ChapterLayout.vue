@@ -33,13 +33,19 @@ export default {
   provide () {
     return {
       theme: this.config.theme,
-      slotsFile: this.config.slotsFile
+      docsRenderer: this.docsRendererComponent,
     }
   },
   mounted() {
     console.log(this.components);
   },
   computed: {
+    docsRendererComponent () {
+      if (this.config.slotsFile) {
+        //https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
+        return () => import("../chapter-slots/" + this.config.slotsFile)
+      }
+    },
     components() {
       return componentsFromDoc({components: globalDocsDefs}, this.docData).body;
     },

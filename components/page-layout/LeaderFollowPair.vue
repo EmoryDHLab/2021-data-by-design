@@ -1,16 +1,18 @@
 <template>
   <grid-layout>
-    <DocsRenderer class="left-col" :content="leftContent"></DocsRenderer>
-    <DocsRenderer class="right-col" :content="rightContent"></DocsRenderer>
+    <Component class="left-col" :is="docsRenderer" :docContent="leftContent"></Component>
+    <Component class="right-col" :is="docsRenderer" :docContent="rightContent"></Component>
+    <!--    <DocsRenderer class="left-col" :content="leftContent"></DocsRenderer>-->
+<!--    <DocsRenderer class="right-col" :content="rightContent"></DocsRenderer>-->
   </grid-layout>
 </template>
 
 <script>
 import GridLayout from "./GridLayout"
-import DocsRenderer from "./DocsRenderer";
 export default {
   name: "LeaderFollowPair",
-  components: {GridLayout, DocsRenderer},
+  components: {GridLayout},
+  inject: ["docsRenderer"],
   props: {
     leftContent: {
       type: Array,
