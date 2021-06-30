@@ -6,7 +6,6 @@
 </template>
 
 <script>
-  import Visualization from "@/mixins/vis/Visualization";
   import * as d3 from "d3";
 
   //TODO: Think about what to do when dragged to notebook

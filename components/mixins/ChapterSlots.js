@@ -1,9 +1,4 @@
-<template>
-
-</template>
-
-<script>
-export default {
+const ChapterSlots = {
   props: {
     docContent: Array,
   },
@@ -26,8 +21,4 @@ export default {
     }
   },
 }
-</script>
-
-<style scoped>
-
-</style>
+export default ChapterSlots;

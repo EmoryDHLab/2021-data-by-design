@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import ChapterSlots from "@/components/chapter-slots/mixin/ChapterSlots";
+import ChapterSlots from "@/components/mixins/ChapterSlots";
 export default {
   mixins: [ChapterSlots],
   data () {
