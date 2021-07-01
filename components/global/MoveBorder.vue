@@ -1,19 +1,18 @@
 <template functional>
-  <div :style="{borderColor: injections.theme.primaryColor}">
+  <div class="border">
     <slot/>
   </div>
 </template>
 
 <script>
 export default {
-  inject: ["theme"],
 }
 </script>
 
 <style scoped>
-div {
+div.border {
   width: fit-content;
-  border: 3px dashed;
+  border: 3px dashed var(--primaryColor);
   padding: 5px;
 }
 </style>

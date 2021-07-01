@@ -1,5 +1,5 @@
 <template>
-  <div v-if="mounted" class="chapter-root">
+  <div v-if="mounted" class="chapter-root" :style="themeVars">
     <div class="chapter-margin">
     </div>
     <div class="chapter-content">
@@ -17,6 +17,8 @@ import {componentsFromDoc, findSections} from "google-docs-components"
 import GridLayout from "~/components/page-layout/GridLayout";
 import ChapterSection from "~/components/page-layout/ChapterSection";
 import globalDocsDefs from "~/components/global/docsDefs"
+import ThemeVars from "@/components/mixins/ThemeVars";
+
 export default {
   props: {
     docData: {
@@ -30,7 +32,7 @@ export default {
   components: {ChapterSection},
   provide () {
     return {
-      theme: this.config.theme,
+      theme: this.theme,
       docsRenderer: this.docsRendererComponent,
     }
   },
@@ -50,6 +52,18 @@ export default {
         //handles the doc rendering, injecting the specified slots into the docs renderer.
         return () => import("../chapter-slots/" + this.config.slotsFile)
       }
+    },
+    theme () {
+      return this.config.theme
+    },
+    themeVars () {
+      if (!this.theme) return {}
+      return Object.fromEntries(
+        Object.entries(this.theme)
+        .map(
+          ([propName, propValue]) => ([`--${propName}`, propValue])
+        )
+      )
     },
     components() {
       return componentsFromDoc({components: globalDocsDefs}, this.docData).body;

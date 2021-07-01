@@ -3,10 +3,8 @@
 </template>
 
 <script>
-import ThemeVars from "@/components/mixins/ThemeVars";
 
 export default {
-  mixins: [ThemeVars],
   props: {
     html: String,
   },

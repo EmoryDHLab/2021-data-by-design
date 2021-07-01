@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div class="content" :style="contentStyles">
+    <div class="content">
       <div class="big">
         <slot name="title"></slot>
       </div>
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+
 export const docsDefinition = {
   matchName: ["Pullquote"],
   componentName: "Pullquote",
@@ -21,15 +22,6 @@ export const docsDefinition = {
   },
 }
 export default {
-  inject: ["theme"],
-  computed: {
-    contentStyles() {
-      return {
-        backgroundColor: this.theme?.primaryColor || "black",
-        color: this.theme.primaryColorText || "white"
-      }
-    },
-  },
 }
 </script>
 
@@ -40,7 +32,8 @@ export default {
 }
 
 div.content {
-  color: white;
+  color: var(--primaryColorText);
+  background-color: var(--primaryColor);
   padding: 36px var(--col-width);
 }
 
