@@ -7,6 +7,7 @@
 
 <script>
   import * as d3 from "d3";
+  import Visualization from "@/components/mixins/Visualization";
 
   //TODO: Think about what to do when dragged to notebook
   export default {
@@ -80,7 +81,7 @@
         }
       },
       src () {
-        return require(`../../assets/${this.asset}`)
+        return require(`~/assets/images/${this.asset}`)
       },
       styles () {
         const viewport = this.currViewport;

@@ -131,6 +131,14 @@ export default {
     font-size: 20px;
   }
 
+.chapter-content p:last-child {
+  margin-bottom: 0px;
+}
+
+.chapter-content p:first-child {
+  margin-top: 0px;
+}
+
 .chapter-margin {
   height: 100%;
   flex-grow: 1;

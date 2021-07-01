@@ -110,27 +110,27 @@ const Visualization = ({staticDataset, mutableDataset, notebookName, saveProps }
     // })
   },
   created () {
-    if (!this.mutableId && !this.staticId) return;
-    if (!this.isRegisteredMutable(this.mutableId)) {
-      if (this.staticId) {
-        this.loadStaticDataset(this.staticId)
-          .then(data => {
-            if (this.mutableId) {
-              this.registerMutableData({
-                id: this.mutableId,
-                data: data
-              })
-            }
-          })
-          .catch(err => {
-            console.dir(this)
-            console.error("Error loading static dataset of id: " + staticDataset)
-          })
-      }
-      else if (this.mutableId) {
-        this.registerMutableData({id: this.mutableId});
-      }
-    }
+    // if (!this.mutableId && !this.staticId) return;
+    // if (!this.isRegisteredMutable(this.mutableId)) {
+    //   if (this.staticId) {
+    //     this.loadStaticDataset(this.staticId)
+    //       .then(data => {
+    //         if (this.mutableId) {
+    //           this.registerMutableData({
+    //             id: this.mutableId,
+    //             data: data
+    //           })
+    //         }
+    //       })
+    //       .catch(err => {
+    //         console.dir(this)
+    //         console.error("Error loading static dataset of id: " + staticDataset)
+    //       })
+    //   }
+    //   else if (this.mutableId) {
+    //     this.registerMutableData({id: this.mutableId});
+    //   }
+    // }
   },
   mounted () {
     // this.registerVisualization({element: this.$el});
