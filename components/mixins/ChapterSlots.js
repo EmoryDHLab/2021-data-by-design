@@ -1,3 +1,4 @@
+
 const ChapterSlots = {
   props: {
     docContent: Array,
@@ -5,6 +6,26 @@ const ChapterSlots = {
   provide() {
     return {
       parent: this
+    }
+  },
+  created () {
+    this.$store.commit("currentChapter/initializeChapterState", {initialState: this.$options.chapterState})
+  },
+  mounted() {
+  },
+  computed: {
+    chapterState () {
+      const obj = {}
+      Object.keys(this.$options.chapterState).forEach(key => Object.defineProperty(obj, key, {
+        get: () => {
+          return this.$store.state.currentChapter.chapterState[key];
+        },
+        set: (value) => {
+          this.$store.commit("currentChapter/updateChapterState", {key, value})
+        },
+        enumerable: true
+      }))
+      return obj;
     }
   },
   components: {

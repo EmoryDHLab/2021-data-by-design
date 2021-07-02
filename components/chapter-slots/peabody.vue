@@ -1,13 +1,14 @@
 <template>
   <Slots>
+
     <template v-for="i in [1,2,3]" v-slot:[slots.hoverText(i)]="{inner}">
-      <HoverText v-html="inner" @mouseover.native="mapPos = i" @mouseout.native="mapPos = 0"></HoverText>
+      <HoverText v-html="inner" @mouseover.native="hoverTextOver(i)" @mouseout.native="hoverTextOut"></HoverText>
     </template>
 
     <template v-slot:[slots.mapScroller]>
       <MoveBorder>
         <MapScroller class="centered-image" asset="railroadscaled.jpg" width="500px"
-                     :current-position="mapPos"
+                     :current-position="chapterState.mapPos"
                      :positions="[
                      {left: 0, top: 0, width: 100, height: 100},
                      {left: -170, top: -50, width: 300, height: 300},
@@ -17,6 +18,7 @@
         </MapScroller>
       </MoveBorder>
     </template>
+
   </Slots>
 </template>
 
@@ -26,11 +28,21 @@ export default {
   mixins: [ChapterSlots],
   data () {
     return {
-      mapPos: 0,
       slots: {
         hoverText: (n) => `Hover${n}`,
         mapScroller: "Map Scroller",
       }
+    }
+  },
+  chapterState: {
+    mapPos: 0
+  },
+  methods: {
+    hoverTextOver(n) {
+      this.chapterState.mapPos = n;
+    },
+    hoverTextOut() {
+      this.chapterState.mapPos = 0;
     }
   }
 }
