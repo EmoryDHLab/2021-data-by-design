@@ -3,11 +3,6 @@ const ChapterSlots = {
   props: {
     docContent: Array,
   },
-  provide() {
-    return {
-      parent: this
-    }
-  },
   created () {
     this.$store.commit("currentChapter/initializeChapterState", {initialState: this.$options.chapterState})
   },
@@ -30,13 +25,13 @@ const ChapterSlots = {
   },
   components: {
     Slots: {
-      inject: ['parent'],
       render(createElement, context) {
         return createElement("DocsRenderer", {
           props: {
-            docContent: this.parent.docContent
+            docContent: this.$parent.docContent,
           },
-          scopedSlots: this.$scopedSlots
+          scopedSlots: this.$scopedSlots,
+          on: this.$parent.$listeners
         })
       }
     }

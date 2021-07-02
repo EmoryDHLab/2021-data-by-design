@@ -1,9 +1,10 @@
 <template>
   <grid-layout>
-    <Component class="left-col" :is="docsRenderer" :docContent="leftContent"></Component>
-    <Component class="right-col" :is="docsRenderer" :docContent="rightContent"></Component>
+    <Component ref="leftCol" class="left-col" :is="docsRenderer" :docContent="leftContent" @mounted="leftMounted"></Component>
+    <Component ref="rightCol" class="right-col" :is="docsRenderer" :docContent="rightContent" @mounted="rightMounted"></Component>
     <!--    <DocsRenderer class="left-col" :content="leftContent"></DocsRenderer>-->
 <!--    <DocsRenderer class="right-col" :content="rightContent"></DocsRenderer>-->
+    {{leader}}
   </grid-layout>
 </template>
 
@@ -21,6 +22,16 @@ export default {
     rightContent: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    leftMounted ({height}) {
+    },
+    rightMounted ({height}) {
+    }
+  },
+  computed: {
+    leader () {
     }
   }
 }
