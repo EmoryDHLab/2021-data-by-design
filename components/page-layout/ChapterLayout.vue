@@ -128,8 +128,7 @@ export default {
 <style>
 
 .chapter-root {
-  --col-width: 80px;
-  --col-gutter-width: 24px;
+  --col-width: 104px;
   --vertical-gap-small: 72px;
   --vertical-gap-medium: 100px;
   --vertical-gap-large: 200px;

@@ -14,6 +14,5 @@ export default {
   .grid {
     display: grid;
     grid-template-columns: repeat(14, var(--col-width));
-    grid-column-gap: var(--col-gutter-width);
   }
 </style>
