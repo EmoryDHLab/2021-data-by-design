@@ -38,11 +38,26 @@ export default {
 </script>
 
 <style>
-  .left-col, .right-col {
-    display: contents
+  .left-col {
+    grid-column-start: 1;
+    grid-column-end: var(--halfway-line);
+
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /*grid-column: 1 / calc(var(--num-col) / 2)*/
   }
 
-  .left-col > * {
+  .right-col {
+    grid-column-start: var(--halfway-line);
+    grid-column-end: -1;
+
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+
+  }
+
+  .left-col > *, .right-col > * {
+    grid-column-start: 1;
     grid-column-end: 8;
   }
 
@@ -50,9 +65,5 @@ export default {
     grid-column-start: 2;
   }
 
-  .right-col > * {
-    grid-column-start: 9;
-    grid-column-end: 14;
-  }
 
 </style>

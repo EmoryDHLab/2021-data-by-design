@@ -129,10 +129,13 @@ export default {
 
 .chapter-root {
   --col-width: 104px;
+  --num-col: 14;
+  --halfway-line: 8;
   --vertical-gap-small: 72px;
   --vertical-gap-medium: 100px;
   --vertical-gap-large: 200px;
 }
+
 .chapter-root {
   display: flex;
   flex-direction: row;
