@@ -42,18 +42,21 @@ export default {
     grid-column-start: 1;
     grid-column-end: var(--halfway-line);
 
+    align-self: center;
+
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     /*grid-column: 1 / calc(var(--num-col) / 2)*/
   }
 
   .right-col {
-    grid-column-start: var(--halfway-line);
+    grid-column-start: calc(1 + var(--halfway-line));
     grid-column-end: -1;
+
+    align-self: center;
 
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-
   }
 
   .left-col > *, .right-col > * {
@@ -62,7 +65,8 @@ export default {
   }
 
   .left-col > p {
-    grid-column-start: 2;
+    grid-column-start: 3;
+    grid-column-end: 8;
   }
 
 

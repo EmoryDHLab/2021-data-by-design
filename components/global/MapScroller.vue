@@ -69,7 +69,6 @@
         }
         else {
           if (currPos && this.prevView) {
-            console.log(this.elapsed);
             const interp = interpolate(this.elapsed)
             return {
               top: interp('top'),
