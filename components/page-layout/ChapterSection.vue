@@ -1,5 +1,15 @@
 <template>
-  <div>
+  <div class="section-root">
+    <GridLayout v-if="title">
+      <div class="chapter-title span-middle-8">
+        <div class="background">
+        </div>
+        <div class="title-text">
+          <span>{{title}}</span>
+        </div>
+      </div>
+    </GridLayout>
+
     <template v-for="group in renderGroups">
       <GridLayout v-if=" 'components' in group">
         <Component class="span-middle-8" :is="docsRenderer" :docContent="group.components"></Component>
@@ -98,8 +108,43 @@ export default {
 </script>
 
 <style scoped>
+
   .span-middle-8 {
     grid-column-start: 4;
     grid-column-end: 12
   }
+
+  /*Splitting the chapter title into two divs allows us to set an opacity on just the background*/
+
+  .chapter-title {
+    margin: var(--vertical-gap-medium) 0;
+    position: relative;
+    height: 72px;
+  }
+
+  .chapter-title > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .chapter-title .background {
+    background-color: var(--primaryColor);
+    opacity: 50%;
+  }
+
+  .chapter-title .title-text {
+    font-family: "VTC William";
+    font-weight: bold;
+    font-size: 36px;
+    text-align: center;
+  }
+
+  .chapter-title .title-text span {
+    vertical-align: middle;
+    line-height: 74px;
+  }
+
 </style>

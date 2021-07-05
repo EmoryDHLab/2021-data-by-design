@@ -132,7 +132,7 @@ export default {
   --num-col: 14;
   --halfway-line: 8;
   --vertical-gap-small: 72px;
-  --vertical-gap-medium: 100px;
+  --vertical-gap-medium: 120px;
   --vertical-gap-large: 200px;
 }
 
