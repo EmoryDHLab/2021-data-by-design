@@ -16,7 +16,7 @@
 import {componentsFromDoc, findSections} from "google-docs-components"
 import GridLayout from "~/components/page-layout/GridLayout";
 import ChapterSection from "~/components/page-layout/ChapterSection";
-import globalDocsDefs from "~/components/global/docsDefs"
+import globalDocsDefs from "@/components/global/docs-inclusions/docsDefs"
 import ThemeVars from "@/components/mixins/ThemeVars";
 
 export default {
