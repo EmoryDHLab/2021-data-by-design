@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import Renderer from "docs-renderer-vue2"
-import globalComponents from "@/components/global"
+import {Renderer} from "docs-renderer-vue2"
+import globalComponents from "@/components/global/docsInclusions"
 
 export default {
   components: {Renderer},
@@ -14,9 +14,9 @@ export default {
     docContent: Array,
   },
   mounted () {
-    const el = this.$refs.renderer;
-    const height = [...el.children].reduce((acc, child) => (acc + child.scrollHeight), 0);
-    this.$emit("mounted", {height});
+    // const el = this.$refs.renderer;
+    // const height = [...el.children].reduce((acc, child) => (acc + child.scrollHeight), 0);
+    // this.$emit("mounted", {height});
   },
   computed: {
     components() {

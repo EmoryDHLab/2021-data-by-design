@@ -2,16 +2,13 @@
   <div ref="div" id="image" :style="styles">
     <img ref="img" :src="src" :style="{ width: this.width }" alt=""/>
   </div>
-
 </template>
 
 <script>
   import * as d3 from "d3";
-  import Visualization from "@/components/mixins/Visualization";
 
   //TODO: Think about what to do when dragged to notebook
   export default {
-    mixins: [Visualization({notebookName: "MapScroller", saveProps: ["asset", "positions", "animationTime"]})],
     props: {
       asset: {
         type: String,
@@ -36,12 +33,15 @@
       easing: {
         type: Function,
         default: d3.easePolyInOut
-      }
+      },
+      width: {
+        type: String,
+      },
     },
     data () {
       return {
         elapsed: 0,
-        prevView: null
+        prevView: null,
       }
     },
     computed: {
@@ -84,7 +84,8 @@
       },
       styles () {
         const viewport = this.currViewport;
-        const dim = dimension => this.widthTimes(viewport[dimension] / 100);
+        const widthTimes = x => `calc(${this.width} * ${x})`;
+        const dim = dimension => widthTimes(viewport[dimension] / 100);
         // console.log(dim('width'), dim('height'), dim('left'), dim('top'))
         return {
           backgroundImage: `url(${this.src})`,

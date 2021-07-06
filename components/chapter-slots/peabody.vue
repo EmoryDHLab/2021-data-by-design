@@ -6,17 +6,22 @@
     </template>
 
     <template v-slot:[slots.mapScroller]>
-      <MoveBorder>
-        <MapScroller class="centered-image" asset="railroadscaled.jpg" width="500px"
-                     :current-position="chapterState.mapPos"
-                     :positions="[
+      <Captioned>
+        <MoveBorder>
+          <MapScroller class="centered-image" asset="railroadscaled.jpg" width="500px"
+                       :current-position="chapterState.mapPos"
+                       :positions="[
                      {left: 0, top: 0, width: 100, height: 100},
                      {left: -170, top: -50, width: 300, height: 300},
                      {left: -90, top: -120, width: 300, height: 300},
                      {left: -140, top: -110, width: 280, height: 280},
                   ]">
-        </MapScroller>
-      </MoveBorder>
+          </MapScroller>
+        </MoveBorder>
+        <template v-slot:caption>
+          The range of Peabody's promotional tour, as plotted on an 1850 rail map of the United States. Image courtesy of the Library of Congress, Geography and Map Division.
+        </template>
+      </Captioned>
     </template>
 
   </Slots>

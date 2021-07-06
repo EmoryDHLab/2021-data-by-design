@@ -22,7 +22,7 @@ span {
   line-height: 22px;
   border-radius: 50%;
   min-width: 22px;
-  height: 21px;
+  height: 22px;
   margin-left: 2px;
   text-align: center;
   background-color: var(--primaryColor);

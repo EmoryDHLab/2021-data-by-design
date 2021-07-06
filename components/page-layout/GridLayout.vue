@@ -1,3 +1,4 @@
+<script src="../global/index.js"></script>
 <template>
   <div class="grid">
     <slot></slot>
