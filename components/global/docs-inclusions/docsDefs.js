@@ -1,2 +1,3 @@
 import {docsDefinition as Pullquote} from "./Pullquote"
-export default [Pullquote];
+import {docsDefinition as LocalImage} from "./LocalImage"
+export default [Pullquote, LocalImage];

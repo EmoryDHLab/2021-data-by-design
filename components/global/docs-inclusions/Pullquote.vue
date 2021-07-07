@@ -16,10 +16,7 @@
 export const docsDefinition = {
   matchName: ["Pullquote"],
   componentName: "Pullquote",
-  slots: {
-    title: {},
-    subtitle: {}
-  },
+  slots: ["title", "subtitle"]
 }
 export default {
 }

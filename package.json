@@ -13,7 +13,7 @@
     "core-js": "^3.9.1",
     "d3": "^7.0.0",
     "docs-renderer-vue2": "^0.1.2",
-    "google-docs-components": "latest",
+    "google-docs-components": "^1.0.6",
     "google-docs-parser": "latest",
     "gsap": "^3.7.0",
     "nuxt": "^2.15.3"
