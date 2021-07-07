@@ -64,10 +64,13 @@ export default {
     grid-column-end: 8;
   }
 
+  .right-col .doc-table-root {
+    justify-content: center;
+  }
+
   .left-col > p {
     grid-column-start: 3;
     grid-column-end: 8;
   }
-
 
 </style>
