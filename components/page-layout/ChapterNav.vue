@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-bar" ref="bar"
+  <div class="nav-bar transition" ref="bar"
        :style="barStyle"
        @mouseout="hovering=false" @mouseover="hovering=true">
     This is gonna be the chapter navbar
@@ -49,4 +49,9 @@ export default {
   font-family: "VTC William";
   font-size: 30px;
 }
+
+.transition {
+  transition: opacity 0.5s;
+}
+
 </style>
