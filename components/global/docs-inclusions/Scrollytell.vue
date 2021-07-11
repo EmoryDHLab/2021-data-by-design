@@ -1,7 +1,7 @@
 <template>
   <GridLayout class="root">
     <div class="scrolly">
-      <div v-for="i in groups">
+      <div v-for="i in groups" ref="groups">
         <slot :name="'group:' + i"></slot>
       </div>
     </div>
@@ -12,6 +12,9 @@
 </template>
 
 <script>
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 export const docsDefinition = {
   matchName: ["Scrollytell", "ScrollyTell"],
@@ -29,6 +32,7 @@ export default {
     groups: Number
   },
   mounted() {
+    console.log(this.$refs);
   }
 }
 </script>
@@ -39,6 +43,10 @@ export default {
     background-color: var(--primaryColor);
     margin: var(--vertical-gap-large) 0;
     height: 650px;
+  }
+  .scrolly {
+    grid-column: 1 / var(--halfway-line);
+    justify-items: center
   }
   .sticky {
     grid-column: var(--halfway-line) / var(--num-col)
