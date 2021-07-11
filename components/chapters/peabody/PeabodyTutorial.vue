@@ -116,6 +116,7 @@ export default {
     PeabodyGrid,
     EventKey
   },
+  inject: ['scrollData'],
   mixins:[],
   props: {
     id: {
@@ -126,10 +127,10 @@ export default {
       type: Boolean,
       default: true
     },
-    slideNumber: {
-      type: Number,
-      default: 0,
-    }
+    // slideNumber: {
+    //   type: Number,
+    //   default: 0,
+    // }
   },
   data () {
     return {
@@ -148,6 +149,12 @@ export default {
   mounted () {
   },
   computed: {
+    slideNumber() {
+      if (this.scrollData?.scrolledPast) {
+        return this.scrollData.scrolledPast;
+      }
+      return 0;
+    },
     colorToCountry () {
       return {
         [this.colors.blue]: 'Spain',
