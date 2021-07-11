@@ -150,8 +150,8 @@ export default {
   },
   computed: {
     slideNumber() {
-      if (this.scrollData?.scrolledPast) {
-        return this.scrollData.scrolledPast;
+      if (this.scrollData?.current) {
+        return this.scrollData.current;
       }
       return 0;
     },

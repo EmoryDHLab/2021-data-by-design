@@ -44,7 +44,7 @@ export default {
   data: () => ({
     scrollData: {
       progress: -1,
-      scrolledPast: undefined
+      current: undefined
     }
   }),
   computed: {
@@ -64,7 +64,6 @@ export default {
       endTrigger: lastGroup,
       start: "top 100px",
       // onToggle: ({progress, direction, isActive}) => console.log(progress, direction, isActive),
-      markers: true,
       pin: this.$refs.grid.$el,
       end: "top 100px"
     })
@@ -75,8 +74,8 @@ export default {
         start: "top 750px",
         end: "bottom 100px",
         onUpdate: ({progress}) => this.scrollData.progress = progress,
-        onLeave: (instance) => this.scrollData.scrolledPast = i,
-        onLeaveBack: (instance) => this.scrollData.scrolledPast = i,
+        onEnter: (instance) => this.scrollData.current = i,
+        onLeaveBack: (instance) => this.scrollData.current = i - 1,
       })
     }
   }

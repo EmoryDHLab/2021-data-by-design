@@ -1,13 +1,18 @@
 <template>
-  <div v-if="mounted" class="chapter-root" :style="themeVars">
-    <div class="chapter-margin">
-    </div>
-    <div class="chapter-content">
-      <template v-for="section in chapterSections">
-        <ChapterSection :title="section.title" :components="section.components"></ChapterSection>
-      </template>
-    </div>
-    <div class="chapter-margin">
+  <div class="chapter-root">
+    <ChapterTitle :title="metadata.title" :subtitle="metadata.subtitle">
+    </ChapterTitle>
+    <ChapterNav></ChapterNav>
+    <div v-if="mounted" class="chapter-flex" :style="themeVars">
+      <div class="chapter-margin">
+      </div>
+      <div class="chapter-content">
+        <template v-for="section in chapterSections">
+          <ChapterSection :title="section.title" :components="section.components"></ChapterSection>
+        </template>
+      </div>
+      <div class="chapter-margin">
+      </div>
     </div>
   </div>
 </template>
@@ -18,6 +23,7 @@ import GridLayout from "~/components/page-layout/GridLayout";
 import ChapterSection from "~/components/page-layout/ChapterSection";
 import globalDocsDefs from "@/components/global/docs-inclusions/docsDefs"
 import ThemeVars from "@/components/mixins/ThemeVars";
+import ChapterTitle from "@/components/page-layout/ChapterTitle";
 
 export default {
   props: {
@@ -29,7 +35,7 @@ export default {
       type: Object
     }
   },
-  components: {ChapterSection},
+  components: {ChapterSection, ChapterTitle},
   provide () {
     return {
       theme: this.theme,
@@ -140,11 +146,18 @@ export default {
 }
 
 .chapter-root {
+  background-color: black;
+}
+
+.chapter-flex {
   display: flex;
   flex-direction: row;
   background-color: #FAF1E9;
 }
 
+.chapter-content {
+  margin-top: var(--vertical-gap-medium);
+}
 .chapter-content p {
     font-family: "neue-haas-unica";
     font-size: 20px;
