@@ -66,7 +66,10 @@ export default {
       )
     },
     components() {
-      return componentsFromDoc({components: globalDocsDefs}, this.docData).body;
+      return componentsFromDoc({
+        components: globalDocsDefs,
+        classProp: "class"
+      }, this.docData).body;
     },
     divisions() {
       const metadataDef = {

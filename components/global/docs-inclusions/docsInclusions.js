@@ -2,5 +2,7 @@
 import Pullquote from "@/components/global/docs-inclusions/Pullquote";
 import FootnoteReference from "@/components/global/docs-inclusions/FootnoteReference";
 import LocalImage from "@/components/global/docs-inclusions/LocalImage";
-const all = {Pullquote, FootnoteReference, LocalImage}
+import Captioned from "@/components/global/Captioned";
+import Scrollytell from "@/components/global/docs-inclusions/Scrollytell";
+const all = {Pullquote, FootnoteReference, LocalImage, Captioned, Scrollytell}
 export default all;

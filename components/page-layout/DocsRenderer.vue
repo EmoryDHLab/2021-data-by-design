@@ -23,7 +23,7 @@ export default {
       return globalComponents;
     },
     ignoreCssProperties() {
-      return ["font-family", "font-size"]
+      return ["font-family", "font-size", "background-color"]
     },
   },
 }

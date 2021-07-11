@@ -24,12 +24,19 @@
       </Captioned>
     </template>
 
+    <template v-slot:PeabodyTutorial>
+      <PeabodyTutorial width="550px" :id="'whatever'"
+                       :style="{marginTop: '40px'}"
+      ></PeabodyTutorial>
+    </template>
   </Slots>
 </template>
 
 <script>
 import ChapterSlots from "@/components/mixins/ChapterSlots";
+import PeabodyTutorial from "~/components/chapters/peabody/PeabodyTutorial"
 export default {
+  components: {PeabodyTutorial},
   mixins: [ChapterSlots],
   data () {
     return {

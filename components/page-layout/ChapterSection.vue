@@ -1,7 +1,7 @@
 <template>
   <div class="section-root">
     <GridLayout v-if="title">
-      <div class="chapter-title span-middle-8">
+      <div class="chapter-title middle-text">
         <div class="background">
         </div>
         <div class="title-text">
@@ -12,7 +12,7 @@
 
     <template v-for="group in renderGroups">
       <GridLayout v-if=" 'components' in group">
-        <Component class="span-middle-8" :is="docsRenderer" :docContent="group.components"></Component>
+        <Component class="middle-subgrid" :is="docsRenderer" :docContent="group.components"></Component>
         <!--        <DocsRenderer class="span-middle-8" :content="group.components"></DocsRenderer>-->
       </GridLayout>
       <LeaderFollowPair v-else :left-content="group.left" :right-content="group.right || []">
@@ -52,7 +52,6 @@ export default {
       this.divisions.forEach( ({startString, startIndex, endIndex}) => {
 
         if (startIndex - lastEndIndex > 1) {
-          debugger;
           groups.push({
             components: this.components.slice(lastEndIndex + 1, startIndex)
           })
@@ -107,11 +106,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
-  .span-middle-8 {
+  .middle-text {
     grid-column-start: 4;
     grid-column-end: 12
+  }
+
+  .middle-subgrid {
+    display: grid;
+    grid-column: 1 / -1;
+    grid: inherit;
+  }
+
+  .middle-subgrid > p {
+    grid-column: 4 / 12;
   }
 
   /*Splitting the chapter title into two divs allows us to set an opacity on just the background*/

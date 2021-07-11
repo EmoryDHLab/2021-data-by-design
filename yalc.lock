@@ -7,9 +7,9 @@
       "replaced": "latest"
     },
     "google-docs-components": {
-      "signature": "176022c11f6d6022c686b6b8d2f0f4b0",
+      "signature": "3c1103997e7883c17a27d28c76c2b95e",
       "file": true,
-      "replaced": "latest"
+      "replaced": "^1.0.6"
     },
     "docs-renderer-vue2": {
       "signature": "9bc8ff73d58341a9c6bc43e6f297dd25",
