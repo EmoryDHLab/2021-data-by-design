@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    test
+    <NuxtLink to="/chapters/peabody">Peabody</NuxtLink>
   </div>
 </template>
 
