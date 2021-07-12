@@ -1,15 +1,20 @@
 <template>
-  <grid-layout>
+  <grid-layout ref="grid" :style="{marginBottom: pinSpacing + 'px'}">
     <Component ref="leftCol" class="left-col" :is="docsRenderer" :docContent="leftContent" @mounted="leftMounted"></Component>
     <Component ref="rightCol" class="right-col" :is="docsRenderer" :docContent="rightContent" @mounted="rightMounted"></Component>
     <!--    <DocsRenderer class="left-col" :content="leftContent"></DocsRenderer>-->
 <!--    <DocsRenderer class="right-col" :content="rightContent"></DocsRenderer>-->
-    {{leader}}
   </grid-layout>
 </template>
 
 <script>
 import GridLayout from "./GridLayout"
+import gsap from "gsap"
+import {ScrollTrigger} from "gsap/ScrollTrigger";
+
+if (process.client)
+  gsap.registerPlugin(ScrollTrigger);
+
 export default {
   name: "LeaderFollowPair",
   components: {GridLayout},
@@ -24,16 +29,55 @@ export default {
       required: true
     }
   },
+  data: () => ({
+    leftHeight: undefined,
+    rightHeight: undefined,
+    scrollTriggerInstance: undefined,
+  }),
   methods: {
     leftMounted ({height}) {
+      this.leftHeight = height;
     },
     rightMounted ({height}) {
+      this.rightHeight = height;
     }
   },
   computed: {
-    leader () {
+    ordered () {
+      if (this.leftHeight && this.rightHeight) {
+        const leftEl = this.$refs.leftCol.$el;
+        const rightEl = this.$refs.rightCol.$el;
+        if (this.leftHeight > this.rightHeight) {
+          return [leftEl, rightEl];
+        }
+        return [rightEl, leftEl];
+      }
+    },
+    pinSpacing () {
+      //Manual pinSpacing applied to the grid, because we're automatically centering grid items
+      //and applying more space to one side will throw off the other
+      if (this.scrollTriggerInstance) {
+        return this.scrollTriggerInstance.end - this.scrollTriggerInstance.start;
+      }
+      return 0;
     }
-  }
+  },
+  watch: {
+    ordered (newVal, oldVal) {
+      if (!this.scrollTriggerInstance) {
+        this.scrollTriggerInstance =
+          ScrollTrigger.create({
+            trigger: this.ordered[0],
+            start: "top top",
+            endTrigger: this.ordered[1],
+            end: "top top",
+            pin: this.ordered[0],
+            pinSpacing: false,
+            markers: true
+        });
+      }
+    }
+  },
 }
 </script>
 

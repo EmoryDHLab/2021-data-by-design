@@ -14,9 +14,12 @@ export default {
     docContent: Array,
   },
   mounted () {
-    // const el = this.$refs.renderer;
-    // const height = [...el.children].reduce((acc, child) => (acc + child.scrollHeight), 0);
-    // this.$emit("mounted", {height});
+    setTimeout( () => {
+      //TODO: Find a way to run this exactly after all assets are loaded
+      const el = this.$refs.renderer;
+      const height = [...el.children].reduce((acc, child) => (acc + child.scrollHeight), 0);
+      this.$emit("mounted", {height});
+    }, 2000);
   },
   computed: {
     components() {

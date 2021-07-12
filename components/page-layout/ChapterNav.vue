@@ -2,7 +2,7 @@
   <div class="nav-bar transition" ref="bar"
        :style="barStyle"
        @mouseout="hovering=false" @mouseover="hovering=true">
-    This is gonna be the chapter navbar
+    chapter navbar goes here
   </div>
 </template>
 
