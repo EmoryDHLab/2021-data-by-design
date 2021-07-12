@@ -119,7 +119,7 @@ export default {
     grid: inherit;
   }
 
-  .middle-subgrid > p {
+  .middle-subgrid > * {
     grid-column: 4 / 12;
   }
 

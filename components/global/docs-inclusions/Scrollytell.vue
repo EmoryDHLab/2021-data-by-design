@@ -57,27 +57,29 @@ export default {
     }
   },
   mounted() {
-    const lastGroup = this.$refs.groups[this.groups - 1];
-    ScrollTrigger.create({
-      anticipatePin: 1,
-      trigger: this.$refs.grid.$el,
-      endTrigger: lastGroup,
-      start: "top 100px",
-      // onToggle: ({progress, direction, isActive}) => console.log(progress, direction, isActive),
-      pin: this.$refs.grid.$el,
-      end: "top 100px"
-    })
-
-    for (let i = 0; i < this.groups; i++) {
+    setTimeout(() => {
+      const lastGroup = this.$refs.groups[this.groups - 1];
       ScrollTrigger.create({
-        trigger: this.$refs.groups[i],
-        start: "top 750px",
-        end: "bottom 100px",
-        onUpdate: ({progress}) => this.scrollData.progress = progress,
-        onEnter: (instance) => this.scrollData.current = i,
-        onLeaveBack: (instance) => this.scrollData.current = i - 1,
+        anticipatePin: 1,
+        trigger: this.$refs.grid.$el,
+        endTrigger: lastGroup,
+        start: "top 100px",
+        // onToggle: ({progress, direction, isActive}) => console.log(progress, direction, isActive),
+        pin: this.$refs.grid.$el,
+        end: "top 100px"
       })
-    }
+
+      for (let i = 0; i < this.groups; i++) {
+        ScrollTrigger.create({
+          trigger: this.$refs.groups[i],
+          start: "top 750px",
+          end: "bottom 100px",
+          onUpdate: ({progress}) => this.scrollData.progress = progress,
+          onEnter: (instance) => this.scrollData.current = i,
+          onLeaveBack: (instance) => this.scrollData.current = i - 1,
+        })
+      }
+    }, 2100)
   }
 }
 </script>

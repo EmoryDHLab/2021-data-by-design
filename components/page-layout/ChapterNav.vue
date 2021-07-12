@@ -48,6 +48,8 @@ export default {
   text-align: center;
   font-family: "VTC William";
   font-size: 30px;
+  z-index: 100;
+  border: 1px solid lightgray;
 }
 
 .transition {

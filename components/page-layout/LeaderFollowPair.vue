@@ -73,7 +73,6 @@ export default {
             end: "top top",
             pin: this.ordered[0],
             pinSpacing: false,
-            markers: true
         });
       }
     }

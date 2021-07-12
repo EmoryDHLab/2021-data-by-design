@@ -1,9 +1,9 @@
 <template>
-  <div class="chapter-root">
+  <div class="chapter-root" :style="themeVars">
     <ChapterTitle :title="metadata.title" :subtitle="metadata.subtitle">
     </ChapterTitle>
     <ChapterNav></ChapterNav>
-    <div v-if="mounted" class="chapter-flex" :style="themeVars">
+    <div v-if="mounted" class="chapter-flex">
       <div class="chapter-margin">
       </div>
       <div class="chapter-content">
@@ -14,6 +14,8 @@
       <div class="chapter-margin">
       </div>
     </div>
+    <ChapterFooter>
+    </ChapterFooter>
   </div>
 </template>
 
@@ -157,6 +159,7 @@ export default {
 
 .chapter-content {
   margin-top: var(--vertical-gap-medium);
+  margin-bottom: var(--vertical-gap-large);
 }
 .chapter-content p {
     font-family: "neue-haas-unica";
