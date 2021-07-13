@@ -34,7 +34,7 @@ export default {
   align-items: center;
 }
 .caption {
-  width: 416px;
+  width: min(100%, 416px);
   margin-top: 16px;
   text-align: center;
   line-height: 150%;
