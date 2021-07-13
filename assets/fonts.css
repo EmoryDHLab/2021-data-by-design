@@ -32,6 +32,14 @@
   font-style: italic;
 }
 
+@font-face {
+  font-family: "VTC William Wide";
+  src: url("~assets/fonts/William/VTCWilliam-BoldWide.woff") format("woff"),
+  url("~assets/fonts/William/VTCWilliam-BoldWide.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+}
+
 /*
  * The Typekit service used to deliver this font or fonts for use on websites
  * is provided by Adobe and is subject to these Terms of Use
