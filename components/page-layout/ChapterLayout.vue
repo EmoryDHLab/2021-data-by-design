@@ -6,7 +6,7 @@
     <div v-if="mounted" class="chapter-flex">
       <div class="chapter-margin">
       </div>
-      <div class="chapter-content">
+      <div class="chapter-content max-w-screen-2xl">
         <template v-for="section in chapterSections">
           <ChapterSection :title="section.title" :components="section.components"></ChapterSection>
         </template>
