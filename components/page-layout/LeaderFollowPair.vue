@@ -1,7 +1,15 @@
 <template>
   <grid-layout ref="grid" :style="{marginBottom: pinSpacing + 'px'}">
-    <Component ref="leftCol" class="left-col" :is="docsRenderer" :docContent="leftContent" @mounted="leftMounted"></Component>
-    <Component ref="rightCol" class="right-col" :is="docsRenderer" :docContent="rightContent" @mounted="rightMounted"></Component>
+    <Component ref="leftCol"
+               class="left-col col-start-1 col-end-6 2xl:col-end-8
+               self-center
+               grid grid-cols-7"
+               :is="docsRenderer" :docContent="leftContent" @mounted="leftMounted"></Component>
+    <Component ref="rightCol"
+               class="right-col col-span-full col-start-6 2xl:col-start-8
+               self-center
+               grid grid-cols-7"
+               :is="docsRenderer" :docContent="rightContent" @mounted="rightMounted"></Component>
     <!--    <DocsRenderer class="left-col" :content="leftContent"></DocsRenderer>-->
 <!--    <DocsRenderer class="right-col" :content="rightContent"></DocsRenderer>-->
   </grid-layout>
@@ -81,39 +89,25 @@ export default {
 </script>
 
 <style>
-  .left-col {
-    grid-column-start: 1;
-    grid-column-end: var(--halfway-line);
 
-    align-self: center;
 
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    /*grid-column: 1 / calc(var(--num-col) / 2)*/
-  }
-
-  .right-col {
-    grid-column-start: calc(1 + var(--halfway-line));
-    grid-column-end: -1;
-
-    align-self: center;
-
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-  }
-
-  .left-col > *, .right-col > * {
-    grid-column-start: 1;
-    grid-column-end: 8;
-  }
 
   .right-col .doc-table-root {
     justify-content: center;
   }
 
+  .left-col > *, .right-col > * {
+    @apply col-span-full
+  }
+
   .left-col > p {
-    grid-column-start: 3;
-    grid-column-end: 8;
+    grid-column-start: 2;
+  }
+
+  @media (min-width: 1536px) {
+    .left-col > p {
+      grid-column-start: 3;
+    }
   }
 
 </style>
