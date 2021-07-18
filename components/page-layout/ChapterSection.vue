@@ -1,10 +1,10 @@
 <template>
   <div class="section-root">
     <GridLayout v-if="title">
-      <div class="chapter-title middle-text">
+      <div class="chapter-title col-span-8 col-start-2 2xl:col-start-4 my-28 h-16 relative">
         <div class="background">
         </div>
-        <div class="title-text">
+        <div class="title-text font-william font-bold text-4xl flex justify-center items-center">
           <span>{{title}}</span>
         </div>
       </div>
@@ -108,11 +108,6 @@ export default {
 
 <style>
 
-  .middle-text {
-    grid-column-start: 4;
-    grid-column-end: 12
-  }
-
   .middle-subgrid {
     display: grid;
     grid-column: 1 / -1;
@@ -120,16 +115,10 @@ export default {
   }
 
   .middle-subgrid > * {
-    grid-column: 4 / 12;
+    @apply col-span-8 col-start-2 2xl:col-start-4
   }
 
   /*Splitting the chapter title into two divs allows us to set an opacity on just the background*/
-
-  .chapter-title {
-    margin: var(--vertical-gap-medium) 0;
-    position: relative;
-    height: 72px;
-  }
 
   .chapter-title > div {
     position: absolute;
@@ -142,18 +131,6 @@ export default {
   .chapter-title .background {
     background-color: var(--primaryColor);
     opacity: 50%;
-  }
-
-  .chapter-title .title-text {
-    font-family: "VTC William";
-    font-weight: bold;
-    font-size: 36px;
-    text-align: center;
-  }
-
-  .chapter-title .title-text span {
-    vertical-align: middle;
-    line-height: 74px;
   }
 
 </style>
