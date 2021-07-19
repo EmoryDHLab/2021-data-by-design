@@ -1,17 +1,17 @@
 <template>
-  <div class="chapter-root" :style="themeVars">
+  <div class="chapter-root bg-black" :style="themeVars">
     <ChapterTitle :title="metadata.title" :subtitle="metadata.subtitle">
     </ChapterTitle>
     <ChapterNav></ChapterNav>
-    <div v-if="mounted" class="chapter-flex">
-      <div class="chapter-margin">
+    <div v-if="mounted" class="chapter-flex flex bg-offwhite">
+      <div class="h-full flex-grow">
       </div>
-      <div class="chapter-content max-w-screen-2xl">
+      <div class="chapter-content my-52 max-w-screen-2xl">
         <template v-for="section in chapterSections">
           <ChapterSection :title="section.title" :components="section.components"></ChapterSection>
         </template>
       </div>
-      <div class="chapter-margin">
+      <div class="h-full flex-grow">
       </div>
     </div>
     <ChapterFooter>
@@ -138,6 +138,9 @@ export default {
 
 <style>
 
+/*
+TODO: Delete safely
+ */
 .chapter-root {
   --col-width: 104px;
   --num-col: 14;
@@ -147,24 +150,11 @@ export default {
   --vertical-gap-large: 200px;
 }
 
-.chapter-root {
-  background-color: black;
-}
 
-.chapter-flex {
-  display: flex;
-  flex-direction: row;
-  background-color: #FAF1E9;
-}
-
-.chapter-content {
-  margin-top: var(--vertical-gap-medium);
-  margin-bottom: var(--vertical-gap-large);
-}
 .chapter-content p {
-    font-family: "neue-haas-unica";
-    font-size: 20px;
-  }
+  font-family: "neue-haas-unica";
+  font-size: 20px;
+}
 
 .chapter-content p:last-child {
   margin-bottom: 0px;
@@ -173,10 +163,4 @@ export default {
 .chapter-content p:first-child {
   margin-top: 0px;
 }
-
-.chapter-margin {
-  height: 100%;
-  flex-grow: 1;
-}
-
 </style>
