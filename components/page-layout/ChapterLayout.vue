@@ -7,6 +7,7 @@
       <div class="h-full flex-grow">
       </div>
       <div class="chapter-content my-52 max-w-screen-2xl">
+        {{$breakpoint}}
         <template v-for="section in chapterSections">
           <ChapterSection :title="section.title" :components="section.components"></ChapterSection>
         </template>
