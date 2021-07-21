@@ -26,7 +26,7 @@ import GridLayout from "~/components/page-layout/GridLayout";
 import ChapterSection from "~/components/page-layout/ChapterSection";
 import globalDocsDefs from "@/components/global/docs-inclusions/docsDefs"
 import ThemeVars from "@/components/mixins/ThemeVars";
-import ChapterTitle from "@/components/page-layout/ChapterTitle";
+import ChapterTitle from "@/components/page-layout/ChapterTitle.vue";
 
 export default {
   props: {
@@ -153,8 +153,7 @@ TODO: Delete safely
 
 
 .chapter-content p {
-  font-family: "neue-haas-unica";
-  font-size: 20px;
+  @apply font-sans text-base lg:text-xl
 }
 
 .chapter-content p:last-child {

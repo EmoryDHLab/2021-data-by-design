@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import LocalImage from "@/components/global/docs-inclusions/LocalImage";
-import Captioned from "@/components/global/Captioned";
+import LocalImage from "@/components/global/docs-inclusions/LocalImage.vue";
+import Captioned from "@/components/global/Captioned.vue";
 export default {
   components: {Captioned}
 }

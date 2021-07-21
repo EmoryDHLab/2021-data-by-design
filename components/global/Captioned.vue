@@ -41,7 +41,6 @@ export default {
 }
 
 .caption, .caption p, .caption span {
-  font-family: "VTC William";
-  font-size: 18px;
+  @apply font-william text-base lg:text-xl
 }
 </style>

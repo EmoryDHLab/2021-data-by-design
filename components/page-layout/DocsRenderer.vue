@@ -6,7 +6,8 @@
 
 <script>
 import {Renderer} from "docs-renderer-vue2"
-import globalComponents from "@/components/global/docs-inclusions/docsInclusions"
+import globalComponents from "@/components/global/docs-inclusions/docsInclusions";
+
 
 export default {
   components: {Renderer},

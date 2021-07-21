@@ -1,11 +1,13 @@
 <template>
-  <div class="root">
-    <div class="content">
-      <div class="big">
-        <slot name="title"></slot>
-      </div>
-      <div class="small">
-        <slot name="subtitle"></slot>
+  <div class="col-start-1 m-16">
+    <div class="content grid grid-cols-8 py-9">
+      <div class="col-start-2 col-end-8">
+        <div class="big">
+          <slot name="title"></slot>
+        </div>
+        <div class="small">
+          <slot name="subtitle"></slot>
+        </div>
       </div>
     </div>
   </div>
@@ -23,15 +25,10 @@ export default {
 </script>
 
 <style scoped>
-.root {
-  grid-column-start: 1;
-  margin: var(--vertical-gap-small) 0;
-}
 
 div.content {
   color: var(--primaryColorText);
   background-color: var(--primaryColor);
-  padding: 36px var(--col-width);
 }
 
 div.content p {
