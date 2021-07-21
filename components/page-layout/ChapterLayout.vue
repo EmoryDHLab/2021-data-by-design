@@ -22,12 +22,11 @@
 
 <script>
 import {componentsFromDoc, findSections} from "google-docs-components"
-import GridLayout from "~/components/page-layout/GridLayout";
 import ChapterSection from "~/components/page-layout/ChapterSection";
 import globalDocsDefs from "@/components/global/docs-inclusions/docsDefs"
-import ThemeVars from "@/components/mixins/ThemeVars";
 import ChapterTitle from "@/components/page-layout/ChapterTitle.vue";
-
+import ChapterFooter from "./ChapterFooter.vue";
+import ChapterNav from "./ChapterNav.vue";
 export default {
   props: {
     docData: {
@@ -38,7 +37,7 @@ export default {
       type: Object
     }
   },
-  components: {ChapterSection, ChapterTitle},
+  components: {ChapterSection, ChapterTitle, ChapterNav, ChapterFooter},
   provide () {
     return {
       theme: this.theme,

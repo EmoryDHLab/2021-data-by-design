@@ -35,9 +35,13 @@
 
 <script>
 import ChapterSlots from "@/components/mixins/ChapterSlots";
-import PeabodyTutorial from "~/components/chapters/peabody/PeabodyTutorial.vue"
+import PeabodyTutorial from "@/components/chapters/peabody/PeabodyTutorial.vue"
+import MoveBorder from "../global/MoveBorder";
+import MapScroller from "../global/MapScroller.vue";
+import Captioned from "../global/Captioned.vue";
+import HoverText from "../global/HoverText";
 export default {
-  components: {PeabodyTutorial},
+  components: {PeabodyTutorial, MapScroller, MoveBorder, Captioned, HoverText},
   mixins: [ChapterSlots],
   data () {
     return {

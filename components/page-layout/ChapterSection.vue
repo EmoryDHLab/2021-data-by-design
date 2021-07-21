@@ -23,7 +23,8 @@
 
 <script>
 import { findSections } from "google-docs-components"
-
+import GridLayout from "./GridLayout.vue";
+import LeaderFollowPair from "./LeaderFollowPair.vue";
 export default {
   props: {
     title: [String, Boolean],
@@ -32,6 +33,7 @@ export default {
       required: true
     }
   },
+  components: {GridLayout, LeaderFollowPair},
   inject: ["docsRenderer"],
   computed: {
     divisions () {

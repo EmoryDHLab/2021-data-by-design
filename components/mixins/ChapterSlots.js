@@ -1,3 +1,4 @@
+import DocsRenderer from "../page-layout/DocsRenderer.vue";
 
 const ChapterSlots = {
   props: {
@@ -26,7 +27,7 @@ const ChapterSlots = {
   components: {
     Slots: {
       render(createElement, context) {
-        return createElement("DocsRenderer", {
+        return createElement(DocsRenderer, {
           props: {
             docContent: this.$parent.docContent,
           },

@@ -1,4 +1,3 @@
-<script src="../global/index.js"></script>
 <template>
   <div class="grid grid-cols-10 2xl:grid-cols-14">
     <slot></slot>
