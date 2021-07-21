@@ -23,6 +23,9 @@ export default (options, inject) => {
         if (widestReached) {
           return widestReached.name;
         }
+      },
+      $breakpoints () {
+        return screens.filter(screen => state.windowWidth > screen.min);
       }
     }
   })
