@@ -1,11 +1,11 @@
 <template>
   <div class="col-start-1 m-16">
-    <div class="content grid grid-cols-8 py-9">
+    <div class="content font-william grid grid-cols-8 py-9">
       <div class="col-start-2 col-end-8">
-        <div class="big">
+        <div class="big text-xl lg:text-2xl xl:text-4xl">
           <slot name="title"></slot>
         </div>
-        <div class="small">
+        <div class="small text-base lg:text-xl xl:text-2xl">
           <slot name="subtitle"></slot>
         </div>
       </div>
@@ -31,22 +31,9 @@ div.content {
   background-color: var(--primaryColor);
 }
 
-div.content p {
-  font-family: "VTC William", sans-serif;
-}
 
-.big p {
-  font-size: 36px;
-  line-height: 150%;
-}
 
 .big p:last-child {
   margin-block-end: 0.5em;
 }
-
-.small p {
-  font-size: 24px;
-  line-height: 150%;
-}
-
 </style>

@@ -152,15 +152,15 @@ TODO: Delete safely
 }
 
 
-.chapter-content p {
-  @apply font-sans text-base lg:text-xl
+.chapter-content > p {
+  @apply font-sans text-base lg:text-xl mb-4
 }
 
-.chapter-content p:last-child {
+.chapter-content > p:last-child {
   margin-bottom: 0px;
 }
 
-.chapter-content p:first-child {
+.chapter-content > p:first-child {
   margin-top: 0px;
 }
 </style>
