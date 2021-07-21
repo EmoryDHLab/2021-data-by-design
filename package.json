@@ -10,15 +10,16 @@
   },
   "dependencies": {
     "@nuxt/http": "^0.6.4",
-    "core-js": "^3.9.1",
+    "core-js": "3",
     "d3": "^7.0.0",
-    "docs-renderer-vue2": "latest",
-    "google-docs-components": "latest",
+    "docs-renderer-vue2": "^0.2.0",
+    "google-docs-components": "^1.0.9",
     "google-docs-parser": "latest",
     "gsap": "^3.7.0",
     "nuxt": "^2.15.3"
   },
   "devDependencies": {
+    "@babel/runtime-corejs3": "^7.14.8",
     "@nuxtjs/tailwindcss": "^4.2.1",
     "express": "^4.17.1",
     "postcss": "^8.3.5"

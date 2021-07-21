@@ -1,5 +1,7 @@
 <template>
-  <Renderer ref="renderer" :content="docContent" :ignoreCss="ignoreCssProperties" :components="components">
+  <Renderer class="space-y-6" ref="renderer" :content="docContent"
+            :ignoreCss="ignoreCssProperties"
+            :components="components">
     <template v-for="(_, name) in $scopedSlots" :slot="name" slot-scope="slotData"><slot :name="name" v-bind="slotData" /></template>
   </Renderer>
 </template>

@@ -6,7 +6,7 @@
     <div v-if="mounted" class="chapter-flex flex bg-offwhite">
       <div class="h-full flex-grow">
       </div>
-      <div class="chapter-content my-52 max-w-screen-2xl">
+      <div class="chapter-content my-52 max-w-screen-2xl font-sans text-base lg:text-xl mb-4">
         {{$breakpoint}}
         <template v-for="section in chapterSections">
           <ChapterSection :title="section.title" :components="section.components"></ChapterSection>
@@ -148,18 +148,5 @@ TODO: Delete safely
   --vertical-gap-small: 72px;
   --vertical-gap-medium: 120px;
   --vertical-gap-large: 200px;
-}
-
-
-.chapter-content > p {
-  @apply font-sans text-base lg:text-xl mb-4
-}
-
-.chapter-content > p:last-child {
-  margin-bottom: 0px;
-}
-
-.chapter-content > p:first-child {
-  margin-top: 0px;
 }
 </style>
