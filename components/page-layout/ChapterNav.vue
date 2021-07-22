@@ -4,7 +4,7 @@
        @mouseout="hovering=false" @mouseover="hovering=true">
     <div v-if="$isMobile" class="flex flex-row justify-between px-2">
       <a href="javascript:;" class="hover:underline" @click="prevClick"> << </a>
-      <div> {{pairsection}} </div>
+      <div> {{ renderGroup }}</div>
       <a href="javascript:;" class="hover:underline" @click="nextClick"> >> </a>
     </div>
     <div v-else>
@@ -33,7 +33,7 @@ export default {
         opacity: show ? "100%" : "0%"
       }
     },
-    ...mapState("currentChapter", ["pairsection"])
+    ...mapState("currentChapter", ["renderGroup"])
   },
   mounted () {
       ScrollTrigger.create({

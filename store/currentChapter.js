@@ -3,7 +3,7 @@ import Vue from "vue";
 export const state = () => ({
   chapterStateInitialized: false,
   chapterState: { _mutationCount: -1 },
-  pairsection: 0
+  renderGroup: 0
 })
 
 export const mutations = {
@@ -21,13 +21,13 @@ export const mutations = {
   },
 
   prevSection (state) {
-    if (state.pairsection > 0) {
-      state.pairsection--;
+    if (state.renderGroup > 0) {
+      state.renderGroup--;
     }
   },
 
   nextSection (state) {
-    state.pairsection++;
+    state.renderGroup++;
   },
 
 }
