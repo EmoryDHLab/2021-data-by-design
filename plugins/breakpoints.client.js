@@ -26,6 +26,9 @@ export default (options, inject) => {
       },
       $breakpoints () {
         return screens.filter(screen => state.windowWidth > screen.min);
+      },
+      $isMobile() {
+        return this.$breakpoints && this.$breakpoints.length <= 1;
       }
     }
   })

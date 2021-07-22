@@ -1,17 +1,12 @@
 <template>
   <div class="chapter-root bg-black" :style="themeVars">
-    <ChapterTitle :title="metadata.title" :subtitle="metadata.subtitle">
+    <ChapterTitle v-if="!$isMobile" :title="metadata.title" :subtitle="metadata.subtitle">
     </ChapterTitle>
     <ChapterNav></ChapterNav>
     <div v-if="mounted" class="chapter-flex flex bg-offwhite">
       <div class="h-full flex-grow">
       </div>
-      <div class="chapter-content my-52 max-w-screen-2xl font-sans text-base lg:text-xl mb-4">
-        {{$breakpoint}}
-        <template v-for="section in chapterSections">
-          <ChapterSection :title="section.title" :components="section.components"></ChapterSection>
-        </template>
-      </div>
+      <ChapterContent :chapter-sections="chapterSections"/>
       <div class="h-full flex-grow">
       </div>
     </div>
@@ -22,11 +17,12 @@
 
 <script>
 import {componentsFromDoc, findSections} from "google-docs-components"
-import ChapterSection from "~/components/page-layout/ChapterSection";
 import globalDocsDefs from "@/components/global/docs-inclusions/docsDefs"
 import ChapterTitle from "@/components/page-layout/ChapterTitle.vue";
 import ChapterFooter from "./ChapterFooter.vue";
 import ChapterNav from "./ChapterNav.vue";
+import ChapterContent from "./ChapterContent";
+
 export default {
   props: {
     docData: {
@@ -37,7 +33,7 @@ export default {
       type: Object
     }
   },
-  components: {ChapterSection, ChapterTitle, ChapterNav, ChapterFooter},
+  components: {ChapterContent, ChapterTitle, ChapterNav, ChapterFooter},
   provide () {
     return {
       theme: this.theme,

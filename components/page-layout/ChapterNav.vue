@@ -2,13 +2,22 @@
   <div class="nav-bar transition" ref="bar"
        :style="barStyle"
        @mouseout="hovering=false" @mouseover="hovering=true">
-    chapter navbar goes here
+    <div v-if="$isMobile" class="flex flex-row justify-between px-2">
+      <a href="javascript:;" class="hover:underline" @click="prevClick"> << </a>
+      <div> {{pairsection}} </div>
+      <a href="javascript:;" class="hover:underline" @click="nextClick"> >> </a>
+    </div>
+    <div v-else>
+      breakpoint {{$breakpoint}}
+    </div>
   </div>
 </template>
 
 <script>
 import gsap from "gsap"
 import {ScrollTrigger} from "gsap/ScrollTrigger";
+import {mapMutations, mapState} from "vuex";
+
 if (process.client)
   gsap.registerPlugin(ScrollTrigger);
 
@@ -24,6 +33,7 @@ export default {
         opacity: show ? "100%" : "0%"
       }
     },
+    ...mapState("currentChapter", ["pairsection"])
   },
   mounted () {
       ScrollTrigger.create({
@@ -32,6 +42,15 @@ export default {
         onEnter: () => this.fixed = true,
         onEnterBack: () => this.fixed = false
       })
+  },
+  methods: {
+    ...mapMutations("currentChapter", ["nextSection", "prevSection"]),
+    prevClick() {
+      this.prevSection();
+    },
+    nextClick() {
+      this.nextSection();
+    }
   },
 
 }
@@ -42,9 +61,8 @@ export default {
   margin: 0 auto;
   position: sticky;
   top: 0px;
-  width: 1400px;
+  max-width: 1400px;
   background-color: lavenderblush;
-  grid-column: 2 / -2;
   text-align: center;
   font-family: "VTC William";
   font-size: 30px;

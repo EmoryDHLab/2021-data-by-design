@@ -6,7 +6,7 @@
                grid grid-cols-7"
                :is="docsRenderer" :docContent="leftContent" @mounted="leftMounted"></Component>
     <Component ref="rightCol"
-               class="right-col col-span-full col-start-6 2xl:col-start-8
+               class="right-col col-span-full col-start-7 2xl:col-start-8
                self-center
                grid grid-cols-7"
                :is="docsRenderer" :docContent="rightContent" @mounted="rightMounted"></Component>

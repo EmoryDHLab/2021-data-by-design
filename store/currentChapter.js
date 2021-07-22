@@ -2,7 +2,8 @@ import Vue from "vue";
 
 export const state = () => ({
   chapterStateInitialized: false,
-  chapterState: { _mutationCount: -1 }
+  chapterState: { _mutationCount: -1 },
+  pairsection: 0
 })
 
 export const mutations = {
@@ -17,5 +18,16 @@ export const mutations = {
   updateChapterState(state, {key, value}) {
     state.chapterState[key] = value;
     state.chapterState._mutationCount++;
-  }
+  },
+
+  prevSection (state) {
+    if (state.pairsection > 0) {
+      state.pairsection--;
+    }
+  },
+
+  nextSection (state) {
+    state.pairsection++;
+  },
+
 }
