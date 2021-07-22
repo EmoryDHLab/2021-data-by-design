@@ -1,5 +1,5 @@
 <template functional>
-  <div class="border">
+  <div class="border-primary border-4 border-dashed p-1">
     <slot/>
   </div>
 </template>
@@ -11,10 +11,7 @@ export default {
 </script>
 
 <style scoped>
-div.border {
-  width: fit-content;
-  height: fit-content;
-  border: 3px dashed var(--primaryColor);
-  padding: 5px;
+div.border-primary {
+  border-color: var(--primaryColor);
 }
 </style>
