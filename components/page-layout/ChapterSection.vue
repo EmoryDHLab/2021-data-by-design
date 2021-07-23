@@ -1,14 +1,6 @@
 <template>
   <div class="section-root">
-    <GridLayout v-if="title">
-      <div class="chapter-title col-span-8 col-start-2 2xl:col-start-4 my-28 relative">
-        <div class="background w-full h-full absolute">
-        </div>
-        <div class="title-text p-4 relative font-william font-bold text-xl lg:text-4xl flex justify-center items-center">
-          <span>{{title}}</span>
-        </div>
-      </div>
-    </GridLayout>
+    <SectionTitle v-if="title" :title="title"/>
 
     <template v-for="group in renderGroups">
       <GridLayout v-if=" 'components' in group">
@@ -22,9 +14,10 @@
 </template>
 
 <script>
-import { findSections } from "google-docs-components"
 import GridLayout from "./GridLayout.vue";
 import LeaderFollowPair from "./LeaderFollowPair.vue";
+import SectionTitle from "./SectionTitle";
+
 export default {
   props: {
     title: [String, Boolean],
@@ -33,7 +26,7 @@ export default {
       required: true
     }
   },
-  components: {GridLayout, LeaderFollowPair},
+  components: {SectionTitle, GridLayout, LeaderFollowPair},
   inject: ["docsRenderer"],
 }
 </script>
@@ -51,10 +44,5 @@ export default {
   }
 
   /*Splitting the chapter title into two divs allows us to set an opacity on just the background*/
-
-  .chapter-title .background {
-    background-color: var(--primaryColor);
-    opacity: 50%;
-  }
 
 </style>
