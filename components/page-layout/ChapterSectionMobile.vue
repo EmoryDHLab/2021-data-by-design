@@ -1,7 +1,7 @@
 <template>
   <div>
     <SectionTitle v-if="title" :title="title"/>
-    <GridLayout class="space-y-4">
+    <GridLayout class="space-y-4 my-8">
       <div v-for="(components, i) in componentGroups"
            :key="i"
            class="col-start-2 col-end-10"
@@ -23,7 +23,7 @@ export default {
   props: {
     title: [String, Boolean],
     renderGroup: {
-      type: Array,
+      type: Object,
       required: true
     }
   },
@@ -31,6 +31,9 @@ export default {
     componentGroups() {
       const order = ["components", "right", "left"];
       const groups = order.map(key => key in this.renderGroup && this.renderGroup[key]).filter(Boolean);
+      if (!groups || !groups.length) {
+        debugger;
+      }
       return groups;
     }
   },

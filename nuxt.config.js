@@ -51,6 +51,10 @@ export default {
     transpile: ["gsap"]
   },
 
+  server: {
+    host: "0.0.0.0"
+  },
+
   tailwindcss: {
     exposeConfig: true
   }

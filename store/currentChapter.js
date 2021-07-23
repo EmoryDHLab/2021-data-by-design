@@ -39,14 +39,16 @@ export const mutations = {
   },
 
   nextSection (state) {
-    if (state.sections[state.currentSection] >= state.currentRenderGroup - 1) {
+    if (state.currentRenderGroup + 1 >= state.sections[state.currentSection]) {
       if (state.sections + 1 == state.sections.length) {
         return false;
       }
       state.currentRenderGroup = 0;
-      state.sections++;
+      state.currentSection++;
+      return true;
     }
     state.currentRenderGroup++;
+    return true;
   },
 
 }
