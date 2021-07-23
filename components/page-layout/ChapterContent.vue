@@ -1,5 +1,5 @@
 <template>
-  <div class="chapter-content my-52 max-w-screen-2xl font-sans text-base lg:text-xl mb-4">
+  <div class="chapter-content md:my-10 lg:my-52 max-w-screen-2xl font-sans text-base lg:text-xl">
     <template v-if="sections.length">
       <template v-if="!$isMobile">
         <template v-for="(section, i) in sections">
@@ -7,7 +7,8 @@
         </template>
       </template>
       <template v-else>
-        <ChapterSectionMobile v-if="sections.length" :renderGroup="mobileRenderGroup"></ChapterSectionMobile>
+        <ChapterTitle v-if="currentSection == 0 && currentRenderGroup == 0"></ChapterTitle>
+        <ChapterSectionMobile class="mt-10" v-if="sections.length" :title="mobileTitle" :renderGroup="mobileRenderGroup"></ChapterSectionMobile>
       </template>
     </template>
   </div>
@@ -17,10 +18,11 @@ import ChapterSection from "~/components/page-layout/ChapterSection"
 import ChapterSectionMobile from "./ChapterSectionMobile";
 import {mapMutations, mapState} from "vuex";
 import {renderGroups} from "./renderGroups";
+import ChapterTitle from "@/components/page-layout/ChapterTitle";
 
 export default {
   name: 'ChapterComponent',
-  components: {ChapterSection, ChapterSectionMobile},
+  components: {ChapterTitle, ChapterSection, ChapterSectionMobile},
   props: {
     chapterSections: {
       type: Array
@@ -47,6 +49,12 @@ export default {
         const group = this.sections[this.currentSection].renderGroups[this.currentRenderGroup];
         return group;
       }
+    },
+    mobileTitle () {
+      if (this.currentRenderGroup == 0) {
+        return this.sections[this.currentSection].title;
+      }
+      return false;
     },
     ...mapState("currentChapter", ["currentSection","currentRenderGroup"])
   }
