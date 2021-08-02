@@ -16,6 +16,7 @@
 <script>
 import gsap from "gsap"
 import {ScrollTrigger} from "gsap/ScrollTrigger";
+import GridLayout from "@/components/page-layout/GridLayout.vue";
 import Vue from "vue";
 
 if (process.client)
@@ -33,6 +34,7 @@ export const docsDefinition = {
 }
 
 export default {
+  components: {GridLayout},
   props: {
     groups: Number
   },

@@ -1,8 +1,8 @@
 <template>
-  <div class="root">
-    <div class="text">
-      <h1 class="title"> {{title}}</h1>
-      <h2 class="subtitle"> {{subtitle}} </h2>
+  <div class="root bg-black md:h-96 flex flex-col justify-center items-center">
+    <div class="text text-white text-center my-5">
+      <h1 class="font-william text-4xl md:text-7xl mb-5 md:mb-10"> {{title}}</h1>
+      <h2 class="font-william text-2xl md:text-4xl"> {{subtitle}} </h2>
     </div>
   </div>
 
@@ -10,34 +10,18 @@
 
 <script>
 export default {
-  props: {
-    title: String,
-    subtitle: String
+  inject: ["metadata"],
+  computed: {
+    title () {
+      if (this.metadata) {
+        return this.metadata.title
+      }
+    },
+    subtitle () {
+      if (this.metadata) {
+        return this.metadata.subtitle
+      }
+    }
   }
 }
 </script>
-
-<style scoped>
-.root {
-  height: 440px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.title {
-  font-family: "VTC William";
-  font-size: 64px;
-}
-
-.subtitle {
-  font-family: "VTC William";
-  font-size: 24px;
-}
-
-.text {
-  color: white;
-  text-align: center;
-}
-</style>

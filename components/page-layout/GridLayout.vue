@@ -1,6 +1,5 @@
-<script src="../global/index.js"></script>
 <template>
-  <div class="grid">
+  <div class="grid-layout grid grid-cols-10 2xl:grid-cols-14">
     <slot></slot>
   </div>
 </template>
@@ -11,9 +10,6 @@ export default {
 }
 </script>
 
-<style scoped>
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(var(--num-col), var(--col-width));
-  }
+<style>
+
 </style>

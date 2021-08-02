@@ -1,11 +1,13 @@
 <template>
-  <div class="root">
-    <div class="content">
-      <div class="big">
-        <slot name="title"></slot>
-      </div>
-      <div class="small">
-        <slot name="subtitle"></slot>
+  <div class="md:my-16">
+    <div class="content font-william grid grid-cols-8 py-9">
+      <div class="col-start-2 col-end-8">
+        <div class="big text-xl lg:text-2xl xl:text-4xl">
+          <slot name="title"></slot>
+        </div>
+        <div class="small text-base lg:text-xl xl:text-2xl">
+          <slot name="subtitle"></slot>
+        </div>
       </div>
     </div>
   </div>
@@ -23,33 +25,15 @@ export default {
 </script>
 
 <style scoped>
-.root {
-  grid-column-start: 1;
-  margin: var(--vertical-gap-small) 0;
-}
 
 div.content {
   color: var(--primaryColorText);
   background-color: var(--primaryColor);
-  padding: 36px var(--col-width);
 }
 
-div.content p {
-  font-family: "VTC William", sans-serif;
-}
 
-.big p {
-  font-size: 36px;
-  line-height: 150%;
-}
 
 .big p:last-child {
   margin-block-end: 0.5em;
 }
-
-.small p {
-  font-size: 24px;
-  line-height: 150%;
-}
-
 </style>

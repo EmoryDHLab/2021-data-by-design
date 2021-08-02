@@ -1,31 +1,26 @@
 <template>
-  <div class="chapter-root" :style="themeVars">
-    <ChapterTitle :title="metadata.title" :subtitle="metadata.subtitle">
-    </ChapterTitle>
+  <div class="chapter-root bg-black" :style="themeVars">
+    <ChapterTitle v-if="!$isMobile"></ChapterTitle>
     <ChapterNav></ChapterNav>
-    <div v-if="mounted" class="chapter-flex">
-      <div class="chapter-margin">
+    <div v-if="mounted" class="chapter-flex flex bg-offwhite">
+      <div class="h-full flex-grow">
       </div>
-      <div class="chapter-content">
-        <template v-for="section in chapterSections">
-          <ChapterSection :title="section.title" :components="section.components"></ChapterSection>
-        </template>
-      </div>
-      <div class="chapter-margin">
+      <ChapterContent :chapter-sections="chapterSections"/>
+      <div class="h-full flex-grow">
       </div>
     </div>
-    <ChapterFooter>
+    <ChapterFooter v-if="!$isMobile">
     </ChapterFooter>
   </div>
 </template>
 
 <script>
 import {componentsFromDoc, findSections} from "google-docs-components"
-import GridLayout from "~/components/page-layout/GridLayout";
-import ChapterSection from "~/components/page-layout/ChapterSection";
 import globalDocsDefs from "@/components/global/docs-inclusions/docsDefs"
-import ThemeVars from "@/components/mixins/ThemeVars";
-import ChapterTitle from "@/components/page-layout/ChapterTitle";
+import ChapterTitle from "@/components/page-layout/ChapterTitle.vue";
+import ChapterFooter from "./ChapterFooter.vue";
+import ChapterNav from "./ChapterNav.vue";
+import ChapterContent from "./ChapterContent";
 
 export default {
   props: {
@@ -37,11 +32,12 @@ export default {
       type: Object
     }
   },
-  components: {ChapterSection, ChapterTitle},
+  components: {ChapterContent, ChapterTitle, ChapterNav, ChapterFooter},
   provide () {
     return {
       theme: this.theme,
       docsRenderer: this.docsRendererComponent,
+      metadata: this.metadata
     }
   },
   data () {
@@ -138,6 +134,9 @@ export default {
 
 <style>
 
+/*
+TODO: Delete safely
+ */
 .chapter-root {
   --col-width: 104px;
   --num-col: 14;
@@ -146,37 +145,4 @@ export default {
   --vertical-gap-medium: 120px;
   --vertical-gap-large: 200px;
 }
-
-.chapter-root {
-  background-color: black;
-}
-
-.chapter-flex {
-  display: flex;
-  flex-direction: row;
-  background-color: #FAF1E9;
-}
-
-.chapter-content {
-  margin-top: var(--vertical-gap-medium);
-  margin-bottom: var(--vertical-gap-large);
-}
-.chapter-content p {
-    font-family: "neue-haas-unica";
-    font-size: 20px;
-  }
-
-.chapter-content p:last-child {
-  margin-bottom: 0px;
-}
-
-.chapter-content p:first-child {
-  margin-top: 0px;
-}
-
-.chapter-margin {
-  height: 100%;
-  flex-grow: 1;
-}
-
 </style>

@@ -24,16 +24,20 @@ export default {
   css: ["@/assets/fonts.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
-
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  components: [
-    {path: "~/components/global", extensions: ["vue"], prefix: ""},
-    {path: "~/components/page-layout", extensions: ["vue"], prefix: ""},
+  plugins: [
+    "~/plugins/breakpoints.client.js"
   ],
 
+  // Auto import components: https://go.nuxtjs.dev/config-components
+  // components: [
+  //   {path: "~/components/global", extensions: ["vue"], prefix: ""},
+  //   {path: "~/components/page-layout", extensions: ["vue"], prefix: ""},
+  // ],
+
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [],
+  buildModules: [
+    "@nuxtjs/tailwindcss",
+  ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -45,5 +49,13 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ["gsap"]
+  },
+
+  server: {
+    host: "0.0.0.0"
+  },
+
+  tailwindcss: {
+    exposeConfig: true
   }
 }

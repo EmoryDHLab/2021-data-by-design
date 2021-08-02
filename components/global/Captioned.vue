@@ -34,14 +34,13 @@ export default {
   align-items: center;
 }
 .caption {
-  width: 416px;
+  width: min(100%, 416px);
   margin-top: 16px;
   text-align: center;
   line-height: 150%;
 }
 
 .caption, .caption p, .caption span {
-  font-family: "VTC William";
-  font-size: 18px;
+  @apply font-william text-base lg:text-xl
 }
 </style>

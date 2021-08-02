@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <div class="site-nav-root">
     <div class="flex">
       <div class="site-title">
         Data by Design
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style scoped>
-.root {
+.site-nav-root {
   display: flex;
   justify-content: center;
   background-color: black;
