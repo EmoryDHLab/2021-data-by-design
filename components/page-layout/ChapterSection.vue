@@ -2,13 +2,28 @@
   <div class="section-root">
     <SectionTitle v-if="title" :title="title"/>
 
-    <template v-for="group in renderGroups">
-      <GridLayout v-if=" 'components' in group">
-        <Component class="middle-subgrid" :is="docsRenderer" :docContent="group.components"></Component>
-        <!--        <DocsRenderer class="span-middle-8" :content="group.components"></DocsRenderer>-->
-      </GridLayout>
-      <LeaderFollowPair v-else :left-content="group.left" :right-content="group.right || []">
-      </LeaderFollowPair>
+    <GridLayout v-if="$isMobile" class="space-y-4 my-8">
+      <template v-for="group in renderGroups">
+        <div v-for="(components, i) in mobileGroups(group)"
+             :key="i"
+             class="col-start-2 col-end-10"
+        >
+          <Component
+            :is="docsRenderer"
+            :docContent="components"></Component>
+        </div>
+      </template>
+    </GridLayout>
+
+    <template v-else>
+      <template v-for="group in renderGroups">
+        <GridLayout v-if=" 'components' in group">
+          <Component class="middle-subgrid" :is="docsRenderer" :docContent="group.components"></Component>
+          <!--        <DocsRenderer class="span-middle-8" :content="group.components"></DocsRenderer>-->
+        </GridLayout>
+        <LeaderFollowPair v-else :left-content="group.left" :right-content="group.right || []">
+        </LeaderFollowPair>
+      </template>
     </template>
   </div>
 </template>
@@ -27,7 +42,18 @@ export default {
     }
   },
   components: {SectionTitle, GridLayout, LeaderFollowPair},
+
   inject: ["docsRenderer"],
+  methods: {
+    mobileGroups(renderGroup) {
+      const order = ["components", "right", "left"];
+      const groups = order.map(key => key in renderGroup && renderGroup[key]).filter(Boolean);
+      if (!groups || !groups.length) {
+        debugger;
+      }
+      return groups;
+    }
+  }
 }
 </script>
 

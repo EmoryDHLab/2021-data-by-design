@@ -30,25 +30,34 @@ export const mutations = {
   },
 
   prevSection (state) {
-    if (state.currentRenderGroup > 0) {
-      state.currentRenderGroup--;
-    } else if (state.currentSection > 0) {
+    // if (state.currentRenderGroup > 0) {
+    //   state.currentRenderGroup--;
+    // } else if (state.currentSection > 0) {
+    //   state.currentSection--;
+    //   state.currentRenderGroup = state.sections[state.currentSection] - 1;
+    // }
+    if (state.currentSection > 0) {
       state.currentSection--;
-      state.currentRenderGroup = state.sections[state.currentSection] - 1;
+      return true;
     }
+    return false;
   },
 
   nextSection (state) {
-    if (state.currentRenderGroup + 1 >= state.sections[state.currentSection]) {
-      if (state.sections + 1 == state.sections.length) {
-        return false;
-      }
-      state.currentRenderGroup = 0;
+    // if (state.currentRenderGroup + 1 >= state.sections[state.currentSection]) {
+    //   if (state.sections + 1 == state.sections.length) {
+    //     return false;
+    //   }
+    //   state.currentRenderGroup = 0;
+    //   state.currentSection++;
+    //   return true;
+    // }
+    // state.currentRenderGroup++;
+    if (state.currentSection + 1 < state.sections.length) {
       state.currentSection++;
       return true;
     }
-    state.currentRenderGroup++;
-    return true;
+    return false;
   },
 
 }

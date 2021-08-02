@@ -1,4 +1,5 @@
 <template>
+  <!--This component is no longer used; it was in the version that renders each pair on its own page-->
   <div>
     <SectionTitle v-if="title" :title="title"/>
     <GridLayout class="space-y-4 my-8">

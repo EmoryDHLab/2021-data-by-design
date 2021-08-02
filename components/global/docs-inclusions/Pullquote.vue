@@ -1,5 +1,5 @@
 <template>
-  <div class="col-start-1 md:m-16">
+  <div class="md:my-16">
     <div class="content font-william grid grid-cols-8 py-9">
       <div class="col-start-2 col-end-8">
         <div class="big text-xl lg:text-2xl xl:text-4xl">
