@@ -35,6 +35,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.doc-table-root {
+  @apply gap-2
+}
 </style>
