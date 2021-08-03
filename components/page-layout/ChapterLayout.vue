@@ -1,6 +1,7 @@
 <template>
   <div class="chapter-root bg-black" :style="themeVars">
-    <ChapterTitle v-if="!$isMobile"></ChapterTitle>
+    <MobileTitleNav v-if="$isMobile"></MobileTitleNav>
+    <ChapterTitle v-else></ChapterTitle>
     <ChapterNav></ChapterNav>
     <div v-if="mounted" class="chapter-flex flex bg-offwhite">
       <div class="h-full flex-grow">
@@ -21,6 +22,7 @@ import ChapterTitle from "@/components/page-layout/ChapterTitle.vue";
 import ChapterFooter from "./ChapterFooter.vue";
 import ChapterNav from "./ChapterNav.vue";
 import ChapterContent from "./ChapterContent";
+import MobileTitleNav from "@/components/page-layout/MobileTitleNav";
 
 export default {
   props: {
@@ -32,7 +34,7 @@ export default {
       type: Object
     }
   },
-  components: {ChapterContent, ChapterTitle, ChapterNav, ChapterFooter},
+  components: {ChapterContent, ChapterTitle, MobileTitleNav, ChapterNav, ChapterFooter},
   provide () {
     return {
       theme: this.theme,
@@ -144,5 +146,12 @@ TODO: Delete safely
   --vertical-gap-small: 72px;
   --vertical-gap-medium: 120px;
   --vertical-gap-large: 200px;
+}
+.chapter-root .bg-theme {
+  background-color: var(--primaryColor);
+}
+
+.chapter-root .text-theme {
+  color: var(--primaryColorText);
 }
 </style>

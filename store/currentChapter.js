@@ -60,4 +60,12 @@ export const mutations = {
     return false;
   },
 
+  setSection (state, {sectionNumber}) {
+    if (sectionNumber >= 0 && sectionNumber < state.sections.length) {
+      state.currentSection = sectionNumber;
+      return true;
+    }
+    return false;
+  }
+
 }

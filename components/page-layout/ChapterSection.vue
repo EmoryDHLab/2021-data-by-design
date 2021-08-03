@@ -3,9 +3,9 @@
     <SectionTitle v-if="title" :title="title"/>
 
     <GridLayout v-if="$isMobile" class="space-y-4 my-8">
-      <template v-for="group in renderGroups">
-        <div v-for="(components, i) in mobileGroups(group)"
-             :key="i"
+      <template v-for="(group, g) in renderGroups">
+        <div v-for="(components, c) in mobileGroups(group)"
+             :key="`${g}-${c}`"
              class="col-start-2 col-end-10"
         >
           <Component
