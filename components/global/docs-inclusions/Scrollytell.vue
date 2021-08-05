@@ -1,33 +1,47 @@
 <template>
   <div class="col-span-full" :style="totalHeightStyle" ref="root">
 
-
     <!--We want this background to match the height of all the scrolly groups.
     But we can't actually make it the background of that container
     (or have it be part of the child containers - I've tried a lot of stuff) because it needs to be full
     width, which these non-absolute containers can't be thanks to our grid layout.
     -->
-    <div ref="background" class="bg-theme absolute z-0 left-0 w-screen" :style="totalHeightStyle">
+    <div ref="background" class="bg-theme absolute z-0 left-0 w-screen"
+         :class="{'scroll-snap-child': $isMobile && doSnap}"
+         :style="totalHeightStyle">
     </div>
 
-    <div class="float-right mr-4 lg:mr-12 h-screen flex items-center sticky top-0 z-10" ref="sticky">
-      <slot name="sticky"></slot>
-    </div>
-
-    <div class="w-full ml-3 lg:ml-12 mb-96 z-10 relative" ref="scrolly">
-      <div v-if="doSnap" class="scroll-snap-child absolute -top-screen"></div>
-      <div class="w-1/2 h-screen" ref="buffer"></div>
-      <div v-for="(i, zeroIndexed) in groups" class="w-1/2 text-theme flex items-center"
-           :class="{'h-screen': !collect, 'scroll-snap-child': doSnap}"
-           :style="collectStyle(zeroIndexed)"
-           ref="groups">
-        <div>
-          <slot :name="'group:' + i"></slot>
-        </div>
+    <template v-if="!$isMobile">
+      <div class="float-right mr-4 lg:mr-12 h-screen flex items-center sticky top-0 z-10" ref="sticky">
+        <slot name="sticky"></slot>
       </div>
-      <div class="w-1/2 h-36" ref="endBuffer"></div>
-    </div>
 
+      <div class="w-full ml-3 lg:ml-12 mb-96 z-10 relative" ref="scrolly">
+        <div v-if="doSnap" class="scroll-snap-child absolute -top-screen"></div>
+        <div class="w-1/2 h-screen" ref="buffer"></div>
+        <div v-for="(i, zeroIndexed) in groups" class="w-1/2 text-theme flex items-center"
+             :class="{'h-screen': !collect, 'scroll-snap-child': doSnap}"
+             :style="collectStyle(zeroIndexed)"
+             ref="groups">
+          <div>
+            <slot :name="'group:' + i"></slot>
+          </div>
+        </div>
+        <div class="w-1/2 h-36" ref="endBuffer"></div>
+      </div>
+    </template>
+
+    <div v-else ref="mobile" class="flex relative flex-col w-full items-center">
+      <div>
+        {{scrollData.current}}
+        <div v-if="doSnap" class="scroll-snap-child absolute -top-screen"></div>
+        <div v-if="doSnap" class="scroll-snap-child absolute top-screen"></div>
+        <slot name="sticky"></slot>
+      </div>
+      <div class="flex-grow relative z-10">
+        <slot :name="`group:${scrollData.current + 1}`"></slot>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -65,7 +79,7 @@ export default {
     groups: Number,
     collect: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   provide() {
@@ -87,6 +101,10 @@ export default {
   }),
   computed: {
     doSnap() {
+      if (this.$isMobile) {
+        return this.scrollytellActive;
+      }
+
       if (!this.scrollytellActive || this.collect) {
         return false;
       }
@@ -96,6 +114,11 @@ export default {
       return this.scrollData.current < this.groups;
     },
     totalHeightStyle() {
+      if (this.$isMobile) {
+        return {
+          height: '100vh'
+        }
+      }
       if (this.totalHeight > 0) {
         return {
           height: this.totalHeight + "px"
@@ -126,6 +149,18 @@ export default {
     }
   },
   mounted() {
+    if (this.$isMobile) {
+      ScrollTrigger.create({
+        trigger: this.$refs.mobile,
+        start: "top bottom",
+        end: "bottom top",
+        onToggle: ({progress, direction, isActive}) => {
+          this.scrollytellActive = isActive;
+        }
+      })
+      this.scrollData.current = 0;
+      return
+    };
     this.totalHeight = this.$refs.scrolly.clientHeight;
     setTimeout(() => {
       // ScrollTrigger.create({
@@ -140,7 +175,7 @@ export default {
         anticipatePin: 1,
         trigger: this.$refs.sticky,
         endTrigger: this.$refs.endBuffer,
-        start: "top top",
+        start: "top bottom",
         onToggle: ({progress, direction, isActive}) => {
           this.scrollytellActive = isActive;
           if (isActive) {
@@ -227,8 +262,5 @@ export default {
 <style scoped>
 .scroll-snap-child {
   scroll-snap-align: start;
-}
-.scroll-snap-bottom {
-  scroll-snap-align: end;
 }
 </style>

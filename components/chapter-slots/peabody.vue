@@ -26,7 +26,7 @@
     </template>
 
     <template v-slot:PeabodyTutorial>
-      <PeabodyTutorial width="550px" :id="'whatever'"
+      <PeabodyTutorial :width="$isMobile ? '25rem' : '30rem'" :id="'whatever'"
                        :style="{marginTop: '40px'}"
       ></PeabodyTutorial>
     </template>
