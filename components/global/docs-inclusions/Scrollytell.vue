@@ -33,13 +33,20 @@
 
     <div v-else ref="mobile" class="flex relative flex-col w-full items-center">
       <div>
-        {{scrollData.current}}
         <div v-if="doSnap" class="scroll-snap-child absolute -top-screen"></div>
-        <div v-if="doSnap" class="scroll-snap-child absolute top-screen"></div>
+        <div v-if="doSnap" ref="screenBelow" class="scroll-snap-child absolute top-screen h-screen"></div>
         <slot name="sticky"></slot>
       </div>
-      <div class="flex-grow relative z-10">
-        <slot :name="`group:${scrollData.current + 1}`"></slot>
+      <div class="flex-grow relative z-10 w-full flex flex-row justify-between items-center">
+        <div v-show="scrollData.current > 0" class="font-icons cursor-pointer text-xl" @click="mobilePrevClick">
+          u
+        </div>
+        <div>
+          <slot :name="`group:${scrollData.current + 1}`"></slot>
+        </div>
+        <div v-show="scrollData.current < groups - 1" class="font-icons cursor-pointer text-xl" @click="mobileNextClick">
+          s
+        </div>
       </div>
     </div>
 
@@ -92,6 +99,11 @@ export default {
     cumulativeHeights: [],
     scrollytellActive: false,
     leaveOffset: 0,
+    mobileScrollSnap: false,
+    mobileOverall: {
+      progress: undefined,
+      direction: undefined
+    },
     scrollData: {
       direction: undefined,
       progress: -1,
@@ -102,7 +114,7 @@ export default {
   computed: {
     doSnap() {
       if (this.$isMobile) {
-        return this.scrollytellActive;
+        return this.mobileScrollSnap;
       }
 
       if (!this.scrollytellActive || this.collect) {
@@ -144,6 +156,12 @@ export default {
         marginBottom: `100rem`,
       }
     },
+    mobileNextClick() {
+      this.scrollData.current++;
+    },
+    mobilePrevClick() {
+      this.scrollData.current--;
+    },
     transitionStyle(i) {
 
     }
@@ -153,13 +171,27 @@ export default {
       ScrollTrigger.create({
         trigger: this.$refs.mobile,
         start: "top bottom",
-        end: "bottom top",
+        end: "+=100%",
+        onUpdate: ({direction, progress}) => {
+          this.mobileOverall.direction = direction;
+          this.mobileOverall.progress = progress;
+        },
         onToggle: ({progress, direction, isActive}) => {
+          // if (direction < 0 && isActive && !this.scrollytellActive) return;
           this.scrollytellActive = isActive;
         }
       })
+      ScrollTrigger.create({
+        trigger: this.$refs.mobile,
+        endTrigger: this.$refs.screenBelow,
+        start: "top bottom",
+        end: "bottom top",
+        onToggle: ({progress, direction, isActive}) => {
+          this.mobileScrollSnap = isActive
+        }
+      })
       this.scrollData.current = 0;
-      return
+      return;
     };
     this.totalHeight = this.$refs.scrolly.clientHeight;
     setTimeout(() => {
