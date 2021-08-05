@@ -8,7 +8,6 @@
     width, which these non-absolute containers can't be thanks to our grid layout.
     -->
     <div ref="background" class="bg-theme absolute z-0 left-0 w-screen" :style="totalHeightStyle">
-
     </div>
 
     <div class="float-right mr-4 lg:mr-12 h-screen flex items-center sticky top-0 z-10" ref="sticky">
@@ -16,8 +15,8 @@
     </div>
 
     <div class="w-full ml-3 lg:ml-12 mb-96 z-10 relative" ref="scrolly">
-      <div class="w-1/2 h-screen"
-           ref="buffer"></div>
+      <div v-if="doSnap" class="scroll-snap-child absolute -top-screen"></div>
+      <div class="w-1/2 h-screen" ref="buffer"></div>
       <div v-for="(i, zeroIndexed) in groups" class="w-1/2 text-theme flex items-center"
            :class="{'h-screen': !collect, 'scroll-snap-child': doSnap}"
            :style="collectStyle(zeroIndexed)"
@@ -80,6 +79,7 @@ export default {
     scrollytellActive: false,
     leaveOffset: 0,
     scrollData: {
+      direction: undefined,
       progress: -1,
       leaveProgress: 0,
       current: undefined
@@ -87,7 +87,13 @@ export default {
   }),
   computed: {
     doSnap() {
-      return this.scrollytellActive && this.scrollData.current < this.groups;
+      if (!this.scrollytellActive) {
+        return false;
+      }
+      // if (this.scrollData.current == 0 && this.scrollData.direction < 0) {
+      //   return true;
+      // }
+      return this.scrollData.current < this.groups;
     },
     totalHeightStyle() {
       if (this.totalHeight > 0) {
@@ -184,7 +190,7 @@ export default {
           trigger: this.$refs.groups[this.groups - 1],
           start: `bottom ${cumulative}px`,
           end: "bottom top",
-          onUpdate: ({progress, start, end}) => {
+          onUpdate: ({progress, direction, start, end}) => {
             this.scrollData.leaveProgress = progress;
             this.leaveOffset = (start - end) * progress;
           }
@@ -205,7 +211,10 @@ export default {
             trigger: el,
             start: "bottom bottom",
             end: "bottom top",
-            onUpdate: ({progress}) => this.scrollData.progress = progress,
+            onUpdate: ({progress, direction}) => {
+              this.scrollData.progress = progress;
+              this.scrollData.direction = direction;
+            },
             onEnter: (instance) => this.scrollData.current = i,
             onLeaveBack: (instance) => this.scrollData.current = i - 1,
           })
@@ -217,6 +226,9 @@ export default {
 </script>
 <style scoped>
 .scroll-snap-child {
-  scroll-snap-align: center;
+  scroll-snap-align: start;
+}
+.scroll-snap-bottom {
+  scroll-snap-align: end;
 }
 </style>

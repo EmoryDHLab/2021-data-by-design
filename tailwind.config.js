@@ -14,6 +14,10 @@ module.exports = {
       colors: {
         offwhite: "#FAF1E9"
       },
+      inset: {
+        screen: '100vh',
+        '-screen': '-100vh'
+      }
     },
   },
   variants: {
