@@ -65,7 +65,7 @@ export default {
     groups: Number,
     collect: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   provide() {
@@ -87,7 +87,7 @@ export default {
   }),
   computed: {
     doSnap() {
-      if (!this.scrollytellActive) {
+      if (!this.scrollytellActive || this.collect) {
         return false;
       }
       // if (this.scrollData.current == 0 && this.scrollData.direction < 0) {
@@ -171,7 +171,7 @@ export default {
         //   console.log(el.clientHeight, el.scrollHeight, el.offsetHeight)
         //   totalHeight += el.scrollHeight;
         // })
-        let cumulative = 0;
+        let cumulative = 100;
         const cumulativeHeights = [];
         cumulativeHeights.push(cumulative);
         this.$refs.groups.forEach((el, i) => {
