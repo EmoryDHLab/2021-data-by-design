@@ -1,6 +1,11 @@
 @import url("https://p.typekit.net/p.css?s=1&k=ooz0npa&ht=tk&f=39512.39516.39517.39518.39523&a=79124244&app=typekit&e=css");
 
 @font-face {
+  font-family: "DxD Icons";
+  src: url("~assets/fonts/DxDIcons/DxDIcons-Regular.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "VTC William";
   src: url("~assets/fonts/William/VTCWilliam-Regular.woff") format("woff"),
        url("~assets/fonts/William/VTCWilliam-Regular.woff2") format("woff2");
