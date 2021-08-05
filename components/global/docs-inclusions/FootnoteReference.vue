@@ -1,6 +1,11 @@
 <template>
   <span>
-    {{footnoteNumber}}
+    <span class="circle" @click="show = !show">
+      {{footnoteNumber}}
+    </span>
+    <span class="text-blue-400" v-if="show">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad aliquam asperiores consectetur cumque dicta dolor ducimus esse eum eveniet nemo numquam, officia officiis recusandae reprehenderit repudiandae unde voluptas, voluptatum.
+    </span>
   </span>
 </template>
 
@@ -8,12 +13,15 @@
 export default {
   props: {
     footnoteNumber: Number,
-  }
+  },
+  data: () => ({
+    show: false
+  })
 }
 </script>
 
 <style scoped>
-span {
+.circle {
   display: inline-block;
   font-family: "VTC William";
   font-weight: bold;

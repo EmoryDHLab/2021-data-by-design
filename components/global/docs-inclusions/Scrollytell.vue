@@ -11,18 +11,20 @@
 
     </div>
 
-    <div class="float-right mr-4 pt-8 sticky top-0 z-10" ref="sticky">
+    <div class="float-right mr-4 lg:mr-12 h-screen flex items-center sticky top-0 z-10" ref="sticky">
       <slot name="sticky"></slot>
     </div>
 
-    <div class="w-full ml-3 mb-96 z-10 relative" ref="scrolly">
+    <div class="w-full ml-3 lg:ml-12 mb-96 z-10 relative" ref="scrolly">
       <div class="w-1/2 h-screen"
            ref="buffer"></div>
-      <div v-for="(i, zeroIndexed) in groups" class="w-1/2 text-theme"
-           :class="{'h-screen': !collect}"
+      <div v-for="(i, zeroIndexed) in groups" class="w-1/2 text-theme flex items-center"
+           :class="{'h-screen': !collect, 'scroll-snap-child': doSnap}"
            :style="collectStyle(zeroIndexed)"
            ref="groups">
-        <slot :name="'group:' + i"></slot>
+        <div>
+          <slot :name="'group:' + i"></slot>
+        </div>
       </div>
       <div class="w-1/2 h-36" ref="endBuffer"></div>
     </div>
@@ -52,12 +54,19 @@ export const docsDefinition = {
 }
 
 export default {
+  head() {
+    return {
+      htmlAttrs: {
+        style: "scroll-snap-type:y mandatory"
+      }
+    }
+  },
   components: {GridLayout},
   props: {
     groups: Number,
     collect: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   provide() {
@@ -77,6 +86,9 @@ export default {
     }
   }),
   computed: {
+    doSnap() {
+      return this.scrollytellActive && this.scrollData.current < this.groups;
+    },
     totalHeightStyle() {
       if (this.totalHeight > 0) {
         return {
@@ -100,8 +112,11 @@ export default {
       return {
         position: "sticky",
         top: `${this.cumulativeHeights[i] + this.leaveOffset}px`,
-        marginBottom: `100rem`
+        marginBottom: `100rem`,
       }
+    },
+    transitionStyle(i) {
+
     }
   },
   mounted() {
@@ -200,4 +215,8 @@ export default {
   }
 }
 </script>
-
+<style scoped>
+.scroll-snap-child {
+  scroll-snap-align: center;
+}
+</style>

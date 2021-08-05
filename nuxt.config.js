@@ -3,7 +3,7 @@ export default {
   head: {
     title: 'data-by-design',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'en',
     },
     meta: [
       {charset: 'utf-8'},
