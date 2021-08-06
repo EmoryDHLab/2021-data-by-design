@@ -6,10 +6,19 @@
     (or have it be part of the child containers - I've tried a lot of stuff) because it needs to be full
     width, which these non-absolute containers can't be thanks to our grid layout.
     -->
-    <div ref="background" class="bg-theme absolute z-0 left-0 w-screen"
-         :class="{'scroll-snap-child': $isMobile && doSnap}"
-         :style="totalHeightStyle">
+    <div ref="background" class="bg-theme absolute z-0 left-0 w-screen" :style="totalHeightStyle">
     </div>
+
+    <div class="relative">
+      <div ref="screenAbove" class="bg-gray-200 absolute left-0 -top-screen w-screen h-0"
+      :class="{'scroll-snap-child': doSnap}">
+      </div>
+      <div ref="screenBelow" class="bg-gray-200 absolute left-0 w-screen h-0"
+           :class="{'scroll-snap-child': doSnap}"
+           :style="{top: totalHeightUnits}">
+      </div>
+    </div>
+
 
     <template v-if="!$isMobile">
       <div class="float-right mr-4 lg:mr-12 h-screen flex items-center sticky top-0 z-10" ref="sticky">
@@ -17,7 +26,6 @@
       </div>
 
       <div class="w-full ml-3 lg:ml-12 mb-96 z-10 relative" ref="scrolly">
-        <div v-if="doSnap" class="scroll-snap-child absolute -top-screen"></div>
         <div class="w-1/2 h-screen" ref="buffer"></div>
         <div v-for="(i, zeroIndexed) in groups" class="w-1/2 text-theme flex items-center"
              :class="{'h-screen': !collect, 'scroll-snap-child': doSnap}"
@@ -31,10 +39,8 @@
       </div>
     </template>
 
-    <div v-else ref="mobile" class="flex relative flex-col w-full items-center">
+    <div v-else ref="mobile" class="flex relative flex-col w-full items-center" :class="{'scroll-snap-child': doSnap}">
       <div>
-        <div v-if="doSnap" class="scroll-snap-child absolute -top-screen"></div>
-        <div v-if="doSnap" ref="screenBelow" class="scroll-snap-child absolute top-screen h-screen"></div>
         <slot name="sticky"></slot>
       </div>
       <div class="flex-grow relative z-10 w-full flex flex-row justify-between items-center">
@@ -44,7 +50,8 @@
         <div>
           <slot :name="`group:${scrollData.current + 1}`"></slot>
         </div>
-        <div v-show="scrollData.current < groups - 1" class="font-icons cursor-pointer text-xl" @click="mobileNextClick">
+        <div v-show="scrollData.current < groups - 1" class="font-icons cursor-pointer text-xl"
+             @click="mobileNextClick">
           s
         </div>
       </div>
@@ -99,11 +106,9 @@ export default {
     cumulativeHeights: [],
     scrollytellActive: false,
     leaveOffset: 0,
-    mobileScrollSnap: false,
-    mobileOverall: {
-      progress: undefined,
-      direction: undefined
-    },
+    backgroundVisible: false,
+    direction: undefined,
+    doSnap: false,
     scrollData: {
       direction: undefined,
       progress: -1,
@@ -112,29 +117,17 @@ export default {
     }
   }),
   computed: {
-    doSnap() {
+    totalHeightUnits() {
       if (this.$isMobile) {
-        return this.mobileScrollSnap;
-      }
-
-      if (!this.scrollytellActive || this.collect) {
-        return false;
-      }
-      // if (this.scrollData.current == 0 && this.scrollData.direction < 0) {
-      //   return true;
-      // }
-      return this.scrollData.current < this.groups;
-    },
-    totalHeightStyle() {
-      if (this.$isMobile) {
-        return {
-          height: '100vh'
-        }
+        return '100vh';
       }
       if (this.totalHeight > 0) {
-        return {
-          height: this.totalHeight + "px"
-        }
+        return this.totalHeight + "px"
+      }
+    },
+    totalHeightStyle() {
+      return {
+        height: this.totalHeightUnits
       }
     },
     // localVars() {
@@ -167,40 +160,26 @@ export default {
     }
   },
   mounted() {
+    ScrollTrigger.create({
+      trigger: this.$refs.background,
+      // endTrigger: this.$refs.screenBelow,
+      start: "top bottom",
+      end: "bottom -65px",
+      onToggle: ({isActive}) => {
+        this.doSnap = isActive;
+        console.log("bg visible", isActive)
+      },
+      onUpdate: ({direction}) => {
+        this.direction = direction;
+        console.log(direction);
+      }
+    })
     if (this.$isMobile) {
-      ScrollTrigger.create({
-        trigger: this.$refs.mobile,
-        start: "top bottom",
-        end: "+=100%",
-        onUpdate: ({direction, progress}) => {
-          this.mobileOverall.direction = direction;
-          this.mobileOverall.progress = progress;
-        },
-        onToggle: ({progress, direction, isActive}) => {
-          // if (direction < 0 && isActive && !this.scrollytellActive) return;
-          this.scrollytellActive = isActive;
-        }
-      })
-      ScrollTrigger.create({
-        trigger: this.$refs.mobile,
-        endTrigger: this.$refs.screenBelow,
-        start: "top bottom",
-        end: "bottom top",
-        onToggle: ({progress, direction, isActive}) => {
-          this.mobileScrollSnap = isActive
-        }
-      })
       this.scrollData.current = 0;
       return;
-    };
+    }
     this.totalHeight = this.$refs.scrolly.clientHeight;
     setTimeout(() => {
-      // ScrollTrigger.create({
-      //   trigger: this.$refs.grid.$el,
-      //   start: "bottom bottom",
-      //   onToggle: ({progress, direction, isActive}) => console.log(progress, direction, isActive),
-      // })
-
 
       console.log(this.$refs);
       ScrollTrigger.create({
