@@ -10,11 +10,11 @@
     </div>
 
     <div class="relative">
-      <div ref="screenAbove" class="bg-gray-200 absolute left-0 -top-screen w-screen h-0"
-      :class="{'scroll-snap-child': doSnap}">
+      <div ref="above" class="opacity-0 pointer-events-none absolute left-0 -top-screen w-screen h-screen"
+           :class="{'scroll-snap-child': snapRange}">
       </div>
-      <div ref="screenBelow" class="bg-gray-200 absolute left-0 w-screen h-0"
-           :class="{'scroll-snap-child': doSnap}"
+      <div ref="below" class="opacity-0 pointer-events-none absolute left-0 w-screen h-screen"
+           :class="{'scroll-snap-child': snapRange}"
            :style="{top: totalHeightUnits}">
       </div>
     </div>
@@ -28,7 +28,7 @@
       <div class="w-full ml-3 lg:ml-12 mb-96 z-10 relative" ref="scrolly">
         <div class="w-1/2 h-screen" ref="buffer"></div>
         <div v-for="(i, zeroIndexed) in groups" class="w-1/2 text-theme flex items-center"
-             :class="{'h-screen': !collect, 'scroll-snap-child': doSnap}"
+             :class="{'h-screen': !collect, 'scroll-snap-child': snapRange}"
              :style="collectStyle(zeroIndexed)"
              ref="groups">
           <div>
@@ -39,7 +39,7 @@
       </div>
     </template>
 
-    <div v-else ref="mobile" class="flex relative flex-col w-full items-center" :class="{'scroll-snap-child': doSnap}">
+    <div v-else ref="mobile" class="flex relative flex-col w-full items-center" :class="{'scroll-snap-child': snapRange}">
       <div>
         <slot name="sticky"></slot>
       </div>
@@ -106,9 +106,17 @@ export default {
     cumulativeHeights: [],
     scrollytellActive: false,
     leaveOffset: 0,
-    backgroundVisible: false,
     direction: undefined,
-    doSnap: false,
+    sections: {
+      above: {
+        enter: false,
+        leave: false
+      },
+      below: {
+        enter: false,
+        leave: false
+      }
+    },
     scrollData: {
       direction: undefined,
       progress: -1,
@@ -117,6 +125,16 @@ export default {
     }
   }),
   computed: {
+    snapRange() {
+      return this.scrollytellActive;
+      // if (this.sections.above.enter && !this.sections.above.leave) {
+      //   if (this.scrollytellActive) {
+      //     return true;
+      //   }
+      //   return this.direction > 0;
+      // }
+      // return this.sections.above.enter && !this.sections.below.leave
+    },
     totalHeightUnits() {
       if (this.$isMobile) {
         return '100vh';
@@ -163,17 +181,41 @@ export default {
     ScrollTrigger.create({
       trigger: this.$refs.background,
       // endTrigger: this.$refs.screenBelow,
-      start: "top bottom",
-      end: "bottom -65px",
-      onToggle: ({isActive}) => {
-        this.doSnap = isActive;
-        console.log("bg visible", isActive)
+      start: "+20px bottom",
+      end: "bottom top",
+      onToggle: (instance) => {
+        const {isActive} = instance;
+        this.scrollytellActive = isActive;
+        if (isActive) {
+          this.scrollData.current = 0;
+        }
       },
       onUpdate: ({direction}) => {
         this.direction = direction;
-        console.log(direction);
-      }
-    })
+      },
+    });
+
+    ["above", "below"].map(side => {
+      const section = this.sections[side];
+      ScrollTrigger.create({
+        trigger: this.$refs[side],
+        start: "top bottom",
+        end: "bottom top",
+        onEnter: () => {
+          section.enter = true;
+        },
+        onLeaveBack: () => {
+          section.enter = false;
+        },
+        onEnterBack: () => {
+          section.leave = false;
+        },
+        onLeave: () => {
+          section.leave = true;
+        }
+      });
+    });
+
     if (this.$isMobile) {
       this.scrollData.current = 0;
       return;
@@ -182,41 +224,12 @@ export default {
     setTimeout(() => {
 
       console.log(this.$refs);
-      ScrollTrigger.create({
-        anticipatePin: 1,
-        trigger: this.$refs.sticky,
-        endTrigger: this.$refs.endBuffer,
-        start: "top bottom",
-        onToggle: ({progress, direction, isActive}) => {
-          this.scrollytellActive = isActive;
-          if (isActive) {
-            this.scrollData.current = 0;
-          }
-          // console.log(progress, direction, isActive),
-        },
-        // pin: this.$refs.sticky,
-        end: "top 100px",
-      })
+
 
       const groups = [this.$refs.buffer, ...this.$refs.groups];
 
       if (this.collect) {
-        // let totalHeight = 0;
-        // this.$refs.groups.forEach( (el, i) => {
-        //   ScrollTrigger.create({
-        //     trigger: el,
-        //     start: `top ${totalHeight}`,
-        //     anticipatePin: 1,
-        //     pin: el,
-        //     pinSpacing: false,
-        //     onEnter: (instance) => this.scrollData.current = i + 1,
-        //     onLeaveBack: (instance) => this.scrollData.current = i,
-        //     endTrigger: lastGroup,
-        //     end: "top 100px"
-        //   })
-        //   console.log(el.clientHeight, el.scrollHeight, el.offsetHeight)
-        //   totalHeight += el.scrollHeight;
-        // })
+
         let cumulative = 100;
         const cumulativeHeights = [];
         cumulativeHeights.push(cumulative);
@@ -241,15 +254,7 @@ export default {
             this.leaveOffset = (start - end) * progress;
           }
         });
-        // gsap.to(this.$refs.groups.slice(0, -1), {
-        //   top: "-=200",
-        //   scrollTrigger: {
-        //     trigger: this.$refs.groups[this.groups - 1],
-        //     start: `top ${cumulative}px`,
-        //     end: "bottom top",
-        //     scrub: true
-        //   },
-        // });
+;
         this.cumulativeHeights = cumulativeHeights;
       } else {
         groups.forEach((el, i) => {
