@@ -30,6 +30,12 @@
                        :style="{marginTop: '40px'}"
       ></PeabodyTutorial>
     </template>
+
+    <template v-slot:[slots.peabodyTimeline]>
+      <div>
+        test here
+      </div>
+    </template>
   </Slots>
 </template>
 
@@ -48,6 +54,7 @@ export default {
       slots: {
         hoverText: (n) => `Hover${n}`,
         mapScroller: "Map Scroller",
+        peabodyTimeline: "Peabody With Timeline"
       }
     }
   },
