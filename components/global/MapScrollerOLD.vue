@@ -30,10 +30,6 @@
       elapsePercent: { //Number between zero and 1. Overrides default animation behavior!!
         type: Number,
       },
-      easing: {
-        type: Function,
-        default: d3.easePolyInOut
-      },
       width: {
         type: String,
       },

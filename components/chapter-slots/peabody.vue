@@ -6,31 +6,24 @@
     </template>
 
     <template v-slot:[slots.mapScroller]>
-
-      <div class="col-start-2 col-end-6 h-60">
-        <MapScroller class="centered-image" asset="images/railroadscaled.jpg"
-                     :current-position="chapterState.mapPos"
-                     :points="[{x: 2380, y:670, scale:2}, {x: 1500, y: 1400, scale:1.5}]"
-                  >
-        </MapScroller>
+      <div class="col-start-2 col-end-6">
+        <Captioned>
+          <MoveBorder>
+            <MapScroller class="centered-image" asset="images/railroadscaled.jpg"
+                         :current-position="chapterState.mapPos"
+                         :points="[{x: 3700, y:-200, scale:3},
+                   {x: 1300, y: 1500, scale:3},
+                   {x: 2750, y: 1350, scale:3}
+                   ]"
+            >
+            </MapScroller>
+          </MoveBorder>
+          <template v-slot:caption>
+            The range of Peabody's promotional tour, as plotted on an 1850 rail map of the United States. Image courtesy
+            of the Library of Congress, Geography and Map Division.
+          </template>
+        </Captioned>
       </div>
-      <!--      <Captioned>-->
-<!--        <MoveBorder>-->
-<!--          <MapScroller class="centered-image" asset="railroadscaled.jpg"-->
-<!--                       :width="`${$breakpoints.length <= 1 ? 400 : $breakpoints.length * 100}px`"-->
-<!--                       :current-position="chapterState.mapPos"-->
-<!--                       :positions="[-->
-<!--                     {left: 0, top: 0, width: 100, height: 100},-->
-<!--                     {left: -170, top: -50, width: 300, height: 300},-->
-<!--                     {left: -90, top: -120, width: 300, height: 300},-->
-<!--                     {left: -140, top: -110, width: 280, height: 280},-->
-<!--                  ]">-->
-<!--          </MapScroller>-->
-<!--        </MoveBorder>-->
-<!--        <template v-slot:caption>-->
-<!--          The range of Peabody's promotional tour, as plotted on an 1850 rail map of the United States. Image courtesy of the Library of Congress, Geography and Map Division.-->
-<!--        </template>-->
-<!--      </Captioned>-->
     </template>
 
     <template v-slot:PeabodyTutorial>
@@ -54,10 +47,11 @@ import MoveBorder from "../global/MoveBorder";
 import MapScroller from "../global/MapScroller.vue";
 import Captioned from "../global/Captioned.vue";
 import HoverText from "../global/HoverText";
+
 export default {
   components: {PeabodyTutorial, MapScroller, MoveBorder, Captioned, HoverText},
   mixins: [ChapterSlots],
-  data () {
+  data() {
     return {
       slots: {
         hoverText: (n) => `Hover${n}`,
@@ -67,14 +61,14 @@ export default {
     }
   },
   chapterState: {
-    mapPos: 0
+    mapPos: -1
   },
   methods: {
     hoverTextOver(n) {
-      this.chapterState.mapPos = n;
+      this.chapterState.mapPos = n - 1;
     },
     hoverTextOut() {
-      this.chapterState.mapPos = 0;
+      this.chapterState.mapPos = -1;
     }
   }
 }
