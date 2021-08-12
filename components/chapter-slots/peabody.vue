@@ -10,7 +10,7 @@
         <Captioned>
           <MoveBorder>
             <MapScroller class="centered-image" asset="images/railroadscaled.jpg"
-                         :current-position="chapterState.mapPos"
+                         :currentPoint="chapterState.mapPos"
                          :points="[{x: 3700, y:-200, scale:3},
                    {x: 1300, y: 1500, scale:3},
                    {x: 2750, y: 1350, scale:3}
