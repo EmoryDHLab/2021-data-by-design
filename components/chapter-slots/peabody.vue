@@ -14,7 +14,7 @@
                          :points="[{x: 3700, y:-200, scale:3},
                    {x: 1300, y: 1500, scale:3},
                    {x: 2750, y: 1350, scale:3}
-                   ]"
+                 ]"
             >
             </MapScroller>
           </MoveBorder>
@@ -56,12 +56,12 @@ export default {
       slots: {
         hoverText: (n) => `Hover${n}`,
         mapScroller: "Map Scroller",
-        peabodyTimeline: "Peabody With Timeline"
+        peabodyTimeline: "Peabody With Timeline",
       }
     }
   },
   chapterState: {
-    mapPos: -1
+    mapPos: -1,
   },
   methods: {
     hoverTextOver(n) {

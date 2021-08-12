@@ -11,9 +11,6 @@
 
   const transform = ({x, y, scale}) => `translate3d(${x}, ${y}, 0px) scale(${scale})`;
 
-  //No need to be reactive
-  let currentAnimation = null;
-
   export default {
     props: {
       //Relative to assets folder; e.g., images/railroadscaled.jpg
@@ -23,6 +20,19 @@
       },
       points: {
         type: Array, //[{x, y, scale}] coordinates to center around, optional scale parameter
+        validator (value) {
+          return Array.isArray(value) && value.every(obj => {
+            if (typeof obj != "object") return false;
+            const passedCoords = "x" in obj && "y" in obj;
+            if (!passedCoords) return false;
+            if (obj.scale) {
+              if (typeof obj.scale != "number") {
+                return false;
+              }
+            }
+            return true;
+          })
+        }
         // required: true,
       },
       //seconds
@@ -35,8 +45,15 @@
         default: -1
         // required: true
       },
-      elapsePercent: { //Number between zero and 1. Overrides default animation behavior!!
+      controlledAnimation: {
+        type: Boolean,
+        default: false,
+      },
+      elapsePercent: { // applies only if controlledAnimation is true
         type: Number,
+        validator (value) {
+          return value >= 0 && value <= 1;
+        }
       },
       width: {
         type: String,
@@ -45,7 +62,8 @@
     data () {
       return {
         prevView: null,
-        loaded: false
+        loaded: false,
+        currentAnimation: null
       }
     },
     methods: {
@@ -62,24 +80,27 @@
         if (newVal >= 0) {
           const currPoint = this.transformPoints[newVal];
           if (!currPoint) return;
-          currentAnimation = gsap.to(this.$refs.img, {
+          this.currentAnimation = gsap.to(this.$refs.img, {
             transform: transform(currPoint),
             ease: "power2.inOut",
-            duration: this.animationDuration
+            duration: this.animationDuration,
+            paused: this.controlledAnimation,
           })
-        } else if (currentAnimation) {
-          currentAnimation = gsap.to(this.$refs.img, {
+        } else if (this.currentAnimation) {
+          this.currentAnimation = gsap.to(this.$refs.img, {
             transform: "",
             ease: "power2.inOut",
-            duration: this.animationDuration
+            duration: this.animationDuration,
+            paused: this.controlledAnimation
           })
         }
-      }
+      },
+      elapsePercent(newVal) {
+        if (!this.controlledAnimation || !this.currentAnimation) return;
+        this.currentAnimation.progress(newVal);
+      },
     },
     computed: {
-      // currentPoint() {
-      //   return this.points[this.currentPosition];
-      // },
       transformPoints() {
         if (this.loaded && this.points.length) {
           const natural = {
