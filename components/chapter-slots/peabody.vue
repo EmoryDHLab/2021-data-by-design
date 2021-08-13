@@ -33,9 +33,8 @@
     </template>
 
     <template v-slot:[slots.peabodyTimeline]>
-      <div>
-        test here
-      </div>
+      <StaticData :dataset="['peabody1600s']" v-slot="data">
+      </StaticData>
     </template>
   </Slots>
 </template>
@@ -47,9 +46,10 @@ import MoveBorder from "../global/MoveBorder";
 import MapScroller from "../global/MapScroller.vue";
 import Captioned from "../global/Captioned.vue";
 import HoverText from "../global/HoverText";
+import StaticData from "@/components/data-access/StaticData";
 
 export default {
-  components: {PeabodyTutorial, MapScroller, MoveBorder, Captioned, HoverText},
+  components: {StaticData, PeabodyTutorial, MapScroller, MoveBorder, Captioned, HoverText},
   mixins: [ChapterSlots],
   data() {
     return {

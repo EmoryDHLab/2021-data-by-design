@@ -4,6 +4,12 @@ const ChapterSlots = {
   props: {
     docContent: Array,
   },
+  // async fetch() {
+  //   Object.entries(this.$options.staticData).forEach( ([key, value]) => {
+  //     const obj = await this.$http.$get(`/api/data/${value}`);
+  //
+  //   })
+  // },
   created () {
     this.$store.commit("currentChapter/initializeChapterState", {initialState: this.$options.chapterState})
   },
@@ -22,7 +28,7 @@ const ChapterSlots = {
         enumerable: true
       }))
       return obj;
-    }
+    },
   },
   components: {
     Slots: {

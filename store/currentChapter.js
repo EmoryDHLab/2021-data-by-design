@@ -3,12 +3,24 @@ import Vue from "vue";
 export const state = () => ({
   chapterStateInitialized: false,
   chapterState: { _mutationCount: -1 },
+  staticData: {},
   sections: [],
   currentRenderGroup: 0,
   currentSection: 0,
 })
 
+export const getters = {
+  staticData(state) {
+    return Object.assign({}, state.staticData);
+  }
+}
+
 export const mutations = {
+
+  setStaticData(state, {name, data}) {
+    Vue.set(state.staticData, name, data);
+  },
+
   initializeChapterState(state, {initialState}) {
     if (!state.chapterStateInitialized) {
       Object.keys(initialState).forEach(key => Vue.set(state.chapterState, key, initialState[key]));

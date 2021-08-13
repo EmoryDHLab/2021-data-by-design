@@ -1,19 +1,16 @@
 <template>
   <GridLayout>
-    <Pullquote>
-      <template v-slot:title>
-        But what, more precisely, does data visualization reveal?
-      </template>
-      <template v-slot:subtitle>
-        For Tufte, it's any number of "complex qualitative ideas" that might otherwise be difficult to convey
-      </template>
-    </Pullquote>
+    <div class="w-10">
+      <EventSquare :colors="['blue', 'green']"/>
+    </div>
   </GridLayout>
 </template>
 
 <script>
 
+import EventSquare from "@/components/chapters/peabody/newpeabodygrid/EventSquare"
 export default {
+  components: {EventSquare}
 }
 </script>
 

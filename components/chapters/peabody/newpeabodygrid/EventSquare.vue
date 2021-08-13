@@ -37,12 +37,10 @@ const events = {
 }
 
 const EventSquare = {
-  // injects: [injects.registerEvents, injects.calcWidth, injects.data] ,
   props: {
     colors: {
       type: Array,
       default: () => ["white"]
-      // required: true
     },
     type: Number,
     year: Number,

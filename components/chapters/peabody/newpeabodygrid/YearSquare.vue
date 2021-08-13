@@ -1,7 +1,7 @@
 <template>
   <g>
     <rect :class="showSquares ? 'bg-gray' : 'bg-white'" :width='bgSize' :height='bgSize'/>
-    <event-square
+    <EventSquare
       v-show="showSquares"
       v-for='n in 9'
       :width="sizes.rect + 1"
@@ -55,9 +55,7 @@ export default {
       required: true
     }
   },
-  components: {
-    'event-square': EventSquare
-  },
+  components: {EventSquare},
   created() {
     if (this.registerEvents) {
       this.registerEvents(this, Object.values(events))
