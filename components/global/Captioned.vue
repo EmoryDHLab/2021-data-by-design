@@ -1,9 +1,9 @@
 <template>
-  <div class="root" :style="{width: this.width}">
+  <div class="flex flex-col items-center" :style="{width: this.width}">
     <div>
       <slot/>
     </div>
-    <div class="caption" v-if="$scopedSlots.caption">
+    <div class="caption text-center mt-10 w-5/6" v-if="$scopedSlots.caption">
       <slot name="caption"></slot>
     </div>
   </div>
@@ -28,19 +28,7 @@ export default {
 </script>
 
 <style scoped>
-.root {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.caption {
-  width: min(100%, 416px);
-  margin-top: 16px;
-  text-align: center;
-  line-height: 150%;
-}
-
 .caption, .caption p, .caption span {
-  @apply font-william text-base lg:text-xl
+  @apply font-william text-sm lg:text-lg
 }
 </style>

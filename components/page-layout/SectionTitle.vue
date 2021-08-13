@@ -1,6 +1,6 @@
 <template>
   <GridLayout>
-    <div class="chapter-title col-span-8 col-start-2 2xl:col-start-4 my-28 relative">
+    <div class="chapter-title col-span-6 2xl:col-span-8 col-start-3 2xl:col-start-4 relative">
       <div class="background w-full h-full absolute">
       </div>
       <div class="title-text p-4 relative font-william font-bold text-xl lg:text-4xl flex justify-center items-center">

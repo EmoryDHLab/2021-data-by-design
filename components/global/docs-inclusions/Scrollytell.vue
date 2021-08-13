@@ -84,7 +84,7 @@ export default {
   head() {
     return {
       htmlAttrs: {
-        style: "scroll-snap-type:y mandatory"
+        // style: "scroll-snap-type:y mandatory"
       }
     }
   },

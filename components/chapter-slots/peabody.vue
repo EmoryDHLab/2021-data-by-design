@@ -6,7 +6,6 @@
     </template>
 
     <template v-slot:[slots.mapScroller]>
-      <div class="col-start-2 col-end-6">
         <Captioned>
           <MoveBorder>
             <MapScroller class="centered-image" asset="images/railroadscaled.jpg"
@@ -23,7 +22,6 @@
             of the Library of Congress, Geography and Map Division.
           </template>
         </Captioned>
-      </div>
     </template>
 
     <template v-slot:PeabodyTutorial>

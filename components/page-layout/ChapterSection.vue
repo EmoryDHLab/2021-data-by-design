@@ -1,6 +1,6 @@
 <template>
   <div class="section-root">
-    <SectionTitle v-if="title" :title="title"/>
+    <SectionTitle class="my-12" v-if="title" :title="title"/>
 
     <GridLayout v-if="$isMobile" class="space-y-4 my-8">
       <template v-for="(group, g) in renderGroups">
@@ -15,16 +15,13 @@
       </template>
     </GridLayout>
 
-    <template v-else>
-      <template v-for="group in renderGroups">
-        <GridLayout v-if=" 'components' in group">
-          <Component class="middle-subgrid" :is="docsRenderer" :docContent="group.components"></Component>
-          <!--        <DocsRenderer class="span-middle-8" :content="group.components"></DocsRenderer>-->
-        </GridLayout>
+    <div class="space-y-10" v-else>
+      <div v-for="group in renderGroups">
+        <MiddleSubgrid v-if="'components' in group" :docContent="group.components"></MiddleSubgrid>
         <LeaderFollowPair v-else :left-content="group.left" :right-content="group.right || []">
         </LeaderFollowPair>
-      </template>
-    </template>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -32,6 +29,7 @@
 import GridLayout from "./GridLayout.vue";
 import LeaderFollowPair from "./LeaderFollowPair.vue";
 import SectionTitle from "./SectionTitle";
+import MiddleSubgrid from "@/components/page-layout/MiddleSubgrid";
 
 export default {
   props: {
@@ -41,7 +39,7 @@ export default {
       required: true
     }
   },
-  components: {SectionTitle, GridLayout, LeaderFollowPair},
+  components: {MiddleSubgrid, SectionTitle, GridLayout, LeaderFollowPair},
 
   inject: ["docsRenderer"],
   methods: {
@@ -56,19 +54,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-  .middle-subgrid {
-    display: grid;
-    grid-column: 1 / -1;
-    grid: inherit;
-  }
-
-  .middle-subgrid > * {
-    @apply col-span-8 col-start-2 2xl:col-start-4
-  }
-
-  /*Splitting the chapter title into two divs allows us to set an opacity on just the background*/
-
-</style>

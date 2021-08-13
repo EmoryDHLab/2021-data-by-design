@@ -90,14 +90,16 @@ export default {
 
 <style>
 
-
-
   .right-col .doc-table-root {
     justify-content: center;
   }
 
   .left-col > *, .right-col > * {
     @apply col-span-full
+  }
+
+  .right-col > div {
+    grid-column: 2 / -2;
   }
 
   .left-col > p {
