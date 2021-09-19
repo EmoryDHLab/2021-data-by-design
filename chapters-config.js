@@ -9,6 +9,11 @@ export default {
     }
   },
   playfair: {
-
+    doc: "1r_nPqLVD1yYufNxNRENTfUuTJA5Z5LzPTX6uOJhf8vI",
+    slotsFile: "playfair",
+    theme: {
+      primaryColor: "#93E3BD" ,
+      primaryColorText: "black",
+    }
   }
 }
