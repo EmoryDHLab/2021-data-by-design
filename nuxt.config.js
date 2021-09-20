@@ -55,6 +55,10 @@ export default {
     host: "0.0.0.0"
   },
 
+  generate: {
+    routes: ["chapters/peabody", "chapters/playfair"]
+  },
+
   tailwindcss: {
     exposeConfig: true
   }
