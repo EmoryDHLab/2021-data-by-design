@@ -4,11 +4,12 @@ import {getDoc, parseDoc} from "google-docs-parser"
 
 const router = Router();
 
-const config = {
-  client_email: process.env.client_email,
-  private_key: process.env.private_key
-}
+const private_key = process.env.PRIVATE_KEY_64 ? Buffer.from(process.env.PRIVATE_KEY_64, "base64") : process.env.PRIVATE_KEY;
 
+const config = {
+  client_email: process.env.CLIENT_EMAIL,
+  private_key
+}
 
 router.get("/", function (req, res) {
   //res.type("html"); automatically done by Express
