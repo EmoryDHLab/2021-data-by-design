@@ -1,8 +1,14 @@
 import {Router} from "express";
 import {getDoc, parseDoc} from "google-docs-parser"
-import * as config from "./docsconfig.json"
+
 
 const router = Router();
+
+const config = {
+  client_email: process.env.client_email,
+  private_key: process.env.private_key
+}
+
 
 router.get("/", function (req, res) {
   //res.type("html"); automatically done by Express
@@ -12,6 +18,7 @@ router.get("/", function (req, res) {
 });
 
 router.get("/:id", async function (req, res) {
+
   const docID = req.params.id;
   const docDownload = parseDoc(await getDoc(config, docID));
   res.send(docDownload);

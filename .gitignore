@@ -89,7 +89,7 @@ sw.*
 # Vim swap files
 *.swp
 
-**/docsconfig.json
+api/docsconfig.json
 
 .yalc
 
