@@ -110,6 +110,12 @@ import PeabodyGrid from './newpeabodygrid/PeabodyGrid'
 import EventKey from './EventKey'
 import Visualization from "~/components/mixins/Visualization";
 
+export const docsDefinition = {
+  matchName: ["PeabodyTutorial"],
+  componentName: "PeabodyTutorial",
+  props: {}
+}
+
 export default {
   inheritAttrs: false,
   components: {

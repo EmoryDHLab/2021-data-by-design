@@ -17,12 +17,19 @@
 
 <script>
 import {componentsFromDoc, findSections} from "google-docs-components"
-import globalDocsDefs from "@/components/global/docs-inclusions/docsDefs"
+
 import ChapterTitle from "@/components/page-layout/ChapterTitle.vue";
 import ChapterFooter from "./ChapterFooter.vue";
 import ChapterNav from "./ChapterNav.vue";
 import ChapterContent from "./ChapterContent";
 import MobileTitleNav from "@/components/page-layout/MobileTitleNav";
+
+function docsDefs(context) {
+  const modules = context.keys().map(key => context(key)).filter(module => "docsDefinition" in module);
+  return modules.map(m => m.docsDefinition);
+}
+
+const globalDocsDefs = docsDefs(require.context('@/components/global/docs-inclusions', true, /\.vue$/));
 
 export default {
   props: {
@@ -52,11 +59,11 @@ export default {
   },
   computed: {
     docsRendererComponent () {
-      if (this.config.slotsFile) {
+      if (this.config.id) {
         //https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
         //Loads the correct slots component from the chapter-slots folder. That component
         //handles the doc rendering, injecting the specified slots into the docs renderer.
-        return () => import("../chapter-slots/" + this.config.slotsFile)
+        return () => import("../chapter-slots/" + this.config.id)
       }
     },
     theme () {

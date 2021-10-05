@@ -30,7 +30,7 @@
 
 <script>
 import LocalImage from "@/components/global/docs-inclusions/LocalImage.vue";
-import Captioned from "@/components/global/Captioned.vue";
+import Captioned from "@/components/global/docs-inclusions/Captioned.vue";
 export default {
   components: {Captioned}
 }
