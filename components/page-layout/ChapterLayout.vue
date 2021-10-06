@@ -23,13 +23,9 @@ import ChapterFooter from "./ChapterFooter.vue";
 import ChapterNav from "./ChapterNav.vue";
 import ChapterContent from "./ChapterContent";
 import MobileTitleNav from "@/components/page-layout/MobileTitleNav";
+import { globalDefinitions } from "@/components/docs-renderer/components";
 
-function docsDefs(context) {
-  const modules = context.keys().map(key => context(key)).filter(module => "docsDefinition" in module);
-  return modules.map(m => m.docsDefinition);
-}
 
-const globalDocsDefs = docsDefs(require.context('@/components/global/docs-inclusions', true, /\.vue$/));
 
 export default {
   props: {
@@ -80,7 +76,7 @@ export default {
     },
     components() {
       return componentsFromDoc({
-        components: globalDocsDefs,
+        components: globalDefinitions,
         classProp: "class"
       }, this.docData).body;
     },
