@@ -25,8 +25,25 @@
         </span>
       </template>
     </Captioned>
-    <div>
-      Timeline
+    <div class="about self-center">
+      <span class="about-title">ABOUT THE SITE</span>
+    </div>
+    <div class="footer">
+      <span class="ft-title">Data By Design</span>
+      <div class="ft-txt1">Designed and developed by the Georgia Tech / Emory Digital Humanities Lab in collaboration with Polymode.</div>
+      <div class="ft-mid">
+        Data by Design has been generously funded by a 2018-2019 NEH-Mellon Fellowship for Digital Publication.
+        <br/>
+        <br/>
+        <br/>
+        Additional research for this project was completed through fellowships from the American Antiquarian Society and the Library Company of Philadelphia.
+      </div>
+      <div class="ft-right">
+        Email <br/>
+        Facebook <br/>
+        Contact <br/>
+      </div>
+
     </div>
   </div>
 </template>
@@ -43,7 +60,7 @@ export default {
   background-color: black;
   display: grid;
   grid-template-columns: repeat(14, 1fr);
-  grid-template-rows: repeat(10, 81px);
+  grid-template-rows: repeat(30, 81px);
   width: 100%;
   color: white;
   font-family: "VTC William";
@@ -102,6 +119,50 @@ export default {
 
 .cover-img img {
   max-width: 100%;
+}
+
+.about {
+  display: grid;
+  grid-column: 2 / -2;
+  grid-row: 20 / span 5;
+}
+
+.about-title {
+  font-size: 36px;
+  grid-column: 5 / span 4;
+}
+
+.footer {
+  display: grid;
+  background-color: #3B6FE0;
+  grid-column: 1 / -1;
+  grid-row: span 4 / -1;
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+}
+
+.ft-title {
+  font-size: 36px;
+  grid-column: 2 / 6;
+  grid-row: 2 / 4;
+}
+
+.ft-txt1 {
+  font-size: 14px;
+  grid-column: 2 / span 5;
+  grid-row: 5 / 6;
+}
+
+.ft-mid {
+  font-size: 14px;
+  grid-column: 7 / span 4;
+  grid-row: 3 / 6;
+}
+
+.ft-right {
+  font-size: 14px;
+  grid-column: 12 / span 4;
+  grid-row: 3 / 6;
 }
 
 </style>
