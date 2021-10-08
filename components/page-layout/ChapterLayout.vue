@@ -23,9 +23,7 @@ import ChapterFooter from "./ChapterFooter.vue";
 import ChapterNav from "./ChapterNav.vue";
 import ChapterContent from "./ChapterContent";
 import MobileTitleNav from "@/components/page-layout/MobileTitleNav";
-import { globalDefinitions } from "@/components/docs-renderer/components";
-
-
+import { globalDefinitions, chapterDefinitions, chapterComponents } from "@/components/docs-renderer/componentImports";
 
 export default {
   props: {
@@ -42,13 +40,22 @@ export default {
     return {
       theme: this.theme,
       docsRenderer: this.docsRendererComponent,
-      metadata: this.metadata
+      docsComponents: this.docsComponents,
+      metadata: this.metadata,
     }
   },
   data () {
     return {
-      mounted: false
+      mounted: false,
+      docsComponents: {
+        definitions: [],
+        components: {},
+      },
     }
+  },
+  created () {
+    chapterDefinitions(this.config.id).then(definitions => this.docsComponents.definitions = definitions);
+    chapterComponents(this.config.id).then(components => this.docsComponents.components = components);
   },
   mounted () {
     this.mounted = true;
@@ -75,8 +82,9 @@ export default {
       )
     },
     components() {
+      const componentDefinitions = [...globalDefinitions, ...this.docsComponents.definitions];
       return componentsFromDoc({
-        components: globalDefinitions,
+        components: componentDefinitions,
         classProp: "class"
       }, this.docData).body;
     },

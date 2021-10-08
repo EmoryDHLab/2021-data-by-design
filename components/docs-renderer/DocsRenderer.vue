@@ -8,7 +8,7 @@
 
 <script>
 import {Renderer} from "docs-renderer-vue2"
-import { globalComponents } from "./components";
+import { globalComponents } from "./componentImports";
 // import globalComponents from "@/components/global/docs-inclusions/docsInclusions";
 
 export default {
@@ -16,6 +16,7 @@ export default {
   props: {
     docContent: Array,
   },
+  inject: ["docsComponents"],
   mounted () {
     setTimeout( () => {
       //TODO: Find a way to run this exactly after all assets are loaded
@@ -26,7 +27,7 @@ export default {
   },
   computed: {
     components() {
-      return globalComponents;
+      return {...globalComponents, ...(this.docsComponents.components || {})};
     },
     ignoreCssProperties() {
       return ["font-family", "font-size", "background-color"]

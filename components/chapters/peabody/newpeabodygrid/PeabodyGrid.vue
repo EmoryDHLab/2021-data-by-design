@@ -1,31 +1,28 @@
 <template>
-<!--  <div>-->
-    <svg :id="id"
-         :width='width'
-         :height='height'
-         :viewBox='getViewBox'>
-      <rect class='bg' :width='getSVGWidth' :height='getSVGWidth'/>
-      <g :style='translateCentury'>
-        <year-square
-          v-for='n in 100'
-          :showSquares='showSquares'
-          :highlightedSquare="n == highlightedYear ? highlightedSquare : null"
-          :key='n-1'
-          :sizes="options.sizes"
-          :actorColors="actorColors"
-          :class='`year-square-${n}`'
-          :style='translateYear(n - 1)'
-          :yearData='getYearData(n - 1)'
-          :year='getYear(n - 1)'/>
-      </g>
-    </svg>
-<!--  </div>-->
-
+  <!--  <div>-->
+  <svg :id="id" :width="width" :height="height" :viewBox="getViewBox">
+    <rect class="bg" :width="getSVGWidth" :height="getSVGWidth" />
+    <g :style="translateCentury">
+      <year-square
+        v-for="n in 100"
+        :showSquares="showSquares"
+        :highlightedSquare="n == highlightedYear ? highlightedSquare : null"
+        :key="n - 1"
+        :sizes="options.sizes"
+        :actorColors="actorColors"
+        :class="`year-square-${n}`"
+        :style="translateYear(n - 1)"
+        :yearData="getYearData(n - 1)"
+        :year="getYear(n - 1)"
+      />
+    </g>
+  </svg>
+  <!--  </div>-->
 </template>
 
 <script>
-import YearSquare from "./YearSquare"
-import Visualization from "~/components/mixins/Visualization"
+import YearSquare from "./YearSquare";
+import Visualization from "~/components/mixins/Visualization";
 import { actorColors, dataToYears } from "./PeabodyUtils";
 
 const DEFAULT_OPTIONS = {
@@ -33,50 +30,58 @@ const DEFAULT_OPTIONS = {
     line: {
       sm: 1,
       md: 2,
-      lg: 20
+      lg: 20,
     },
-    rect: 16
-  }
-}
+    rect: 16,
+  },
+};
 
-  export default {
-    props: {
-      width: String,
-      height: String,
-      id: String,
-      highlighted: {
-        type: Number,
-        validator (number) {
-          if (isNaN(number)) return false;
-          const oneDigitDecimal = String(number).slice(String(number).indexOf(".") + 1).length == 1;
-          return oneDigitDecimal && number >= 1 && number < 101;
-        }
+export const docsDefinition = {
+  matchName: ["PeabodyGrid"],
+  componentName: "PeabodyGrid",
+  props: {},
+};
+
+export default {
+  props: {
+    width: String,
+    height: String,
+    id: String,
+    highlighted: {
+      type: Number,
+      validator(number) {
+        if (isNaN(number)) return false;
+        const oneDigitDecimal =
+          String(number).slice(String(number).indexOf(".") + 1).length == 1;
+        return oneDigitDecimal && number >= 1 && number < 101;
       },
-      options: { // styles and other internal visualization stuff
-        type: Object,
-        required: false,
-      default: () => DEFAULT_OPTIONS
+    },
+    options: {
+      // styles and other internal visualization stuff
+      type: Object,
+      required: false,
+      default: () => DEFAULT_OPTIONS,
     },
     staticDataset: {
-      type: String
+      type: String,
     },
     mutableDataset: {
-      type: String
+      type: String,
     },
     showSquares: {
       type: Boolean,
-      default: true
+      default: true,
     },
     actorColors: {
       type: Object,
-      default () {
+      default() {
         return actorColors;
-      }
-    }
+      },
+    },
   },
   mixins: [Visualization({ notebookName: "PeabodyGrid" })],
   components: {
-    'year-square': YearSquare
+    "year-square": YearSquare,
   },
   computed: {
     // mutableId() {
@@ -87,84 +92,93 @@ const DEFAULT_OPTIONS = {
     // formattedData() {
     //   return this.dataFormatter(this.data)
     // },
-    sizes () {
-      return this.options.sizes
+    sizes() {
+      return this.options.sizes;
     },
-    evtWidth () {
-      return this.sizes.rect + this.sizes.line.sm
+    evtWidth() {
+      return this.sizes.rect + this.sizes.line.sm;
     },
-    yearWidth () {
-      return this.evtWidth * 3 + this.sizes.line.md - this.sizes.line.sm
+    yearWidth() {
+      return this.evtWidth * 3 + this.sizes.line.md - this.sizes.line.sm;
     },
-    years () {
+    years() {
       try {
         if (this.data && Array.isArray(this.data) && this.data.length > 0) {
           return dataToYears(this.data);
         }
       } catch (error) {
-        console.error("Error in processing Peabody data", error)
+        console.error("Error in processing Peabody data", error);
       }
     },
-    translateCentury () {
+    translateCentury() {
       return {
-        'transform': 'translate('
-        + this.sizes.line.lg + 'px,' + this.sizes.line.lg + 'px)'
-      }
+        transform:
+          "translate(" +
+          this.sizes.line.lg +
+          "px," +
+          this.sizes.line.lg +
+          "px)",
+      };
     },
-    getSVGWidth () {
-      return (this.sizes.rect * 30
-        + this.sizes.line.sm * 20
-        + this.sizes.line.md * 8
-        + this.sizes.line.lg * 3).toString()
+    getSVGWidth() {
+      return (
+        this.sizes.rect * 30 +
+        this.sizes.line.sm * 20 +
+        this.sizes.line.md * 8 +
+        this.sizes.line.lg * 3
+      ).toString();
     },
-    isEmpty () {
+    isEmpty() {
       if (this.years && typeof this.years === "object") {
-        return Object.keys(this.years).length === 0
+        return Object.keys(this.years).length === 0;
       }
       return true;
     },
-    startYear () {
+    startYear() {
       if (this.isEmpty) return 0;
       return 1 + Math.round(Math.min(...Object.keys(this.years)) / 100) * 100;
     },
-    getViewBox () {
-      let width = this.getSVGWidth
-      return '0 0 ' + width + ' ' + width
+    getViewBox() {
+      let width = this.getSVGWidth;
+      return "0 0 " + width + " " + width;
     },
-    highlightedYear () {
+    highlightedYear() {
       return Math.floor(this.highlighted);
     },
-    highlightedSquare () {
+    highlightedSquare() {
       return Math.round((this.highlighted - this.highlightedYear) * 10);
-    }
+    },
   },
   methods: {
-    getYear (n) {
+    getYear(n) {
       return this.startYear + n;
     },
-    getYearData (n) {
+    getYearData(n) {
       if (this.years) {
-        return this.years[this.getYear(n)] || Array(9).fill(undefined)
+        return this.years[this.getYear(n)] || Array(9).fill(undefined);
       }
-      return Array(9).fill(undefined)
+      return Array(9).fill(undefined);
     },
-    getYearXFromIndex (ind) {
-      let j = ind % 10
-      return j * (this.yearWidth) + ((j > 4) ? 20 - this.sizes.line.md : 0)
+    getYearXFromIndex(ind) {
+      let j = ind % 10;
+      return j * this.yearWidth + (j > 4 ? 20 - this.sizes.line.md : 0);
     },
-    getYearYFromIndex (ind) {
-      let i = Math.floor(ind / 10)
-      return i * (this.yearWidth) + ((i > 4) ? 20 - this.sizes.line.md : 0)
+    getYearYFromIndex(ind) {
+      let i = Math.floor(ind / 10);
+      return i * this.yearWidth + (i > 4 ? 20 - this.sizes.line.md : 0);
     },
-    translateYear (n) {
+    translateYear(n) {
       return {
-        'transform': 'translate('
-        + this.getYearXFromIndex(n) + 'px,'
-        + this.getYearYFromIndex(n) + 'px)'
-      }
+        transform:
+          "translate(" +
+          this.getYearXFromIndex(n) +
+          "px," +
+          this.getYearYFromIndex(n) +
+          "px)",
+      };
     },
-  }
-}
+  },
+};
 </script>
 <style scoped>
 rect.bg {
