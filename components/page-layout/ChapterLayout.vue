@@ -3,7 +3,7 @@
     <MobileTitleNav v-if="$isMobile"></MobileTitleNav>
     <ChapterTitle v-else></ChapterTitle>
     <ChapterNav></ChapterNav>
-    <div v-if="mounted" class="chapter-flex flex bg-offwhite">
+    <div v-if="docsComponents.loaded" class="chapter-flex flex bg-offwhite">
       <div class="h-full flex-grow">
       </div>
       <ChapterContent :chapter-sections="chapterSections"/>
@@ -48,17 +48,18 @@ export default {
     return {
       mounted: false,
       docsComponents: {
+        loaded: false,
         definitions: [],
         components: {},
       },
     }
   },
   created () {
-    chapterDefinitions(this.config.id).then(definitions => this.docsComponents.definitions = definitions);
-    chapterComponents(this.config.id).then(components => this.docsComponents.components = components);
-  },
-  mounted () {
-    this.mounted = true;
+    const loadDefinitions = chapterDefinitions(this.config.id).then(definitions => this.docsComponents.definitions = definitions);
+    const loadComponents = chapterComponents(this.config.id).then(components => this.docsComponents.components = components);
+    Promise.all([loadDefinitions, loadComponents]).then(() => {
+      this.docsComponents.loaded = true;
+    });
   },
   computed: {
     docsRendererComponent () {
@@ -82,28 +83,33 @@ export default {
       )
     },
     components() {
-      const componentDefinitions = [...globalDefinitions, ...this.docsComponents.definitions];
-      return componentsFromDoc({
-        components: componentDefinitions,
-        classProp: "class"
-      }, this.docData).body;
+      if (this.docsComponents.loaded) {
+        const componentDefinitions = [...globalDefinitions, ...this.docsComponents.definitions];
+        const components = componentsFromDoc({
+          components: componentDefinitions,
+          classProp: "class"
+        }, this.docData).body;
+        return components;
+      }
     },
     divisions() {
-      const metadataDef = {
-        name: "metadata",
-        start: "Metadata",
-        end: "End Metadata"
-      }
+      if (this.components) {
+        const metadataDef = {
+          name: "metadata",
+          start: "Metadata",
+          end: "End Metadata"
+        }
 
-      const sectionDef = {
-        name: "section",
-        start: "Section",
-        endByNextStart: true,
-        endByContentEnd: true
-      }
+        const sectionDef = {
+          name: "section",
+          start: "Section",
+          endByNextStart: true,
+          endByContentEnd: true
+        }
 
-      const sectionData = findSections(this.components, [sectionDef, metadataDef]);
-      return sectionData;
+        const sectionData = findSections(this.components, [sectionDef, metadataDef]);
+        return sectionData;
+      }
     },
     chapterSections() {
       if (!this.divisions) return [];

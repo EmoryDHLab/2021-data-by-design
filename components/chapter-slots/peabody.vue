@@ -24,11 +24,11 @@
         </Captioned>
     </template>
 
-    <!-- <template v-slot:PeabodyTutorial>
+    <template v-slot:PeabodyTutorialSlot>
       <PeabodyTutorial :width="$isMobile ? '25rem' : '30rem'" :id="'whatever'"
                        :style="{marginTop: '40px'}"
       ></PeabodyTutorial>
-    </template> -->
+    </template>
 
     <template v-slot:[slots.peabodyTimeline]>
       <StaticData :dataset="['peabody1600s']" v-slot="data">
