@@ -1,7 +1,9 @@
 <template>
   <div class="chapter-root bg-black" :style="themeVars">
-    <MobileTitleNav v-if="$isMobile"></MobileTitleNav>
-    <ChapterTitle v-else></ChapterTitle>
+    <template v-if="metadata">
+      <MobileTitleNav v-if="$isMobile" :title="metadata.title"></MobileTitleNav>
+      <ChapterTitle v-else :title="metadata.title" :subtitle="metadata.subtitle"></ChapterTitle>
+    </template>
     <ChapterNav></ChapterNav>
     <div v-if="docsComponents.loaded" class="chapter-flex flex bg-offwhite">
       <div class="h-full flex-grow">
@@ -41,7 +43,6 @@ export default {
       theme: this.theme,
       docsRenderer: this.docsRendererComponent,
       docsComponents: this.docsComponents,
-      metadata: this.metadata,
     }
   },
   data () {
