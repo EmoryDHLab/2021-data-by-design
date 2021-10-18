@@ -15,5 +15,13 @@ export default {
       primaryColor: "#93E3BD" ,
       primaryColorText: "black",
     }
+  },
+  sandbox: {
+    id: "sandbox",
+    doc: "1ZnzdhstuleNMzjzl6EuJzD1SxAsj54bMOu-5IxeaRWo",
+    theme: {
+      primaryColor: "#93E3BD" ,
+      primaryColorText: "black",
+    }
   }
 }

@@ -116,7 +116,7 @@ export default {
       if (!this.divisions) return [];
       const sectionsData = this.divisions.section;
       const metadataEnd = this.divisions.metadata[0].endIndex;
-      const firstSectionComponents = this.components.slice(metadataEnd + 1, sectionsData[0].startIndex);
+      const firstSectionComponents = this.components.slice(metadataEnd + 1, sectionsData[0]?.startIndex || this.components.length);
       const sections = [
         {title: false, components: firstSectionComponents},
         ...sectionsData.map(section => ({
