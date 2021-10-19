@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center" :style="{width: this.width}">
+  <div class="flex flex-col items-center middle-full" :style="{width: this.width}">
     <div>
       <slot/>
     </div>

@@ -1,9 +1,9 @@
 <template>
-  <div class="md:my-16 text-xl flex flex-col">
-    <div>
+  <div class="md:my-16 middle-text flex flex-col">
+    <div class="font-william">
       <slot name="quote"></slot>
     </div>
-    <div>
+    <div class="font-sans text-lg text-gray-500">
       <slot name="attribution"></slot>
     </div>
 <!--    <div class="bg-theme font-william grid grid-cols-8 py-9">-->
@@ -32,9 +32,4 @@ export default {
 </script>
 
 <style scoped>
-
-
-.big p:last-child {
-  margin-block-end: 0.5em;
-}
 </style>
