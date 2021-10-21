@@ -56,7 +56,7 @@ export default {
   },
 
   generate: {
-    routes: ["chapters/peabody", "chapters/playfair"]
+    routes: ["/chapters/peabody", "/chapters/playfair"]
   },
 
   tailwindcss: {

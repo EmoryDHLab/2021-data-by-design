@@ -13,10 +13,10 @@
     "core-js": "3",
     "csv-parse": "^4.16.0",
     "d3": "^7.0.0",
-    "docs-renderer-vue2": "^0.2.0",
+    "docs-renderer-vue2": "file:.yalc/docs-renderer-vue2",
     "glob": "^7.1.7",
-    "google-docs-components": "^1.0.9",
-    "google-docs-parser": "latest",
+    "google-docs-components": "file:.yalc/google-docs-components",
+    "google-docs-parser": "file:.yalc/google-docs-parser",
     "gsap": "^3.7.0",
     "nuxt": "^2.15.3"
   },

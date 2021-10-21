@@ -7,13 +7,14 @@
       "replaced": "latest"
     },
     "google-docs-components": {
-      "signature": "3c1103997e7883c17a27d28c76c2b95e",
+      "signature": "6bd1c041b00daa39b767e076daafd260",
       "file": true,
-      "replaced": "^1.0.6"
+      "replaced": "^1.0.9"
     },
     "docs-renderer-vue2": {
-      "signature": "9bc8ff73d58341a9c6bc43e6f297dd25",
-      "file": true
+      "signature": "5d6c1e873ebdaaa03ef871e2063532ba",
+      "file": true,
+      "replaced": "^0.2.0"
     }
   }
 }
