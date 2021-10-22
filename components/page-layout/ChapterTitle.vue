@@ -10,18 +10,9 @@
 
 <script>
 export default {
-  inject: ["metadata"],
-  computed: {
-    title () {
-      if (this.metadata) {
-        return this.metadata.title
-      }
-    },
-    subtitle () {
-      if (this.metadata) {
-        return this.metadata.subtitle
-      }
-    }
-  }
+  props: {
+    title: String,
+    subtitle: String
+  },
 }
 </script>

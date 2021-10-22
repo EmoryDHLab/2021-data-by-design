@@ -25,10 +25,10 @@ export default {
 /*  grid: inherit;*/
 /*}*/
 
-.middle-subgrid > p {
+.middle-subgrid > p, .middle-subgrid > .middle-text {
   @apply col-span-6 2xl:col-span-8 col-start-3 2xl:col-start-4
 }
-.middle-subgrid > div {
+.middle-subgrid > div.middle-full {
   @apply col-span-full
 }
 

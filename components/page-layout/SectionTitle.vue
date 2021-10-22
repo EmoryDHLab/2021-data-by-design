@@ -1,7 +1,7 @@
 <template>
   <GridLayout>
     <div class="chapter-title col-span-6 2xl:col-span-8 col-start-3 2xl:col-start-4 relative">
-      <div class="background w-full h-full absolute">
+      <div class="opacity-50 bg-theme w-full h-full absolute">
       </div>
       <div class="title-text p-4 relative font-william font-bold text-xl lg:text-4xl flex justify-center items-center">
         <span>{{title}}</span>
@@ -23,12 +23,3 @@ export default {
   }
 }
 </script>
-<style>
-
-/*Splitting the chapter title into two divs allows us to set an opacity on just the background*/
-.chapter-title .background {
-  background-color: var(--primaryColor);
-  opacity: 50%;
-}
-
-</style>

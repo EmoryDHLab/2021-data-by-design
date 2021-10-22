@@ -1,9 +1,11 @@
 <template>
   <div class="chapter-root bg-black" :style="themeVars">
-    <MobileTitleNav v-if="$isMobile"></MobileTitleNav>
-    <ChapterTitle v-else></ChapterTitle>
+    <template v-if="metadata">
+      <MobileTitleNav v-if="$isMobile" :title="metadata.title"></MobileTitleNav>
+      <ChapterTitle v-else :title="metadata.title" :subtitle="metadata.subtitle"></ChapterTitle>
+    </template>
     <ChapterNav></ChapterNav>
-    <div v-if="mounted" class="chapter-flex flex bg-offwhite">
+    <div v-if="docsComponents.loaded" class="chapter-flex flex bg-offwhite">
       <div class="h-full flex-grow">
       </div>
       <ChapterContent :chapter-sections="chapterSections"/>
@@ -23,9 +25,7 @@ import ChapterFooter from "./ChapterFooter.vue";
 import ChapterNav from "./ChapterNav.vue";
 import ChapterContent from "./ChapterContent";
 import MobileTitleNav from "@/components/page-layout/MobileTitleNav";
-import { globalDefinitions } from "@/components/docs-renderer/components";
-
-
+import { globalDefinitions, chapterDefinitions, chapterComponents } from "@/components/docs-renderer/componentImports";
 
 export default {
   props: {
@@ -42,16 +42,25 @@ export default {
     return {
       theme: this.theme,
       docsRenderer: this.docsRendererComponent,
-      metadata: this.metadata
+      docsComponents: this.docsComponents,
     }
   },
   data () {
     return {
-      mounted: false
+      mounted: false,
+      docsComponents: {
+        loaded: false,
+        definitions: [],
+        components: {},
+      },
     }
   },
-  mounted () {
-    this.mounted = true;
+  created () {
+    const loadDefinitions = chapterDefinitions(this.config.id).then(definitions => this.docsComponents.definitions = definitions);
+    const loadComponents = chapterComponents(this.config.id).then(components => this.docsComponents.components = components);
+    Promise.all([loadDefinitions, loadComponents]).then(() => {
+      this.docsComponents.loaded = true;
+    });
   },
   computed: {
     docsRendererComponent () {
@@ -75,33 +84,39 @@ export default {
       )
     },
     components() {
-      return componentsFromDoc({
-        components: globalDefinitions,
-        classProp: "class"
-      }, this.docData).body;
+      if (this.docsComponents.loaded) {
+        const componentDefinitions = [...globalDefinitions, ...this.docsComponents.definitions];
+        const components = componentsFromDoc({
+          components: componentDefinitions,
+          classProp: "class"
+        }, this.docData).body;
+        return components;
+      }
     },
     divisions() {
-      const metadataDef = {
-        name: "metadata",
-        start: "Metadata",
-        end: "End Metadata"
-      }
+      if (this.components) {
+        const metadataDef = {
+          name: "metadata",
+          start: "Metadata",
+          end: "End Metadata"
+        }
 
-      const sectionDef = {
-        name: "section",
-        start: "Section",
-        endByNextStart: true,
-        endByContentEnd: true
-      }
+        const sectionDef = {
+          name: "section",
+          start: "Section",
+          endByNextStart: true,
+          endByContentEnd: true
+        }
 
-      const sectionData = findSections(this.components, [sectionDef, metadataDef]);
-      return sectionData;
+        const sectionData = findSections(this.components, [sectionDef, metadataDef]);
+        return sectionData;
+      }
     },
     chapterSections() {
       if (!this.divisions) return [];
       const sectionsData = this.divisions.section;
       const metadataEnd = this.divisions.metadata[0].endIndex;
-      const firstSectionComponents = this.components.slice(metadataEnd + 1, sectionsData[0].startIndex);
+      const firstSectionComponents = this.components.slice(metadataEnd + 1, sectionsData[0]?.startIndex || this.components.length);
       const sections = [
         {title: false, components: firstSectionComponents},
         ...sectionsData.map(section => ({

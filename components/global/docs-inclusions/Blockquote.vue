@@ -1,7 +1,11 @@
 <template>
-  <div class="md:my-16 text-xl flex flex-col text-blue-500">
-    <slot name="quote"></slot>
-    <slot name="attribution"></slot>
+  <div class="md:my-16 middle-text flex flex-col">
+    <div class="font-william">
+      <slot name="quote"></slot>
+    </div>
+    <div class="font-sans text-lg text-gray-500">
+      <slot name="attribution"></slot>
+    </div>
 <!--    <div class="bg-theme font-william grid grid-cols-8 py-9">-->
 <!--      <div class="col-start-2 col-end-8">-->
 <!--        <div class="big text-xl lg:text-2xl xl:text-4xl">-->
@@ -28,9 +32,4 @@ export default {
 </script>
 
 <style scoped>
-
-
-.big p:last-child {
-  margin-block-end: 0.5em;
-}
 </style>

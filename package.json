@@ -13,9 +13,9 @@
     "core-js": "3",
     "csv-parse": "^4.16.0",
     "d3": "^7.0.0",
-    "docs-renderer-vue2": "^0.2.0",
+    "docs-renderer-vue2": "latest",
     "glob": "^7.1.7",
-    "google-docs-components": "^1.0.9",
+    "google-docs-components": "latest",
     "google-docs-parser": "latest",
     "gsap": "^3.7.0",
     "nuxt": "^2.15.3"
