@@ -14,6 +14,7 @@
     </div>
     <ChapterFooter v-if="!$isMobile">
     </ChapterFooter>
+    <SiteFooter v-if="!$isMobile"></SiteFooter>
   </div>
 </template>
 
@@ -25,6 +26,8 @@ import ChapterFooter from "./ChapterFooter.vue";
 import ChapterNav from "./ChapterNav.vue";
 import ChapterContent from "./ChapterContent";
 import MobileTitleNav from "@/components/page-layout/MobileTitleNav";
+import SiteFooter from "./SiteFooter";
+
 import { globalDefinitions, chapterDefinitions, chapterComponents } from "@/components/docs-renderer/componentImports";
 
 export default {
@@ -37,7 +40,7 @@ export default {
       type: Object
     }
   },
-  components: {ChapterContent, ChapterTitle, MobileTitleNav, ChapterNav, ChapterFooter},
+  components: {ChapterContent, ChapterTitle, MobileTitleNav, ChapterNav, ChapterFooter, SiteFooter},
   provide () {
     return {
       theme: this.theme,

@@ -1,38 +1,45 @@
 <template>
-  <div class="container">
-<!--    <NuxtLink to="/chapters/peabody">Peabody</NuxtLink>-->
-    <div class="big-title">
-      <span class="line-one">DATA BY</span>
-      <span class="line-two">DESIGN</span>
-    </div>
-    <div class="subtitle">
-      An Interactive History of Data Visualization<br>
-      1786-1900
-    </div>
-    <div class="question-one">
-        What is the story we tell about the emergence of modern data visualization?
+  <div>
+    <div class="container">
+  <!--    <NuxtLink to="/chapters/peabody">Peabody</NuxtLink>-->
+      <div class="big-title">
+        <span class="line-one">DATA BY</span>
+        <span class="line-two">DESIGN</span>
       </div>
-    <div class="question-two">
-      How might we tell that story differently?
+      <div class="subtitle">
+        An Interactive History of Data Visualization<br>
+        1786-1900
+      </div>
+      <div class="question-one">
+          What is the story we tell about the emergence of modern data visualization?
+        </div>
+      <div class="question-two">
+        How might we tell that story differently?
+      </div>
+      <div class="cover-img-container"></div>
+      <Captioned class="cover-img">
+        <img src="../assets/images/ch5-08b-amalg.jpg"></img>
+        <template v-slot:caption>
+          <span :style="{color: 'white'}">
+            The Amalgamation of White and Black elements of the population in the United States by W.E.B Du Bois.
+          Atlanta University. Library of Congress.
+          </span>
+        </template>
+      </Captioned>
+      <div class="about self-center">
+        <span class="about-title">ABOUT THE SITE</span>
+      </div>
     </div>
-    <div class="cover-img-container"></div>
-    <Captioned class="cover-img">
-      <img src="../assets/images/ch5-08b-amalg.jpg"></img>
-      <template v-slot:caption>
-        <span :style="{color: 'white'}">
-          The Amalgamation of White and Black elements of the population in the United States by W.E.B Du Bois.
-        Atlanta University. Library of Congress.
-        </span>
-      </template>
-    </Captioned>
+    <SiteFooter v-if="!$isMobile" class="bg-royalblue text-offwhite"></SiteFooter>
   </div>
 </template>
 
 <script>
 import LocalImage from "@/components/global/docs-inclusions/LocalImage.vue";
 import Captioned from "@/components/global/docs-inclusions/Captioned.vue";
+import SiteFooter from "../components/page-layout/SiteFooter";
 export default {
-  components: {Captioned}
+  components: {Captioned, SiteFooter}
 }
 </script>
 <style>
@@ -40,7 +47,7 @@ export default {
   background-color: black;
   display: grid;
   grid-template-columns: repeat(14, 1fr);
-  grid-template-rows: repeat(10, 81px);
+  grid-template-rows: repeat(30, 81px);
   width: 100%;
   color: white;
   font-family: "VTC William";
@@ -99,6 +106,17 @@ export default {
 
 .cover-img img {
   max-width: 100%;
+}
+
+.about {
+  display: grid;
+  grid-column: 2 / -2;
+  grid-row: 20 / span 5;
+}
+
+.about-title {
+  font-size: 36px;
+  grid-column: 5 / span 4;
 }
 
 </style>
