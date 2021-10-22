@@ -223,9 +223,6 @@ export default {
     this.totalHeight = this.$refs.scrolly.clientHeight;
     setTimeout(() => {
 
-      console.log(this.$refs);
-
-
       const groups = [this.$refs.buffer, ...this.$refs.groups];
 
       if (this.collect) {

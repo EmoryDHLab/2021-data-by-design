@@ -3,8 +3,6 @@ import { theme } from "~tailwind.config"
 
 export default (options, inject) => {
 
-  console.log("in plugin", theme.screens)
-
   const screens = Object.entries(theme.screens)
     .map( ([key, value]) => ({
         name: key,
@@ -13,10 +11,13 @@ export default (options, inject) => {
     ).sort((a, b) => (b.min - a.min));
 
   const state = Vue.observable({
-    windowWidth: window.innerWidth
+    windowWidth: undefined
   })
 
   Vue.mixin({
+    mounted () {
+      state.windowWidth = window.innerWidth;
+    },
     computed: {
       $breakpoint () {
         const widestReached = screens.find(screen => state.windowWidth > screen.min);
@@ -33,8 +34,10 @@ export default (options, inject) => {
     }
   })
 
-  window.onresize = () => {
-    state.windowWidth = window.innerWidth;
+  if (process.client) {
+    window.onresize = () => {
+      state.windowWidth = window.innerWidth;
+    }
   }
 
 }
