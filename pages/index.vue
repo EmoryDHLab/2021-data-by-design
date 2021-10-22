@@ -1,58 +1,45 @@
 <template>
-  <div class="container">
-<!--    <NuxtLink to="/chapters/peabody">Peabody</NuxtLink>-->
-    <div class="big-title">
-      <span class="line-one">DATA BY</span>
-      <span class="line-two">DESIGN</span>
-    </div>
-    <div class="subtitle">
-      An Interactive History of Data Visualization<br>
-      1786-1900
-    </div>
-    <div class="question-one">
-        What is the story we tell about the emergence of modern data visualization?
+  <div>
+    <div class="container">
+  <!--    <NuxtLink to="/chapters/peabody">Peabody</NuxtLink>-->
+      <div class="big-title">
+        <span class="line-one">DATA BY</span>
+        <span class="line-two">DESIGN</span>
       </div>
-    <div class="question-two">
-      How might we tell that story differently?
-    </div>
-    <div class="cover-img-container"></div>
-    <Captioned class="cover-img">
-      <img src="../assets/images/ch5-08b-amalg.jpg"></img>
-      <template v-slot:caption>
-        <span :style="{color: 'white'}">
-          The Amalgamation of White and Black elements of the population in the United States by W.E.B Du Bois.
-        Atlanta University. Library of Congress.
-        </span>
-      </template>
-    </Captioned>
-    <div class="about self-center">
-      <span class="about-title">ABOUT THE SITE</span>
-    </div>
-    <div class="footer">
-      <span class="ft-title">Data By Design</span>
-      <div class="ft-txt1">Designed and developed by the Georgia Tech / Emory Digital Humanities Lab in collaboration with Polymode.</div>
-      <div class="ft-mid">
-        Data by Design has been generously funded by a 2018-2019 NEH-Mellon Fellowship for Digital Publication.
-        <br/>
-        <br/>
-        <br/>
-        Additional research for this project was completed through fellowships from the American Antiquarian Society and the Library Company of Philadelphia.
+      <div class="subtitle">
+        An Interactive History of Data Visualization<br>
+        1786-1900
       </div>
-      <div class="ft-right">
-        Email <br/>
-        Facebook <br/>
-        Contact <br/>
+      <div class="question-one">
+          What is the story we tell about the emergence of modern data visualization?
+        </div>
+      <div class="question-two">
+        How might we tell that story differently?
       </div>
-
+      <div class="cover-img-container"></div>
+      <Captioned class="cover-img">
+        <img src="../assets/images/ch5-08b-amalg.jpg"></img>
+        <template v-slot:caption>
+          <span :style="{color: 'white'}">
+            The Amalgamation of White and Black elements of the population in the United States by W.E.B Du Bois.
+          Atlanta University. Library of Congress.
+          </span>
+        </template>
+      </Captioned>
+      <div class="about self-center">
+        <span class="about-title">ABOUT THE SITE</span>
+      </div>
     </div>
+    <SiteFooter v-if="!$isMobile" class="bg-royalblue text-offwhite"></SiteFooter>
   </div>
 </template>
 
 <script>
 import LocalImage from "@/components/global/docs-inclusions/LocalImage.vue";
 import Captioned from "@/components/global/docs-inclusions/Captioned.vue";
+import SiteFooter from "../components/page-layout/SiteFooter";
 export default {
-  components: {Captioned}
+  components: {Captioned, SiteFooter}
 }
 </script>
 <style>
@@ -130,39 +117,6 @@ export default {
 .about-title {
   font-size: 36px;
   grid-column: 5 / span 4;
-}
-
-.footer {
-  display: grid;
-  background-color: #3B6FE0;
-  grid-column: 1 / -1;
-  grid-row: span 4 / -1;
-  grid-template-columns: repeat(15, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-}
-
-.ft-title {
-  font-size: 36px;
-  grid-column: 2 / 6;
-  grid-row: 2 / 4;
-}
-
-.ft-txt1 {
-  font-size: 14px;
-  grid-column: 2 / span 5;
-  grid-row: 5 / 6;
-}
-
-.ft-mid {
-  font-size: 14px;
-  grid-column: 7 / span 4;
-  grid-row: 3 / 6;
-}
-
-.ft-right {
-  font-size: 14px;
-  grid-column: 12 / span 4;
-  grid-row: 3 / 6;
 }
 
 </style>

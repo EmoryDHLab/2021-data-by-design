@@ -13,7 +13,8 @@ module.exports = {
         '14': 'repeat(14, minmax(0, 1fr))',
       },
       colors: {
-        offwhite: "#FAF1E9"
+        offwhite: "#FAF1E9",
+        royalblue: "#3B6FE0"
       },
       inset: {
         screen: '100vh',
