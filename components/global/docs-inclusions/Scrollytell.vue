@@ -63,7 +63,7 @@
 <script>
 import gsap from "gsap"
 import {ScrollTrigger} from "gsap/ScrollTrigger";
-import GridLayout from "@/components/page-layout/GridLayout.vue";
+import GridLayout from "@/components/page/chapter/layout/GridLayout.vue";
 import Vue from "vue";
 
 if (process.client)

@@ -10,7 +10,7 @@
   </GridLayout>
 </template>
 <script>
-import GridLayout from "./GridLayout.vue"
+import GridLayout from "../../layout/GridLayout.vue"
 
 export default {
   name: 'SectionTitle',

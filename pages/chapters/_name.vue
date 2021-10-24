@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ChapterLayout from "~/components/page-layout/ChapterLayout";
+import ChapterLayout from "~/components/page/chapter/ChapterLayout";
 import Renderer from "docs-renderer-vue2"
 
 import chaptersConfig from "@/chapters-config"

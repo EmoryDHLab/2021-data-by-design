@@ -12,11 +12,11 @@
   </div>
 </template>
 <script>
-import ChapterSection from "~/components/page-layout/ChapterSection"
-import ChapterSectionMobile from "./ChapterSectionMobile";
+import ChapterSection from "./section/ChapterSection"
+import ChapterSectionMobile from "./section/ChapterSectionMobile";
 import {mapMutations, mapState} from "vuex";
 import {renderGroups} from "./renderGroups";
-import ChapterTitle from "@/components/page-layout/ChapterTitle";
+import ChapterTitle from "@/components/page/chapter/nav/ChapterTitle";
 
 export default {
   name: 'ChapterComponent',

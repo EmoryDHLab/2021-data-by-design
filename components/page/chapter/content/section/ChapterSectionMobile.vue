@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import GridLayout from "./GridLayout.vue";
-import LeaderFollowPair from "./LeaderFollowPair.vue";
+import GridLayout from "../../layout/GridLayout.vue";
+import LeaderFollowPair from "../../layout/LeaderFollowPair.vue";
 import SectionTitle from "./SectionTitle";
 
 export default {

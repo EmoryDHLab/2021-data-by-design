@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import GridLayout from "@/components/page-layout/GridLayout";
+import GridLayout from "./GridLayout";
 
 export default {
   components: {GridLayout},
