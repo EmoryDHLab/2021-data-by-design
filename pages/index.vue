@@ -37,7 +37,7 @@
 <script>
 import LocalImage from "@/components/global/docs-inclusions/LocalImage.vue";
 import Captioned from "@/components/global/docs-inclusions/Captioned.vue";
-import SiteFooter from "../components/page-layout/SiteFooter";
+import SiteFooter from "../components/page/sitewide/SiteFooter";
 export default {
   components: {Captioned, SiteFooter}
 }
