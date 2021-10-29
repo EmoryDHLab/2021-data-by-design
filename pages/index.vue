@@ -1,45 +1,17 @@
 <template>
   <div>
-    <div class="container">
-  <!--    <NuxtLink to="/chapters/peabody">Peabody</NuxtLink>-->
-      <div class="big-title">
-        <span class="line-one">DATA BY</span>
-        <span class="line-two">DESIGN</span>
-      </div>
-      <div class="subtitle">
-        An Interactive History of Data Visualization<br>
-        1786-1900
-      </div>
-      <div class="question-one">
-          What is the story we tell about the emergence of modern data visualization?
-        </div>
-      <div class="question-two">
-        How might we tell that story differently?
-      </div>
-      <div class="cover-img-container"></div>
-      <Captioned class="cover-img">
-        <img src="../assets/images/ch5-08b-amalg.jpg"></img>
-        <template v-slot:caption>
-          <span :style="{color: 'white'}">
-            The Amalgamation of White and Black elements of the population in the United States by W.E.B Du Bois.
-          Atlanta University. Library of Congress.
-          </span>
-        </template>
-      </Captioned>
-      <div class="about self-center">
-        <span class="about-title">ABOUT THE SITE</span>
-      </div>
-    </div>
+    <FrontPageTitle></FrontPageTitle>
+    <AboutSite></AboutSite>
     <SiteFooter v-if="!$isMobile" class="bg-royalblue text-offwhite"></SiteFooter>
   </div>
 </template>
 
 <script>
-import LocalImage from "@/components/global/docs-inclusions/LocalImage.vue";
-import Captioned from "@/components/global/docs-inclusions/Captioned.vue";
 import SiteFooter from "../components/page/sitewide/SiteFooter";
+import FrontPageTitle from "../components/page/frontpage/FrontPageTitle";
+import AboutSite from "../components/page/frontpage/AboutSite";
 export default {
-  components: {Captioned, SiteFooter}
+  components: {FrontPageTitle, SiteFooter, AboutSite}
 }
 </script>
 <style>

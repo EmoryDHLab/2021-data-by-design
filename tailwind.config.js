@@ -19,7 +19,13 @@ module.exports = {
       inset: {
         screen: '100vh',
         '-screen': '-100vh'
-      }
+      },
+      fontSize: {
+        frontTitle: '14rem',
+      },
+      lineHeight: {
+        veryTight: '0.8',
+      },
     },
   },
   variants: {
