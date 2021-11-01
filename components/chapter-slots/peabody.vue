@@ -2,7 +2,7 @@
   <Slots>
 
     <template v-for="i in [1,2,3]" v-slot:[slots.hoverText(i)]="{inner}">
-      <HoverText v-html="inner" @mouseover.native="hoverTextOver(i)" @mouseout.native="hoverTextOut"></HoverText>
+      <HoverText :key="slots.hoverText(i)" v-html="inner" @mouseover.native="hoverTextOver(i)" @mouseout.native="hoverTextOut"></HoverText>
     </template>
 
     <template v-slot:[slots.mapScroller]>
@@ -30,8 +30,9 @@
       ></PeabodyTutorial>
     </template>
 
-    <template v-slot:[slots.peabodyTimeline]>
+    <template v-slot:[slots.testSlot]>
       <StaticData :dataset="['peabody1600s']" v-slot="data">
+        hi {{data}}
       </StaticData>
     </template>
   </Slots>
@@ -46,6 +47,7 @@ import Captioned from "../global/docs-inclusions/Captioned.vue";
 import HoverText from "../global/HoverText";
 import StaticData from "@/components/data-access/StaticData";
 
+
 export default {
   components: {StaticData, PeabodyTutorial, MapScroller, MoveBorder, Captioned, HoverText},
   mixins: [ChapterSlots],
@@ -54,7 +56,7 @@ export default {
       slots: {
         hoverText: (n) => `Hover${n}`,
         mapScroller: "Map Scroller",
-        peabodyTimeline: "Peabody With Timeline",
+        testSlot: "Test Slot"
       }
     }
   },

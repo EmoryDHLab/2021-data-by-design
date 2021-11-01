@@ -1,9 +1,11 @@
 <template>
   <GridLayout>
-    <div class="w-10">
+    <div class="w-14">
       <EventSquare :colors="['blue', 'green']"/>
     </div>
+
   </GridLayout>
+
 </template>
 
 <script>
