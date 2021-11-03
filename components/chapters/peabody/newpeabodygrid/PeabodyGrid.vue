@@ -1,40 +1,27 @@
 <template>
-  <!--  <div>-->
-  <svg :id="id" :width="width" :height="height" :viewBox="getViewBox">
-    <rect class="bg" :width="getSVGWidth" :height="getSVGWidth" />
-    <g :style="translateCentury">
+  <svg class="w-full h-full" viewBox="0 0 99 99"> 
+    <rect class="text-peabodyorange fill-current" x="0" width="100" height="100" />
       <year-square
-        v-for="n in 100"
+        v-for="(n, i) in 100"
+        :width="yearWidth - yearWidth / 48"
+        :height="yearWidth - yearWidth / 48"
+        :x="getYearXFromIndex(i)"
+        :y="getYearYFromIndex(i)"
         :showSquares="showSquares"
         :highlightedSquare="n == highlightedYear ? highlightedSquare : null"
-        :key="n - 1"
-        :sizes="options.sizes"
+        :key="i"
         :actorColors="actorColors"
         :class="`year-square-${n}`"
-        :style="translateYear(n - 1)"
-        :yearData="getYearData(n - 1)"
-        :year="getYear(n - 1)"
+        :yearData="getYearData(i)"
+        :year="getYear(i)"
       />
-    </g>
   </svg>
-  <!--  </div>-->
 </template>
 
 <script>
-import YearSquare from "./YearSquare";
 import Visualization from "~/components/mixins/Visualization";
 import { actorColors, dataToYears } from "./PeabodyUtils";
-
-const DEFAULT_OPTIONS = {
-  sizes: {
-    line: {
-      sm: 1,
-      md: 2,
-      lg: 20,
-    },
-    rect: 16,
-  },
-};
+import YearSquare from './YearSquare.vue';
 
 export const docsDefinition = {
   matchName: ["PeabodyGrid"],
@@ -44,9 +31,6 @@ export const docsDefinition = {
 
 export default {
   props: {
-    width: String,
-    height: String,
-    id: String,
     highlighted: {
       type: Number,
       validator(number) {
@@ -56,17 +40,14 @@ export default {
         return oneDigitDecimal && number >= 1 && number < 101;
       },
     },
-    options: {
-      // styles and other internal visualization stuff
-      type: Object,
-      required: false,
-      default: () => DEFAULT_OPTIONS,
-    },
-    staticDataset: {
-      type: String,
-    },
-    mutableDataset: {
-      type: String,
+    yearsData: {
+      type: Array,
+      validator(arr) {
+        return arr?.every(yearObj => {
+          const requiredKeys = ["event", "year", "squares", "actors"];
+          return requiredKeys.every(key => key in yearObj);
+        })
+      }
     },
     showSquares: {
       type: Boolean,
@@ -79,9 +60,13 @@ export default {
       },
     },
   },
-  mixins: [Visualization({ notebookName: "PeabodyGrid" })],
   components: {
-    "year-square": YearSquare,
+    YearSquare,
+  },
+  data () {
+    return {
+    yearWidth: 9
+    }
   },
   computed: {
     // mutableId() {
@@ -92,41 +77,14 @@ export default {
     // formattedData() {
     //   return this.dataFormatter(this.data)
     // },
-    sizes() {
-      return this.options.sizes;
-    },
-    evtWidth() {
-      return this.sizes.rect + this.sizes.line.sm;
-    },
-    yearWidth() {
-      return this.evtWidth * 3 + this.sizes.line.md - this.sizes.line.sm;
-    },
     years() {
       try {
-        if (this.data && Array.isArray(this.data) && this.data.length > 0) {
-          return dataToYears(this.data);
+        if (this.yearsData && this.yearsData.length > 0) {
+          return dataToYears(this.yearsData);
         }
       } catch (error) {
         console.error("Error in processing Peabody data", error);
       }
-    },
-    translateCentury() {
-      return {
-        transform:
-          "translate(" +
-          this.sizes.line.lg +
-          "px," +
-          this.sizes.line.lg +
-          "px)",
-      };
-    },
-    getSVGWidth() {
-      return (
-        this.sizes.rect * 30 +
-        this.sizes.line.sm * 20 +
-        this.sizes.line.md * 8 +
-        this.sizes.line.lg * 3
-      ).toString();
     },
     isEmpty() {
       if (this.years && typeof this.years === "object") {
@@ -137,10 +95,6 @@ export default {
     startYear() {
       if (this.isEmpty) return 0;
       return 1 + Math.round(Math.min(...Object.keys(this.years)) / 100) * 100;
-    },
-    getViewBox() {
-      let width = this.getSVGWidth;
-      return "0 0 " + width + " " + width;
     },
     highlightedYear() {
       return Math.floor(this.highlighted);
@@ -161,40 +115,12 @@ export default {
     },
     getYearXFromIndex(ind) {
       let j = ind % 10;
-      return j * this.yearWidth + (j > 4 ? 20 - this.sizes.line.md : 0);
+      return 3 + j * this.yearWidth + (j > 4 ? 3 : 0);
     },
     getYearYFromIndex(ind) {
       let i = Math.floor(ind / 10);
-      return i * this.yearWidth + (i > 4 ? 20 - this.sizes.line.md : 0);
-    },
-    translateYear(n) {
-      return {
-        transform:
-          "translate(" +
-          this.getYearXFromIndex(n) +
-          "px," +
-          this.getYearYFromIndex(n) +
-          "px)",
-      };
+      return 3 + i * this.yearWidth + (i > 4 ? 3 : 0);
     },
   },
 };
 </script>
-<style scoped>
-rect.bg {
-  fill: rgb(219, 136, 42);
-}
-</style>
-
-<!--
-data = [
-  {year: 1820, color: #fff, actor: greg, eventType: 0, description: ,},
-  {year: 1827, color: #eee, actor: jan, eventType: 2, description: ,},
-  {year: 1819, color: #ddd, actor: tony, eventType: 1, description: ,},
-  {year: 1830, color: #ddd, actor: tony, eventType: 5, description: ,},
-  {year: 1830, color: #ddd, actor: tony, eventType: 8, description: ,},
-  {year: 1830, color: #ddd, actor: tony, eventType: 7, description: ,},
-  {year: 1830, color: #eee, actor: jan, eventType: 7, description: ,},
-  {year: 1830, color: #fff, actor: greg, eventType: 4, description: ,}
-]
--->

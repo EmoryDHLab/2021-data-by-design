@@ -1,11 +1,11 @@
 <template>
-  <g>
-    <rect :class="showSquares ? 'bg-gray' : 'bg-white'" :width='bgSize' :height='bgSize'/>
+  <svg viewBox="0 0 90 90">
+    <rect :class="showSquares ? 'bg-gray' : 'bg-white'" :width="90" :height="90"/>
     <EventSquare
       v-show="showSquares"
       v-for='n in 9'
-      :width="sizes.rect + 1"
-      :height="sizes.rect + 1"
+      :width="30"
+      :height="30"
       :highlighted="highlightedSquare == n"
       :key='n'
       :type="n"
@@ -15,19 +15,16 @@
       :colors="getEventData(n)"
       v-on="eventListeners"
       />
-  </g>
+  </svg>
 </template>
+
 <script>
 import EventSquare, { events } from './EventSquare'
 import {actorColors} from "./PeabodyUtils";
-import { injects } from "~/components/mixins/Visualization";
 
 // const EventSquareInjected = Object.assign({ injects: [injects.registerEvents, injects.calcWidth, injects.data]}, EventSquare);
 
 export default {
-  inject: [
-    injects.registerEvents
-  ],
   props: {
     yearData: {
       type: Array,
@@ -50,16 +47,12 @@ export default {
       type: Boolean,
       default: true
     },
-    sizes: {
-      type: Object,
-      required: true
-    }
   },
   components: {EventSquare},
   created() {
-    if (this.registerEvents) {
-      this.registerEvents(this, Object.values(events))
-    }
+    // if (this.registerEvents) {
+    //   this.registerEvents(this, Object.values(events))
+    // }
   },
   mounted() {
     // if (this.yearData) {
@@ -67,12 +60,6 @@ export default {
     // }
   },
   computed: {
-    evtWidth () {
-      return this.sizes.rect + this.sizes.line.sm
-    },
-    bgSize () {
-      return this.sizes.rect * 3 + 2 * this.sizes.line.sm
-    },
     colorData () {
       return this.yearData.map( squareObj =>
         squareObj ? squareObj.actors.map(actor => this.actorColors[actor]) : [false])
@@ -84,10 +71,10 @@ export default {
   },
   methods: {
     getEventXFromIndex (i) {
-      return (i % 3) * (this.evtWidth)
+      return (i % 3) * (30)
     },
     getEventYFromIndex (i) {
-      return Math.floor(i / 3) * (this.evtWidth)
+      return Math.floor(i / 3) * (30)
     },
     // styles (n) {
     //   return {

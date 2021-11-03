@@ -1,6 +1,5 @@
 <template>
   <Slots>
-
     <template v-for="i in [1,2,3]" v-slot:[slots.hoverText(i)]="{inner}">
       <HoverText :key="slots.hoverText(i)" v-html="inner" @mouseover.native="hoverTextOver(i)" @mouseout.native="hoverTextOut"></HoverText>
     </template>
@@ -31,10 +30,13 @@
     </template>
 
     <template v-slot:[slots.testSlot]>
-      <StaticData :dataset="['peabody1600s']" v-slot="data">
-        hi {{data}}
-      </StaticData>
+      <div class="w-full border-2">
+        <StaticData :dataset="['peabody1600s']" v-slot="data">
+          <PeabodyGrid :yearsData="data.peabody1600s"></PeabodyGrid>
+        </StaticData>
+      </div>
     </template>
+
   </Slots>
 </template>
 
@@ -46,10 +48,10 @@ import MapScroller from "../global/MapScroller.vue";
 import Captioned from "../global/docs-inclusions/Captioned.vue";
 import HoverText from "../global/HoverText";
 import StaticData from "@/components/data-access/StaticData";
-
+import PeabodyGrid from "../chapters/peabody/newpeabodygrid/PeabodyGrid.vue";
 
 export default {
-  components: {StaticData, PeabodyTutorial, MapScroller, MoveBorder, Captioned, HoverText},
+  components: { StaticData, PeabodyTutorial, MapScroller, MoveBorder, Captioned, HoverText, PeabodyGrid },
   mixins: [ChapterSlots],
   data() {
     return {
