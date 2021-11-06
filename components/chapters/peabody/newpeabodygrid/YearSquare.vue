@@ -1,6 +1,6 @@
 <template>
   <svg viewBox="0 0 90 90">
-    <rect :class="showSquares ? 'bg-gray' : 'bg-white'" :width="90" :height="90"/>
+    <rect :class="showSquares ? 'text-gray-200' : 'text-white'" class="fill-current" :width="90" :height="90"/>
     <EventSquare
       v-show="showSquares"
       v-for='n in 9'
@@ -91,12 +91,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-  .bg-gray {
-    fill: #d8d8d8;
-  }
-
-  .bg-white {
-    fill: #fefefe;
-  }
-</style>

@@ -14,3 +14,4 @@ export default {
   components: {FrontPageTitle, SiteFooter, AboutSite}
 }
 </script>
+

@@ -1,5 +1,5 @@
 <template>
-  <svg class="w-full h-full" viewBox="0 0 99 99"> 
+  <svg class="w-full h-full" viewBox="0 0 99 99">
     <rect class="text-peabodyorange fill-current" x="0" width="100" height="100" />
       <year-square
         v-for="(n, i) in 100"
@@ -69,14 +69,6 @@ export default {
     }
   },
   computed: {
-    // mutableId() {
-    //   if (this.mutable) {
-    //     return this.id;
-    //   }
-    // },
-    // formattedData() {
-    //   return this.dataFormatter(this.data)
-    // },
     years() {
       try {
         if (this.yearsData && this.yearsData.length > 0) {
