@@ -7,6 +7,7 @@
         :height="yearWidth - yearWidth / 48"
         :x="getYearXFromIndex(i)"
         :y="getYearYFromIndex(i)"
+
         :showSquares="showSquares"
         :highlightedSquare="n == highlightedYear ? highlightedSquare : null"
         :key="i"
@@ -20,7 +21,7 @@
 
 <script>
 import Visualization from "~/components/mixins/Visualization";
-import { actorColors, dataToYears } from "./PeabodyUtils";
+import { actorColors, dataToYears } from "../peabody-utils";
 import YearSquare from './YearSquare.vue';
 
 export const docsDefinition = {

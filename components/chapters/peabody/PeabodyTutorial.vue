@@ -106,8 +106,8 @@
 </template>
 
 <script>
-import PeabodyGrid from './newpeabodygrid/PeabodyGrid'
-import EventKey from './EventKey'
+import PeabodyGrid from './grid/PeabodyGrid'
+import EventKey from './key/EventKeyBox'
 import Visualization from "~/components/mixins/Visualization";
 
 export const docsDefinition = {

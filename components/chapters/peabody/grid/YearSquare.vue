@@ -20,7 +20,7 @@
 
 <script>
 import EventSquare, { events } from './EventSquare'
-import {actorColors} from "./PeabodyUtils";
+import {actorColors} from "../peabody-utils";
 
 // const EventSquareInjected = Object.assign({ injects: [injects.registerEvents, injects.calcWidth, injects.data]}, EventSquare);
 

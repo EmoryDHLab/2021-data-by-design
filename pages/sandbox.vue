@@ -10,7 +10,7 @@
 
 <script>
 
-import EventSquare from "@/components/chapters/peabody/newpeabodygrid/EventSquare"
+import EventSquare from "@/components/chapters/peabody/grid/EventSquare"
 export default {
   components: {EventSquare}
 }
