@@ -8,12 +8,12 @@
         class="font-sans text-white text-xl"
         v-for="page in pages"
         @mouseover="onHover(page)"
-        @mouseleave="onLeave(page)"
+        @mouseleave="onLeave()"
       >
         <NuxtLink :to="page.to">{{ page.name }}</NuxtLink>
         <div
           v-if="page.children"
-          class="absolute z-20 border divide-y"
+          class="absolute z-20 top-10 border divide-y"
           :class="{
             visible: hoverPage == page.name,
             invisible: hoverPage != page.name
@@ -21,7 +21,7 @@
         >
           <div
             v-for="child in page.children"
-            class="bg-black text-lg  hover:bg-royalblue pl-2 pr-3 pb-0.5 pt-0.5"
+            class="bg-black text-lg hover:bg-royalblue pl-2 pr-3 pb-0.5 pt-0.5"
           >
             <NuxtLink :to="child.to">{{ child.name }}</NuxtLink>
           </div>
@@ -66,7 +66,7 @@ export default {
     onHover(page) {
       this.hoverPage = page.name;
     },
-    onLeave(page) {
+    onLeave() {
       this.hoverPage = "";
     }
   }
