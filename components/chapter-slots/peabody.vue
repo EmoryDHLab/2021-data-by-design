@@ -23,22 +23,22 @@
         </Captioned>
     </template>
 
-    <template v-slot:PeabodyTutorialSlot>
-      <PeabodyTutorial :width="$isMobile ? '25rem' : '30rem'" :id="'whatever'"
-                       :style="{marginTop: '40px'}"
-      ></PeabodyTutorial>
-    </template>
+<!--    <template v-slot:PeabodyTutorialSlot>-->
+<!--      <PeabodyTutorial :width="$isMobile ? '25rem' : '30rem'" :id="'whatever'"-->
+<!--                       :style="{marginTop: '40px'}"-->
+<!--      ></PeabodyTutorial>-->
+<!--    </template>-->
 
     <template v-slot:[slots.testSlot]>
-<!--      <div class="w-full border-2">-->
-<!--        <StaticData :dataset="['peabody1600s']" v-slot="data">-->
-<!--          <PeabodyGrid :yearsData="data.peabody1600s"></PeabodyGrid>-->
-<!--        </StaticData>-->
-<!--      </div>-->
-      <div class="w-full flex flex-row">
-        <EventKey class="w-56 h-56" v-model="selected"></EventKey>
-        <EventLegend v-model="selected"></EventLegend>
+      <div class="w-full border-2">
+        <StaticData :dataset="['peabody1600s']" v-slot="data">
+          <PeabodyGrid :yearsData="data.peabody1600s" ></PeabodyGrid>
+        </StaticData>
       </div>
+<!--      <div class="w-full flex flex-row">-->
+<!--        <EventKey class="w-56 h-56" v-model="selected"></EventKey>-->
+<!--        <EventLegend class="absolute" v-model="selected"></EventLegend>-->
+<!--      </div>-->
     </template>
 
   </Slots>
@@ -46,7 +46,7 @@
 
 <script>
 import ChapterSlots from "@/components/mixins/ChapterSlots";
-import PeabodyTutorial from "@/components/chapters/peabody/PeabodyTutorial.vue"
+import PeabodyTutorial from "@/components/chapters/peabody/PeabodyTutorialOld.vue"
 import MoveBorder from "../global/MoveBorder";
 import MapScroller from "../global/MapScroller.vue";
 import Captioned from "../global/docs-inclusions/Captioned.vue";

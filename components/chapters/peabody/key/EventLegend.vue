@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div class="font-sans text-sm uppercase" v-for="(event, i) in legendText"
+  <div class="font-sans text-sm uppercase flex flex-col">
+    <div class="cursor-pointer" v-for="(event, i) in legendText"
          :class="{'font-bold': value == i + 1}"
-         @hover="$emit('input', i + 1)">
+         @mouseover="$emit('input', i + 1)">
       {{i + 1}} {{event}}
     </div>
   </div>

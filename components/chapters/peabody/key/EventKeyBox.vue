@@ -1,7 +1,6 @@
 <template>
   <svg class="event-key" viewBox="0 0 100 100" :id="`event-key-${_uid}`"
-    :aria-labelledby="`event-key-${_uid}-title event-key-${_uid}-desc`"
-   @mouseleave="setHovered(null)">
+    :aria-labelledby="`event-key-${_uid}-title event-key-${_uid}-desc`">
 
     <title :id="`event-key-${_uid}-title`">Event Key</title>
     <desc :id="`event-key-${_uid}-desc`"></desc>
@@ -22,16 +21,12 @@
 
         <text v-if="showNumbers"
           class="number"
-          :x="12 + (index % 3) * 30"
+          :x="10 + (index % 3) * 30"
           :y="22 + (Math.floor(index / 3)) * 30"
           :fill="textColor(color)"
         >{{index + 1}}</text>
       </g>
       <rect width="92" height="92" stroke="orange" stroke-width="3" fill="none" />
-      <rect class="highlighted-number-box" v-if="hoveredNumber != null"
-      width="30" height="30" stroke="yellow" fill="none" stroke-width="2"
-      :x="1 + (hoveredNumber % 3) * 30"
-      :y="1 + (Math.floor(hoveredNumber / 3)) * 30"/>
     </g>
   </svg>
 </template>
