@@ -13,7 +13,7 @@
         <NuxtLink :to="page.to">{{ page.name }}</NuxtLink>
         <div
           v-if="page.children"
-          class="absolute z-20"
+          class="absolute z-20 border divide-y"
           :class="{
             visible: hoverPage == page.name,
             invisible: hoverPage != page.name
@@ -21,7 +21,7 @@
         >
           <div
             v-for="child in page.children"
-            class="bg-black text-lg  hover:bg-royalblue border border-white pl-2 pr-3 pb-0.5 pt-0.5"
+            class="bg-black text-lg  hover:bg-royalblue pl-2 pr-3 pb-0.5 pt-0.5"
           >
             <NuxtLink :to="child.to">{{ child.name }}</NuxtLink>
           </div>
