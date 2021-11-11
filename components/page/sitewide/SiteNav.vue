@@ -1,18 +1,28 @@
 <template>
-  <div class="w-full bg-black flex justify-evenly">
+  <div class="w-full min-h-full bg-black flex justify-evenly">
     <div class="font-william text-white text-2xl">
-      Data by Design
+      <NuxtLink to="/">Data by Design</NuxtLink>
     </div>
     <div class="flex justify-between w-2/5">
       <div
         class="font-william text-white text-xl"
         v-for="page in pages"
         @mouseover="onHover(page)"
-        @mouseout="hoverPage = ''"
+        @mouseleave="onLeave(page)"
       >
         <NuxtLink :to="page.to">{{ page.name }}</NuxtLink>
-        <div v-if="page.children">
-          <div v-for="child in page.children">
+        <div
+          v-if="page.children"
+          class="absolute flex-column"
+          :class="{
+            visible: hoverPage == page.name,
+            invisible: hoverPage != page.name
+          }"
+        >
+          <div
+            v-for="child in page.children"
+            class="bg-black text-lg  hover:bg-royalblue border border-white pl-1 pr-3"
+          >
             <NuxtLink :to="child.to">{{ child.name }}</NuxtLink>
           </div>
         </div>
@@ -54,8 +64,10 @@ export default {
   },
   methods: {
     onHover(page) {
-      this.hoverPage = page.
-      console.log(page);
+      this.hoverPage = page.name;
+    },
+    onLeave(page) {
+      this.hoverPage = "";
     }
   }
 };
