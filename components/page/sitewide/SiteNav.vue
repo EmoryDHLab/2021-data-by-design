@@ -1,11 +1,11 @@
 <template>
-  <div class="w-full min-h-full bg-black flex justify-evenly">
-    <div class="font-william text-white text-2xl">
+  <div class="w-full bg-black flex justify-evenly pb-2 pt-2 ">
+    <div class="font-william text-white text-2xl ">
       <NuxtLink to="/">Data by Design</NuxtLink>
     </div>
     <div class="flex justify-between w-2/5">
       <div
-        class="font-william text-white text-xl"
+        class="font-sans text-white text-xl"
         v-for="page in pages"
         @mouseover="onHover(page)"
         @mouseleave="onLeave(page)"
@@ -13,7 +13,7 @@
         <NuxtLink :to="page.to">{{ page.name }}</NuxtLink>
         <div
           v-if="page.children"
-          class="absolute flex-column"
+          class="absolute z-20"
           :class="{
             visible: hoverPage == page.name,
             invisible: hoverPage != page.name
@@ -21,7 +21,7 @@
         >
           <div
             v-for="child in page.children"
-            class="bg-black text-lg  hover:bg-royalblue border border-white pl-1 pr-3"
+            class="bg-black text-lg  hover:bg-royalblue border border-white pl-2 pr-3 pb-0.5 pt-0.5"
           >
             <NuxtLink :to="child.to">{{ child.name }}</NuxtLink>
           </div>
