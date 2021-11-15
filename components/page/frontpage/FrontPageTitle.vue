@@ -26,22 +26,15 @@
         </span>
       </template>
     </Captioned>
-    <ChapterCard class="bg-green-300 col-start-1 col-span-7">
-      <template v-slot:title>This is a title</template>
-      <template v-slot:subtitle>This is a subtitle</template>
-      <template v-slot:caption>The Amalgamation of White and Black elements of the population in the United States by W.E.B Du Bois.
-        Atlanta University. Library of Congress.</template>
-    </ChapterCard>
   </div>
 <!--  </div>-->
 </template>
 
 <script>
 import Captioned from "../../global/docs-inclusions/Captioned";
-import ChapterCard from "./ChapterCard";
 export default {
   name: "FrontPageTitle",
-  components: {Captioned, ChapterCard}
+  components: {Captioned}
 }
 </script>
 
