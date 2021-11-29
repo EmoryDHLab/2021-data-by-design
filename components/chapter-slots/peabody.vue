@@ -31,9 +31,9 @@
 
     <template v-slot:[slots.testSlot]>
       <div class="w-full border-2">
-        <StaticData :dataset="['peabody1600s']" v-slot="data">
-          <PeabodyGrid :yearsData="data.peabody1600s" ></PeabodyGrid>
-        </StaticData>
+<!--        <StaticData :dataset="['peabody1600s']" v-slot="data">-->
+<!--          <PeabodyGrid :yearsData="data.peabody1600s" ></PeabodyGrid>-->
+<!--        </StaticData>-->
       </div>
 <!--      <div class="w-full flex flex-row">-->
 <!--        <EventKey class="w-56 h-56" v-model="selected"></EventKey>-->

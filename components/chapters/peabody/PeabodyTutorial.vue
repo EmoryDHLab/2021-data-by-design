@@ -1,6 +1,7 @@
 <template>
   <div class="w-full">
     <PeabodyGrid></PeabodyGrid>
+    {{scrollData.current + scrollData.progress}}
   </div>
 </template>
 <script>

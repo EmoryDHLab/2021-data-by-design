@@ -20,8 +20,8 @@
     </div>
 
 
-    <div v-if="!$isMobile" class="flex flex-row border-2 border-red-500 mx-3 lg:mx-12">
-      <div class="flex-1 mb-96 z-10 relative" ref="scrolly">
+    <div v-if="!$isMobile" class="flex flex-row mx-3 lg:mx-12">
+      <div class="flex-1 z-10 relative" ref="scrolly">
         <div class="h-screen" ref="buffer"></div>
         <div v-for="(i, zeroIndexed) in groups" class="text-theme flex items-center"
              :class="{'h-screen': !collect, 'scroll-snap-child': snapRange}"
