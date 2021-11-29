@@ -16,3 +16,4 @@ export default {
   components: {FrontPageTitle, SiteFooter, AboutSite, ChapterCardGrid}
 }
 </script>
+

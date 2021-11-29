@@ -1,53 +1,74 @@
 <template>
-  <div class="site-nav-root">
-    <div class="flex">
-      <div class="site-title">
-        Data by Design
-      </div>
-      <div class="nav-title">
-        Home
-      </div>
-      <div class="nav-title">
-        Chapters
-      </div>
-      <div class="nav-title">
-        About the Site
-      </div>
-      <div class="nav-title">
-        Credits
+  <div class="w-full bg-black flex justify-evenly pb-2 pt-2 ">
+    <div class="font-william text-white text-2xl ">
+      <NuxtLink to="/">Data by Design</NuxtLink>
+    </div>
+    <div class="flex justify-between w-2/5">
+      <div
+        class="font-sans text-white text-xl"
+        v-for="page in pages"
+        @mouseover="onHover(page)"
+        @mouseleave="onLeave()"
+      >
+        <NuxtLink :to="page.to">{{ page.name }}</NuxtLink>
+        <div
+          v-if="page.children"
+          class="absolute z-20 top-10 border divide-y"
+          :class="{
+            visible: hoverPage == page.name,
+            invisible: hoverPage != page.name
+          }"
+        >
+          <div
+            v-for="child in page.children"
+            class="bg-black text-lg hover:bg-royalblue pl-2 pr-3 pb-0.5 pt-0.5"
+          >
+            <NuxtLink :to="child.to">{{ child.name }}</NuxtLink>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import chaptersConfig from "@/chapters-config";
+
+const chaptersChildren = Object.values(chaptersConfig).map(
+  ({ navName, id }) => ({
+    to: `/chapters/${id}/`,
+    name: navName
+  })
+);
+
 export default {
-}
+  data() {
+    return {
+      hoverPage: "",
+      pages: [
+        {
+          name: "Home",
+          to: "/"
+        },
+        {
+          name: "Chapters",
+          to: "/",
+          children: chaptersChildren
+        },
+        {
+          name: "About this Site",
+          to: "/sandbox"
+        }
+      ]
+    };
+  },
+  methods: {
+    onHover(page) {
+      this.hoverPage = page.name;
+    },
+    onLeave() {
+      this.hoverPage = "";
+    }
+  }
+};
 </script>
-
-<style scoped>
-.site-nav-root {
-  display: flex;
-  justify-content: center;
-  background-color: black;
-}
-.flex {
-  width: 1100px;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 48px;
-}
-
-.site-title {
-  font-family: "VTC William";
-  font-size: 24px;
-}
-
-.nav-title {
-  font-family: "neue-haas-unica";
-  font-size: 20px;
-}
-
-</style>

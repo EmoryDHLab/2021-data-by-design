@@ -20,14 +20,10 @@
     </div>
 
 
-    <template v-if="!$isMobile">
-      <div class="float-right mr-4 lg:mr-12 h-screen flex items-center sticky top-0 z-10" ref="sticky">
-        <slot name="sticky"></slot>
-      </div>
-
-      <div class="w-full ml-3 lg:ml-12 mb-96 z-10 relative" ref="scrolly">
-        <div class="w-1/2 h-screen" ref="buffer"></div>
-        <div v-for="(i, zeroIndexed) in groups" class="w-1/2 text-theme flex items-center"
+    <div v-if="!$isMobile" class="flex flex-row mx-3 lg:mx-12">
+      <div class="flex-1 z-10 relative" ref="scrolly">
+        <div class="h-screen" ref="buffer"></div>
+        <div v-for="(i, zeroIndexed) in groups" class="text-theme flex items-center"
              :class="{'h-screen': !collect, 'scroll-snap-child': snapRange}"
              :style="collectStyle(zeroIndexed)"
              ref="groups">
@@ -35,9 +31,13 @@
             <slot :name="'group:' + i"></slot>
           </div>
         </div>
-        <div class="w-1/2 h-36" ref="endBuffer"></div>
+        <div class="h-screen" ref="endBuffer"></div>
       </div>
-    </template>
+
+      <div class="flex-1 h-screen sticky top-0 z-10" ref="sticky">
+        <slot name="sticky"></slot>
+      </div>
+    </div>
 
     <div v-else ref="mobile" class="flex relative flex-col w-full items-center" :class="{'scroll-snap-child': snapRange}">
       <div>

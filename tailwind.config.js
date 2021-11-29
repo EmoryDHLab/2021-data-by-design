@@ -14,7 +14,8 @@ module.exports = {
       },
       colors: {
         offwhite: "#FAF1E9",
-        royalblue: "#3B6FE0"
+        royalblue: "#3B6FE0",
+        peabodyorange: "rgb(219, 136, 42)"
       },
       inset: {
         screen: '100vh',

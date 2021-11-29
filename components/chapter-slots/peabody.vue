@@ -1,8 +1,7 @@
 <template>
   <Slots>
-
     <template v-for="i in [1,2,3]" v-slot:[slots.hoverText(i)]="{inner}">
-      <HoverText v-html="inner" @mouseover.native="hoverTextOver(i)" @mouseout.native="hoverTextOut"></HoverText>
+      <HoverText :key="slots.hoverText(i)" v-html="inner" @mouseover.native="hoverTextOver(i)" @mouseout.native="hoverTextOut"></HoverText>
     </template>
 
     <template v-slot:[slots.mapScroller]>
@@ -24,37 +23,51 @@
         </Captioned>
     </template>
 
-    <template v-slot:PeabodyTutorialSlot>
-      <PeabodyTutorial :width="$isMobile ? '25rem' : '30rem'" :id="'whatever'"
-                       :style="{marginTop: '40px'}"
-      ></PeabodyTutorial>
+<!--    <template v-slot:PeabodyTutorialSlot>-->
+<!--      <PeabodyTutorial :width="$isMobile ? '25rem' : '30rem'" :id="'whatever'"-->
+<!--                       :style="{marginTop: '40px'}"-->
+<!--      ></PeabodyTutorial>-->
+<!--    </template>-->
+
+    <template v-slot:[slots.testSlot]>
+      <div class="w-full border-2">
+<!--        <StaticData :dataset="['peabody1600s']" v-slot="data">-->
+<!--          <PeabodyGrid :yearsData="data.peabody1600s" ></PeabodyGrid>-->
+<!--        </StaticData>-->
+      </div>
+<!--      <div class="w-full flex flex-row">-->
+<!--        <EventKey class="w-56 h-56" v-model="selected"></EventKey>-->
+<!--        <EventLegend class="absolute" v-model="selected"></EventLegend>-->
+<!--      </div>-->
     </template>
 
-    <template v-slot:[slots.peabodyTimeline]>
-      <StaticData :dataset="['peabody1600s']" v-slot="data">
-      </StaticData>
-    </template>
   </Slots>
 </template>
 
 <script>
 import ChapterSlots from "@/components/mixins/ChapterSlots";
-import PeabodyTutorial from "@/components/chapters/peabody/PeabodyTutorial.vue"
+import PeabodyTutorial from "@/components/chapters/peabody/PeabodyTutorialOld.vue"
 import MoveBorder from "../global/MoveBorder";
 import MapScroller from "../global/MapScroller.vue";
 import Captioned from "../global/docs-inclusions/Captioned.vue";
 import HoverText from "../global/HoverText";
 import StaticData from "@/components/data-access/StaticData";
+import PeabodyGrid from "../chapters/peabody/grid/PeabodyGrid.vue";
+import EventKey from "../chapters/peabody/key/EventKeyBox";
+import EventLegend from "../chapters/peabody/key/EventLegend";
 
 export default {
-  components: {StaticData, PeabodyTutorial, MapScroller, MoveBorder, Captioned, HoverText},
+  components: {
+    EventLegend,
+    EventKey, StaticData, PeabodyTutorial, MapScroller, MoveBorder, Captioned, HoverText, PeabodyGrid },
   mixins: [ChapterSlots],
   data() {
     return {
+      selected: 1,
       slots: {
         hoverText: (n) => `Hover${n}`,
         mapScroller: "Map Scroller",
-        peabodyTimeline: "Peabody With Timeline",
+        testSlot: "Test Slot"
       }
     }
   },
