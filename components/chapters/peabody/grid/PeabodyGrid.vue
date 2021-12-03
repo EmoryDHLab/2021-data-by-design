@@ -1,30 +1,47 @@
 <template>
-  <svg class="w-full h-full" viewBox="0 0 99 99">
-    <rect class="text-peabodyorange fill-current" x="0" width="100" height="100" />
-      <year-square
-        v-for="(n, i) in 100"
-        :label="startYear + n"
-        :show-label="showLabels"
+  <svg class="w-full" viewBox="0 0 99 99">
+    <rect class="text-peabodyorange fill-current" x="0" width="100" height="99"/>
+    <g
+      v-for="(n, i) in 100"
+      @mouseover="hoveredYear = i"
+    >
+      <YearSquare
         :width="yearWidth - yearWidth / 48"
         :height="yearWidth - yearWidth / 48"
         :x="getYearXFromIndex(i)"
         :y="getYearYFromIndex(i)"
-
+        :class="`year-square-${n}`"
         :showSquares="showSquares"
         :highlightedSquare="n == highlightedYear ? highlightedSquare : null"
         :key="i"
         :actorColors="actorColors"
-        :class="`year-square-${n}`"
         :yearData="getYearData(i)"
         :year="getYear(i)"
-      />
+        :label="startYear + n"
+        :show-label="showLabels"
+      >
+      </YearSquare>
+    </g>
+    <EventKeyBox
+      v-show="tutorialKey && hoveredYear >= 0"
+      :width="9.5"
+      :height="9.5"
+      :x="getYearXFromIndex(hoveredYear)"
+      :y="getYearYFromIndex(hoveredYear) + 0.1"
+      :drop-shadow="false"
+    >
+    </EventKeyBox>
+    <!--    <EventKeyBox width="9" height="9" x="13" y="13"></EventKeyBox>-->
+    <slot></slot>
+
   </svg>
 </template>
 
 <script>
 import Visualization from "~/components/mixins/Visualization";
-import { actorColors, dataToYears } from "../peabody-utils";
+import {actorColors, dataToYears} from "../peabody-utils";
 import YearSquare from './YearSquare.vue';
+import EventKeyBox from "../key/EventKeyBox";
 
 export const docsDefinition = {
   matchName: ["PeabodyGrid"],
@@ -56,6 +73,10 @@ export default {
         return num >= 0;
       }
     },
+    tutorialKey: {
+      type: Boolean,
+      default: false
+    },
     showSquares: {
       type: Boolean,
       default: true,
@@ -72,11 +93,13 @@ export default {
     },
   },
   components: {
+    EventKeyBox,
     YearSquare,
   },
-  data () {
+  data() {
     return {
-    yearWidth: 9
+      yearWidth: 9,
+      hoveredYear: false,
     }
   },
   computed: {

@@ -20,20 +20,19 @@
       <polygon v-for="(polygon, index) in polygons"
                :class="classes"
                :points="polygon"
-               :fill="computedColors[index]"
-              @mouseenter='hoverStart(index)'
-              @mouseleave='hoverEnd(index)'
-              @click='clickedEvent(index)'
-               />
+               :fill="computedColors[index]"/>
+      <!--              @mouseenter='hoverStart(index)'-->
+<!--              @mouseleave='hoverEnd(index)'-->
+<!--              @click='clickedEvent(index)'-->
     </g>
   </svg>
 </template>
 <script>
 
 const events = {
-  eventClicked: 'event-clicked',
-  hoverStart: 'hover-start',
-  hoverEnd: 'hover-end'
+  eventClicked: 'eventClicked',
+  hoverStart: 'hoverStart',
+  hoverEnd: 'hoverEnd'
 }
 
 const EventSquare = {
