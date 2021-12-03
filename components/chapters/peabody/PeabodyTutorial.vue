@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full flex flex-col justify-center">
+  <div class="w-full h-full flex flex-col gap-3 justify-center">
     <PeabodyGrid
       :show-labels="scrollData.current > 0"
       :show-squares="scrollData.current > 1" :years-data="1500"
