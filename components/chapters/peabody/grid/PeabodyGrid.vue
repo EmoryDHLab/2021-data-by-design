@@ -22,18 +22,7 @@
       >
       </YearSquare>
     </g>
-    <EventKeyBox
-      v-show="tutorialKey && hoveredYear >= 0"
-      :width="9.5"
-      :height="9.5"
-      :x="getYearXFromIndex(hoveredYear)"
-      :y="getYearYFromIndex(hoveredYear) + 0.1"
-      :drop-shadow="false"
-    >
-    </EventKeyBox>
-    <!--    <EventKeyBox width="9" height="9" x="13" y="13"></EventKeyBox>-->
-    <slot></slot>
-
+    <slot v-bind:hoveredYear="hoveredYear" v-bind:methods="{ getYearXFromIndex, getYearYFromIndex }"></slot>
   </svg>
 </template>
 
