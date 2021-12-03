@@ -15,6 +15,9 @@
       :colors="getEventData(n)"
       v-on="eventListeners"
       />
+    <text x="50%" y="50%" class="font-william text-2xl opacity-40" text-anchor="middle"
+          dominant-baseline="central"
+          v-if="showLabel && label">{{label}}</text>
   </svg>
 </template>
 
@@ -32,6 +35,12 @@ export default {
     },
     highlightedSquare: {
       type: Number
+    },
+    showLabel: {
+      type: Boolean
+    },
+    label: {
+      type: String,
     },
     year: {
       type: Number,

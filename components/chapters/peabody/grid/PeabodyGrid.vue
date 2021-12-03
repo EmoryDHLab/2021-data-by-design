@@ -3,6 +3,8 @@
     <rect class="text-peabodyorange fill-current" x="0" width="100" height="100" />
       <year-square
         v-for="(n, i) in 100"
+        :label="startYear + n"
+        :show-label="showLabels"
         :width="yearWidth - yearWidth / 48"
         :height="yearWidth - yearWidth / 48"
         :x="getYearXFromIndex(i)"
@@ -42,17 +44,25 @@ export default {
       },
     },
     yearsData: {
-      type: Array,
+      type: [Array, Number],
       validator(arr) {
-        return arr?.every(yearObj => {
-          const requiredKeys = ["event", "year", "squares", "actors"];
-          return requiredKeys.every(key => key in yearObj);
-        })
+        if (Array.isArray(arr)) {
+          return arr?.every(yearObj => {
+            const requiredKeys = ["event", "year", "squares", "actors"];
+            return requiredKeys.every(key => key in yearObj);
+          })
+        }
+        const num = arr;
+        return num >= 0;
       }
     },
     showSquares: {
       type: Boolean,
       default: true,
+    },
+    showLabels: {
+      type: Boolean,
+      default: false,
     },
     actorColors: {
       type: Object,
@@ -72,7 +82,7 @@ export default {
   computed: {
     years() {
       try {
-        if (this.yearsData && this.yearsData.length > 0) {
+        if (Array.isArray(this.yearsData) && this.yearsData.length > 0) {
           return dataToYears(this.yearsData);
         }
       } catch (error) {
@@ -86,9 +96,13 @@ export default {
       return true;
     },
     startYear() {
+      if (typeof this.yearsData === "number") {
+        return this.yearsData;
+      }
       if (this.isEmpty) return 0;
       return 1 + Math.round(Math.min(...Object.keys(this.years)) / 100) * 100;
     },
+
     highlightedYear() {
       return Math.floor(this.highlighted);
     },

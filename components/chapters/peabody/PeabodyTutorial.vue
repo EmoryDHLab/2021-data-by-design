@@ -1,7 +1,8 @@
 <template>
-  <div class="w-full">
-    <PeabodyGrid></PeabodyGrid>
-    {{scrollData.current + scrollData.progress}}
+  <div class="w-full h-full">
+    <PeabodyGrid
+      :show-labels="scrollData.current > 0"
+      :show-squares="scrollData.current > 1" :years-data="1500"></PeabodyGrid>
   </div>
 </template>
 <script>
