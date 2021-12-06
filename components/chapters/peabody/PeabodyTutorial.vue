@@ -21,7 +21,7 @@
         />
       </PeabodyGrid>
       <div v-if="scrollData.current > 3" class="text-sm">
-        <span v-if="currentEvent.event">{{currentEvent.event}}</span>
+        <span v-if="currentEvent.event">{{currentYear}}: {{currentEvent.event}}</span>
         <span v-else class="italic">Hover over an event</span>
       </div>
       <div v-if="scrollData.current > 4 && peabody1600s" class="flex flex-row w-full justify-between">
@@ -59,6 +59,7 @@ export default {
     return {
       keyValue: 1,
       currentEvent: {},
+      currentYear: null,
     }
   },
   computed: {
@@ -71,10 +72,11 @@ export default {
   },
   methods: {
     actorsIn,
-    eventHovered(data) {
+    eventHovered({type, year, event}) {
       // console.log(data);
-      this.keyValue = data?.type == "full" ? null : data.type;
-      this.currentEvent = data?.event || {};
+      this.keyValue = type == "full" ? null : type;
+      this.currentEvent = event || {};
+      this.currentYear = year;
     },
     yearsData(staticData) {
       if (this.scrollData.current == 4) {

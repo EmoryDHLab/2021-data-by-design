@@ -18,7 +18,6 @@
         :yearData="getYearData(i)"
         :year="getYear(i)"
         :label="startYear + n"
-        :show-label="showLabels"
         v-on="$listeners"
       >
       </YearSquare>

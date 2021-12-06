@@ -40,9 +40,6 @@ export default {
     highlightedSquare: {
       type: Number
     },
-    showLabel: {
-      type: Boolean
-    },
     label: {
       type: [String, Number],
     },
@@ -72,6 +69,12 @@ export default {
   computed: {
     filled() {
       return this.yearData.every(obj => obj?.event);
+    },
+    empty() {
+      return this.yearData.every(obj => obj == undefined);
+    },
+    showLabel () {
+      return this.label !== undefined && (this.filled || this.empty);
     },
     colorData() {
       return this.yearData.map(squareObj =>
