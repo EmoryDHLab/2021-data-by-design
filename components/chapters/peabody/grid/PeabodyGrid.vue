@@ -1,6 +1,6 @@
 <template>
   <svg class="w-full" viewBox="0 0 99 99">
-    <rect class="text-peabodyorange fill-current" x="0" width="100" height="99"/>
+    <rect class="text-peabodyorange fill-current" x="0" width="100" height="99" @mouseout="hoveredYear = false"/>
     <g
       v-for="(n, i) in 100"
       @mouseover="hoveredYear = i"
@@ -61,10 +61,6 @@ export default {
         const num = arr;
         return num >= 0;
       }
-    },
-    tutorialKey: {
-      type: Boolean,
-      default: false
     },
     showSquares: {
       type: Boolean,
