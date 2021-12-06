@@ -10,8 +10,8 @@
       :key='n'
       :type="n"
       :year="year"
-      :x = "getEventXFromIndex(n - 1)"
-      :y = "getEventYFromIndex(n - 1)"
+      :x="getEventXFromIndex(n - 1)"
+      :y="getEventYFromIndex(n - 1)"
       :colors="getEventData(n)"
       v-on="eventListeners"
     />
@@ -20,12 +20,13 @@
           text-anchor="middle"
 
           dominant-baseline="central"
-          v-if="showLabel && label">{{label}}</text>
+          v-if="showLabel && label">{{ label }}
+    </text>
   </svg>
 </template>
 
 <script>
-import EventSquare, { events } from './EventSquare'
+import EventSquare, {events} from './EventSquare'
 import {actorColors} from "../peabody-utils";
 
 // const EventSquareInjected = Object.assign({ injects: [injects.registerEvents, injects.calcWidth, injects.data]}, EventSquare);
@@ -51,7 +52,7 @@ export default {
     },
     actorColors: {
       type: Object,
-      default () {
+      default() {
         return actorColors;
       }
     },
@@ -69,24 +70,36 @@ export default {
   mounted() {
   },
   computed: {
-    filled () {
+    filled() {
       return this.yearData.every(obj => obj?.event);
     },
-    colorData () {
-      return this.yearData.map( squareObj =>
+    colorData() {
+      return this.yearData.map(squareObj =>
         squareObj ? squareObj.actors.map(actor => this.actorColors[actor]) : [false])
     },
-    eventListeners () {
-      const transformArgs = ({year, type, sub}) => ({year, type: this.filled ? "full" : type, sub});
+    eventListeners() {
+      const transformArgs = ({year, type, sub, color}) => {
+        const eventObj = type && this.yearData[type - 1];
+        let actor;
+        if (eventObj) {
+          actor = Number.isInteger(sub) ? eventObj.actors[sub] : eventObj.actors[0];
+        }
+        return {
+          year,
+          type: this.filled ? "full" : type,
+          ...(eventObj && {event: eventObj}),
+          ...(actor && {actor}),
+        }
+      };
       const listenerFor = eventName => eventArgs => this.$emit(eventName, transformArgs(eventArgs));
       return Object.fromEntries(Object.values(events).map(event => [event, listenerFor(event)]))
     }
   },
   methods: {
-    getEventXFromIndex (i) {
+    getEventXFromIndex(i) {
       return (i % 3) * (30)
     },
-    getEventYFromIndex (i) {
+    getEventYFromIndex(i) {
       return Math.floor(i / 3) * (30)
     },
     // styles (n) {
@@ -98,7 +111,7 @@ export default {
     //       + this.getEventYFromIndex(n-1) + 'px)'
     //   }
     // },
-    getEventData (n) {
+    getEventData(n) {
       return this.colorData[n - 1] || []
     }
   }

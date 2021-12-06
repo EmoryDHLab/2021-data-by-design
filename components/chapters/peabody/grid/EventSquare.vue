@@ -20,10 +20,11 @@
       <polygon v-for="(polygon, index) in polygons"
                :class="classes"
                :points="polygon"
-               :fill="computedColors[index]"/>
-              @mouseenter='hoverStart(index)'
-              @mouseleave='hoverEnd(index)'
-              @click='clickedEvent(index)'
+               :fill="computedColors[index]"
+               @mouseenter="hoverStart(index)"
+               @mouseleave="hoverEnd(index)"
+               @click="clickedEvent(index)"
+      />
     </g>
   </svg>
 </template>
@@ -107,26 +108,23 @@ const EventSquare = {
     },
   },
   methods: {
-    clickedEvent(i) {
-      this.$emit(events.eventClicked, {
+    fireEvent (eventName, sub) {
+      const color = this.colors[sub ?? 0];
+      this.$emit(eventName, {
         year: this.year,
         type: this.type,
-        sub: i
-      })
+        sub,
+        color
+      });
+    },
+    clickedEvent(i) {
+      this.fireEvent(events.eventClicked, i);
     },
     hoverStart(i) {
-      this.$emit(events.hoverStart, {
-        year: this.year,
-        type: this.type,
-        sub: i
-      })
+      this.fireEvent(events.hoverStart, i);
     },
     hoverEnd(i) {
-      this.$emit(events.hoverEnd, {
-        year: this.year,
-        type: this.type,
-        sub: i
-      })
+      this.fireEvent(events.hoverEnd, i);
     },
   }
 };
