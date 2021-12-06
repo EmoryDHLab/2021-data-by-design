@@ -5,7 +5,7 @@
          :class="{'font-bold': value == i + 1}"
          @mouseover="$emit('input', i + 1)">
       <div>{{i + 1}}</div>
-      <div>{{event}}</div>
+      <div>{{event}}<span class="invisible font-bold">next</span></div>
     </div>
   </div>
 </template>
