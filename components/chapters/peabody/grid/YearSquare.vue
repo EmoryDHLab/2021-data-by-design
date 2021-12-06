@@ -15,7 +15,10 @@
       :colors="getEventData(n)"
       />
     <!--      v-on="eventListeners"-->
-    <text x="50%" y="50%" class="font-william text-2xl opacity-40 pointer-events-none" text-anchor="middle"
+    <text x="50%" y="50%" class="font-william text-2xl fill-current opacity-60 pointer-events-none"
+          :class="{'text-white opacity-90': filled}"
+          text-anchor="middle"
+
           dominant-baseline="central"
           v-if="showLabel && label">{{label}}</text>
   </svg>
@@ -64,11 +67,11 @@ export default {
     // }
   },
   mounted() {
-    // if (this.yearData) {
-    //   console.log(this.yearData);
-    // }
   },
   computed: {
+    filled () {
+      return this.yearData.every(obj => obj?.event);
+    },
     colorData () {
       return this.yearData.map( squareObj =>
         squareObj ? squareObj.actors.map(actor => this.actorColors[actor]) : [false])
