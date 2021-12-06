@@ -13,8 +13,8 @@
       :x = "getEventXFromIndex(n - 1)"
       :y = "getEventYFromIndex(n - 1)"
       :colors="getEventData(n)"
-      />
-    <!--      v-on="eventListeners"-->
+      v-on="eventListeners"
+    />
     <text x="50%" y="50%" class="font-william text-2xl fill-current opacity-60 pointer-events-none"
           :class="{'text-white opacity-90': filled}"
           text-anchor="middle"
@@ -77,7 +77,8 @@ export default {
         squareObj ? squareObj.actors.map(actor => this.actorColors[actor]) : [false])
     },
     eventListeners () {
-      const listenerFor = eventName => eventArgs => this.$emit(eventName, eventArgs )
+      const transformArgs = ({year, type, sub}) => ({year, type: this.filled ? "full" : type, sub});
+      const listenerFor = eventName => eventArgs => this.$emit(eventName, transformArgs(eventArgs));
       return Object.fromEntries(Object.values(events).map(event => [event, listenerFor(event)]))
     }
   },

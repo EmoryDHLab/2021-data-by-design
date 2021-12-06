@@ -19,6 +19,7 @@
         :year="getYear(i)"
         :label="startYear + n"
         :show-label="showLabels"
+        v-on="$listeners"
       >
       </YearSquare>
     </g>
@@ -119,6 +120,9 @@ export default {
     },
   },
   methods: {
+    hoverStart (data) {
+      this.$emit('hoverStart', data);
+    },
     getYear(n) {
       return this.startYear + n;
     },

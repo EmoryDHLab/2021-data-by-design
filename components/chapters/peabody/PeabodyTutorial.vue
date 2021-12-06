@@ -6,10 +6,11 @@
         :show-labels="scrollData.current > 0"
         :show-squares="scrollData.current > 1"
         :yearsData="yearsData(peabody1600s)"
+        @hoverStart="eventHovered"
         v-slot="{hoveredYear, methods: {getYearXFromIndex, getYearYFromIndex}}">
         >
         <EventKeyBox
-          v-if="showKey"
+          v-if="scrollData.current == 3"
           v-show="Number.isInteger(hoveredYear) && hoveredYear >= 0"
           v-model="keyValue"
           :width="9.5"
@@ -51,9 +52,15 @@ export default {
     }
   },
   methods: {
+    eventHovered(data) {
+      this.keyValue = data.type == "full" ? null : data.type;
+    },
     yearsData(staticData) {
       if (this.scrollData.current == 4) {
         return staticData.filter(event => event.squares === "full");
+      }
+      if (this.scrollData.current > 4) {
+        return staticData;
       }
       return 1600;
     }

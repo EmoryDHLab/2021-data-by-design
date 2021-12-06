@@ -21,9 +21,9 @@
                :class="classes"
                :points="polygon"
                :fill="computedColors[index]"/>
-      <!--              @mouseenter='hoverStart(index)'-->
-<!--              @mouseleave='hoverEnd(index)'-->
-<!--              @click='clickedEvent(index)'-->
+              @mouseenter='hoverStart(index)'
+              @mouseleave='hoverEnd(index)'
+              @click='clickedEvent(index)'
     </g>
   </svg>
 </template>
