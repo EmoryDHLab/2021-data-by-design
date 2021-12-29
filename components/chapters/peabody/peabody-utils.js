@@ -16,8 +16,10 @@ const womensRightsActorColors = {
 }
 
 const actorsIn = data => {
-  const uniqueActors = new Set(data.flatMap(obj => obj.actors));
-  return [...uniqueActors].map(actor => ({actor, color: actorColors[actor]}));
+  if (Array.isArray(data)) {
+    const uniqueActors = new Set(data.flatMap(obj => obj.actors));
+    return [...uniqueActors].map(actor => ({actor, color: actorColors[actor]}));
+  }
 }
 
 const dataToYears = data => {

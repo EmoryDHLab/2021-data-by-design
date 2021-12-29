@@ -17,7 +17,7 @@
         :actorColors="actorColors"
         :yearData="getYearData(i)"
         :year="getYear(i)"
-        :label="startYear + n"
+        :label="showLabels && startYear + n"
         v-on="$listeners"
       >
       </YearSquare>
@@ -108,7 +108,7 @@ export default {
         return this.yearsData;
       }
       if (this.isEmpty) return 0;
-      return 1 + Math.round(Math.min(...Object.keys(this.years)) / 100) * 100;
+      return Math.round(Math.min(...Object.keys(this.years)) / 100) * 100;
     },
 
     highlightedYear() {

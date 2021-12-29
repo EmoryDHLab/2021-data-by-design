@@ -28,7 +28,10 @@ export default {
       .forEach(name => {
         console.log("Fetching static dataset " + name);
       this.$http.$get(`/api/data/${name}`)
-        .then(data => this.setStaticData({name, data}))
+        .then(data => {
+          console.log("got here", data);
+          this.setStaticData({name, data});
+        })
     })
 
   }

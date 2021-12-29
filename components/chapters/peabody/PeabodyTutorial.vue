@@ -1,6 +1,5 @@
 <template>
   <div class="w-full h-full flex flex-col gap-3 justify-center">
-
     <StaticData :dataset="['peabody1600s']" v-slot="{peabody1600s}">
       <PeabodyGrid
         :show-labels="scrollData.current > 0"
@@ -20,11 +19,12 @@
           :drop-shadow="false"
         />
       </PeabodyGrid>
-      <div v-if="scrollData.current > 3" class="text-sm">
+      <div class="text-sm" :class="{'invisible': scrollData.current <= 2}">
         <span v-if="currentEvent.event">{{currentYear}}: {{currentEvent.event}}</span>
         <span v-else class="italic">Hover over an event</span>
       </div>
-      <div v-if="scrollData.current > 4 && peabody1600s" class="flex flex-row w-full justify-between">
+      <div class="flex flex-row w-full justify-between"
+           :class="{'invisible': scrollData.current <= 3}">
         <div v-for="{actor, color} in actorsIn(peabody1600s)"
             class="flex flex-row text-sm gap-2"
             :class="{'font-bold': highlightedActors.includes(actor)}">
