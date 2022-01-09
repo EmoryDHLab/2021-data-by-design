@@ -1,9 +1,10 @@
 <template>
   <svg viewBox="0 0 90 90">
-    <rect :class="showSquares ? 'text-gray-200' : 'text-white'" class="fill-current" :width="90" :height="90"/>
+    <rect v-if="!ghost" :class="showSquares ? 'text-gray-200' : 'text-white'" class="fill-current" :width="90" :height="90"/>
     <EventSquare
       v-show="showSquares"
       v-for='n in 9'
+      :ghost="ghost"
       :width="30"
       :height="30"
       :highlighted="highlightedSquare == n"
@@ -41,7 +42,7 @@ export default {
       type: Number
     },
     label: {
-      type: [String, Number],
+      type: [Boolean, String, Number],
     },
     year: {
       type: Number,
@@ -52,6 +53,10 @@ export default {
       default() {
         return actorColors;
       }
+    },
+    ghost: {
+      type: Boolean,
+      default: false
     },
     showSquares: {
       type: Boolean,
@@ -74,7 +79,7 @@ export default {
       return this.yearData.every(obj => obj == undefined);
     },
     showLabel () {
-      return this.label !== undefined && (this.filled || this.empty);
+      return this.label && (this.filled || this.empty);
     },
     colorData() {
       return this.yearData.map(squareObj =>

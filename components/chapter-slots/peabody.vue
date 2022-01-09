@@ -23,6 +23,16 @@
         </Captioned>
     </template>
 
+    <template v-slot:SeventeenthCenturyOverlay>
+      <MoveBorder class="relative">
+<!--        <LocalImage class="w-full" path="PeabodyImg/1600s.jpg"></LocalImage>-->
+<!--        <div class="relative w-full overlay">-->
+          <PeabodyGrid class="w-full" overlay-path="PeabodyImg/1600s.jpg">
+          </PeabodyGrid>
+<!--        </div>-->
+      </MoveBorder>
+    </template>
+
 <!--    <template v-slot:PeabodyTutorialSlot>-->
 <!--      <PeabodyTutorial :width="$isMobile ? '25rem' : '30rem'" :id="'whatever'"-->
 <!--                       :style="{marginTop: '40px'}"-->
@@ -55,9 +65,11 @@ import StaticData from "@/components/data-access/StaticData";
 import PeabodyGrid from "../chapters/peabody/grid/PeabodyGrid.vue";
 import EventKey from "../chapters/peabody/key/EventKeyBox";
 import EventLegend from "../chapters/peabody/key/EventLegend";
+import LocalImage from "../global/docs-inclusions/LocalImage";
 
 export default {
   components: {
+    LocalImage,
     EventLegend,
     EventKey, StaticData, PeabodyTutorial, MapScroller, MoveBorder, Captioned, HoverText, PeabodyGrid },
   mixins: [ChapterSlots],
@@ -86,5 +98,9 @@ export default {
 </script>
 
 <style scoped>
-
+  .overlay {
+    width: 50%;
+    opacity: 90%;
+    top: -50%;
+  }
 </style>

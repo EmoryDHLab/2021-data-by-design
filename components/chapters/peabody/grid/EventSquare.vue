@@ -8,6 +8,7 @@
     <rect v-if="computedColors.length == 1"
           stroke="#b3b3b3"
           stroke-width="0.5"
+          :fill-opacity="ghost ? 0 : 1"
           :fill="computedColors"
           :class="classes"
           width="30"
@@ -41,6 +42,10 @@ const EventSquare = {
     colors: {
       type: Array,
       default: () => ["white"]
+    },
+    ghost: {
+      type: Boolean,
+      default: false
     },
     type: Number,
     year: Number,

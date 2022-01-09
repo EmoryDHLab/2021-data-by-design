@@ -1,26 +1,30 @@
 <template>
   <svg class="w-full" viewBox="0 0 99 99">
-    <rect class="text-peabodyorange fill-current" x="0" width="100" height="99" @mouseout="hoveredYear = false"/>
-    <g
-      v-for="(n, i) in 100"
-      @mouseover="hoveredYear = i"
-    >
-      <YearSquare
-        :width="yearWidth - yearWidth / 48"
-        :height="yearWidth - yearWidth / 48"
-        :x="getYearXFromIndex(i)"
-        :y="getYearYFromIndex(i)"
-        :class="`year-square-${n}`"
-        :showSquares="showSquares"
-        :highlightedSquare="n == highlightedYear ? highlightedSquare : null"
-        :key="i"
-        :actorColors="actorColors"
-        :yearData="getYearData(i)"
-        :year="getYear(i)"
-        :label="showLabels && startYear + n"
-        v-on="$listeners"
+    <image v-if="overlayPath" :href="imgSrc" x="-3.5" y="-3.5" width="105" height="106"/>
+    <g :opacity="overlayPath && 1">
+      <rect v-if="!overlayPath" class="text-peabodyorange fill-current" x="0" width="100" height="99" @mouseout="hoveredYear = false"/>
+      <g
+        v-for="(n, i) in 100"
+        @mouseover="hoveredYear = i"
       >
-      </YearSquare>
+        <YearSquare
+          :width="yearWidth - yearWidth / 48"
+          :height="yearWidth - yearWidth / 48"
+          :x="getYearXFromIndex(i)"
+          :y="getYearYFromIndex(i)"
+          :class="`year-square-${n}`"
+          :ghost="overlayPath"
+          :showSquares="true"
+          :highlightedSquare="n == highlightedYear ? highlightedSquare : null"
+          :key="i"
+          :actorColors="actorColors"
+          :yearData="getYearData(i)"
+          :year="getYear(i)"
+          :label="showLabels && startYear + n"
+          v-on="$listeners"
+        >
+        </YearSquare>
+      </g>
     </g>
     <slot v-bind:hoveredYear="hoveredYear" v-bind:methods="{ getYearXFromIndex, getYearYFromIndex }"></slot>
   </svg>
@@ -40,6 +44,7 @@ export const docsDefinition = {
 
 export default {
   props: {
+    overlayPath: String,
     highlighted: {
       type: Number,
       validator(number) {
@@ -117,6 +122,11 @@ export default {
     highlightedSquare() {
       return Math.round((this.highlighted - this.highlightedYear) * 10);
     },
+    imgSrc () {
+      if (this.overlayPath) {
+        return require(`~/assets/images/${this.overlayPath}`);
+      }
+    }
   },
   methods: {
     hoverStart (data) {
