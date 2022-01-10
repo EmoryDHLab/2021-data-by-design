@@ -16,6 +16,7 @@
       :colors="getEventData(n)"
       v-on="eventListeners"
     />
+    <rect stroke="yellow" v-if="highlightYear" stroke-width="8px" fill="none" :width="90" :height="90"/>
     <text x="50%" y="50%" class="font-william text-2xl fill-current opacity-60 pointer-events-none"
           :class="{'text-white opacity-90': filled}"
           text-anchor="middle"
@@ -38,6 +39,7 @@ export default {
       type: Array,
       required: true
     },
+    highlightYear: Boolean,
     highlightedSquare: {
       type: Number
     },

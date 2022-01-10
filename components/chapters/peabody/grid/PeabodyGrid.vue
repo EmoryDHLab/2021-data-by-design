@@ -1,6 +1,6 @@
 <template>
-  <svg class="w-full" viewBox="0 0 99 99">
-    <image v-if="overlayPath" :href="imgSrc" x="-3.5" y="-3.5" width="105" height="106"/>
+  <svg class="w-full" viewBox="0 0 99 99" @click="$emit('click')">
+    <image v-if="overlayPath" :href="imgSrc" x="-3.5" y="-3.5" width="105.5" height="106"/>
     <g :opacity="overlayPath && 1">
       <rect v-if="!overlayPath" class="text-peabodyorange fill-current" x="0" width="100" height="99" @mouseout="hoveredYear = false"/>
       <g
@@ -13,8 +13,9 @@
           :x="getYearXFromIndex(i)"
           :y="getYearYFromIndex(i)"
           :class="`year-square-${n}`"
-          :ghost="overlayPath"
+          :ghost="!!overlayPath"
           :showSquares="true"
+          :highlightYear="n == highlightedYear && !highlightedSquare"
           :highlightedSquare="n == highlightedYear ? highlightedSquare : null"
           :key="i"
           :actorColors="actorColors"
@@ -46,12 +47,15 @@ export default {
   props: {
     overlayPath: String,
     highlighted: {
-      type: Number,
+      type: [Number, Boolean],
       validator(number) {
+        if (number === false) return true;
         if (isNaN(number)) return false;
+        const str = String(number);
+        const hasDecimal = str.includes(".");
         const oneDigitDecimal =
-          String(number).slice(String(number).indexOf(".") + 1).length == 1;
-        return oneDigitDecimal && number >= 1 && number < 101;
+          str.slice(str.indexOf(".") + 1).length == 1;
+        return (!hasDecimal || oneDigitDecimal) && number >= 1 && number < 101;
       },
     },
     yearsData: {
@@ -117,10 +121,10 @@ export default {
     },
 
     highlightedYear() {
-      return Math.floor(this.highlighted);
+      return this.highlighted && Math.floor(this.highlighted);
     },
     highlightedSquare() {
-      return Math.round((this.highlighted - this.highlightedYear) * 10);
+      return this.highlighted && Math.round((this.highlighted - this.highlightedYear) * 10);
     },
     imgSrc () {
       if (this.overlayPath) {

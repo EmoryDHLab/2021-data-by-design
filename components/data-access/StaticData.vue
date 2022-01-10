@@ -29,7 +29,6 @@ export default {
         console.log("Fetching static dataset " + name);
       this.$http.$get(`/api/data/${name}`)
         .then(data => {
-          console.log("got here", data);
           this.setStaticData({name, data});
         })
     })

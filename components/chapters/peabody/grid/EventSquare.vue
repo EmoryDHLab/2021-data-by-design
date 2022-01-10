@@ -7,7 +7,7 @@
     </defs>
     <rect v-if="computedColors.length == 1"
           stroke="#b3b3b3"
-          stroke-width="0.5"
+          :stroke-width="ghost ? 0 : 0.5"
           :fill-opacity="ghost ? 0 : 1"
           :fill="computedColors"
           :class="classes"
@@ -144,8 +144,13 @@ export { events, EventSquare as default }
     fill: #d8d8d8;
   }
 
-  rect:hover, polygon:hover, .highlight {
+  rect:hover, polygon:hover {
     stroke: gold;
     stroke-width: 5px;
+  }
+
+  .highlight {
+    stroke: yellow;
+    stroke-width: 8px;
   }
 </style>
