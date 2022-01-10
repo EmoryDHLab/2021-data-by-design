@@ -19,7 +19,7 @@
           :highlightedSquare="n == highlightedYear ? highlightedSquare : null"
           :key="i"
           :actorColors="actorColors"
-          :yearData="getYearData(i)"
+          :yearData="getYearData(n)"
           :year="getYear(i)"
           :label="showLabels && startYear + n"
           v-on="$listeners"
