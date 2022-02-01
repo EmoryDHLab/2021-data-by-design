@@ -1,12 +1,11 @@
 <template>
   <Slots>
-    <template v-slot:Testing>
-      <!-- <div class="w-full text-center"> -->
-      <!-- <RecreationTesting /> -->
-      <!-- </div> -->
-    </template>
     <template v-slot:[slots.diffVis]>
-      <DifferenceVisual></DifferenceVisual>
+      <StaticData :dataset="['playfair_nums_def']" v-slot="data">
+        <DifferenceVisual
+          :playfairData="data.playfair_nums_def"
+        ></DifferenceVisual>
+      </StaticData>
     </template>
   </Slots>
 </template>

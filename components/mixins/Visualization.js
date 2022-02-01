@@ -1,4 +1,4 @@
-import { mapGetters, mapActions, mapState} from 'vuex'
+import { mapGetters, mapActions, mapState } from "vuex";
 
 // import { notebookTypes } from 'dxd-common'
 
@@ -10,10 +10,15 @@ const injects = {
   registerEvents: "registerEvents",
   data: "data",
   transform: "transform"
-}
+};
 
 // This mixin helps the visualization interface with vuex to get its data
-const Visualization = ({staticDataset, mutableDataset, notebookName, saveProps } = {}) => ({
+const Visualization = ({
+  staticDataset,
+  mutableDataset,
+  notebookName,
+  saveProps
+} = {}) => ({
   props: {
     width: {
       type: String,
@@ -32,47 +37,53 @@ const Visualization = ({staticDataset, mutableDataset, notebookName, saveProps }
     mutableDataset: String
      */
   },
-  data () {
+  data() {
     return {
       registeredEvents: {},
       indicatorRendered: false
-    }
+    };
   },
   methods: {
     widthTimes(scalar) {
-      return this.calcWidth(`* ${scalar}`)
+      return this.calcWidth(`* ${scalar}`);
     },
     calcWidth(expression) {
-      return `calc(${this.width} ${expression})`
+      return `calc(${this.width} ${expression})`;
     },
     registerEvent(vueInstance, eventName) {
       vueInstance.$on(eventName, event => this.$emit(eventName, event));
     },
     registerEvents(vueInstance, eventsArray) {
-      eventsArray.forEach(eventName => this.registerEvent(vueInstance, eventName));
+      eventsArray.forEach(eventName =>
+        this.registerEvent(vueInstance, eventName)
+      );
     },
     transform(transformFunc /*function (dataObj) => transformedData*/) {
       if (this.mutableId) {
-        this.transformMutableData({id: this.mutableId, transform: transformFunc});
+        this.transformMutableData({
+          id: this.mutableId,
+          transform: transformFunc
+        });
       }
     },
     transformMutableData(payload) {
       this.$store.dispatch(this.mutableModule + "/transform", payload);
     },
     registerMutableData(payload) {
-      this.$store.dispatch(this.mutableModule + "/registerMutableData", payload);
+      this.$store.dispatch(
+        this.mutableModule + "/registerMutableData",
+        payload
+      );
     },
     ...mapActions({
-      loadStaticDataset: 'dataset/loadDataset',
-      registerVisualization: 'chapters/registerVisualization'
+      loadStaticDataset: "dataset/loadDataset",
+      registerVisualization: "chapters/registerVisualization"
     })
   },
-  provide () {
+  provide() {
     return Object.fromEntries(
-      Object.entries(injects).map(
-        ([key, val]) => [key, this[val]]
-      )
-    )
+      Object.entries(injects).map(([key, val]) => [key, this[val]])
+    );
   },
   computed: {
     // mutableData () {
@@ -109,7 +120,7 @@ const Visualization = ({staticDataset, mutableDataset, notebookName, saveProps }
     //   getStaticData: 'dataset/getDatasetById',
     // })
   },
-  created () {
+  created() {
     // if (!this.mutableId && !this.staticId) return;
     // if (!this.isRegisteredMutable(this.mutableId)) {
     //   if (this.staticId) {
@@ -132,7 +143,7 @@ const Visualization = ({staticDataset, mutableDataset, notebookName, saveProps }
     //   }
     // }
   },
-  mounted () {
+  mounted() {
     // this.registerVisualization({element: this.$el});
     // if (this.showIndicator && !this.indicatorRendered && this.$el && this.$el.append)  {
     //   const dragger = document.createElement('img');
@@ -171,6 +182,6 @@ const Visualization = ({staticDataset, mutableDataset, notebookName, saveProps }
     //   this.indicatorRendered = true;
     // }
   }
-})
+});
 
-export {injects, Visualization as default}
+export { injects, Visualization as default };
