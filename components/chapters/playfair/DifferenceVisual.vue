@@ -1,30 +1,22 @@
 <template>
-  <div class="w-full">
-    <svg id="chart" viewBox="0 0 500 500">
-      <rect
-        :height="getHeight()"
-        :width="getWidth()"
-        style="fill:#F3ECCB; font-family: 'Dancing Script', cursive"
-      />
-      <RecreationTesting :playfairData="this.playfairData"></RecreationTesting>
-    </svg>
-  </div>
+  <svg
+    v-if="this.playfairData"
+    class="w-full h-full flex ml-6"
+    viewBox="0 0 100 50"
+  >
+    <rect
+      width="100%"
+      height="100%"
+      style="fill:#F3ECCB; font-family: 'Dancing Script', cursive"
+    />
+    <RecreationTesting :playfairData="this.playfairData"></RecreationTesting>
+  </svg>
 </template>
 <script>
 import RecreationTesting from "@/components/chapters/playfair/recreations/RecreationTesting";
 
-export const margin = { top: 25, right: 60, bottom: 25, left: 25 };
-export const viewbox = "0 0 " + 400 + " " + 500;
 export default {
   components: { RecreationTesting },
-  props: ["playfairData"],
-  methods: {
-    getHeight() {
-      return window.innerWidth / 3 / 1.6 - margin.top - margin.bottom;
-    },
-    getWidth() {
-      return window.innerWidth / 3 / 0.77 - margin.left - margin.right;
-    }
-  }
+  props: ["playfairData"]
 };
 </script>
