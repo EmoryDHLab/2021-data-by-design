@@ -169,9 +169,15 @@ export default {
         .call(yAxis);
 
       d3.select(this.$refs.pf_chart)
-        .selectAll("g.tick text")
+        .selectAll(".y_axis .tick text")
         .attr("y", 0)
         .attr("x", 0);
+
+      d3.select(this.$refs.pf_chart)
+        .selectAll(".x_axis .tick text")
+        .attr("y", 0)
+        .attr("x", 1);
+
       //styles the grid lines based on y-axis values - integer million lines are bolded
       d3.select(this.$refs.pf_chart)
         .selectAll("g.tick line")
