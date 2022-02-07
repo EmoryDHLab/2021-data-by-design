@@ -1,9 +1,8 @@
 import Vue from "vue"
-// import { theme } from "~tailwind.config"
+import { theme } from "~tailwind.config"
 
 export default (options, inject) => {
 
-  return false;
   const screens = Object.entries(theme.screens)
     .map( ([key, value]) => ({
         name: key,
