@@ -7,9 +7,7 @@
       font-family="Times New Roman"
       font-size="2.3"
       transform="translate(40)"
-    >
-      Time
-    </text>
+    ></text>
     <rect
       fill="white"
       x="3"
@@ -30,12 +28,12 @@
   </svg>
 </template>
 <script>
-
 const width = 94;
 const height = 44;
 import * as d3 from "d3";
 
 export default {
+  inject: ["scrollData"],
   data() {
     return {
       maxSlideNumber: 8,
@@ -88,11 +86,6 @@ export default {
   mounted() {
     this.grid();
   },
-  watch: {
-    data(newValue) {
-      this.grid();
-    }
-  },
   methods: {
     grid() {
       //the inner rectangle height and width
@@ -105,7 +98,6 @@ export default {
       const innerGridWidth = (width / 11) * 10 + margin.top;
 
       let playfairChart = this.$refs.pf_chart;
-
 
       const maxOn = prop => Math.max(...this.playfairData.map(d => d[prop]));
       const minOn = prop => Math.min(...this.playfairData.map(d => d[prop]));
