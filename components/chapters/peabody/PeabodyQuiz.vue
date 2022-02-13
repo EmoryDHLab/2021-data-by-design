@@ -1,9 +1,23 @@
 <template>
-  <div class="w-full h-full flex flex-col gap-3 justify-center">
-    Quiz Goes Here
-    <BaseButton text="1600s"></BaseButton>
-    <StaticData :dataset="['peabody1600s']" v-slot="{peabody1600s}">
+  <div class="col-span-full bg-black">
+    <StaticData :dataset="datasets" v-slot="staticData">
+      Quiz here {{currentCentury}}
 
+      <div class="flex gap-2">
+        <BaseButton v-for="century in centuries"
+                    :key="century"
+                    :selected="currentCentury == century"
+                    :text="century"
+                    @click="currentCentury = century"
+        />
+      </div>
+
+      <div class="flex flex-row justify-between">
+        <LocalImage class="w-2/5":path="'PeabodyImg/' + currentCentury + '.jpg'"></LocalImage>
+        <div class="w-2/5">
+          <PeabodyGrid :years-data="currentDataset(staticData)"></PeabodyGrid>
+        </div>
+      </div>
     </StaticData>
   </div>
 </template>
@@ -17,6 +31,7 @@ import EventSquare from "./grid/EventSquare"
 
 import {actorsIn} from "./peabody-utils";
 import BaseButton from "../../base/BaseButton";
+import LocalImage from "../../global/docs-inclusions/LocalImage";
 export const docsDefinition = {
   matchName: ["PeabodyQuiz"],
   componentName: "PeabodyQuiz",
@@ -24,21 +39,28 @@ export const docsDefinition = {
 }
 
 export default {
-  components: {EventLegend, EventKeyBox, PeabodyGrid, BaseButton, StaticData, EventSquare},
+  components: {LocalImage, EventLegend, EventKeyBox, PeabodyGrid, BaseButton, StaticData, EventSquare},
   data() {
     return {
       centuries: ["1500s", "1600s", "1700s", "1800s"],
+      currentCentury: "1500s",
       keyValue: 1,
       currentEvent: {},
       currentYear: null,
     }
   },
   computed: {
+    datasets () {
+      return this.centuries.map(c => "peabody" + c);
+    },
     highlightedActors () {
       return this.currentEvent.actors || [];
     },
   },
   methods: {
+    currentDataset(staticData) {
+      return staticData["peabody" + this.currentCentury];
+    },
     actorsIn,
     eventHovered({type, year, event}) {
       // console.log(data);
@@ -46,15 +68,6 @@ export default {
       this.currentEvent = event || {};
       this.currentYear = year;
     },
-    yearsData(staticData) {
-      if (this.scrollData.current == 4) {
-        return staticData.filter(event => event.squares === "full");
-      }
-      if (this.scrollData.current > 4) {
-        return staticData;
-      }
-      return 1600;
-    }
   }
 }
 </script>
