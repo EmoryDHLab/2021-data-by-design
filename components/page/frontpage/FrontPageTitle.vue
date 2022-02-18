@@ -17,7 +17,7 @@
         How might we tell that story differently?
       </div>
     </div>
-    <Captioned class="col-start-11 col-span-4 row-span-8 bg-royalblue p-16">
+    <Captioned class="col-start-11 col-span-4 row-span-8 bg-nightingale_blue p-16">
       <img class="max-w-full" src="../../../assets/images/ch5-08b-amalg.jpg"/>
       <template v-slot:caption>
         <span class="text-offwhite">
