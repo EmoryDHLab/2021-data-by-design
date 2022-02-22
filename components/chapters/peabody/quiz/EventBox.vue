@@ -3,13 +3,13 @@
     <EventBoxArrow :class="{'invisible': value == 0}" @click="updateValue(value - 1)"/>
     <div class="mx-4 my-2 text-base w-3/4 flex flex-col gap-4">
       <div>
-        {{eventText}}
+        <span class="font-william">{{eventYear}}:</span> {{eventText}}
       </div>
       <div class="self-end text-sm">
-        {{value + 1}}/{{yearsData.length}}
+        {{completedText}}
       </div>
     </div>
-    <EventBoxArrow :class="{'invisible': value == yearsData.length - 1}" @click="updateValue(value + 1)" class="transform rotate-180"/>
+    <EventBoxArrow :class="{'invisible': yearsData && value == yearsData.length - 1}" @click="updateValue(value + 1)" class="transform rotate-180"/>
   </div>
 </template>
 
@@ -34,8 +34,17 @@ export default {
     }
   },
   computed: {
+    eventYear() {
+      return this.yearsData?.[this.value]?.year;
+    },
     eventText () {
+      console.log(this.yearsData?.[this.value]);
       return this.yearsData?.[this.value]?.event;
+    },
+    completedText() {
+      if (this.yearsData?.length) {
+        return `${this.value + 1}/${this.yearsData.length}`;
+      }
     }
   }
 }

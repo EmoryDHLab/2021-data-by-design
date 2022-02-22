@@ -144,13 +144,9 @@ export { events, EventSquare as default }
     fill: #d8d8d8;
   }
 
-  rect:hover, polygon:hover {
+  rect:hover, polygon:hover, .highlight {
     stroke: gold;
     stroke-width: 5px;
   }
 
-  .highlight {
-    stroke: yellow;
-    stroke-width: 8px;
-  }
 </style>
