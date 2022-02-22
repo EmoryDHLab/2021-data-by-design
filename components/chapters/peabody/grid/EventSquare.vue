@@ -7,7 +7,8 @@
     </defs>
     <rect v-if="computedColors.length == 1"
           stroke="#b3b3b3"
-          stroke-width="0.5"
+          :stroke-width="ghost ? 0 : 0.5"
+          :fill-opacity="ghost ? 0 : 1"
           :fill="computedColors"
           :class="classes"
           width="30"
@@ -21,19 +22,19 @@
                :class="classes"
                :points="polygon"
                :fill="computedColors[index]"
-              @mouseenter='hoverStart(index)'
-              @mouseleave='hoverEnd(index)'
-              @click='clickedEvent(index)'
-               />
+               @mouseenter="hoverStart(index)"
+               @mouseleave="hoverEnd(index)"
+               @click="clickedEvent(index)"
+      />
     </g>
   </svg>
 </template>
 <script>
 
 const events = {
-  eventClicked: 'event-clicked',
-  hoverStart: 'hover-start',
-  hoverEnd: 'hover-end'
+  eventClicked: 'eventClicked',
+  hoverStart: 'hoverStart',
+  hoverEnd: 'hoverEnd'
 }
 
 const EventSquare = {
@@ -41,6 +42,10 @@ const EventSquare = {
     colors: {
       type: Array,
       default: () => ["white"]
+    },
+    ghost: {
+      type: Boolean,
+      default: false
     },
     type: Number,
     year: Number,
@@ -108,26 +113,23 @@ const EventSquare = {
     },
   },
   methods: {
-    clickedEvent(i) {
-      this.$emit(events.eventClicked, {
+    fireEvent (eventName, sub) {
+      const color = this.colors[sub ?? 0];
+      this.$emit(eventName, {
         year: this.year,
         type: this.type,
-        sub: i
-      })
+        sub,
+        color
+      });
+    },
+    clickedEvent(i) {
+      this.fireEvent(events.eventClicked, i);
     },
     hoverStart(i) {
-      this.$emit(events.hoverStart, {
-        year: this.year,
-        type: this.type,
-        sub: i
-      })
+      this.fireEvent(events.hoverStart, i);
     },
     hoverEnd(i) {
-      this.$emit(events.hoverEnd, {
-        year: this.year,
-        type: this.type,
-        sub: i
-      })
+      this.fireEvent(events.hoverEnd, i);
     },
   }
 };
@@ -146,4 +148,5 @@ export { events, EventSquare as default }
     stroke: gold;
     stroke-width: 5px;
   }
+
 </style>
