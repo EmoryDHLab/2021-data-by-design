@@ -100,6 +100,9 @@ export default {
     currentCenturyNum () {
       return parseInt(this.currentCentury);
     },
+    currentCenturyData () {
+      return this.centuries[this.currentCentury];
+    },
     datasets () {
       return Object.keys(this.centuries).map(c => "peabody" + c);
     },
@@ -108,7 +111,7 @@ export default {
     },
     highlightedSquare() {
       if (this.hoveredYear && this.hoveredType) {
-        const res = Number(this.hoveredYear - this.currentCenturyNum + 1 +  '.' +
+        const res = Number(this.hoveredYear - this.currentCenturyNum  +  '.' +
           this.hoveredType)
         console.log(this.currentCentury, res);
         return res;
@@ -138,14 +141,20 @@ export default {
       if (year < this.currentCenturyNum) {
         year += this.currentCenturyNum;
       }
-      this.hoveredYear = year;
+      this.hoveredYear = year + 1;
     },
     loadedData({name,data}) {
       const century = name.split("peabody")[1];
       this.centuries[century].events = data;
     },
     gridClicked() {
-      // const guessing = this.currentDataset
+      const { events, eventIndex } = this.currentCenturyData;
+      const guessing = events[eventIndex];
+      if (guessing.year == this.hoveredYear &&
+        guessing.squares.includes(this.hoveredType)) {
+        this.currentCenturyData.solvedEvents.push(guessing);
+        this.currentCenturyData.eventIndex++;
+      }
     }
   }
 }
