@@ -1,6 +1,6 @@
 <template>
   <div class="col-span-full bg-black text-white">
-    <StaticData :dataset="datasets" v-slot="staticData">
+    <StaticData :dataset="datasets" v-slot="staticData" @loaded="loadedData">
       Quiz here {{currentCentury}}
       {{highlightedActors}}
 
@@ -20,20 +20,21 @@
                         @click="currentCentury = century"
             />
           </div>
-          <EventBox v-model="centuries[currentCentury].eventIndex"
-                    :years-data="currentDataset(staticData)"></EventBox>
+          <EventBox v-if="centuries[currentCentury].events"
+                    v-model="centuries[currentCentury].eventIndex"
+                    :years-data="centuries[currentCentury].events"></EventBox>
         </div>
       </div>
 
       <div class="m-8 flex flex-row justify-evenly">
         <div class="w-2/5">
           <PeabodyGrid :overlay-path="'PeabodyImg/' + currentCentury + '.jpg'"
-                       :years-data="currentDataset(staticData)"
+                       :years-data="centuries[currentCentury].events"
                        @hoverStart="eventHovered"
           ></PeabodyGrid>
         </div>
         <div class="w-2/5">
-          <PeabodyGrid :years-data="currentDataset(staticData)"
+          <PeabodyGrid :years-data="centuries[currentCentury].solvedEvents"
                        :highlighted="highlightedSquare"
                        @hoverStart="eventHovered"
                        @click="gridClicked"
@@ -69,19 +70,23 @@ export default {
     return {
       centuries: {
         "1500s": {
-          eventProgress: [],
+          events: [],
+          solvedEvents: [],
           eventIndex: 1
         },
         "1600s": {
-          eventProgress: [],
+          events: [],
+          solvedEvents: [],
           eventIndex: 1
         },
         "1700s": {
-          eventProgress: [],
+          events: [],
+          solvedEvents: [],
           eventIndex: 1
         },
         "1800s": {
-          eventProgress: [],
+          events: [],
+          solvedEvents: [],
           eventIndex: 1
         },
       },
@@ -92,6 +97,9 @@ export default {
     }
   },
   computed: {
+    currentCenturyNum () {
+      return parseInt(this.currentCentury);
+    },
     datasets () {
       return Object.keys(this.centuries).map(c => "peabody" + c);
     },
@@ -99,10 +107,13 @@ export default {
       return this.hoveredEvent.actors || [];
     },
     highlightedSquare() {
-      if (this.hoveredYear) {
-        const res = Number(this.hoveredYear - parseInt(this.currentCentury) + 1 +  '.' + this.hoveredType)
+      if (this.hoveredYear && this.hoveredType) {
+        const res = Number(this.hoveredYear - this.currentCenturyNum + 1 +  '.' +
+          this.hoveredType)
+        console.log(this.currentCentury, res);
         return res;
       }
+      return false;
     }
   },
   methods: {
@@ -124,8 +135,14 @@ export default {
     eventHovered({type, year, event}) {
       this.hoveredType = type == "full" ? null : type;
       this.hoveredEvent = event || {};
+      if (year < this.currentCenturyNum) {
+        year += this.currentCenturyNum;
+      }
       this.hoveredYear = year;
-
+    },
+    loadedData({name,data}) {
+      const century = name.split("peabody")[1];
+      this.centuries[century].events = data;
     },
     gridClicked() {
       // const guessing = this.currentDataset
