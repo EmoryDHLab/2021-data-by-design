@@ -13,15 +13,15 @@
         </div>
         <div class="w-1/2">
           <div class="flex gap-2">
-            <BaseButton v-for="century in centuries"
+            <BaseButton v-for="century in Object.keys(centuries)"
                         :key="century"
                         :selected="currentCentury == century"
                         :text="century"
                         @click="currentCentury = century"
             />
           </div>
-
-          <EventBox v-model="quizEventIndex" :years-data="currentDataset(staticData)"></EventBox>
+          <EventBox v-model="centuries[currentCentury].eventIndex"
+                    :years-data="currentDataset(staticData)"></EventBox>
         </div>
       </div>
 
@@ -36,6 +36,7 @@
           <PeabodyGrid :years-data="currentDataset(staticData)"
                        :highlighted="highlightedSquare"
                        @hoverStart="eventHovered"
+                       @click="gridClicked"
           ></PeabodyGrid>
         </div>
       </div>
@@ -66,9 +67,25 @@ export default {
   components: {LocalImage, EventLegend, EventBox, EventKeyBox, PeabodyGrid, BaseButton, StaticData, EventSquare, ActorSelect},
   data() {
     return {
-      centuries: ["1500s", "1600s", "1700s", "1800s"],
+      centuries: {
+        "1500s": {
+          eventProgress: [],
+          eventIndex: 1
+        },
+        "1600s": {
+          eventProgress: [],
+          eventIndex: 1
+        },
+        "1700s": {
+          eventProgress: [],
+          eventIndex: 1
+        },
+        "1800s": {
+          eventProgress: [],
+          eventIndex: 1
+        },
+      },
       currentCentury: "1500s",
-      quizEventIndex: 1,
       hoveredType: 1,
       hoveredEvent: {},
       hoveredYear: null,
@@ -76,7 +93,7 @@ export default {
   },
   computed: {
     datasets () {
-      return this.centuries.map(c => "peabody" + c);
+      return Object.keys(this.centuries).map(c => "peabody" + c);
     },
     highlightedActors () {
       return this.hoveredEvent.actors || [];
@@ -110,6 +127,9 @@ export default {
       this.hoveredYear = year;
 
     },
+    gridClicked() {
+      // const guessing = this.currentDataset
+    }
   }
 }
 </script>
