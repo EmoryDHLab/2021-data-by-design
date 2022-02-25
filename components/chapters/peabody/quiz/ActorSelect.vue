@@ -1,6 +1,6 @@
 <template>
-  <ul :class="{'horizontal': !vertical}" class="space-y-2">
-    <li v-for="actor in shownActors" class="flex gap-2">
+  <div class="gap-2 flex flex-wrap" :class="{'flex-col': vertical}">
+    <div v-for="actor in shownActors" class="flex gap-2">
       <EventSquare :colors="[actorColors[actor]]"
                    :width="squareWidth" :height="squareWidth"
                    @hover-start="hovered(actor)"
@@ -9,8 +9,8 @@
 
       </EventSquare>
       <span class="text-sm uppercase" :class="{'font-bold': selectedActors.includes(actor)}">{{actor}}</span>
-    </li>
-  </ul>
+    </div>
+  </div>
 </template>
 
 <script>

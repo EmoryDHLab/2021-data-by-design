@@ -3,11 +3,13 @@
     <StaticData :dataset="datasets" v-slot="staticData" @loaded="loadedData">
       <div class="flex mt-4">
         <div class="w-1/2 flex flex-col gap-4 items-center">
-          <div class="flex w-4/5 h-56 justify-between items-center">
-            <div class="w-4/5">
+          <div
+            class="flex flex-col xl:flex-row w-4/5 h-72 xl:h-56 gap-2 justify-between items-center">
+            <div class="w-full xl:w-4/5">
               <EventLegend class="text-white ml-4" :value="hoveredType" />
             </div>
-            <ActorSelect :vertical="true" :shown-actors="shownActors(staticData)" :selected-actors="highlightedActors"></ActorSelect>
+            <ActorSelect :vertical="$breakpoints.includes('xl')"
+                         :shown-actors="shownActors(staticData)" :selected-actors="highlightedActors"></ActorSelect>
           </div>
           <div class="w-3/4">
             <PeabodyGrid :overlay-path="'PeabodyImg/' + currentCentury + '.jpg'"
@@ -18,7 +20,7 @@
         </div>
 
         <div class="w-1/2 flex flex-col gap-4 items-center">
-          <div class="h-56 flex flex-col justify-evenly items-center">
+          <div class="h-72 xl:h-56 flex flex-col justify-evenly items-center">
             <div class="flex w-full justify-evenly">
               <BaseButton v-for="century in Object.keys(centuries)"
                           :key="century"
