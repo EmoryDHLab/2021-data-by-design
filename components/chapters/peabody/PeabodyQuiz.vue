@@ -1,46 +1,46 @@
 <template>
   <div class="col-span-full bg-black text-white">
     <StaticData :dataset="datasets" v-slot="staticData" @loaded="loadedData">
-      Quiz here {{currentCentury}}
-      {{highlightedActors}}
-
-      <div class="flex">
-        <div class="w-1/2 flex">
+      <div class="flex mt-4">
+        <div class="w-1/2 flex flex-col gap-4 items-center">
+          <div class="flex w-4/5 h-56 justify-between items-center">
+            <div class="w-4/5">
+              <EventLegend class="text-white ml-4" :value="hoveredType" />
+            </div>
+            <ActorSelect :vertical="true" :shown-actors="shownActors(staticData)" :selected-actors="highlightedActors"></ActorSelect>
+          </div>
           <div class="w-3/4">
-            <EventLegend class="text-white ml-4" :value="hoveredType" />
+            <PeabodyGrid :overlay-path="'PeabodyImg/' + currentCentury + '.jpg'"
+                         :years-data="centuries[currentCentury].events"
+                         @hoverStart="eventHovered"
+            ></PeabodyGrid>
           </div>
-          <ActorSelect :vertical="true" :shown-actors="shownActors(staticData)" :selected-actors="highlightedActors"></ActorSelect>
         </div>
-        <div class="w-1/2">
-          <div class="flex gap-2">
-            <BaseButton v-for="century in Object.keys(centuries)"
-                        :key="century"
-                        :selected="currentCentury == century"
-                        :text="century"
-                        @click="currentCentury = century"
-            />
+
+        <div class="w-1/2 flex flex-col gap-4 items-center">
+          <div class="h-56 flex flex-col justify-evenly items-center">
+            <div class="flex w-full justify-evenly">
+              <BaseButton v-for="century in Object.keys(centuries)"
+                          :key="century"
+                          :selected="currentCentury == century"
+                          :text="century"
+                          @click="currentCentury = century"
+              />
+            </div>
+            <EventBox v-if="centuries[currentCentury].events"
+                      v-model="centuries[currentCentury].eventIndex"
+                      :years-data="centuries[currentCentury].events"></EventBox>
           </div>
-          <EventBox v-if="centuries[currentCentury].events"
-                    v-model="centuries[currentCentury].eventIndex"
-                    :years-data="centuries[currentCentury].events"></EventBox>
-        </div>
+          <div class="w-3/4">
+            <PeabodyGrid :years-data="centuries[currentCentury].solvedEvents"
+                         :highlighted="highlightedSquare"
+                         @hoverStart="eventHovered"
+                         @click="gridClicked"
+            ></PeabodyGrid>
+          </div>
+          </div>
       </div>
 
-      <div class="m-8 flex flex-row justify-evenly">
-        <div class="w-2/5">
-          <PeabodyGrid :overlay-path="'PeabodyImg/' + currentCentury + '.jpg'"
-                       :years-data="centuries[currentCentury].events"
-                       @hoverStart="eventHovered"
-          ></PeabodyGrid>
-        </div>
-        <div class="w-2/5">
-          <PeabodyGrid :years-data="centuries[currentCentury].solvedEvents"
-                       :highlighted="highlightedSquare"
-                       @hoverStart="eventHovered"
-                       @click="gridClicked"
-          ></PeabodyGrid>
-        </div>
-      </div>
     </StaticData>
   </div>
 </template>
