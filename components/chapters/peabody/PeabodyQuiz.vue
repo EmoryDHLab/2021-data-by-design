@@ -31,7 +31,10 @@
             </div>
             <EventBox v-if="centuries[currentCentury].events"
                       v-model="centuries[currentCentury].eventIndex"
-                      :years-data="centuries[currentCentury].events"></EventBox>
+                      :solvedEvents="centuries[currentCentury].solvedEvents"
+                      :eventData="centuries[currentCentury].events"
+                      @solveClicked="solveClicked"
+            />
           </div>
           <div class="w-3/4">
             <PeabodyGrid :years-data="centuries[currentCentury].solvedEvents"
@@ -74,22 +77,22 @@ export default {
         "1500s": {
           events: [],
           solvedEvents: [],
-          eventIndex: 1
+          eventIndex: 0
         },
         "1600s": {
           events: [],
           solvedEvents: [],
-          eventIndex: 1
+          eventIndex: 0
         },
         "1700s": {
           events: [],
           solvedEvents: [],
-          eventIndex: 1
+          eventIndex: 0
         },
         "1800s": {
           events: [],
           solvedEvents: [],
-          eventIndex: 1
+          eventIndex: 0
         },
       },
       currentCentury: "1500s",
@@ -115,7 +118,6 @@ export default {
       if (this.hoveredYear && this.hoveredType) {
         const res = Number(this.hoveredYear - this.currentCenturyNum  +  '.' +
           this.hoveredType)
-        console.log(this.currentCentury, res);
         return res;
       }
       return false;
@@ -148,6 +150,16 @@ export default {
     loadedData({name,data}) {
       const century = name.split("peabody")[1];
       this.centuries[century].events = data;
+    },
+    solveClicked(solved) {
+      const { events, eventIndex, solvedEvents } = this.currentCenturyData;
+      const currentEvent = events[eventIndex];
+      if (solved) {
+        const index = solvedEvents.findIndex(ev => ev == currentEvent);
+        this.currentCenturyData.solvedEvents.splice(index, 1);
+        return;
+      }
+      this.currentCenturyData.solvedEvents.push(events[eventIndex]);
     },
     gridClicked() {
       const { events, eventIndex } = this.currentCenturyData;
