@@ -1,7 +1,7 @@
 <template>
   <div class="flex text-white border-b min-h-28">
     <EventBoxArrow :class="{'invisible': value == 0}" @click="updateValue(value - 1)"/>
-    <div class="mx-4 my-2 text-base w-96 flex flex-col gap-4">
+    <div class="mx-4 my-2 text-base w-96 flex flex-row justify-between gap-4">
       <div>
         <span class="font-william">{{eventYear}}:</span> {{eventText}}
       </div>
