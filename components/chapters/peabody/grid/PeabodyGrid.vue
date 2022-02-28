@@ -64,7 +64,7 @@ export default {
         if (Array.isArray(arr)) {
           return arr?.every(yearObj => {
             const requiredKeys = ["event", "year", "squares", "actors"];
-            return requiredKeys.every(key => key in yearObj);
+            return typeof yearObj === "object" && requiredKeys.every(key => key in yearObj);
           })
         }
         const num = arr;

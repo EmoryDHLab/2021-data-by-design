@@ -20,7 +20,7 @@
         </div>
 
         <div class="w-1/2 flex flex-col gap-4 items-center">
-          <div class="h-72 xl:h-56 flex flex-col justify-evenly items-center">
+          <div class="h-72r xl:h-56 flex flex-col justify-evenly items-center">
             <div class="flex w-full justify-evenly">
               <BaseButton v-for="century in Object.keys(centuries)"
                           :key="century"
@@ -152,10 +152,16 @@ export default {
     gridClicked() {
       const { events, eventIndex } = this.currentCenturyData;
       const guessing = events[eventIndex];
-      if (guessing.year == this.hoveredYear &&
+      if (guessing?.year == this.hoveredYear &&
         guessing.squares.includes(this.hoveredType)) {
         this.currentCenturyData.solvedEvents.push(guessing);
         this.currentCenturyData.eventIndex++;
+        return;
+      }
+      const matchingEventIndex = events.findIndex(event => event.year === this.hoveredYear);
+      if (matchingEventIndex >= 0) {
+        this.currentCenturyData.solvedEvents.push(events[matchingEventIndex]);
+        this.currentCenturyData.eventIndex = matchingEventIndex;
       }
     }
   }
