@@ -20,7 +20,7 @@
         ></EventSquare>
 
         <text v-if="showNumbers"
-          class="number"
+          class="number pointer-events-none"
           :x="10 + (index % 3) * 30"
           :y="22 + (Math.floor(index / 3)) * 30"
           :fill="textColor(color)"
