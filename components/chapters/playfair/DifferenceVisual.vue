@@ -22,6 +22,7 @@ import StaticData from "@/components/data-access/StaticData";
 
 export default {
   components: { RecreationTesting, StaticData },
-  props: ["playfairData"]
+  props: ["playfairData"],
+  inject: ["scrollData"]
 };
 </script>
