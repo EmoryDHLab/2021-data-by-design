@@ -1,9 +1,11 @@
 <template>
-  <div class="font-sans text-sm uppercase flex flex-col">
-    <div class="cursor-pointer" v-for="(event, i) in legendText"
+  <div class="font-sans text-sm uppercase" :class="layoutClass">
+    <div class="cursor-pointer flex flex-row gap-2"
+         v-for="(event, i) in legendText"
          :class="{'font-bold': value == i + 1}"
          @mouseover="$emit('input', i + 1)">
-      {{i + 1}} {{event}}
+      <div>{{i + 1}}</div>
+      <div>{{event}}<span class="invisible font-bold">next</span></div>
     </div>
   </div>
 </template>
@@ -35,6 +37,12 @@ export default {
       }
     },
   },
+  computed: {
+    layoutClass () {
+      return "w-full grid grid-cols-3 gap-y-1 gap-x-4"
+      // return "flex flex-col";
+    }
+  }
 }
 </script>
 

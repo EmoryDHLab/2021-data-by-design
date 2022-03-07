@@ -1,7 +1,11 @@
 <template>
   <Slots>
     <template v-for="i in [1,2,3]" v-slot:[slots.hoverText(i)]="{inner}">
-      <HoverText :key="slots.hoverText(i)" v-html="inner" @mouseover.native="hoverTextOver(i)" @mouseout.native="hoverTextOut"></HoverText>
+      <HoverText :key="slots.hoverText(i)" v-html="inner" @mouseover.native="mapHoverOver(i)" @mouseout.native="mapHoverOut"></HoverText>
+    </template>
+
+    <template v-for="i in [4,5,6]" v-slot:[slots.hoverText(i)]="{inner}">
+      <HoverText :key="slots.hoverText(i)" v-html="inner" @mouseover.native="overlayHoverOver(i)" @mouseout.native="overlayHoverOut"></HoverText>
     </template>
 
     <template v-slot:[slots.mapScroller]>
@@ -21,6 +25,16 @@
             of the Library of Congress, Geography and Map Division.
           </template>
         </Captioned>
+    </template>
+
+    <template v-slot:SeventeenthCenturyOverlay>
+      <MoveBorder class="relative">
+        <PeabodyGrid class="w-full" overlay-path="PeabodyImg/1600s.jpg" :highlighted="chapterState.overlayHighlight"
+                     @click="chapterState.overlayHighlight = false"
+          >
+
+          </PeabodyGrid>
+      </MoveBorder>
     </template>
 
 <!--    <template v-slot:PeabodyTutorialSlot>-->
@@ -55,9 +69,11 @@ import StaticData from "@/components/data-access/StaticData";
 import PeabodyGrid from "../chapters/peabody/grid/PeabodyGrid.vue";
 import EventKey from "../chapters/peabody/key/EventKeyBox";
 import EventLegend from "../chapters/peabody/key/EventLegend";
+import LocalImage from "../global/docs-inclusions/LocalImage";
 
 export default {
   components: {
+    LocalImage,
     EventLegend,
     EventKey, StaticData, PeabodyTutorial, MapScroller, MoveBorder, Captioned, HoverText, PeabodyGrid },
   mixins: [ChapterSlots],
@@ -73,18 +89,30 @@ export default {
   },
   chapterState: {
     mapPos: -1,
+    overlayHighlight: false,
   },
   methods: {
-    hoverTextOver(n) {
+    mapHoverOver(n) {
       this.chapterState.mapPos = n - 1;
     },
-    hoverTextOut() {
+    mapHoverOut() {
       this.chapterState.mapPos = -1;
-    }
+    },
+    overlayHoverOver(n) {
+      const positions = [7, 20, 20.6]
+      this.chapterState.overlayHighlight = positions[n - 4];
+    },
+    overlayHoverOut() {
+
+    },
   }
 }
 </script>
 
 <style scoped>
-
+  .overlay {
+    width: 50%;
+    opacity: 90%;
+    top: -50%;
+  }
 </style>

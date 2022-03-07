@@ -1,28 +1,41 @@
 <template>
-  <svg class="w-full h-full" viewBox="0 0 99 99">
-    <rect class="text-peabodyorange fill-current" x="0" width="100" height="100" />
-      <year-square
+  <svg class="w-full" viewBox="0 0 99 99" @click="$emit('click')">
+    <image v-if="overlayPath" :href="imgSrc" x="-3.5" y="-3.5" width="105.5" height="106"/>
+    <g :opacity="overlayPath && 1">
+      <rect v-if="!overlayPath" class="text-peabodyorange fill-current" x="0" width="100" height="99" @mouseout="hoveredYear = false"/>
+      <g
         v-for="(n, i) in 100"
-        :width="yearWidth - yearWidth / 48"
-        :height="yearWidth - yearWidth / 48"
-        :x="getYearXFromIndex(i)"
-        :y="getYearYFromIndex(i)"
-
-        :showSquares="showSquares"
-        :highlightedSquare="n == highlightedYear ? highlightedSquare : null"
-        :key="i"
-        :actorColors="actorColors"
-        :class="`year-square-${n}`"
-        :yearData="getYearData(i)"
-        :year="getYear(i)"
-      />
+        @mouseover="hoveredYear = i"
+      >
+        <YearSquare
+          :width="yearWidth - yearWidth / 48"
+          :height="yearWidth - yearWidth / 48"
+          :x="getYearXFromIndex(i)"
+          :y="getYearYFromIndex(i)"
+          :class="`year-square-${n}`"
+          :ghost="!!overlayPath"
+          :showSquares="true"
+          :highlightYear="n == highlightedYear && !highlightedSquare"
+          :highlightedSquare="n == highlightedYear ? highlightedSquare : null"
+          :key="i"
+          :actorColors="actorColors"
+          :yearData="getYearData(n)"
+          :year="getYear(i)"
+          :label="showLabels && startYear + n"
+          v-on="$listeners"
+        >
+        </YearSquare>
+      </g>
+    </g>
+    <slot v-bind:hoveredYear="hoveredYear" v-bind:methods="{ getYearXFromIndex, getYearYFromIndex }"></slot>
   </svg>
 </template>
 
 <script>
 import Visualization from "~/components/mixins/Visualization";
-import { actorColors, dataToYears } from "../peabody-utils";
+import {actorColors, dataToYears} from "../peabody-utils";
 import YearSquare from './YearSquare.vue';
+import EventKeyBox from "../key/EventKeyBox";
 
 export const docsDefinition = {
   matchName: ["PeabodyGrid"],
@@ -32,27 +45,39 @@ export const docsDefinition = {
 
 export default {
   props: {
+    overlayPath: String,
     highlighted: {
-      type: Number,
+      type: [Number, Boolean],
       validator(number) {
+        if (number === false) return true;
         if (isNaN(number)) return false;
+        const str = String(number);
+        const hasDecimal = str.includes(".");
         const oneDigitDecimal =
-          String(number).slice(String(number).indexOf(".") + 1).length == 1;
-        return oneDigitDecimal && number >= 1 && number < 101;
+          str.slice(str.indexOf(".") + 1).length == 1;
+        return (!hasDecimal || oneDigitDecimal) && number >= 1 && number < 101;
       },
     },
     yearsData: {
-      type: Array,
+      type: [Array, Number],
       validator(arr) {
-        return arr?.every(yearObj => {
-          const requiredKeys = ["event", "year", "squares", "actors"];
-          return requiredKeys.every(key => key in yearObj);
-        })
+        if (Array.isArray(arr)) {
+          return arr?.every(yearObj => {
+            const requiredKeys = ["event", "year", "squares", "actors"];
+            return typeof yearObj === "object" && requiredKeys.every(key => key in yearObj);
+          })
+        }
+        const num = arr;
+        return num >= 0;
       }
     },
     showSquares: {
       type: Boolean,
       default: true,
+    },
+    showLabels: {
+      type: Boolean,
+      default: false,
     },
     actorColors: {
       type: Object,
@@ -62,17 +87,19 @@ export default {
     },
   },
   components: {
+    EventKeyBox,
     YearSquare,
   },
-  data () {
+  data() {
     return {
-    yearWidth: 9
+      yearWidth: 9,
+      hoveredYear: false,
     }
   },
   computed: {
     years() {
       try {
-        if (this.yearsData && this.yearsData.length > 0) {
+        if (Array.isArray(this.yearsData) && this.yearsData.length > 0) {
           return dataToYears(this.yearsData);
         }
       } catch (error) {
@@ -86,17 +113,29 @@ export default {
       return true;
     },
     startYear() {
+      if (typeof this.yearsData === "number") {
+        return this.yearsData;
+      }
       if (this.isEmpty) return 0;
-      return 1 + Math.round(Math.min(...Object.keys(this.years)) / 100) * 100;
+      return Math.round(Math.min(...Object.keys(this.years)) / 100) * 100;
     },
+
     highlightedYear() {
-      return Math.floor(this.highlighted);
+      return this.highlighted && Math.floor(this.highlighted);
     },
     highlightedSquare() {
-      return Math.round((this.highlighted - this.highlightedYear) * 10);
+      return this.highlighted && Math.round((this.highlighted - this.highlightedYear) * 10);
     },
+    imgSrc () {
+      if (this.overlayPath) {
+        return require(`~/assets/images/${this.overlayPath}`);
+      }
+    }
   },
   methods: {
+    hoverStart (data) {
+      this.$emit('hoverStart', data);
+    },
     getYear(n) {
       return this.startYear + n;
     },
