@@ -2,6 +2,7 @@
   <div>
     <div class="bg-black text-white">
       something
+
     </div>
     <div class="bg-brooks_sec flex">
       <div class="w-1/2">
