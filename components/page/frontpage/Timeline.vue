@@ -1,9 +1,17 @@
 <template>
   <div>
-    <div class="bg-black text-white">
-      something
+<!--    <div class="bg-black text-white"> -->
+    <svg width="100%" :height="part1_height + 'px'">
+      <image v-for="img in img_data.slice(0, 10)"
+           :xlink:href="generateImg(img)"
+           :width="150"
+           :x="getRand(1600)"
+           :y="getRand(part1_height - 100)"
+      ></image>
+    </svg>
 
-    </div>
+
+<!--    </div>-->
     <div class="bg-brooks_sec flex">
       <div class="w-1/2">
         <img class="p-20 object-scale-down justify-items-end" src="../../../assets/images/brooks/2-marie-saphire-1770s.jpeg">
@@ -27,9 +35,32 @@
 </template>
 
 <script>
+import img_data from './img.json';
 export default {
-  name: "Timeline"
-}
+  name: "Timeline",
+  data(){
+    return{
+      img_data: img_data,
+      part1_height: 400,
+      // windowWidth: window.innerWidth,
+      dragOffsetX: null,
+      dragOffsetY: null,
+    }
+  },
+  methods: {
+    generateImg(img) {
+      let p = this.getImgPath(img.CHAPTER, img.FILE_NAME);
+      return p;
+    },
+    getImgPath(chapter, file_name) {
+      return require(`~/assets/images/${chapter}/${file_name}`);
+    },
+    getRand(b) {
+      // TODO: figure out how to get window size
+      return Math.random()*b;
+    },
+  }
+};
 </script>
 
 <style scoped>
