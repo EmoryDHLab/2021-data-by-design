@@ -1,5 +1,5 @@
 <template>
-  <svg id="pf_chart" ref="pf_chart">
+  <svg>
     <text
       fill="black"
       :x="width / 2"
@@ -50,14 +50,17 @@
     </g>
     <VerticalGrid
       v-for="x in xTicks"
+      v-bind:data="x"
+      v-bind:key="x"
       :x-scale="xScale"
-      :y-scale="yScale"
       :x="x"
     ></VerticalGrid>
     <HorizontalGrid
       v-for="y in yTicks"
-      :xScale="xScale"
-      :yScale="yScale"
+      v-bind:data="y"
+      v-bind:key="y"
+      :x-scale="xScale"
+      :y-scale="yScale"
       :y="y"
       :innerWidth="innerGridWidth"
     ></HorizontalGrid>
@@ -125,17 +128,15 @@ export default {
       return this.yScale.ticks(20); //20 is the number of horizontal lines/ ticks
     },
     xScale() {
-      return (
-        d3
-          .scaleTime()
-          .range([0, (this.width / 11) * 10])
+      return d3
+        .scaleLinear()
+        .range([0, (this.width / 11) * 10])
+        .domain(
           // extent is the equivalent of calling min and max simultaneously
-          .domain(
-            d3.extent(this.playfairData, function(d) {
-              return d.Years;
-            })
-          )
-      );
+          d3.extent(this.playfairData, function(d) {
+            return d.Years;
+          })
+        );
     },
     yScale() {
       return (

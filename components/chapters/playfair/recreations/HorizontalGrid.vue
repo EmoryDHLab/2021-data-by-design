@@ -35,7 +35,6 @@ export default {
   },
   methods: {
     tickFormatterY(tickVal) {
-      console.log(tickVal);
       if (tickVal / 1000000 === 1) {
         //if the value is 1, omit s
         return "1 Million";
