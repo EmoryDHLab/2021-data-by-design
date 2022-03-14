@@ -20,7 +20,7 @@
         </div>
 
         <div class="w-1/2 flex flex-col gap-4 items-center">
-          <div class="h-72 xl:h-56 flex flex-col justify-evenly items-center">
+          <div class="h-72r xl:h-56 flex flex-col justify-evenly items-center">
             <div class="flex w-full justify-evenly">
               <BaseButton v-for="century in Object.keys(centuries)"
                           :key="century"
@@ -31,7 +31,19 @@
             </div>
             <EventBox v-if="centuries[currentCentury].events"
                       v-model="centuries[currentCentury].eventIndex"
-                      :years-data="centuries[currentCentury].events"></EventBox>
+                      :solvedEvents="centuries[currentCentury].solvedEvents"
+                      :eventData="centuries[currentCentury].events"
+                      @solveClicked="solveClicked"
+            />
+            <div class="-ml-16 flex uppercase divide-x">
+              <button @click="solveCentury" class="hover:underline pr-2 flex items-center gap-2">
+                Complete
+                <EventCheckbox :checked="currentCenturyData.solvedEvents.length == currentCenturyData.events.length"></EventCheckbox>
+              </button>
+              <button @click="resetCentury" class="hover:underline pl-2">
+                Reset
+              </button>
+            </div>
           </div>
           <div class="w-3/4">
             <PeabodyGrid :years-data="centuries[currentCentury].solvedEvents"
@@ -60,6 +72,7 @@ import BaseButton from "../../base/BaseButton";
 import LocalImage from "../../global/docs-inclusions/LocalImage";
 
 import EventBox from "./quiz/EventBox";
+import EventCheckbox from "./quiz/EventCheckbox";
 export const docsDefinition = {
   matchName: ["PeabodyQuiz"],
   componentName: "PeabodyQuiz",
@@ -67,29 +80,31 @@ export const docsDefinition = {
 }
 
 export default {
-  components: {LocalImage, EventLegend, EventBox, EventKeyBox, PeabodyGrid, BaseButton, StaticData, EventSquare, ActorSelect},
+  components: {
+    EventCheckbox,
+    LocalImage, EventLegend, EventBox, EventKeyBox, PeabodyGrid, BaseButton, StaticData, EventSquare, ActorSelect},
   data() {
     return {
       centuries: {
         "1500s": {
           events: [],
           solvedEvents: [],
-          eventIndex: 1
+          eventIndex: 0
         },
         "1600s": {
           events: [],
           solvedEvents: [],
-          eventIndex: 1
+          eventIndex: 0
         },
         "1700s": {
           events: [],
           solvedEvents: [],
-          eventIndex: 1
+          eventIndex: 0
         },
         "1800s": {
           events: [],
           solvedEvents: [],
-          eventIndex: 1
+          eventIndex: 0
         },
       },
       currentCentury: "1500s",
@@ -115,7 +130,6 @@ export default {
       if (this.hoveredYear && this.hoveredType) {
         const res = Number(this.hoveredYear - this.currentCenturyNum  +  '.' +
           this.hoveredType)
-        console.log(this.currentCentury, res);
         return res;
       }
       return false;
@@ -149,13 +163,40 @@ export default {
       const century = name.split("peabody")[1];
       this.centuries[century].events = data;
     },
+    solveCentury() {
+      for (const ev of this.currentCenturyData.events) {
+        if (!this.currentCenturyData.solvedEvents.includes(ev)) {
+          this.currentCenturyData.solvedEvents.push(ev);
+        }
+      }
+    },
+    resetCentury () {
+      // this.currentCenturyData.solvedEvents.splice(0, this.currentCenturyData.solvedEvents.length);
+      this.currentCenturyData.solvedEvents = [];
+    },
+    solveClicked(solved) {
+      const { events, eventIndex, solvedEvents } = this.currentCenturyData;
+      const currentEvent = events[eventIndex];
+      if (solved) {
+        const index = solvedEvents.findIndex(ev => ev == currentEvent);
+        this.currentCenturyData.solvedEvents.splice(index, 1);
+        return;
+      }
+      this.currentCenturyData.solvedEvents.push(events[eventIndex]);
+    },
     gridClicked() {
       const { events, eventIndex } = this.currentCenturyData;
       const guessing = events[eventIndex];
-      if (guessing.year == this.hoveredYear &&
+      if (guessing?.year == this.hoveredYear &&
         guessing.squares.includes(this.hoveredType)) {
         this.currentCenturyData.solvedEvents.push(guessing);
         this.currentCenturyData.eventIndex++;
+        return;
+      }
+      const matchingEventIndex = events.findIndex(event => event.year === this.hoveredYear);
+      if (matchingEventIndex >= 0) {
+        this.currentCenturyData.solvedEvents.push(events[matchingEventIndex]);
+        this.currentCenturyData.eventIndex = matchingEventIndex;
       }
     }
   }

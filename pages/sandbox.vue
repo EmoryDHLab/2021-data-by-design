@@ -1,8 +1,7 @@
 <template>
   <GridLayout>
-    <div class="w-14">
-      <EventSquare :colors="['blue', 'green']"/>
-    </div>
+
+    <PeabodyQuiz></PeabodyQuiz>
 
   </GridLayout>
 
@@ -11,8 +10,9 @@
 <script>
 
 import EventSquare from "@/components/chapters/peabody/grid/EventSquare"
+import PeabodyQuiz from "../components/chapters/peabody/PeabodyQuiz";
 export default {
-  components: {EventSquare}
+  components: {PeabodyQuiz, EventSquare}
 }
 </script>
 
