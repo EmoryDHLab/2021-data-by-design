@@ -3,7 +3,7 @@
     <text
       v-if="scrollData.current > 7"
       fill="black"
-      :x="width / 2 + 3"
+      :x="width / 2"
       y="2.3"
       font-family="Times New Roman"
       font-size="2.3"
@@ -40,21 +40,17 @@
     <g v-if="scrollData.current > 3">
       <text
         fill="black"
-        :x="(width + 3) * 0.25"
-        :y="(height + 3) * 0.87"
         font-size="3"
         font-family="Chancery Cursive"
-        transform="rotate(-11)"
+        :transform="transformImportText"
       >
         Line of Imports
       </text>
       <text
         fill="black"
-        :x="0"
-        :y="60"
         font-size="3"
         font-family="Chancery Cursive"
-        transform="rotate(-65)"
+        :transform="transformExportText"
       >
         Line of Exports
       </text>
@@ -165,6 +161,14 @@ export default {
     this.interval = 200000;
   },
   computed: {
+    transformImportText: function() {
+      return (
+        "rotate(-11) translate(" + this.width / 9 + "," + this.height + ")"
+      );
+    },
+    transformExportText: function() {
+      return "rotate(-65) translate(" + 0 + "," + 60 + ")";
+    },
     scatterImport: function() {
       return this.playfairData.map(d => ({
         x: d.Years,

@@ -10,18 +10,16 @@
         height="100%"
         style="fill:#F3ECCB; font-family: 'Dancing Script', cursive"
       />
-      <RecreationTesting
-        :playfairData="data.playfair_nums_def"
-      ></RecreationTesting>
+      <Recreation :playfairData="data.playfair_nums_def"></Recreation>
     </svg>
   </StaticData>
 </template>
 <script>
-import RecreationTesting from "@/components/chapters/playfair/recreations/RecreationTesting";
+import Recreation from "@/components/chapters/playfair/recreations/Recreation";
 import StaticData from "@/components/data-access/StaticData";
 
 export default {
-  components: { RecreationTesting, StaticData },
+  components: { Recreation, StaticData },
   props: ["playfairData"],
   inject: ["scrollData"]
 };

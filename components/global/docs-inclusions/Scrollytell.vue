@@ -30,7 +30,7 @@
         <div class="h-screen" ref="buffer"></div>
         <div
           v-for="(i, zeroIndexed) in groups"
-          class="text-white flex items-center"
+          class="flex items-center"
           :class="{ 'h-screen': !collect, 'scroll-snap-child': snapRange }"
           :style="collectStyle(zeroIndexed)"
           ref="groups"
