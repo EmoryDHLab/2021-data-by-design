@@ -24,7 +24,6 @@ export default {
   props: {
     innerWidth: Number,
     y: Number,
-    xScale: Function,
     yScale: Function,
     maxY: Number
   },

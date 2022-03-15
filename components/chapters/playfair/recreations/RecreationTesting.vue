@@ -1,13 +1,24 @@
 <template>
-  <svg>
+  <g>
     <text
+      v-if="scrollData.current > 7"
       fill="black"
-      :x="width / 2"
+      :x="width / 2 + 3"
       y="2.3"
       font-family="Times New Roman"
       font-size="2.3"
     >
       Time
+    </text>
+    <text
+      v-if="scrollData.current > 7"
+      fill="black"
+      :y="2"
+      font-family="Times New Roman"
+      font-size="2.3"
+      transform="rotate(-90) translate(-28, 0)"
+    >
+      Money
     </text>
     <rect
       fill="white"
@@ -54,34 +65,67 @@
       v-bind:key="x"
       :x-scale="xScale"
       :x="x"
+      ticks
+      :offset="3"
     ></VerticalGrid>
+    <g v-if="scrollData.current === 3">
+      <VerticalGrid
+        id="minor"
+        v-for="x in xMinorTicks"
+        v-bind:data="x"
+        v-bind:key="x"
+        :x-scale="xMinorScale"
+        :x="x"
+        :offset="(width / 11) * 7 + 3"
+      ></VerticalGrid>
+    </g>
     <HorizontalGrid
       v-for="y in yTicks"
       v-bind:data="y"
       v-bind:key="y"
-      :x-scale="xScale"
       :y-scale="yScale"
       :y="y"
       :innerWidth="innerGridWidth"
     ></HorizontalGrid>
-    <g v-if="scrollData.current > 3">
-      <path :d="exportLined" stroke-width=".4px" stroke="#BB877F"></path>
-      <path :d="exportLine1801d" stroke-width=".3px" stroke="red"></path>
-      <path :d="importLined" stroke-width=".4px" stroke="#D6BF24"></path>
-      <path :d="importLine1801d" stroke-width=".3px" stroke="blue"></path>
-      <path :d="lineUndefined" stroke-width=".5px" stroke="purple"></path>
-      <path :d="exportDraftd" stroke-width=".5px" stroke="lime"></path>
-      <path :d="importDraftd" stroke-width=".5px" stroke="green"></path>
+    <g v-if="scrollData.current === 2">
+      <ScatterPlot
+        v-for="x in scatterImport"
+        v-bind:data="x"
+        v-bind:key="x.x + x.y"
+        :x-scale="xScale"
+        :y-scale="yScale"
+        :x="x"
+        color="#D6BF24"
+      ></ScatterPlot>
+      <ScatterPlot
+        v-for="x in scatterExport"
+        v-bind:data="x"
+        v-bind:key="x.x + x.y"
+        :x-scale="xScale"
+        :y-scale="yScale"
+        :x="x"
+        color="#BB877F"
+      ></ScatterPlot>
     </g>
-  </svg>
+    <g v-if="scrollData.current > 2">
+      <path :d="exportLined" stroke-width=".4px" stroke="#BB877F"></path>
+      <!-- <path :d="exportLine1801d" stroke-width=".4px" stroke="#BB877F"></path> -->
+      <path :d="importLined" stroke-width=".4px" stroke="#D6BF24"></path>
+      <!-- <path :d="importLine1801d" stroke-width=".4px" stroke="#D6BF24"></path> -->
+      <!-- <path :d="lineUndefined" stroke-width=".5px" stroke="purple"></path> -->
+      <!-- <path :d="exportDraftd" stroke-width=".5px" stroke="lime"></path> -->
+      <!-- <path :d="importDraftd" stroke-width=".5px" stroke="green"></path> -->
+    </g>
+  </g>
 </template>
 <script>
 import * as d3 from "d3";
+import ScatterPlot from "@/components/chapters/playfair/recreations/ScatterPlot";
 import VerticalGrid from "@/components/chapters/playfair/recreations/VerticalGrid";
 import HorizontalGrid from "@/components/chapters/playfair/recreations/HorizontalGrid";
 
 export default {
-  components: { VerticalGrid, HorizontalGrid },
+  components: { VerticalGrid, HorizontalGrid, ScatterPlot },
   inject: ["scrollData"],
   data() {
     return {
@@ -121,6 +165,27 @@ export default {
     this.interval = 200000;
   },
   computed: {
+    scatterImport: function() {
+      return this.playfairData.map(d => ({
+        x: d.Years,
+        y: d.Imports
+      }));
+    },
+    scatterExport: function() {
+      return this.playfairData.map(d => ({
+        x: d.Years,
+        y: d.Exports
+      }));
+    },
+    xMinorTicks: function() {
+      return this.xMinorScale.ticks();
+    },
+    xMinorScale() {
+      return d3
+        .scaleLinear()
+        .range([0, (this.width / 100) * 11])
+        .domain([1770, 1782]);
+    },
     xTicks: function() {
       return this.xScale.ticks();
     },

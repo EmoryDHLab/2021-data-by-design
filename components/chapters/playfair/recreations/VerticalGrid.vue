@@ -1,18 +1,19 @@
 <template>
   <g>
     <line
-      :x1="xValue + 3"
+      :x1="xValue + offset"
       y1="3"
-      :x2="xValue + 3"
+      :x2="xValue + offset"
       y2="47"
       opacity="0.4"
       stroke="black"
       stroke-width="0.1"
     ></line>
     <text
+      v-if="ticks === true"
       fill="black"
-      :x="xValue + 2"
-      :y="47 + 2"
+      :x="xValue + offset - 1"
+      :y="47 + offset - 1"
       font-family="Chancery Cursive"
       font-size="3"
       >{{ x }}</text
@@ -23,7 +24,9 @@
 export default {
   props: {
     x: Number,
-    xScale: Function
+    xScale: Function,
+    ticks: Boolean,
+    offset: Number
   },
   computed: {
     xValue: function() {
