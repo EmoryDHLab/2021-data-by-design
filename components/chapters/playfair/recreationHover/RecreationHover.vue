@@ -1,7 +1,6 @@
 <template>
   <g>
     <text
-      v-if="scrollData.current > 7"
       fill="black"
       :x="width / 2"
       y="2.3"
@@ -11,7 +10,6 @@
       Time
     </text>
     <text
-      v-if="scrollData.current > 7"
       fill="black"
       :y="2"
       font-family="Times New Roman"
@@ -37,7 +35,7 @@
       stroke="black"
       stroke-width="0.25"
     ></rect>
-    <g v-if="scrollData.current >= 6">
+    <g>
       <text
         fill="black"
         font-size="3"
@@ -64,7 +62,7 @@
       ticks
       :offset="3"
     ></VerticalGrid>
-    <g v-if="scrollData.current === 3">
+    <g>
       <VerticalGrid
         id="minor"
         v-for="x in xMinorTicks"
@@ -83,7 +81,7 @@
       :y="y"
       :innerWidth="innerGridWidth"
     ></HorizontalGrid>
-    <g v-if="scrollData.current === 2">
+    <g>
       <ScatterPlot
         v-for="x in scatterImport"
         v-bind:data="x"
@@ -103,16 +101,7 @@
         color="#BB877F"
       ></ScatterPlot>
     </g>
-    <OvalTitle v-if="scrollData.current >= 7" color="#FCE2B0"></OvalTitle>
-    <g v-if="scrollData.current > 2 && scrollData.current < 5">
-      <path :d="exportLine1801d" stroke-width=".4px" stroke="#BB877F"></path>
-      <path :d="importLine1801d" stroke-width=".4px" stroke="#D6BF24"></path>
-    </g>
-    <g v-if="scrollData.current >= 5">
-      <path :d="exportLined" stroke-width=".4px" stroke="#BB877F"></path>
-      <path :d="importLined" stroke-width=".4px" stroke="#D6BF24"></path>
-    </g>
-    <image v-if="scrollData.current === 9" y="-4" :href="imgSrc" width="100" />
+    <OvalTitle color="#FCE2B0"></OvalTitle>
   </g>
 </template>
 <script>
@@ -124,7 +113,6 @@ import OvalTitle from "@/components/chapters/playfair/recreations/OvalTitle";
 
 export default {
   components: { VerticalGrid, HorizontalGrid, ScatterPlot, OvalTitle },
-  inject: ["scrollData"],
   data() {
     return {
       height: 44,
@@ -134,28 +122,13 @@ export default {
     };
   },
   props: {
-    playfairData: {
-      type: Array,
-      validator(arr) {
-        return arr?.every(data => {
-          const requiredKeys = [
-            "Years",
-            "Imports",
-            "Exports",
-            "Balance",
-            "Imports1801",
-            "Exports1801",
-            "ImportsDraft",
-            "ExportsDraft"
-          ];
-          return requiredKeys.every(key => key in data);
-        });
-      }
+    dataFile: {
+      type: Array
     }
   },
   created() {
-    this.maxOn = prop => Math.max(...this.playfairData.map(d => d[prop]));
-    this.minOn = prop => Math.min(...this.playfairData.map(d => d[prop]));
+    this.maxOn = prop => Math.max(...this.dataFile.map(d => d[prop]));
+    this.minOn = prop => Math.min(...this.dataFile.map(d => d[prop]));
     this.maxImport = this.maxOn("Imports");
     this.minImport = this.minOn("Imports");
     this.maxExport = this.maxOn("Exports");
@@ -175,13 +148,13 @@ export default {
       return "rotate(-65) translate(" + -5 + "," + 61 + ")";
     },
     scatterImport: function() {
-      return this.playfairData.map(d => ({
+      return this.dataFile.map(d => ({
         x: d.Years,
         y: d.Imports1801
       }));
     },
     scatterExport: function() {
-      return this.playfairData.map(d => ({
+      return this.dataFile.map(d => ({
         x: d.Years,
         y: d.Exports1801
       }));
@@ -207,7 +180,7 @@ export default {
         .range([0, (this.width / 11) * 10])
         .domain(
           // extent is the equivalent of calling min and max simultaneously
-          d3.extent(this.playfairData, function(d) {
+          d3.extent(this.dataFile, function(d) {
             return d.Years;
           })
         );
@@ -220,50 +193,6 @@ export default {
           // pick y domain based on smallest and largest number of combined import and export numbers + yInterval for more space
           .domain([0, this.maxY + this.interval])
       );
-    },
-    exportLined() {
-      const path = d3
-        .area()
-        .x(d => this.xScale(d.Years) + 3)
-        .y(d => this.yScale(d.Exports) + 3)
-        .curve(d3.curveCardinal)
-        .defined(function(d) {
-          return d.Exports;
-        }); //limits this line to defined data
-      return path(this.playfairData);
-    },
-    exportLine1801d() {
-      const path = d3
-        .area()
-        .x(d => this.xScale(d.Years) + 3)
-        .y(d => this.yScale(d.Exports1801) + 3)
-        .curve(d3.curveCatmullRom)
-        .defined(function(d) {
-          return d.Exports1801;
-        });
-      return path(this.playfairData);
-    },
-    importLined() {
-      const path = d3
-        .area()
-        .x(d => this.xScale(d.Years) + 3)
-        .y(d => this.yScale(d.Imports) + 3)
-        .curve(d3.curveCardinal)
-        .defined(function(d) {
-          return d.Imports;
-        });
-      return path(this.playfairData);
-    },
-    importLine1801d() {
-      const path = d3
-        .area()
-        .x(d => this.xScale(d.Years) + 3)
-        .y(d => this.yScale(d.Imports1801) + 3)
-        .curve(d3.curveCatmullRom)
-        .defined(function(d) {
-          return d.Imports1801;
-        });
-      return path(this.playfairData);
     }
   }
 };
