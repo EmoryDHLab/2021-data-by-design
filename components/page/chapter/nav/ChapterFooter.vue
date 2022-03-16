@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="title main-title">
-      Check out our other chapters
+      Keep reading below
     </div>
   </div>
 
