@@ -5,11 +5,7 @@
       class="w-full h-full flex ml-6"
       viewBox="0 0 100 50"
     >
-      <rect
-        width="100%"
-        height="100%"
-        style="fill:#F3ECCB; font-family: 'Dancing Script', cursive"
-      />
+      <rect width="100%" height="100%" fill="#F3ECCB" />
       <Recreation :playfairData="data.playfair_nums_def"></Recreation>
     </svg>
   </StaticData>

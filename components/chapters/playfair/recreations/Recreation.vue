@@ -1,5 +1,5 @@
 <template>
-  <g>
+  <svg>
     <text
       v-if="scrollData.current > 7"
       fill="black"
@@ -37,7 +37,7 @@
       stroke="black"
       stroke-width="0.25"
     ></rect>
-    <g v-if="scrollData.current > 3">
+    <g v-if="scrollData.current >= 6">
       <text
         fill="black"
         font-size="3"
@@ -103,6 +103,7 @@
         color="#BB877F"
       ></ScatterPlot>
     </g>
+    <OvalTitle v-if="scrollData.current >= 7" color="#FCE2B0"></OvalTitle>
     <g v-if="scrollData.current > 2">
       <path :d="exportLined" stroke-width=".4px" stroke="#BB877F"></path>
       <!-- <path :d="exportLine1801d" stroke-width=".4px" stroke="#BB877F"></path> -->
@@ -112,16 +113,17 @@
       <!-- <path :d="exportDraftd" stroke-width=".5px" stroke="lime"></path> -->
       <!-- <path :d="importDraftd" stroke-width=".5px" stroke="green"></path> -->
     </g>
-  </g>
+  </svg>
 </template>
 <script>
 import * as d3 from "d3";
 import ScatterPlot from "@/components/chapters/playfair/recreations/ScatterPlot";
 import VerticalGrid from "@/components/chapters/playfair/recreations/VerticalGrid";
 import HorizontalGrid from "@/components/chapters/playfair/recreations/HorizontalGrid";
+import OvalTitle from "@/components/chapters/playfair/recreations/OvalTitle";
 
 export default {
-  components: { VerticalGrid, HorizontalGrid, ScatterPlot },
+  components: { VerticalGrid, HorizontalGrid, ScatterPlot, OvalTitle },
   inject: ["scrollData"],
   data() {
     return {

@@ -1,6 +1,11 @@
 @import url("https://p.typekit.net/p.css?s=1&k=ooz0npa&ht=tk&f=39512.39516.39517.39518.39523&a=79124244&app=typekit&e=css");
 
 @font-face {
+  font-family: "Maranallo";
+  src: url("~assets/fonts/Maranallo/Maranallo.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "Chancery Cursive";
   src: url("~assets/fonts/Chancery/Chancery_Cursive_Italic.ttf")
     format("truetype");
