@@ -1,5 +1,5 @@
 <template>
-  <svg>
+  <g>
     <text
       v-if="scrollData.current > 7"
       fill="black"
@@ -104,16 +104,16 @@
       ></ScatterPlot>
     </g>
     <OvalTitle v-if="scrollData.current >= 7" color="#FCE2B0"></OvalTitle>
-    <g v-if="scrollData.current > 2">
-      <path :d="exportLined" stroke-width=".4px" stroke="#BB877F"></path>
-      <!-- <path :d="exportLine1801d" stroke-width=".4px" stroke="#BB877F"></path> -->
-      <path :d="importLined" stroke-width=".4px" stroke="#D6BF24"></path>
-      <!-- <path :d="importLine1801d" stroke-width=".4px" stroke="#D6BF24"></path> -->
-      <!-- <path :d="lineUndefined" stroke-width=".5px" stroke="purple"></path> -->
-      <!-- <path :d="exportDraftd" stroke-width=".5px" stroke="lime"></path> -->
-      <!-- <path :d="importDraftd" stroke-width=".5px" stroke="green"></path> -->
+    <g v-if="scrollData.current > 2 && scrollData.current < 5">
+      <path :d="exportLine1801d" stroke-width=".4px" stroke="#BB877F"></path>
+      <path :d="importLine1801d" stroke-width=".4px" stroke="#D6BF24"></path>
     </g>
-  </svg>
+    <g v-if="scrollData.current >= 5">
+      <path :d="exportLined" stroke-width=".4px" stroke="#BB877F"></path>
+      <path :d="importLined" stroke-width=".4px" stroke="#D6BF24"></path>
+    </g>
+    <image v-if="scrollData.current === 9" y="-4" :href="imgSrc" width="100" />
+  </g>
 </template>
 <script>
 import * as d3 from "d3";
@@ -163,6 +163,9 @@ export default {
     this.interval = 200000;
   },
   computed: {
+    imgSrc() {
+      return require("@/assets/images/playfair/1-northamerica.jpg");
+    },
     transformImportText: function() {
       return (
         "rotate(-11) translate(" + this.width / 9 + "," + this.height + ")"
@@ -174,13 +177,13 @@ export default {
     scatterImport: function() {
       return this.playfairData.map(d => ({
         x: d.Years,
-        y: d.Imports
+        y: d.Imports1801
       }));
     },
     scatterExport: function() {
       return this.playfairData.map(d => ({
         x: d.Years,
-        y: d.Exports
+        y: d.Exports1801
       }));
     },
     xMinorTicks: function() {
@@ -271,57 +274,6 @@ export default {
         .defined(function(d) {
           return d.Imports1801;
         });
-      return path(this.playfairData);
-    },
-    lineUndefined() {
-      const path = d3
-        .line()
-        .x(d => this.xScale(d.Years))
-        .y(d => this.yScale(d.Imports))
-        .curve(d3.curveCardinal)
-        .defined(function(d) {
-          return d.critical;
-        });
-      return path(this.playfairData);
-    },
-    exportDraftd() {
-      const path = d3
-        .area()
-        .x(d => this.xScale(d.Years) + 3)
-        .y(d => this.yScale(d.ExportsDraft) + 3)
-        .curve(d3.curveCatmullRom)
-        .defined(function(d) {
-          return d.ExportsDraft;
-        });
-      return path(this.playfairData);
-    },
-    importDraftd() {
-      const path = d3
-        .area()
-        .x(d => this.xScale(d.Years) + 3)
-        .y(d => this.yScale(d.ImportsDraft) + 3)
-        .curve(d3.curveCatmullRom)
-        .defined(function(d) {
-          return d.ImportsDraft;
-        });
-      return path(this.playfairData);
-    },
-    lineUndefined2() {
-      const path = d3
-        .line()
-        .x(d => this.xScale(d.Years) + 3)
-        .y(d => this.yScale(d.Exports) + 3)
-        .curve(d3.curveCardinal)
-        .defined(d => d.critical);
-      return path(this.playfairData);
-    },
-    areaUndefined() {
-      const path = d3
-        .area()
-        .x(d => this.xScale(d.Years) + 3)
-        .y(d => this.yScale(d.Imports) + 3)
-        .curve(d3.curveCardinal)
-        .defined(d => d.critical);
       return path(this.playfairData);
     }
   },

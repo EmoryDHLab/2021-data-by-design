@@ -15,7 +15,7 @@
     </text>
     <text
       fill="black"
-      x="24"
+      x="22"
       y="18.5"
       font-family="Chancery Cursive"
       font-size="2.9"
