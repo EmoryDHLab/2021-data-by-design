@@ -1,7 +1,7 @@
 <template>
   <g>
     <text
-      v-if="scrollData.current > 7"
+      v-if="scrollData.current >= 10"
       fill="black"
       :x="width / 2"
       y="2.3"
@@ -11,7 +11,7 @@
       Time
     </text>
     <text
-      v-if="scrollData.current > 7"
+      v-if="scrollData.current >= 10"
       fill="black"
       :y="2"
       font-family="Times New Roman"
@@ -37,7 +37,7 @@
       stroke="black"
       stroke-width="0.25"
     ></rect>
-    <g v-if="scrollData.current >= 6">
+    <g v-if="scrollData.current >= 8">
       <text
         fill="black"
         font-size="3"
@@ -64,7 +64,7 @@
       ticks
       :offset="3"
     ></VerticalGrid>
-    <g v-if="scrollData.current === 3">
+    <g v-if="scrollData.current === 5">
       <VerticalGrid
         id="minor"
         v-for="x in xMinorTicks"
@@ -103,16 +103,21 @@
         color="#BB877F"
       ></ScatterPlot>
     </g>
-    <OvalTitle v-if="scrollData.current >= 7" color="#FCE2B0"></OvalTitle>
-    <g v-if="scrollData.current > 2 && scrollData.current < 5">
+    <OvalTitle v-if="scrollData.current >= 9" color="#FCE2B0"></OvalTitle>
+    <StippleHatch
+      v-if="scrollData.current >= 4 && scrollData.current < 7"
+      :area="fillStippleHatchArea"
+    ></StippleHatch>
+    <ColorArea v-if="scrollData.current >= 8" :area="fillColorArea"></ColorArea>
+    <g v-if="scrollData.current >= 7">
       <path :d="exportLine1801d" stroke-width=".4px" stroke="#BB877F"></path>
       <path :d="importLine1801d" stroke-width=".4px" stroke="#D6BF24"></path>
     </g>
-    <g v-if="scrollData.current >= 5">
+    <g v-if="scrollData.current >= 3 && scrollData.current < 7">
       <path :d="exportLined" stroke-width=".4px" stroke="#BB877F"></path>
       <path :d="importLined" stroke-width=".4px" stroke="#D6BF24"></path>
     </g>
-    <image v-if="scrollData.current === 9" y="-4" :href="imgSrc" width="100" />
+    <image v-if="scrollData.current === 11" y="-4" :href="imgSrc" width="100" />
   </g>
 </template>
 <script>
@@ -121,9 +126,18 @@ import ScatterPlot from "@/components/chapters/playfair/recreations/ScatterPlot"
 import VerticalGrid from "@/components/chapters/playfair/recreations/VerticalGrid";
 import HorizontalGrid from "@/components/chapters/playfair/recreations/HorizontalGrid";
 import OvalTitle from "@/components/chapters/playfair/recreations/OvalTitle";
+import StippleHatch from "@/components/chapters/playfair/recreations/StippleHatch";
+import ColorArea from "@/components/chapters/playfair/recreations/ColorArea";
 
 export default {
-  components: { VerticalGrid, HorizontalGrid, ScatterPlot, OvalTitle },
+  components: {
+    VerticalGrid,
+    HorizontalGrid,
+    ScatterPlot,
+    OvalTitle,
+    StippleHatch,
+    ColorArea
+  },
   inject: ["scrollData"],
   data() {
     return {
@@ -166,6 +180,26 @@ export default {
     imgSrc() {
       return require("@/assets/images/playfair/1-northamerica.jpg");
     },
+    fillStippleHatchArea() {
+      const path = d3
+        .area()
+        .curve(d3.curveCatmullRom)
+        .x0(d => this.xScale(d.Years) + 3)
+        .x1(d => this.xScale(d.Years) + 3)
+        .y0(d => this.yScale(d.Imports) + 3)
+        .y1(d => this.yScale(d.Exports) + 3);
+      return path(this.playfairData);
+    },
+    fillColorArea() {
+      const path = d3
+        .area()
+        .curve(d3.curveCatmullRom)
+        .x0(d => this.xScale(d.Years) + 3)
+        .x1(d => this.xScale(d.Years) + 3)
+        .y0(d => this.yScale(d.Imports1801) + 3)
+        .y1(d => this.yScale(d.Exports1801) + 3);
+      return path(this.playfairData);
+    },
     transformImportText: function() {
       return (
         "rotate(-11) translate(" + this.width / 9 + "," + this.height + ")"
@@ -175,16 +209,20 @@ export default {
       return "rotate(-65) translate(" + -5 + "," + 61 + ")";
     },
     scatterImport: function() {
-      return this.playfairData.map(d => ({
-        x: d.Years,
-        y: d.Imports1801
-      }));
+      return this.playfairData
+        .map(d => ({
+          x: d.Years,
+          y: d.Imports
+        }))
+        .slice(8, 21); // years 1770-1782
     },
     scatterExport: function() {
-      return this.playfairData.map(d => ({
-        x: d.Years,
-        y: d.Exports1801
-      }));
+      return this.playfairData
+        .map(d => ({
+          x: d.Years,
+          y: d.Exports
+        }))
+        .slice(8, 21); // years 1770-1782
     },
     xMinorTicks: function() {
       return this.xMinorScale.ticks();
@@ -230,7 +268,7 @@ export default {
         .defined(function(d) {
           return d.Exports;
         }); //limits this line to defined data
-      return path(this.playfairData);
+      return path(this.playfairData.slice(0, 19));
     },
     exportLine1801d() {
       const path = d3
@@ -252,7 +290,7 @@ export default {
         .defined(function(d) {
           return d.Imports;
         });
-      return path(this.playfairData);
+      return path(this.playfairData.slice(0, 19));
     },
     importLine1801d() {
       const path = d3
