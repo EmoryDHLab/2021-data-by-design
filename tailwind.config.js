@@ -13,8 +13,7 @@ module.exports = {
         '14': 'repeat(14, minmax(0, 1fr))',
       },
       backgroundImage : {
-        'brooks': "url('/assets/images/brooks/1-brooks.png')",
-        'brooks_img': "url('https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg')",
+        'brooks': "url('/assets/images/brooks/1-sof_slaveship.jpg')",
       },
       colors: {
         offwhite: "#FAF1E9",

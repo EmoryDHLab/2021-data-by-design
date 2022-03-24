@@ -48,7 +48,7 @@ export default {
 
 .cardBrooks:hover {
   background-size: cover;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../assets/images/brooks/1-brooks.png') center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../assets/images/brooks/1-sof_slaveship.jpg') center;
 }
 
 .cardPeabody:hover {
