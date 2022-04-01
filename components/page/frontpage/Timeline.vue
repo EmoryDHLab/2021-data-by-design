@@ -2,11 +2,13 @@
   <div>
 <!--    <div class="bg-black text-white"> -->
     <svg width="100%" :height="part1_height + 'px'">
-      <image v-for="(img, index) in img_data.slice(10, 20)"
+      <image ref="timeline_img" v-for="(img, index) in img_data.slice(10, 20)"
            :xlink:href="generateImg(img)"
            :width="150"
            :x="getXpos(index)"
            :y="getYpos(index)"
+           @mousedown="drag(index)"
+           @mouseup="drop(index)"
       ></image>
     </svg>
 
@@ -14,8 +16,9 @@
       <image v-for="(img, index) in sortByYear(img_data.slice(10, 20))"
              :xlink:href="generateImg(img)"
              :width="150"
-             :x="index * 200 + timelinePos"
+             :x="lineXPos[index] + timelinePos"
              :y="100"
+             @mousedown="shift(index)"
       ></image>
 
 
@@ -39,7 +42,7 @@
 <!--    </div>-->
     <div class="bg-brooks_sec flex">
       <div class="w-1/2">
-        <img class="p-20 object-scale-down justify-items-end" src="../../../assets/images/brooks/1-sof_slaveship.jpg">
+        <img class="p-20 object-scale-down justify-items-end" :src="generateImg(displayImg)">
       </div>
 
       <div class="p-20 font-william">
@@ -74,7 +77,10 @@ export default {
       timelinePos: 40,
       randXPos: [],
       randYPos: [],
+      lineXPos: [],
       pageWidth: 1600,
+      sortedImg: null,
+      displayImg: img_data[0],
     }
   },
   methods: {
@@ -93,6 +99,19 @@ export default {
       let sorted =  imgs.sort(function compYear(a, b) {
         return a.YEAR - b.YEAR;
       });
+      if (this.lineXPos.length < sorted.length) {
+        this.lineXPos.push(0)
+        let x_offset = 0;
+        for (let i = 1; i < sorted.length; i++) {
+          if (sorted[i - 1].YEAR === sorted[i].YEAR && sorted[i - 1].ARTIST === sorted[i].ARTIST) {
+            this.lineXPos.push(this.lineXPos[i - 1] + 10);
+          } else {
+            x_offset++;
+            this.lineXPos.push(x_offset * 200);
+          }
+        }
+        this.sortedImg = sorted;
+      }
       return sorted
     },
     getXpos(idx) {
@@ -112,7 +131,25 @@ export default {
       } else {
         return this.randYPos[idx];
       }
-    }
+    },
+    drag(idx) {
+      // console.log("clicked!" + idx)
+      this.dragOffsetX = event.offsetX - this.randXPos[idx];
+      this.dragOffsetY = event.offsetY - this.randYPos[idx];
+      this.$refs.timeline_img.addEventListener('mousemove', this.move(idx))
+    },
+    drop(idx) {
+      this.dragOffsetX = this.dragOffsetY = null;
+      this.$refs.timeline_img.removeEventListener('mousemove', this.move(idx))
+    },
+    move(idx) {
+      this.randXPos[idx] = event.offsetX - this.dragOffsetX;
+      this.randYPos[idx] = event.offsetY - this.dragOffsetY;
+    },
+    shift(idx) {
+      this.timelinePos = 700 - idx*120;
+      this.displayImg = this.sortedImg[idx]
+    },
   }
 };
 </script>
