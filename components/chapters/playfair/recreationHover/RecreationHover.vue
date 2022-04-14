@@ -62,17 +62,6 @@
       ticks
       :offset="3"
     ></VerticalGrid>
-    <g>
-      <VerticalGrid
-        id="minor"
-        v-for="x in xMinorTicks"
-        v-bind:data="x"
-        v-bind:key="x"
-        :x-scale="xMinorScale"
-        :x="x"
-        :offset="(width / 11) * 7 + 3"
-      ></VerticalGrid>
-    </g>
     <HorizontalGrid
       v-for="y in yTicks"
       v-bind:data="y"
@@ -81,26 +70,6 @@
       :y="y"
       :innerWidth="innerGridWidth"
     ></HorizontalGrid>
-    <g>
-      <ScatterPlot
-        v-for="x in scatterImport"
-        v-bind:data="x"
-        v-bind:key="x.x + x.y"
-        :x-scale="xScale"
-        :y-scale="yScale"
-        :x="x"
-        color="#D6BF24"
-      ></ScatterPlot>
-      <ScatterPlot
-        v-for="x in scatterExport"
-        v-bind:data="x"
-        v-bind:key="x.x + x.y"
-        :x-scale="xScale"
-        :y-scale="yScale"
-        :x="x"
-        color="#BB877F"
-      ></ScatterPlot>
-    </g>
     <OvalTitle color="#FCE2B0"></OvalTitle>
   </g>
 </template>
@@ -134,11 +103,10 @@ export default {
     this.maxExport = this.maxOn("Exports");
     this.maxY = Math.max(this.maxImport, this.maxExport + 1000000);
     this.interval = 200000;
+
+    console.log(this.maxOn);
   },
   computed: {
-    imgSrc() {
-      return require("@/assets/images/playfair/1-northamerica.jpg");
-    },
     transformImportText: function() {
       return (
         "rotate(-11) translate(" + this.width / 9 + "," + this.height + ")"
@@ -146,18 +114,6 @@ export default {
     },
     transformExportText: function() {
       return "rotate(-65) translate(" + -5 + "," + 61 + ")";
-    },
-    scatterImport: function() {
-      return this.dataFile.map(d => ({
-        x: d.Years,
-        y: d.Imports1801
-      }));
-    },
-    scatterExport: function() {
-      return this.dataFile.map(d => ({
-        x: d.Years,
-        y: d.Exports1801
-      }));
     },
     xMinorTicks: function() {
       return this.xMinorScale.ticks();
@@ -172,27 +128,24 @@ export default {
       return this.xScale.ticks();
     },
     yTicks: function() {
-      return this.yScale.ticks(20); //20 is the number of horizontal lines/ ticks
+      return this.yScale.ticks(20);
     },
     xScale() {
       return d3
         .scaleLinear()
         .range([0, (this.width / 11) * 10])
         .domain(
-          // extent is the equivalent of calling min and max simultaneously
           d3.extent(this.dataFile, function(d) {
+            console.log(d.date);
             return d.Years;
           })
         );
     },
     yScale() {
-      return (
-        d3
-          .scaleLinear()
-          .range([this.height, 0])
-          // pick y domain based on smallest and largest number of combined import and export numbers + yInterval for more space
-          .domain([0, this.maxY + this.interval])
-      );
+      return d3
+        .scaleLinear()
+        .range([this.height, 0])
+        .domain([0, this.maxY + this.interval]);
     }
   }
 };

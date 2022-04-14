@@ -15,8 +15,6 @@ import Recreation from "@/components/chapters/playfair/recreations/Recreation";
 import StaticData from "@/components/data-access/StaticData";
 
 export default {
-  components: { Recreation, StaticData },
-  props: ["playfairData"],
-  inject: ["scrollData"]
+  components: { Recreation, StaticData }
 };
 </script>

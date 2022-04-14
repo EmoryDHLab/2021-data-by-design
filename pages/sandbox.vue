@@ -1,21 +1,12 @@
 <template>
-  <GridLayout>
-
-    <PeabodyQuiz></PeabodyQuiz>
-
-  </GridLayout>
-
+  <GridLayout> </GridLayout>
 </template>
 
 <script>
-
-import EventSquare from "@/components/chapters/peabody/grid/EventSquare"
-import PeabodyQuiz from "../components/chapters/peabody/PeabodyQuiz";
+import EventSquare from "@/components/chapters/peabody/grid/EventSquare";
 export default {
-  components: {PeabodyQuiz, EventSquare}
-}
+  components: { EventSquare }
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

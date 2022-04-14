@@ -12,7 +12,7 @@
       <DifferenceVisual></DifferenceVisual>
     </template>
     <template v-slot:[slots.pCharts]>
-      <PChart></PChart>
+      <PChart :chartName="chosenHover"></PChart>
     </template>
     <template v-slot:[slots.bySide]>
       <BySide></BySide>
@@ -43,7 +43,8 @@ export default {
         pCharts: "Playfair-style Charts",
         bySide: "Side-by-side"
       },
-      hover: ["Covid", "Income", "Women"]
+      hover: ["Covid", "Income", "Women"],
+      chosenHover: "Covid"
     };
   },
   chapterState: {},
@@ -57,6 +58,8 @@ export default {
     overlayHoverOver(n) {
       const positions = [7, 20, 20.6];
       this.chapterState.overlayHighlight = positions[n - 4];
+      this.chosenHover = n;
+      console.log(n);
     },
     overlayHoverOut() {}
   }
