@@ -59,7 +59,6 @@ export default {
       const positions = [7, 20, 20.6];
       this.chapterState.overlayHighlight = positions[n - 4];
       this.chosenHover = n;
-      console.log(n);
     },
     overlayHoverOut() {}
   }

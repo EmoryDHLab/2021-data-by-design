@@ -70,7 +70,12 @@
       :y="y"
       :innerWidth="innerGridWidth"
     ></HorizontalGrid>
-    <OvalTitle color="#FCE2B0"></OvalTitle>
+    <OvalTitle
+      color="#FCE2B0"
+      :topText="topText"
+      :midText="midText"
+      :botText="botText"
+    ></OvalTitle>
   </g>
 </template>
 <script>
@@ -96,15 +101,17 @@ export default {
     }
   },
   created() {
-    this.maxOn = prop => Math.max(...this.dataFile.map(d => d[prop]));
-    this.minOn = prop => Math.min(...this.dataFile.map(d => d[prop]));
-    this.maxImport = this.maxOn("Imports");
-    this.minImport = this.minOn("Imports");
-    this.maxExport = this.maxOn("Exports");
-    this.maxY = Math.max(this.maxImport, this.maxExport + 1000000);
-    this.interval = 200000;
+    // this.maxOn = prop => Math.max(...this.dataFile.map(d => d[prop]));
+    // this.minOn = prop => Math.min(...this.dataFile.map(d => d[prop]));
+    // this.maxImport = this.maxOn("Imports");
+    // this.minImport = this.minOn("Imports");
+    // this.maxExport = this.maxOn("Exports");
+    // this.maxY = Math.max(this.maxImport, this.maxExport + 1000000);
+    // this.interval = 200000;
 
-    console.log(this.maxOn);
+    this.topText = { text: "COVID-19 DEATHS", offset: 12 };
+    this.midText = { text: "a comparison between the", offset: 12 };
+    this.botText = { text: "U.S. AND U.K.", offset: 12 };
   },
   computed: {
     transformImportText: function() {
@@ -114,39 +121,38 @@ export default {
     },
     transformExportText: function() {
       return "rotate(-65) translate(" + -5 + "," + 61 + ")";
-    },
-    xMinorTicks: function() {
-      return this.xMinorScale.ticks();
-    },
-    xMinorScale() {
-      return d3
-        .scaleLinear()
-        .range([0, (this.width / 100) * 11])
-        .domain([1770, 1782]);
-    },
-    xTicks: function() {
-      return this.xScale.ticks();
-    },
-    yTicks: function() {
-      return this.yScale.ticks(20);
-    },
-    xScale() {
-      return d3
-        .scaleLinear()
-        .range([0, (this.width / 11) * 10])
-        .domain(
-          d3.extent(this.dataFile, function(d) {
-            console.log(d.date);
-            return d.Years;
-          })
-        );
-    },
-    yScale() {
-      return d3
-        .scaleLinear()
-        .range([this.height, 0])
-        .domain([0, this.maxY + this.interval]);
     }
+    // xMinorTicks: function() {
+    //   return this.xMinorScale.ticks();
+    // },
+    // xMinorScale() {
+    //   return d3
+    //     .scaleLinear()
+    //     .range([0, (this.width / 100) * 11])
+    //     .domain([1770, 1782]);
+    // },
+    // xTicks: function() {
+    //   return this.xScale.ticks();
+    // },
+    // yTicks: function() {
+    //   return this.yScale.ticks(20);
+    // },
+    // xScale() {
+    //   return d3
+    //     .scaleLinear()
+    //     .range([0, (this.width / 11) * 10])
+    //     .domain(
+    //       d3.extent(this.dataFile, function(d) {
+    //         return d.date;
+    //       })
+    //     );
+    // },
+    // yScale() {
+    //   return d3
+    //     .scaleLinear()
+    //     .range([this.height, 0])
+    //     .domain([0, this.maxY + this.interval]);
+    // }
   }
 };
 </script>
