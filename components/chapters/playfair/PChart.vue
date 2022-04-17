@@ -6,15 +6,15 @@
     >
       <rect width="100%" height="100%" fill="#F3ECCB" />
       <RecreationCovid
-        v-if="dataFileName === 'uk_covid'"
+        v-if="dataFileName === 'uk_covid' && data.uk_covid"
         :dataFile="data.uk_covid"
       ></RecreationCovid>
       <RecreationIncome
-        v-if="dataFileName === 'income'"
+        v-if="dataFileName === 'income' && data.income"
         :dataFile="data.income"
       ></RecreationIncome>
       <RecreationWomen
-        v-if="dataFileName === 'femaleRPs'"
+        v-if="dataFileName === 'femaleRPs' && data.femaleRPs"
         :dataFile="data.femaleRPs"
       ></RecreationWomen>
     </svg>
@@ -43,7 +43,6 @@ export default {
   },
   computed: {
     dataFileName() {
-      console.log("chart name: " + this.chartName);
       if (this.chartName == "Covid") {
         return "uk_covid";
       } else if (this.chartName == "Income") {

@@ -1,10 +1,10 @@
 <template>
   <g>
     <ellipse
-      cx="28"
-      cy="17"
-      :rx="(94 / 11) * 1.9"
-      ry="10"
+      :cx="ellipse.cx"
+      :cy="ellipse.cy"
+      :rx="ellipse.rx"
+      :ry="ellipse.ry"
       :fill="color"
       stroke="black"
       stroke-width="0.2"
@@ -12,8 +12,8 @@
     </ellipse>
     <text
       fill="black"
-      :x="topText.offset"
-      y="15"
+      :x="topText.x"
+      :y="topText.y"
       font-family="Maranallo"
       font-size="2.7"
     >
@@ -21,8 +21,8 @@
     </text>
     <text
       fill="black"
-      :x="midText.offset"
-      y="18.5"
+      :x="midText.x"
+      :y="midText.y"
       font-family="Chancery Cursive"
       font-size="2.9"
     >
@@ -30,8 +30,8 @@
     </text>
     <text
       fill="black"
-      :x="botText.offset"
-      y="22"
+      :x="botText.x"
+      :y="botText.y"
       font-family="Maranallo"
       font-size="3"
     >
@@ -41,7 +41,13 @@
 </template>
 <script>
 export default {
-  props: { color: String, topText: Object, midText: Object, botText: Object },
+  props: {
+    color: String,
+    ellipse: Object,
+    topText: Object,
+    midText: Object,
+    botText: Object
+  },
   computed: {}
 };
 </script>

@@ -10,7 +10,16 @@
       stroke-width="0.1"
     ></line>
     <text
-      v-if="ticks === true"
+      v-if="ticks === true && $parent.tickFormatterX"
+      fill="black"
+      :x="xValue + offset - 2"
+      :y="47 + offset - 1"
+      font-family="Chancery Cursive"
+      font-size="3"
+      >{{ $parent.tickFormatterX(x) }}</text
+    >
+    <text
+      v-else
       fill="black"
       :x="xValue + offset - 1"
       :y="47 + offset - 1"

@@ -14,9 +14,9 @@
       :y="2"
       font-family="Times New Roman"
       font-size="2.3"
-      transform="rotate(-90) translate(-28, 0)"
+      transform="rotate(-90) translate(-30, 0)"
     >
-      Money
+      U.S. Dollar
     </text>
     <rect
       fill="white"
@@ -26,6 +26,50 @@
       :width="(width / 11) * 10"
       opacity="0.2"
     ></rect>
+    <g>
+      <text
+        fill="black"
+        font-size="3"
+        font-family="Chancery Cursive"
+        :transform="transformUSText"
+      >
+        US
+      </text>
+      <text
+        fill="black"
+        font-size="3"
+        font-family="Chancery Cursive"
+        :transform="transformUKText"
+      >
+        UK
+      </text>
+    </g>
+    <VerticalGrid
+      v-for="x in xValues"
+      v-bind:data="x"
+      v-bind:key="x"
+      :x-scale="xScale"
+      :x="x"
+      ticks
+      :offset="3"
+    ></VerticalGrid>
+    <HorizontalGrid
+      v-for="y in yValues"
+      v-bind:data="y"
+      v-bind:key="y"
+      :y-scale="yScale"
+      :y="y"
+      :innerWidth="innerGridWidth"
+    ></HorizontalGrid>
+    <path :d="ukLine" stroke-width=".4px" stroke="#D6BF24"></path>
+    <path :d="usLine" stroke-width=".4px" stroke="#BB877F"></path>
+    <OvalTitle
+      color="#FCE2B0"
+      :ellipse="ellipse"
+      :topText="topText"
+      :midText="midText"
+      :botText="botText"
+    ></OvalTitle>
     <rect
       fill="transparent"
       x="3"
@@ -35,58 +79,24 @@
       stroke="black"
       stroke-width="0.25"
     ></rect>
-    <g>
-      <text
-        fill="black"
-        font-size="3"
-        font-family="Chancery Cursive"
-        :transform="transformImportText"
-      >
-        Line of Imports
-      </text>
-      <text
-        fill="black"
-        font-size="3"
-        font-family="Chancery Cursive"
-        :transform="transformExportText"
-      >
-        Line of Exports
-      </text>
-    </g>
-    <VerticalGrid
-      v-for="x in xTicks"
-      v-bind:data="x"
-      v-bind:key="x"
-      :x-scale="xScale"
-      :x="x"
-      ticks
-      :offset="3"
-    ></VerticalGrid>
-    <HorizontalGrid
-      v-for="y in yTicks"
-      v-bind:data="y"
-      v-bind:key="y"
-      :y-scale="yScale"
-      :y="y"
-      :innerWidth="innerGridWidth"
-    ></HorizontalGrid>
-    <OvalTitle
-      color="#FCE2B0"
-      :topText="topText"
-      :midText="midText"
-      :botText="botText"
-    ></OvalTitle>
+    <line
+      :x1="innerGridWidth"
+      y1="3"
+      :x2="innerGridWidth"
+      y2="47"
+      stroke="black"
+      stroke-width="0.1"
+    ></line>
   </g>
 </template>
 <script>
 import * as d3 from "d3";
-import ScatterPlot from "@/components/chapters/playfair/recreations/ScatterPlot";
 import VerticalGrid from "@/components/chapters/playfair/recreations/VerticalGrid";
 import HorizontalGrid from "@/components/chapters/playfair/recreations/HorizontalGrid";
 import OvalTitle from "@/components/chapters/playfair/recreations/OvalTitle";
 
 export default {
-  components: { VerticalGrid, HorizontalGrid, ScatterPlot, OvalTitle },
+  components: { VerticalGrid, HorizontalGrid, OvalTitle },
   data() {
     return {
       height: 44,
@@ -101,58 +111,97 @@ export default {
     }
   },
   created() {
-    // this.maxOn = prop => Math.max(...this.dataFile.map(d => d[prop]));
-    // this.minOn = prop => Math.min(...this.dataFile.map(d => d[prop]));
-    // this.maxImport = this.maxOn("Imports");
-    // this.minImport = this.minOn("Imports");
-    // this.maxExport = this.maxOn("Exports");
-    // this.maxY = Math.max(this.maxImport, this.maxExport + 1000000);
-    // this.interval = 200000;
+    this.maxOn = prop => Math.max(...this.dataFile.map(d => d[prop]));
+    this.minOn = prop => Math.min(...this.dataFile.map(d => d[prop]));
+    this.maxUK = this.maxOn("ukMeanDollar");
+    this.minUK = this.minOn("ukMeanDollar");
+    this.maxUS = this.maxOn("usMeanDollar");
+    this.maxY = Math.max(this.maxUK, this.maxUS);
+    this.interval = 5000;
+    this.dateInterval = 5;
 
-    this.topText = { text: "Average Income", offset: 12 };
-    this.midText = { text: "a comparison between the", offset: 12 };
-    this.botText = { text: "U.S. AND U.K.", offset: 12 };
+    this.ellipse = { cx: 64, cy: 33, rx: (94 / 11) * 1.9, ry: 10 };
+    this.topText = { text: "Average Income", x: 53, y: 30 };
+    this.midText = { text: "a comparison between the", x: 53, y: 33.5 };
+    this.botText = { text: "U.S. AND U.K.", x: 54, y: 37 };
+  },
+  methods: {
+    tickFormatterY: function(tickVal) {
+      return tickVal / 1000 + "K";
+    },
+    opacityFormatterY(tickVal) {
+      if ((tickVal / 10000) % 1 === 0) return 0.4;
+      else return 0.2;
+    },
+    strokeFormatterY(tickVal) {
+      if ((tickVal / 10000) % 1 === 0) return 0.2;
+      else return 0.1;
+    }
   },
   computed: {
-    transformImportText: function() {
-      return (
-        "rotate(-11) translate(" + this.width / 9 + "," + this.height + ")"
-      );
+    transformUSText: function() {
+      return "rotate(-15) translate(" + 35 + "," + 25 + ")";
     },
-    transformExportText: function() {
-      return "rotate(-65) translate(" + -5 + "," + 61 + ")";
+    transformUKText: function() {
+      return "rotate(-20) translate(" + 34 + "," + 36 + ")";
+    },
+    yTicks: function() {
+      return this.yScale.ticks(20);
+    },
+    xValues: function() {
+      var xNums = [];
+      var startYear = parseInt(this.dataFile[0].Year);
+      var endYear = parseInt(this.dataFile[this.dataFile.length - 1].Year);
+      for (var i = startYear; i <= endYear; i += this.dateInterval) {
+        xNums.push(i);
+      }
+      return xNums;
+    },
+    yValues: function() {
+      var yNums = [];
+      for (var i = this.interval; i <= this.maxY; i += this.interval) {
+        yNums.push(i);
+      }
+      return yNums;
+    },
+    ukLine() {
+      const path = d3
+        .area()
+        .x(d => this.xScale(d.Year) + 3)
+        .y(d => this.yScale(d.ukMeanDollar) + 3)
+        .curve(d3.curveCatmullRom)
+        .defined(function(d) {
+          return d.ukMeanDollar;
+        });
+      return path(this.dataFile);
+    },
+    usLine() {
+      const path = d3
+        .area()
+        .x(d => this.xScale(d.Year) + 3)
+        .y(d => this.yScale(d.usMeanDollar) + 3)
+        .curve(d3.curveCatmullRom)
+        .defined(function(d) {
+          return d.usMeanDollar;
+        });
+      return path(this.dataFile);
+    },
+    xScale() {
+      return d3
+        .scaleLinear()
+        .range([0, (this.width / 11) * 10])
+        .domain(
+          d3.extent(this.dataFile, function(d) {
+            return d.Year;
+          })
+        );
+    },
+    yScale() {
+      return d3
+        .scaleLinear()
+        .range([this.height, 0])
+        .domain([0, this.maxY + this.interval]);
     }
-    // xMinorTicks: function() {
-    //   return this.xMinorScale.ticks();
-    // },
-    // xMinorScale() {
-    //   return d3
-    //     .scaleLinear()
-    //     .range([0, (this.width / 100) * 11])
-    //     .domain([1770, 1782]);
-    // },
-    // xTicks: function() {
-    //   return this.xScale.ticks();
-    // },
-    // yTicks: function() {
-    //   return this.yScale.ticks(20);
-    // },
-    // xScale() {
-    //   return d3
-    //     .scaleLinear()
-    //     .range([0, (this.width / 11) * 10])
-    //     .domain(
-    //       d3.extent(this.dataFile, function(d) {
-    //         return d.Years;
-    //       })
-    //     );
-    // },
-    // yScale() {
-    //   return d3
-    //     .scaleLinear()
-    //     .range([this.height, 0])
-    //     .domain([0, this.maxY + this.interval]);
-    // }
   }
 };
 </script>
