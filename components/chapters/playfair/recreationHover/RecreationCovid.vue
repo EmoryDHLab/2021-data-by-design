@@ -26,24 +26,7 @@
       :width="(width / 11) * 10"
       opacity="0.2"
     ></rect>
-    <g>
-      <text
-        fill="black"
-        font-size="3"
-        font-family="Chancery Cursive"
-        :transform="transformUSText"
-      >
-        U.S. Deaths
-      </text>
-      <text
-        fill="black"
-        font-size="3"
-        font-family="Chancery Cursive"
-        :transform="transformUKText"
-      >
-        U.K. Deaths
-      </text>
-    </g>
+
     <VerticalGrid
       v-for="x in xValues"
       v-bind:data="x"
@@ -88,6 +71,24 @@
       stroke="black"
       stroke-width="0.1"
     ></line>
+    <g>
+      <text
+        fill="black"
+        font-size="3"
+        font-family="Chancery Cursive"
+        :transform="transformUSText"
+      >
+        U.S. Deaths
+      </text>
+      <text
+        fill="black"
+        font-size="3"
+        font-family="Chancery Cursive"
+        :transform="transformUKText"
+      >
+        U.K. Deaths
+      </text>
+    </g>
   </g>
 </template>
 <script>
