@@ -61,6 +61,7 @@
       :y="y"
       :innerWidth="innerGridWidth"
     ></HorizontalGrid>
+    <ColorAreaIncome :area="fillColorArea"></ColorAreaIncome>
     <path :d="ukLine" stroke-width=".4px" stroke="#D6BF24"></path>
     <path :d="usLine" stroke-width=".4px" stroke="#BB877F"></path>
     <OvalTitle
@@ -91,12 +92,13 @@
 </template>
 <script>
 import * as d3 from "d3";
-import VerticalGrid from "@/components/chapters/playfair/recreations/VerticalGrid";
-import HorizontalGrid from "@/components/chapters/playfair/recreations/HorizontalGrid";
-import OvalTitle from "@/components/chapters/playfair/recreations/OvalTitle";
+import VerticalGrid from "@/components/chapters/playfair/recreationElements/VerticalGrid";
+import HorizontalGrid from "@/components/chapters/playfair/recreationElements/HorizontalGrid";
+import OvalTitle from "@/components/chapters/playfair/recreationElements/OvalTitle";
+import ColorAreaIncome from "@/components/chapters/playfair/recreationHover/ColorAreaIncome";
 
 export default {
-  components: { VerticalGrid, HorizontalGrid, OvalTitle },
+  components: { VerticalGrid, HorizontalGrid, OvalTitle, ColorAreaIncome },
   data() {
     return {
       height: 44,
@@ -139,6 +141,16 @@ export default {
     }
   },
   computed: {
+    fillColorArea() {
+      const path = d3
+        .area()
+        .curve(d3.curveCatmullRom)
+        .x0(d => this.xScale(d.Year) + 3)
+        .x1(d => this.xScale(d.Year) + 3)
+        .y0(d => this.yScale(d.ukMeanDollar) + 3)
+        .y1(d => this.yScale(d.usMeanDollar) + 3);
+      return path(this.dataFile);
+    },
     transformUSText: function() {
       return "rotate(-15) translate(" + 35 + "," + 25 + ")";
     },

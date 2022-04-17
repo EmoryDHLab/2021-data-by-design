@@ -145,12 +145,12 @@
 </template>
 <script>
 import * as d3 from "d3";
-import ScatterPlot from "@/components/chapters/playfair/recreations/ScatterPlot";
-import VerticalGrid from "@/components/chapters/playfair/recreations/VerticalGrid";
-import HorizontalGrid from "@/components/chapters/playfair/recreations/HorizontalGrid";
-import OvalTitle from "@/components/chapters/playfair/recreations/OvalTitle";
-import StippleHatch from "@/components/chapters/playfair/recreations/StippleHatch";
-import ColorArea from "@/components/chapters/playfair/recreations/ColorArea";
+import ScatterPlot from "@/components/chapters/playfair/recreationElements/ScatterPlot";
+import VerticalGrid from "@/components/chapters/playfair/recreationElements/VerticalGrid";
+import HorizontalGrid from "@/components/chapters/playfair/recreationElements/HorizontalGrid";
+import OvalTitle from "@/components/chapters/playfair/recreationElements/OvalTitle";
+import StippleHatch from "@/components/chapters/playfair/recreationElements/StippleHatch";
+import ColorArea from "@/components/chapters/playfair/recreationElements/ColorArea";
 
 export default {
   components: {

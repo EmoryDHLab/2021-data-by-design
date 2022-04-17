@@ -61,6 +61,7 @@
       :y="y"
       :innerWidth="innerGridWidth"
     ></HorizontalGrid>
+    <ColorAreaWomen :area="fillColorArea"></ColorAreaWomen>
     <path :d="ukLine" stroke-width=".4px" stroke="#D6BF24"></path>
     <path :d="usLine" stroke-width=".4px" stroke="#BB877F"></path>
     <OvalTitle
@@ -91,12 +92,13 @@
 </template>
 <script>
 import * as d3 from "d3";
-import VerticalGrid from "@/components/chapters/playfair/recreations/VerticalGrid";
-import HorizontalGrid from "@/components/chapters/playfair/recreations/HorizontalGrid";
-import OvalTitle from "@/components/chapters/playfair/recreations/OvalTitle";
+import VerticalGrid from "@/components/chapters/playfair/recreationElements/VerticalGrid";
+import HorizontalGrid from "@/components/chapters/playfair/recreationElements/HorizontalGrid";
+import OvalTitle from "@/components/chapters/playfair/recreationElements/OvalTitle";
+import ColorAreaWomen from "@/components/chapters/playfair/recreationHover/ColorAreaWomen";
 
 export default {
-  components: { VerticalGrid, HorizontalGrid, OvalTitle },
+  components: { VerticalGrid, HorizontalGrid, OvalTitle, ColorAreaWomen },
   data() {
     return {
       height: 44,
@@ -138,6 +140,16 @@ export default {
     }
   },
   computed: {
+    fillColorArea() {
+      const path = d3
+        .area()
+        .curve(d3.curveCatmullRom)
+        .x0(d => this.xScale(d.Year) + 3)
+        .x1(d => this.xScale(d.Year) + 3)
+        .y0(d => this.yScale(d.ukFemalePercentage) + 3)
+        .y1(d => this.yScale(d.usFemalePercentage) + 3);
+      return path(this.dataFile);
+    },
     transformUKText: function() {
       return "rotate(-15) translate(" + 62 + "," + 40 + ")";
     },
