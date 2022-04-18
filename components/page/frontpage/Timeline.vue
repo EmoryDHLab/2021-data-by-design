@@ -47,15 +47,18 @@
 
       <div class="p-20 font-william">
         <div class="text-4xl p-5">
-        An Interactive History of Data Visualization
-          by ABC XYZ 1786–1900
+<!--        An Interactive History of Data Visualization-->
+<!--          by ABC XYZ 1786–1900-->
+          {{displayImg.TITLE}} by {{displayImg.ARTIST}} {{displayImg.YEAR}}
         </div>
         <div class="text-lg p-5">
-          The Amalgamation of White and Black elements of the population in the United States by W.E.B Du Bois.
-          Atlanta university. Library of Congress.
+<!--          The Amalgamation of White and Black elements of the population in the United States by W.E.B Du Bois.-->
+<!--          Atlanta university. Library of Congress.-->
+          <span style="white-space: pre">{{displayImg.CREDIT}} </span>
+          <span style="white-space: pre">{{displayImg.DIGITIZED}}</span>
         </div>
         <div class="text-lg p-5">
-          Every Datapoint a Person ->
+          {{displayImg.CHAPTER}} ->
         </div>
       </div>
     </div>
