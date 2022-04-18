@@ -1,13 +1,13 @@
 <template>
   <g>
-    <path :d="area" fill="red" clip-path="url(#income1)" opacity="0.4"></path>
+    <path :d="area" fill="red" clip-path="url(#income1)" opacity="0.3"></path>
     <path
       :d="area"
       fill="#3e6620"
       clip-path="url(#income2)"
       opacity="0.4"
     ></path>
-    <path :d="area" fill="red" clip-path="url(#income3)" opacity="0.4"></path>
+    <path :d="area" fill="red" clip-path="url(#income3)" opacity="0.3"></path>
     <clipPath id="income1">
       <rect width="57" height="50"></rect>
     </clipPath>

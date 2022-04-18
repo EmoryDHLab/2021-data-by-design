@@ -6,14 +6,14 @@
       clip-path="url(#women1)"
       opacity="0.4"
     ></path>
-    <path :d="area" fill="red" clip-path="url(#women2)" opacity="0.4"></path>
+    <path :d="area" fill="red" clip-path="url(#women2)" opacity="0.3"></path>
     <path
       :d="area"
       fill="#3e6620"
       clip-path="url(#women3)"
       opacity="0.4"
     ></path>
-    <path :d="area" fill="red" clip-path="url(#women4)" opacity="0.4"></path>
+    <path :d="area" fill="red" clip-path="url(#women4)" opacity="0.3"></path>
     <path
       :d="area"
       fill="#3e6620"
