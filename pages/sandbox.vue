@@ -1,6 +1,8 @@
 <template>
   <GridLayout>
 
+    <PeabodyTimelineView/>
+
     <PeabodyQuiz></PeabodyQuiz>
 
   </GridLayout>
@@ -11,8 +13,11 @@
 
 import EventSquare from "@/components/chapters/peabody/grid/EventSquare"
 import PeabodyQuiz from "../components/chapters/peabody/PeabodyQuiz";
+import PeabodyTimelineView
+  from "../components/chapters/peabody/PeabodyTimelineView";
+
 export default {
-  components: {PeabodyQuiz, EventSquare}
+  components: {PeabodyTimelineView, PeabodyQuiz, EventSquare}
 }
 </script>
 
