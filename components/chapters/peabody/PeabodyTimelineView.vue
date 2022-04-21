@@ -1,6 +1,6 @@
 <template>
   <div class="col-span-full bg-black text-white">
-    Timeline View
+    Timeline View {{ hoveredYear }}
     <StaticData
       :dataset="['peabody1600s']"
       v-slot="staticData"
@@ -28,11 +28,14 @@
         </div>
       </div>
 
-      <div class="w-full flex justify-center">
+      <div class="w-full mt-4 flex justify-center">
         <div class="flex w-3/4">
           <div
             v-for="(yearBucket, y) in years"
             class="w-6 h-full flex flex-col-reverse"
+            :class="{
+              'border border-white': currentCenturyNum + y == hoveredYear - 1,
+            }"
             :key="y"
           >
             <template v-if="yearBucket.events">
@@ -64,7 +67,7 @@
             :x2="i * 3 - 1.5"
             :y2="i % 10 == 0 ? 6 : 4"
             stroke="white"
-            :stroke-width="i % 10 == 0 ? 1 : 0.5"
+            :stroke-width="0.5"
           ></line>
         </svg>
       </div>
