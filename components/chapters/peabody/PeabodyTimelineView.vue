@@ -40,10 +40,13 @@
           >
             <template v-if="yearBucket.events">
               <EventSquare
-                class="w-full"
                 v-for="(event, i) in yearBucket.events"
+                class="w-full"
+                @hoverStart="eventHovered"
+                :year="event.year - 1"
+                :type="event.type"
                 :key="i"
-                :colors="event"
+                :colors="event.colors"
               ></EventSquare>
             </template>
           </div>
@@ -141,10 +144,16 @@ export default {
         for (const [key, value] of Object.entries(dataToYears(this.events))) {
           const insertAt = key - this.currentCenturyNum - 1;
           const events = [];
-          for (const { actors } of value.filter((e) => e?.actors)) {
-            events.push(actors.map((a) => actorColors[a]));
-          }
-
+          value.forEach((event, i) => {
+            console.log(key, event);
+            if (event?.actors) {
+              events.push({
+                year: Number(key),
+                type: i + 1,
+                colors: event.actors.map((a) => actorColors[a]),
+              });
+            }
+          });
           // value.map(obj => obj.actors?.length ? obj.actors.map(a => actorColors[a]))
           // { colors: value?.actors?.length ? value.actors.map(a => actorColors[a]) : []};
 
@@ -173,6 +182,8 @@ export default {
     },
     loadedData({ name, data }) {
       this.events = data;
+      console.log(this.events);
+      console.log(Object.entries(dataToYears(this.events)));
       this.currentCentury = name.split("peabody")[1];
       console.log("loaded", this.years);
     },
