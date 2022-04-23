@@ -1,36 +1,68 @@
 <template>
   <Slots>
-
+    <template v-for="i in hover" v-slot:[slots.hoverText(i)]="{ inner }">
+      <HoverText
+        :key="slots.hoverText(i)"
+        v-html="inner"
+        @mouseover.native="overlayHoverOver(i)"
+        @mouseout.native="overlayHoverOut"
+      ></HoverText>
+    </template>
+    <template v-slot:[slots.diffVis]>
+      <DifferenceVisual></DifferenceVisual>
+    </template>
+    <template v-slot:[slots.pCharts]>
+      <PChart :chartName="chosenHover"></PChart>
+    </template>
+    <template v-slot:[slots.bySide]>
+      <BySide></BySide>
+    </template>
   </Slots>
 </template>
 
 <script>
 import ChapterSlots from "@/components/mixins/ChapterSlots";
-import PeabodyTutorial from "@/components/chapters/peabody/PeabodyTutorialOld.vue"
-import MoveBorder from "../global/MoveBorder";
-import MapScroller from "../global/MapScroller.vue";
-import Captioned from "../global/docs-inclusions/Captioned.vue";
+import DifferenceVisual from "@/components/chapters/playfair/DifferenceVisual.vue";
+import PChart from "@/components/chapters/playfair/PChart.vue";
+import BySide from "@/components/chapters/playfair/BySide.vue";
 import HoverText from "../global/HoverText";
-import StaticData from "@/components/data-access/StaticData";
 
 export default {
-  components: {StaticData, MapScroller, MoveBorder, Captioned, HoverText},
+  components: {
+    DifferenceVisual,
+    PChart,
+    BySide,
+    HoverText
+  },
   mixins: [ChapterSlots],
   data() {
     return {
       slots: {
-
-      }
-    }
+        hoverText: n => `Hover${n}`,
+        diffVis: "Difference Visualization",
+        pCharts: "Playfair-style Charts",
+        bySide: "Side-by-side"
+      },
+      hover: ["Covid", "Income", "Women"],
+      chosenHover: "Covid"
+    };
   },
-  chapterState: {
-  },
+  chapterState: {},
   methods: {
-
-  },
-}
+    mapHoverOver(n) {
+      this.chapterState.mapPos = n - 1;
+    },
+    mapHoverOut() {
+      this.chapterState.mapPos = -1;
+    },
+    overlayHoverOver(n) {
+      const positions = [7, 20, 20.6];
+      this.chapterState.overlayHighlight = positions[n - 4];
+      this.chosenHover = n;
+    },
+    overlayHoverOut() {}
+  }
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

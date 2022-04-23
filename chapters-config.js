@@ -13,8 +13,8 @@ export default {
     id: "playfair",
     navName: "Visualization as Argument",
     theme: {
-      primaryColor: "#93E3BD",
-      primaryColorText: "black"
+      primaryColor: "#3B6FE0",
+      primaryColorText: "white"
     }
   },
   sandbox: {

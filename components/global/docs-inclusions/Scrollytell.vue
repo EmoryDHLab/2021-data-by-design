@@ -1,32 +1,40 @@
 <template>
   <div class="col-span-full" :style="totalHeightStyle" ref="root">
-
     <!--We want this background to match the height of all the scrolly groups.
     But we can't actually make it the background of that container
     (or have it be part of the child containers - I've tried a lot of stuff) because it needs to be full
     width, which these non-absolute containers can't be thanks to our grid layout.
     -->
-    <div ref="background" class="bg-theme absolute z-0 left-0 w-screen" :style="totalHeightStyle">
-    </div>
+    <div
+      ref="background"
+      class="bg-theme absolute z-0 left-0 w-screen"
+      :style="totalHeightStyle"
+    ></div>
 
     <div class="relative">
-      <div ref="above" class="opacity-0 pointer-events-none absolute left-0 -top-screen w-screen h-screen"
-           :class="{'scroll-snap-child': snapRange}">
-      </div>
-      <div ref="below" class="opacity-0 pointer-events-none absolute left-0 w-screen h-screen"
-           :class="{'scroll-snap-child': snapRange}"
-           :style="{top: totalHeightUnits}">
-      </div>
+      <div
+        ref="above"
+        class="opacity-0 pointer-events-none absolute left-0 -top-screen w-screen h-screen"
+        :class="{ 'scroll-snap-child': snapRange }"
+      ></div>
+      <div
+        ref="below"
+        class="opacity-0 pointer-events-none absolute left-0 w-screen h-screen"
+        :class="{ 'scroll-snap-child': snapRange }"
+        :style="{ top: totalHeightUnits }"
+      ></div>
     </div>
-
 
     <div v-if="!$isMobile" class="flex flex-row mx-3 lg:mx-12">
       <div class="flex-1 z-10 relative" ref="scrolly">
         <div class="h-screen" ref="buffer"></div>
-        <div v-for="(i, zeroIndexed) in groups" class="text-theme flex items-center"
-             :class="{'h-screen': !collect, 'scroll-snap-child': snapRange}"
-             :style="collectStyle(zeroIndexed)"
-             ref="groups">
+        <div
+          v-for="(i, zeroIndexed) in groups"
+          class="flex items-center"
+          :class="{ 'h-screen': !collect, 'scroll-snap-child': snapRange }"
+          :style="collectStyle(zeroIndexed)"
+          ref="groups"
+        >
           <div>
             <slot :name="'group:' + i"></slot>
           </div>
@@ -39,35 +47,47 @@
       </div>
     </div>
 
-    <div v-else ref="mobile" class="flex relative flex-col w-full items-center" :class="{'scroll-snap-child': snapRange}">
+    <div
+      v-else
+      ref="mobile"
+      class="flex relative flex-col w-full items-center"
+      :class="{ 'scroll-snap-child': snapRange }"
+    >
       <div>
         <slot name="sticky"></slot>
       </div>
-      <div class="flex-grow relative z-10 w-full flex flex-row justify-between items-center">
-        <div v-show="scrollData.current > 0" class="font-icons cursor-pointer text-xl" @click="mobilePrevClick">
+      <div
+        class="flex-grow relative z-10 w-full flex flex-row justify-between items-center"
+      >
+        <div
+          v-show="scrollData.current > 0"
+          class="font-icons cursor-pointer text-xl"
+          @click="mobilePrevClick"
+        >
           u
         </div>
         <div>
           <slot :name="`group:${scrollData.current + 1}`"></slot>
         </div>
-        <div v-show="scrollData.current < groups - 1" class="font-icons cursor-pointer text-xl"
-             @click="mobileNextClick">
+        <div
+          v-show="scrollData.current < groups - 1"
+          class="font-icons cursor-pointer text-xl"
+          @click="mobileNextClick"
+        >
           s
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import gsap from "gsap"
-import {ScrollTrigger} from "gsap/ScrollTrigger";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GridLayout from "@/components/page/chapter/layout/GridLayout.vue";
 import Vue from "vue";
 
-if (process.client)
-  gsap.registerPlugin(ScrollTrigger);
+if (process.client) gsap.registerPlugin(ScrollTrigger);
 
 export const docsDefinition = {
   matchName: ["Scrollytell", "ScrollyTell"],
@@ -78,7 +98,7 @@ export const docsDefinition = {
     }
   },
   slots: ["sticky", /^group:(\d+)/]
-}
+};
 
 export default {
   head() {
@@ -86,9 +106,9 @@ export default {
       htmlAttrs: {
         // style: "scroll-snap-type:y mandatory"
       }
-    }
+    };
   },
-  components: {GridLayout},
+  components: { GridLayout },
   props: {
     groups: Number,
     collect: {
@@ -99,7 +119,7 @@ export default {
   provide() {
     return {
       scrollData: this.scrollData
-    }
+    };
   },
   data: () => ({
     totalHeight: -1,
@@ -137,17 +157,17 @@ export default {
     },
     totalHeightUnits() {
       if (this.$isMobile) {
-        return '100vh';
+        return "100vh";
       }
       if (this.totalHeight > 0) {
-        return this.totalHeight + "px"
+        return this.totalHeight + "px";
       }
     },
     totalHeightStyle() {
       return {
         height: this.totalHeightUnits
-      }
-    },
+      };
+    }
     // localVars() {
     //   const gap = "600px";
     //   return {
@@ -159,13 +179,13 @@ export default {
   methods: {
     collectStyle(i) {
       if (!this.collect) {
-        return {}
+        return {};
       }
       return {
         position: "sticky",
         top: `${this.cumulativeHeights[i] + this.leaveOffset}px`,
-        marginBottom: `100rem`,
-      }
+        marginBottom: `100rem`
+      };
     },
     mobileNextClick() {
       this.scrollData.current++;
@@ -173,9 +193,7 @@ export default {
     mobilePrevClick() {
       this.scrollData.current--;
     },
-    transitionStyle(i) {
-
-    }
+    transitionStyle(i) {}
   },
   mounted() {
     ScrollTrigger.create({
@@ -183,16 +201,16 @@ export default {
       // endTrigger: this.$refs.screenBelow,
       start: "+20px bottom",
       end: "bottom top",
-      onToggle: (instance) => {
-        const {isActive} = instance;
+      onToggle: instance => {
+        const { isActive } = instance;
         this.scrollytellActive = isActive;
         if (isActive) {
           this.scrollData.current = 0;
         }
       },
-      onUpdate: ({direction}) => {
+      onUpdate: ({ direction }) => {
         this.direction = direction;
-      },
+      }
     });
 
     ["above", "below"].map(side => {
@@ -222,11 +240,9 @@ export default {
     }
     this.totalHeight = this.$refs.scrolly.clientHeight;
     setTimeout(() => {
-
       const groups = [this.$refs.buffer, ...this.$refs.groups];
 
       if (this.collect) {
-
         let cumulative = 100;
         const cumulativeHeights = [];
         cumulativeHeights.push(cumulative);
@@ -237,21 +253,20 @@ export default {
             trigger: el,
             start: "bottom bottom",
             end: `top ${cumulative}px`,
-            onUpdate: ({progress}) => this.scrollData.progress = progress,
-            onEnter: (instance) => this.scrollData.current = i,
-            onLeaveBack: (instance) => this.scrollData.current = i - 1,
-          })
-        })
+            onUpdate: ({ progress }) => (this.scrollData.progress = progress),
+            onEnter: instance => (this.scrollData.current = i),
+            onLeaveBack: instance => (this.scrollData.current = i - 1)
+          });
+        });
         ScrollTrigger.create({
           trigger: this.$refs.groups[this.groups - 1],
           start: `bottom ${cumulative}px`,
           end: "bottom top",
-          onUpdate: ({progress, direction, start, end}) => {
+          onUpdate: ({ progress, direction, start, end }) => {
             this.scrollData.leaveProgress = progress;
             this.leaveOffset = (start - end) * progress;
           }
         });
-;
         this.cumulativeHeights = cumulativeHeights;
       } else {
         groups.forEach((el, i) => {
@@ -259,18 +274,18 @@ export default {
             trigger: el,
             start: "bottom bottom",
             end: "bottom top",
-            onUpdate: ({progress, direction}) => {
+            onUpdate: ({ progress, direction }) => {
               this.scrollData.progress = progress;
               this.scrollData.direction = direction;
             },
-            onEnter: (instance) => this.scrollData.current = i,
-            onLeaveBack: (instance) => this.scrollData.current = i - 1,
-          })
-        })
+            onEnter: instance => (this.scrollData.current = i),
+            onLeaveBack: instance => (this.scrollData.current = i - 1)
+          });
+        });
       }
-    }, 2100)
+    }, 2100);
   }
-}
+};
 </script>
 <style scoped>
 .scroll-snap-child {
