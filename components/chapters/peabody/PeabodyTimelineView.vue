@@ -1,6 +1,5 @@
 <template>
   <div class="col-span-full bg-black text-white">
-    Timeline View {{ hoveredYear }}
     <StaticData
       :dataset="['peabody1600s']"
       v-slot="staticData"
@@ -52,7 +51,7 @@
           </div>
         </div>
       </div>
-      <div class="w-full mt-1 flex justify-center">
+      <div class="w-full mt-1 pb-6 flex justify-center">
         <svg class="w-3/4" viewBox="0 0 300 10">
           <line
             x1="0"
@@ -62,16 +61,27 @@
             stroke="white"
             stroke-width="0.5"
           ></line>
-          <line
-            v-for="i in 100"
-            :key="i"
-            :x1="i * 3 - 1.5"
-            :y1="0"
-            :x2="i * 3 - 1.5"
-            :y2="i % 10 == 0 ? 6 : 4"
-            stroke="white"
-            :stroke-width="0.5"
-          ></line>
+          <g v-for="i in 100" :key="i">
+            <line
+              :x1="i * 3 - 1.5"
+              :y1="0"
+              :x2="i * 3 - 1.5"
+              :y2="i % 10 == 0 ? 6 : 4"
+              stroke="white"
+              :stroke-width="0.5"
+            ></line>
+            <text
+              v-if="i % 10 == 0"
+              :x="i * 3 - (i == 100 ? 9 : 6)"
+              :y="10"
+              :textLength="9"
+              fill="white"
+              font-size="4"
+              border="1"
+            >
+              {{ currentCenturyNum + i }}
+            </text>
+          </g>
         </svg>
       </div>
     </StaticData>
