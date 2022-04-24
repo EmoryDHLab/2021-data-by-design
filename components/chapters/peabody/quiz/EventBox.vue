@@ -1,25 +1,33 @@
 <template>
-  <div class="flex text-white border-b min-h-28">
-    <EventBoxArrow :class="{'invisible': value == 0}" @click="updateValue(value - 1)"/>
+  <div class="flex text-white min-h-28">
+    <EventBoxArrow
+      :class="{ invisible: value == 0 }"
+      @click="updateValue(value - 1)"
+    />
     <div class="mx-4 my-2 text-base w-96 flex flex-row justify-between gap-4">
       <div>
-        <span class="font-william">{{eventYear}}:</span> {{eventText}}
+        <span class="font-william">{{ eventYear }}:</span> {{ eventText }}
       </div>
       <div class="self-end flex flex-col items-center gap-2">
         <EventCheckbox
           @click="$emit('solveClicked', currentSolved)"
-          :checked="currentSolved"/>
+          :checked="currentSolved"
+        />
         <div class="text-sm">
-          {{completedText}}
+          {{ completedText }}
         </div>
       </div>
     </div>
-    <EventBoxArrow :class="{'invisible': eventData && value == eventData.length - 1}" @click="updateValue(value + 1)" class="transform rotate-180"/>
+    <EventBoxArrow
+      :class="{ invisible: eventData && value == eventData.length - 1 }"
+      @click="updateValue(value + 1)"
+      class="transform rotate-180"
+    />
   </div>
 </template>
 
 <script>
-import EventBoxArrow from "./EventBoxArrow.vue"
+import EventBoxArrow from "./EventBoxArrow.vue";
 import EventCheckbox from "./EventCheckbox";
 export default {
   props: {
@@ -31,16 +39,16 @@ export default {
       type: Array,
     },
     solvedEvents: {
-      type: Array
-    }
+      type: Array,
+    },
   },
-  components: {EventBoxArrow, EventCheckbox},
+  components: { EventBoxArrow, EventCheckbox },
   methods: {
-    updateValue (newVal) {
+    updateValue(newVal) {
       if (newVal >= 0 && newVal < this.eventData.length) {
         this.$emit("input", newVal);
       }
-    }
+    },
   },
   computed: {
     currentEvent() {
@@ -52,16 +60,16 @@ export default {
     eventYear() {
       return this.currentEvent?.year;
     },
-    eventText () {
+    eventText() {
       return this.currentEvent?.event;
     },
     completedText() {
       if (this.eventData?.length) {
         return `${this.value + 1}/${this.eventData.length}`;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
