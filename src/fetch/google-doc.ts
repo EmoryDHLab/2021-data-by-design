@@ -9,8 +9,6 @@ const config = {
   private_key,
 };
 
-console.log(config);
-
 export default async function get(doc) {
   const docDownload = parseDoc(await getDoc(config, doc));
   return docDownload;

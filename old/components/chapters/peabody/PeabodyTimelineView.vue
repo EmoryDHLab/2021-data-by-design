@@ -95,7 +95,11 @@ import StaticData from "@/components/data-access/StaticData";
 import EventSquare from "./grid/EventSquare";
 import ActorSelect from "./quiz/ActorSelect";
 
-import { actorsIn, dataToYears, actorColors } from "./peabody-utils";
+import {
+  actorsIn,
+  dataToYears,
+  actorColors,
+} from "../../../../src/components/peabody/peabody-utils";
 import BaseButton from "../../base/BaseButton";
 import LocalImage from "../../global/docs-inclusions/LocalImage";
 

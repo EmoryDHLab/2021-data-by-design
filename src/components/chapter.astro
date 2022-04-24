@@ -1,0 +1,42 @@
+---
+import chaptersConfig from '../../chapters-config';
+import fetchDoc from "../fetch/google-doc" 
+import {componentsFromDoc, findSections} from "google-docs-components"
+import { Renderer } from "docs-renderer-vue3";
+
+const name = Astro.props.name;
+ 
+export function getStaticPaths() {
+  return Object.keys(chaptersConfig).map(chapter => ({ params: { chapter } }));
+}
+
+const componentFiles = (await Astro.glob("./**/*.vue")).filter(file => file.docsDefinition);
+
+const componentDefs = componentFiles.map(file => file.docsDefinition);
+
+const componentMap = Object.fromEntries(
+  componentFiles.map( 
+    (c) => ([c.docsDefinition.componentName, c.default]))
+);
+
+console.log("globby", componentMap);
+
+const chapterConfig = chaptersConfig[name];
+
+const doc = await fetchDoc(chapterConfig.doc);
+const components = componentsFromDoc({components: componentDefs}, doc);
+console.log(components);
+---
+<div>
+  chapter component
+  <h4> {components.title} </h4>
+  <Renderer
+    class="pass-through"
+    ignoreCss={[]}
+    content={components.body}
+    components={componentMap}
+    element-classes={ {p: [{ hi: true }, 'there'] }}
+  >
+
+    </Renderer>
+</div>
