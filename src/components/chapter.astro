@@ -2,7 +2,8 @@
 import chaptersConfig from '../../chapters-config';
 import fetchDoc from "../fetch/google-doc" 
 import {componentsFromDoc, findSections} from "google-docs-components"
-import { Renderer } from "docs-renderer-vue3";
+import RenderContent from "./docs-renderer/RenderContent.astro";
+import Renderer from "./docs-renderer/Renderer.astro";
 
 const name = Astro.props.name;
  
@@ -30,6 +31,7 @@ console.log(components);
 <div>
   chapter component
   <h4> {components.title} </h4>
+  <!-- <RenderContent content={}/> -->
   <Renderer
     class="pass-through"
     ignoreCss={[]}

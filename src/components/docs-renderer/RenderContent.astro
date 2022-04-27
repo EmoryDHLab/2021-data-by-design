@@ -1,0 +1,28 @@
+---
+import type { ContentData } from 'google-docs-components';
+export interface Props {
+  content: ContentData
+}
+
+const { content } = Astro.props;
+
+
+const isString = typeof content == "string";
+if (isString) {
+  console.log(content, content.length, content.trim(), content.trim().length);
+}
+const isElement = !isString && content?.element;
+
+if (isElement) {
+  if (content.children) {
+    console.log(content.children);
+  }
+}
+
+const stringifyStyle = (style: object) => {
+  return Object.keys(style).map(key => `${key}: ${style[key]};`).join(" ");
+};
+---
+{isString ? content :
+(isElement && <content.element style={stringifyStyle(content.style || {})}>{content.children && content.children.map(child => 
+    <Astro.self content={child}/>)}</content.element>)}

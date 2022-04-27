@@ -1,0 +1,17 @@
+---
+import type { ContentData, ProcessedContent } from "google-docs-components";
+import RenderContent from './RenderContent.astro';
+
+export interface Props {
+  content: ProcessedContent,
+  components: { [key: string]: any },
+  tableComponent: Object | false,
+  inlineSlotFormat: RegExp,
+  ignoreCSS: string[],
+}
+
+const { content, components, tableComponent, inlineSlotFormat = /\[\^(\d*[a-zA-z]+\d*)\](?:(.+)\[\/\1\])*/g, ignoreCSS } = Astro.props;
+---
+<div>
+  {content.map(c => <RenderContent content={c}/>)}
+</div>

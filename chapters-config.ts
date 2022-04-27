@@ -29,7 +29,7 @@ const chaptersConfig: { [name: string]: ChapterConfig } = {
   },
   sandbox: {
     id: "sandbox",
-    doc: "1ZnzdhstuleNMzjzl6EuJzD1SxAsj54bMOu-5IxeaRWo",
+    doc: "1QnnVB0aatTRXgT6brhDWXFK951J4cEt0OZEdn7InaH4",
     navName: "Sandbox",
     theme: {
       primaryColor: "#93E3BD",
