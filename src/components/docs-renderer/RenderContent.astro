@@ -1,28 +1,36 @@
 ---
 import type { ContentData } from 'google-docs-components';
+import { Renderer as VueRenderer } from "docs-renderer-vue3"
 export interface Props {
-  content: ContentData
+  content: ContentData,
+  vueComponents: { [key: string]: any }
+  astroComponents: {}
+  tableComponent?: Object | false,
+  inlineSlotFormat?: RegExp,
+  ignoreCSS?: string[],
 }
 
-const { content } = Astro.props;
-
+const { content, astroComponents, vueComponents } = Astro.props;
 
 const isString = typeof content == "string";
-if (isString) {
-  console.log(content, content.length, content.trim(), content.trim().length);
-}
-const isElement = !isString && content?.element;
+const isElement = content?.element;
+const isComponent = content?.component;
+const isVueComponent = vueComponents && vueComponents[isComponent];
+const isAstroComponent = isComponent && !isVueComponent && astroComponents?.[isComponent];
 
-if (isElement) {
-  if (content.children) {
-    console.log(content.children);
-  }
+// if (isComponent) console.log(isComponent);
+// if (content?.table) console.log(content.table);
+if (!isString || !isElement) {
+  // console.log(content)
 }
-
+ 
 const stringifyStyle = (style: object) => {
   return Object.keys(style).map(key => `${key}: ${style[key]};`).join(" ");
 };
 ---
-{isString ? content :
-(isElement && <content.element style={stringifyStyle(content.style || {})}>{content.children && content.children.map(child => 
-    <Astro.self content={child}/>)}</content.element>)}
+{
+  isVueComponent ? <VueRenderer content={[content]} components={vueComponents}/> : 
+  isString ? content :
+  isElement && <content.element style={stringifyStyle(content.style || {})}>{content.children && content.children.map(child => 
+      <Astro.self content={child}/>)}</content.element>
+}

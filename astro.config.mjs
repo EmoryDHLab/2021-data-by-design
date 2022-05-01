@@ -1,10 +1,11 @@
 import { defineConfig } from "astro/config";
 import nodejs from "@astrojs/node";
-
 import vue from "@astrojs/vue";
 
-// https://astro.build/config
-export default defineConfig({// adapter: nodejs()
+import tailwind from "@astrojs/tailwind";
 
-  integrations: [vue()]
+// https://astro.build/config
+export default defineConfig({
+  // adapter: nodejs()
+  integrations: [vue(), tailwind()],
 });

@@ -13,7 +13,6 @@ export const docsDefinition = {
       type: "string",
     },
   },
-  slots: ["title", "subtitle"],
 };
 export default {};
 </script>

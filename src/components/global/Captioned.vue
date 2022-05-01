@@ -34,6 +34,6 @@ export default {
 .caption,
 .caption p,
 .caption span {
-  @apply font-william text-sm lg:text-lg;
+  @apply text-sm lg:text-lg;
 }
 </style>
