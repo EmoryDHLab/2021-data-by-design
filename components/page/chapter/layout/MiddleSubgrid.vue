@@ -1,7 +1,10 @@
 <template>
   <GridLayout>
     <Component
-      :is="docsRenderer" :docContent="docContent" class="contents middle-subgrid"></Component>
+      :is="docsRenderer"
+      :docContent="docContent"
+      class="contents middle-subgrid"
+    ></Component>
   </GridLayout>
 </template>
 
@@ -9,28 +12,27 @@
 import GridLayout from "./GridLayout";
 
 export default {
-  components: {GridLayout},
+  components: { GridLayout },
   inject: ["docsRenderer"],
   props: {
     docContent: Array,
-  }
-}
+  },
+};
 </script>
 
 <style>
-
 /*.middle-subgrid {*/
 /*  display: grid;*/
 /*  grid-column: 1 / -1;*/
 /*  grid: inherit;*/
 /*}*/
 
-.middle-subgrid > p, .middle-subgrid > .middle-text {
-  @apply col-span-6 2xl:col-span-8 col-start-3 2xl:col-start-4
+.middle-subgrid > p,
+.middle-subgrid > .middle-text,
+.middle-subgrid > div.middle-center {
+  @apply col-span-6 2xl:col-span-8 col-start-3 2xl:col-start-4;
 }
 .middle-subgrid > div.middle-full {
-  @apply col-span-full
+  @apply col-span-full;
 }
-
-
 </style>

@@ -1,23 +1,27 @@
 <template>
   <span>
     <span class="circle" @click="show = !show">
-      {{footnoteNumber}}
+      {{ footnoteNumber }}
     </span>
     <span class="text-blue-400" v-if="show">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad aliquam asperiores consectetur cumque dicta dolor ducimus esse eum eveniet nemo numquam, officia officiis recusandae reprehenderit repudiandae unde voluptas, voluptatum.
+      <DocsRenderer :docContent="componentData.footnotes[footnoteNumber]" />
     </span>
   </span>
 </template>
 
 <script>
+import DocsRenderer from "../../docs-renderer/DocsRenderer.vue";
+
 export default {
+  inject: ["componentData"],
+  components: { DocsRenderer },
   props: {
     footnoteNumber: Number,
   },
   data: () => ({
-    show: false
-  })
-}
+    show: false,
+  }),
+};
 </script>
 
 <style scoped>
@@ -34,6 +38,6 @@ export default {
   margin-left: 2px;
   text-align: center;
   background-color: var(--primaryColor);
-  color: var(--primaryColorText)
+  color: var(--primaryColorText);
 }
 </style>

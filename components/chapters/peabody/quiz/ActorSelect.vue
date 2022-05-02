@@ -5,14 +5,16 @@
         :colors="[actorColors[actor]]"
         :width="squareWidth"
         :height="squareWidth"
-        @hover-start="hovered(actor)"
+        @hoverStart="hovered(actor)"
         :highlighted="selectedActors.includes(actor)"
       >
       </EventSquare>
       <span
-        class="text-sm small-caps tracking-wide"
-        :class="{ 'font-bold': selectedActors.includes(actor) }"
-        >{{ actor.toLowerCase() }}</span
+        class="text-sm small-caps tracking-wide min-w-12"
+        :class="{ editable: editNames }"
+        spellcheck="false"
+        :contenteditable="editNames"
+        >{{ editNames ? "" : actor.toLowerCase() }}</span
       >
     </div>
   </div>
@@ -29,7 +31,16 @@ export default {
     event: "selected",
   },
   props: {
-    selectedActors: Array,
+    editNames: {
+      type: Boolean,
+      default: false,
+    },
+    selectedActors: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
     actorColors: {
       type: Object,
       default() {
@@ -60,5 +71,19 @@ export default {
 <style scoped>
 .small-caps {
   font-variant: small-caps;
+}
+
+.editable {
+  border: none;
+  vertical-align: bottom;
+  border-bottom: 2px dashed #efefef;
+}
+
+.editable:focus {
+  outline: 0px solid transparent;
+}
+
+.min-w-12 {
+  min-width: 3rem;
 }
 </style>

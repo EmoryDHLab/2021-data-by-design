@@ -1,5 +1,5 @@
 <template>
-  <div class="col-span-full bg-black text-white">
+  <div class="col-span-full bg-black text-white pt-20">
     <StaticData
       :dataset="['peabody1600s']"
       v-slot="staticData"
@@ -27,13 +27,13 @@
         </div>
       </div>
 
-      <div class="w-full mt-4 flex justify-center">
+      <div class="w-full mt-12 flex justify-center">
         <div class="flex w-3/4">
           <div
             v-for="(yearBucket, y) in years"
-            class="w-6 h-full flex flex-col-reverse"
+            class="w-6 h-full flex flex-col-reverse border border-transparent"
             :class="{
-              'border border-white': currentCenturyNum + y == hoveredYear - 1,
+              'border-white': currentCenturyNum + y == hoveredYear - 1,
             }"
             :key="y"
           >
@@ -78,6 +78,7 @@
               fill="white"
               font-size="4"
               border="1"
+              font-variant="small-caps"
             >
               {{ currentCenturyNum + i }}
             </text>
@@ -89,18 +90,11 @@
 </template>
 <script>
 import PeabodyGrid from "./grid/PeabodyGrid";
-import EventKeyBox from "./key/EventKeyBox";
-import EventLegend from "./key/EventLegend";
 import StaticData from "@/components/data-access/StaticData";
 import EventSquare from "./grid/EventSquare";
-import ActorSelect from "./quiz/ActorSelect";
 
 import { actorsIn, dataToYears, actorColors } from "./peabody-utils";
-import BaseButton from "../../base/BaseButton";
 import LocalImage from "../../global/docs-inclusions/LocalImage";
-
-import EventBox from "./quiz/EventBox";
-import EventCheckbox from "./quiz/EventCheckbox";
 
 export const docsDefinition = {
   matchName: ["Peabody Timeline View"],
@@ -110,16 +104,10 @@ export const docsDefinition = {
 
 export default {
   components: {
-    EventCheckbox,
     LocalImage,
-    EventLegend,
-    EventBox,
-    EventKeyBox,
     PeabodyGrid,
-    BaseButton,
     StaticData,
     EventSquare,
-    ActorSelect,
   },
   data() {
     return {
@@ -155,7 +143,6 @@ export default {
           const insertAt = key - this.currentCenturyNum - 1;
           const events = [];
           value.forEach((event, i) => {
-            console.log(key, event);
             if (event?.actors) {
               events.push({
                 year: Number(key),
@@ -192,10 +179,7 @@ export default {
     },
     loadedData({ name, data }) {
       this.events = data;
-      console.log(this.events);
-      console.log(Object.entries(dataToYears(this.events)));
       this.currentCentury = name.split("peabody")[1];
-      console.log("loaded", this.years);
     },
   },
 };

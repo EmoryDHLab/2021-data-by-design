@@ -1,6 +1,28 @@
 <template>
-  <div class="col-span-full bg-offblack text-white mt-12">
+  <div class="col-span-full bg-offblack text-white mt-12 pt-20">
     <StaticData :dataset="datasets" v-slot="staticData" @loaded="loadedData">
+      <div class="w-full flex flex-row">
+        <div class="w-1/2 flex items-center justify-center">
+          <div class="w-8/12">
+            <PeabodyGrid
+              :overlay-path="'PeabodyImg/' + currentCentury + '.jpg'"
+              :years-data="centuries[currentCentury].events"
+              @hoverStart="eventHovered"
+            ></PeabodyGrid>
+          </div>
+        </div>
+
+        <div class="w-1/2 flex items-center justify-center">
+          <div class="w-8/12">
+            <PeabodyGrid
+              :years-data="centuries[currentCentury].solvedEvents"
+              :highlighted="highlightedSquare"
+              @hoverStart="eventHovered"
+              @click="gridClicked"
+            ></PeabodyGrid>
+          </div>
+        </div>
+      </div>
       <div class="w-full flex flex-row py-12 xl:py-8">
         <div class="w-1/2 flex flex-col gap-4 items-center">
           <div
@@ -53,29 +75,6 @@
                 Reset
               </button>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="w-full flex flex-row">
-        <div class="w-1/2 flex items-center justify-center">
-          <div class="w-3/4">
-            <PeabodyGrid
-              :overlay-path="'PeabodyImg/' + currentCentury + '.jpg'"
-              :years-data="centuries[currentCentury].events"
-              @hoverStart="eventHovered"
-            ></PeabodyGrid>
-          </div>
-        </div>
-
-        <div class="w-1/2 flex items-center justify-center">
-          <div class="w-3/4">
-            <PeabodyGrid
-              :years-data="centuries[currentCentury].solvedEvents"
-              :highlighted="highlightedSquare"
-              @hoverStart="eventHovered"
-              @click="gridClicked"
-            ></PeabodyGrid>
           </div>
         </div>
       </div>

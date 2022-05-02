@@ -11,7 +11,7 @@
       "
       v-for="(event, i) in legendText"
       :key="event"
-      :class="{ 'border-white': value == i + 1 }"
+      :class="{ 'border-peabodyorange': value == i + 1 }"
       @mouseover="$emit('input', i + 1)"
     >
       <div>{{ i + 1 }}</div>
