@@ -5,6 +5,7 @@ import RenderContent from './RenderContent.astro';
 export interface Props {
   content: ProcessedContent,
   vueComponents?: { [key: string]: any },
+  astroComponents?: { [key: string]: any },
   tableComponent?: Object | false,
   inlineSlotFormat?: RegExp,
   ignoreCSS?: string[],

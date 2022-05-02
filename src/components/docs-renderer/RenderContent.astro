@@ -4,7 +4,7 @@ import { Renderer as VueRenderer } from "docs-renderer-vue3"
 export interface Props {
   content: ContentData,
   vueComponents: { [key: string]: any }
-  astroComponents: {}
+  astroComponents: { [key: string]: any }
   tableComponent?: Object | false,
   inlineSlotFormat?: RegExp,
   ignoreCSS?: string[],
@@ -18,6 +18,14 @@ const isComponent = content?.component;
 const isVueComponent = vueComponents && vueComponents[isComponent];
 const isAstroComponent = isComponent && !isVueComponent && astroComponents?.[isComponent];
 
+if (isAstroComponent) {
+  console.log("here!!!", content);
+  console.log(content.slots)
+}
+const component = {
+  astro: isAstroComponent
+}
+
 // if (isComponent) console.log(isComponent);
 // if (content?.table) console.log(content.table);
 if (!isString || !isElement) {
@@ -27,7 +35,16 @@ if (!isString || !isElement) {
 const stringifyStyle = (style: object) => {
   return Object.keys(style).map(key => `${key}: ${style[key]};`).join(" ");
 };
+
+const keys = content.slots && Object.keys(content.slots);
+
+if (keys) {
+  console.log(keys);
+}
 ---
+{isAstroComponent && (<><component.astro {...content?.props}>
+  {content?.slots?.default && <Astro.self content={content.slots.default} />}
+</component.astro></>)}
 {
   isVueComponent ? <VueRenderer content={[content]} components={vueComponents}/> : 
   isString ? content :

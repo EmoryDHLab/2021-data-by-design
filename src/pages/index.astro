@@ -1,5 +1,9 @@
 ---
+import TestAstro from "../components/global/astro/TestAstro.astro"
+const slots = ["name"];
+const dyn = {t: TestAstro}
 
+const isTrue = false;
 ---
 <html lang="en">
 	<head>
@@ -9,9 +13,8 @@
 	</head>
 	<body>
 		<h1>Astro</h1>
-		<div class="font-bold"> hey hey </div>
-		<button class="py-2 px-4 bg-purple-500 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75">
-		button
-</button>
+		<TestAstro>
+			<!-- {isTrue && <p slot="name">Dan</p>} -->
+		</TestAstro>
 	</body>
 </html>

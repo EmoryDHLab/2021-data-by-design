@@ -6,6 +6,7 @@ import type {ComponentDef} from "google-docs-components"
 import RenderContent from "./docs-renderer/RenderContent.astro";
 import Renderer from "./docs-renderer/Renderer.astro";
 import TestAstro from "./global/astro/TestAstro.astro";
+import astroComponentDefs from "./global/astro/docsDefinitions";
 
 const name = Astro.props.name;
  
@@ -20,16 +21,7 @@ const astroComponentFiles = (await Astro.glob("./global/astro/*.astro")).map(fil
   componentName: file.$$metadata.mockURL.pathname.split('/').pop().split('.')[0]
 }));
 
-const astroComponentDefs: ComponentDef[] = astroComponentFiles.map( ({componentName}) => {
-  return {
-    matchName: componentName,
-    componentName,
-    props: "any",
-    slots: "any"
-  }
-});
-
-const componentDefs = vueComponentFiles.map(file => file.docsDefinition)
+const componentDefs = [...vueComponentFiles.map(file => file.docsDefinition), ...astroComponentDefs];
 
 const astroComponentMap = Object.fromEntries(astroComponentFiles.map(({file, componentName}) => [componentName, file.default]));
 
@@ -54,10 +46,10 @@ const components = componentsFromDoc({components: componentDefs}, doc);
     ignoreCss={[]}
     content={components.body}
     vueComponents={vueComponentMap}
+    astroComponents={astroComponentMap}
     element-classes={ {p: [{ hi: true }, 'there'] }}
   >
 
   </Renderer>
-  <astroComponentMap.TestAstro/>
 
 </div>

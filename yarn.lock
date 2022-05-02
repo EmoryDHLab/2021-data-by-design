@@ -1593,10 +1593,10 @@ google-auth-library@^7.14.0:
     jws "^4.0.0"
     lru-cache "^6.0.0"
 
-google-docs-components@^1.1.1:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/google-docs-components/-/google-docs-components-1.2.0.tgz#7b39a6f268690291979f4d05c4528c0c6a8005db"
-  integrity sha512-3avlvdavq3ENo2bHpi7SeQSE4dgMTwmh3BzZCCvKGz3bGIYEKBWxdjQsh1c9zBPV8zV2Uj3QIe4Y9Wrq62005A==
+google-docs-components@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/google-docs-components/-/google-docs-components-1.3.1.tgz#263d495028d2bf7b95199417dc82981206d9e065"
+  integrity sha512-CJcSg+CyS5+nabuwzu9Z+H9/gQxPEe60pJ5NNfr/0zAMO8O8t7RPyKRE5o80KdJ4zZNr9SI4uvHN6mMh1QgxPw==
   dependencies:
     google-docs-parser "workspace:*"
 
