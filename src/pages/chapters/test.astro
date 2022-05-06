@@ -1,4 +1,12 @@
 ---
 import Chapter from '../../components/Chapter.astro';
+import TestSimple from '../../components/global/TestSimple.vue';
 ---
-<Chapter name="sandbox"></Chapter>
+<Chapter name="sandbox">
+
+  <div slot="mySlot"> 
+    Chapter Slot! hi
+    <TestSimple client:idle/>
+  </div>
+
+</Chapter>

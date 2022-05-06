@@ -35,14 +35,19 @@ const chapterConfig = chaptersConfig[name];
 const doc = await fetchDoc(chapterConfig.doc);
 const components = componentsFromDoc({components: componentDefs}, doc);
 
+const slotHTML = await Astro.slots.render(Object.keys(Astro.slots)[0]);
+
+const allSlots = Object.fromEntries(Object.keys(Astro.slots).map(slotName => ({
+  slotName,
+  slotHTML: Astro.slots.render(slotName)
+}));
+
 //https://docs.google.com/document/d/1QnnVB0aatTRXgT6brhDWXFK951J4cEt0OZEdn7InaH4/edit
 ---
 <div>
-  chapter <span class="font-bold">component</span>
-  <h4> {components.title} </h4>
-  <!-- <RenderContent content={}/> -->
   <Renderer
     class="pass-through"
+    slots={allSlots}
     ignoreCss={[]}
     content={components.body}
     vueComponents={vueComponentMap}

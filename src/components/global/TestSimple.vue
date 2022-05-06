@@ -1,7 +1,8 @@
 <template>
   <div class="bg-fuchsia-300">
     Hey, this is a simple component.
-    <div>yo yo</div>
+    <div>{{ counter }}</div>
+    <button @click="counter++">incrememnt</button>
   </div>
 </template>
 
@@ -11,5 +12,11 @@ export const docsDefinition = {
   componentName: "TestSimple",
   props: {},
 };
-export default {};
+export default {
+  data() {
+    return {
+      counter: 0,
+    };
+  },
+};
 </script>
