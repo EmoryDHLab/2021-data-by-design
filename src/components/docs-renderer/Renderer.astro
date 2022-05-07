@@ -4,7 +4,7 @@ import RenderContent from './RenderContent.astro';
 
 export interface Props {
   content: ProcessedContent,
-  slots: { [key: string]: any}
+  slots: { [key: string]: string}
   vueComponents?: { [key: string]: any },
   astroComponents?: { [key: string]: any },
   tableComponent?: Object | false,
@@ -12,12 +12,11 @@ export interface Props {
   ignoreCSS?: string[],
 }
 
-const { content, slots, components, tableComponent, inlineSlotFormat = /\[\^(\d*[a-zA-z]+\d*)\](?:(.+)\[\/\1\])*/g, ignoreCSS } = Astro.props;
+const { content, slots, components, tableComponent, ignoreCSS } = Astro.props;
 
 // const astroComponentFiles = (await Astro.glob("./global/astro/*.astro"));
 
 ---
 <div>
-  <Fragment set:html={slots.mySlot}/>
   {content.map(c => <RenderContent {...Astro.props} content={c} />)}
 </div>

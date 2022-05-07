@@ -35,12 +35,14 @@ const chapterConfig = chaptersConfig[name];
 const doc = await fetchDoc(chapterConfig.doc);
 const components = componentsFromDoc({components: componentDefs}, doc);
 
-const slotHTML = await Astro.slots.render(Object.keys(Astro.slots)[0]);
+const slotEntries = await Promise.all(
+  Object.keys(Astro.slots)
+  .map(
+    async (slotName) => ([slotName, await Astro.slots.render(slotName)])
+  )
+);
 
-const allSlots = Object.fromEntries(Object.keys(Astro.slots).map(slotName => ({
-  slotName,
-  slotHTML: Astro.slots.render(slotName)
-}));
+const allSlots = Object.fromEntries(slotEntries);
 
 //https://docs.google.com/document/d/1QnnVB0aatTRXgT6brhDWXFK951J4cEt0OZEdn7InaH4/edit
 ---

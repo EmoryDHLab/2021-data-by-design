@@ -1,6 +1,7 @@
 <template>
   <div class="bg-fuchsia-300">
     Hey, this is a simple component.
+    <slot />
     <div>{{ counter }}</div>
     <button @click="counter++">incrememnt</button>
   </div>

@@ -3,6 +3,7 @@ import type { ContentData } from 'google-docs-components';
 import { Renderer as VueRenderer } from "docs-renderer-vue3"
 export interface Props {
   content: ContentData,
+  slots: { [key: string]: string}
   vueComponents: { [key: string]: any }
   astroComponents: { [key: string]: any }
   tableComponent?: Object | false,
@@ -10,44 +11,50 @@ export interface Props {
   ignoreCSS?: string[],
 }
 
-const { content, astroComponents, vueComponents } = Astro.props;
+const { content, slots, astroComponents, vueComponents, inlineSlotFormat = /\[\^(\d*[a-zA-z]+\d*)\](?:(.+)\[\/\1\])*/g } = Astro.props;
 
 const isString = typeof content == "string";
+const isSlot = content?.slot;
 const isElement = content?.element;
 const isComponent = content?.component;
 const isVueComponent = vueComponents && vueComponents[isComponent];
 const isAstroComponent = isComponent && !isVueComponent && astroComponents?.[isComponent];
 
-if (isAstroComponent) {
-  console.log("here!!!", content);
-  console.log(content.slots)
-}
 const component = {
   astro: isAstroComponent
 }
 
-// if (isComponent) console.log(isComponent);
+const slotHTML = isSlot && slots[isSlot];
+
 // if (content?.table) console.log(content.table);
 if (!isString || !isElement) {
   // console.log(content)
 }
  
-const stringifyStyle = (style: object) => {
+function stringifyStyle (style: object){
   return Object.keys(style).map(key => `${key}: ${style[key]};`).join(" ");
 };
 
-const keys = content.slots && Object.keys(content.slots);
-
-if (keys) {
-  console.log(keys);
+function replaceInlineSlots (content: string) {
+  return content.replace(inlineSlotFormat, (match, slotName, inner) => {
+    console.log(slots, match, slotName, inner);
+    if (slots?.[slotName]) {
+      return slots[slotName].replace("$$inner", inner); 
+    }
+  });
 }
 ---
-{isAstroComponent && (<><component.astro {...content?.props}>
-  {content?.slots?.default && <Astro.self content={content.slots.default} />}
-</component.astro></>)}
 {
-  isVueComponent ? <VueRenderer content={[content]} components={vueComponents}/> : 
-  isString ? content :
-  isElement && <content.element style={stringifyStyle(content.style || {})}>{content.children && content.children.map(child => 
-      <Astro.self content={child}/>)}</content.element>
+  isAstroComponent ? (<><component.astro {...content?.props}>
+    {content?.slots?.default && <Astro.self content={content.slots.default} />}
+  </component.astro></>) :
+
+  isVueComponent ? <VueRenderer content={[content]} components={vueComponents}/> :
+
+  isSlot ? <Fragment set:html={slotHTML} /> :
+  isString ? <Fragment set:html={replaceInlineSlots(content)} /> :
+  isElement && 
+        <content.element style={stringifyStyle(content.style || {})}>
+          {content.children && content.children.map(child => <Astro.self {...Astro.props} content={child}/>)}
+        </content.element>
 }
