@@ -37,7 +37,6 @@ function stringifyStyle (style: object){
 
 function replaceInlineSlots (content: string) {
   return content.replace(inlineSlotFormat, (match, slotName, inner) => {
-    console.log(slots, match, slotName, inner);
     if (slots?.[slotName]) {
       return slots[slotName].replace("$$inner", inner); 
     }
