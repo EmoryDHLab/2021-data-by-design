@@ -3,9 +3,15 @@ import chaptersConfig from '../../chapters-config';
 import fetchDoc from "../fetch/google-doc" 
 import {componentsFromDoc, findSections} from "google-docs-components"
 import type {ComponentDef} from "google-docs-components"
-import PageRenderer from "./page/PageRenderer.astro";
+import DocsRenderer from "./page/docs-renderer/DocsRenderer.astro";
 import astroComponentDefs from "./global/astro/docsDefinitions";
 import { chapterSections } from "./page/renderGroups.ts"
+import { Debug } from "astro/components"
+import { leftRightGroups } from './page/renderGroups';
+import SectionTitle from './page/SectionTitle.astro';
+import MiddleSubgrid from './page/layout/MiddleSubgrid.astro';
+import LeaderFollower from './page/layout/LeaderFollower.astro';
+import BaseLayout from './layouts/BaseLayout.astro';
 
 const name = Astro.props.name;
 
@@ -28,13 +34,18 @@ const vueComponentMap = Object.fromEntries(
 
 const chapterConfig = chaptersConfig[name];
 
+
 const doc = await fetchDoc(chapterConfig.doc);
 
 const renderData = componentsFromDoc({components: componentDefs}, doc);
 
 const { sections, metadata } = renderData?.body && chapterSections(renderData.body)
 
-console.log(sections[0]);
+const splitSections = sections.map((section) =>
+        Object.assign({title: section.title}, {
+          renderGroups: leftRightGroups(section.components),
+        })
+      ); 
 
 const slotEntries = await Promise.all(
   Object.keys(Astro.slots)
@@ -45,16 +56,43 @@ const slotEntries = await Promise.all(
 
 const allSlots = Object.fromEntries(slotEntries);
 
+const docsRendererProps = {
+  slots: allSlots,
+  ignoreCSS: [],
+  vueComponents: vueComponentMap,
+  astroComponents: astroComponentMap
+}
+
+console.log(chapterConfig);
+
 //https://docs.google.com/document/d/1QnnVB0aatTRXgT6brhDWXFK951J4cEt0OZEdn7InaH4/edit
 ---
-<div>
-  <PageRenderer
-    class="pass-through"
-    slots={allSlots}
-    ignoreCss={[]}
-    content={renderData.body}
-    vueComponents={vueComponentMap}
-    astroComponents={astroComponentMap}
-  >
-  </PageRenderer>
+<BaseLayout>
+<div class="chapter-root">
+  {splitSections.map( ({title, renderGroups}) => {
+    return <div>
+      <SectionTitle>{title}</SectionTitle>
+      {renderGroups.map(group => (
+        group?.components ?
+         <MiddleSubgrid><DocsRenderer content={group.components} {...docsRendererProps}/></MiddleSubgrid> : 
+         <>
+         <LeaderFollower>
+            <DocsRenderer slot="left" content={group.left} {...docsRendererProps}/>
+            <DocsRenderer slot="right" content={group.right} {...docsRendererProps}/>
+         </LeaderFollower>
+         </>
+      ))}
+    </div>
+  })}
 </div>
+</BaseLayout>
+
+<style is:global define:vars={chapterConfig.theme}>
+.chapter-root .bg-theme {
+  background-color: var(--primaryColor);
+}
+
+.chapter-root .text-theme {
+  color: var(--primaryColorText);
+}
+</style>

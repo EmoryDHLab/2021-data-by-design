@@ -23,8 +23,10 @@ export function chapterSections(componentArray: ContentData[]): {
     metadataDef,
   ]);
 
+  console.log(findSectionsData);
+
   const sectionsData = findSectionsData.section;
-  const metadataEnd = findSectionsData.metadata[0].endIndex;
+  const metadataEnd = findSectionsData.metadata?.[0]?.endIndex || 0;
 
   const firstSectionComponents = componentArray.slice(
     metadataEnd + 1,
@@ -41,6 +43,10 @@ export function chapterSections(componentArray: ContentData[]): {
       title: section.startString.split(":")[1].replace("\n", "").trim(),
     })),
   ];
+
+  if (!findSections?.metadata?.[0]) {
+    return { metadata: {}, sections };
+  }
 
   const { startIndex, endIndex } = findSectionsData.metadata[0];
 
@@ -69,7 +75,7 @@ export function chapterSections(componentArray: ContentData[]): {
   return { sections, metadata };
 }
 
-export function renderGroups(componentArray) {
+export function leftRightGroups(componentArray) {
   const def = {
     name: "align",
     start: /^-(left|right)/i,

@@ -1,20 +1,15 @@
 ---
 import TestAstro from "../components/global/astro/TestAstro.astro"
+import BaseLayout from "../components/layouts/BaseLayout.astro";
 const slots = ["name"];
 const dyn = {t: TestAstro}
 
 const isTrue = false;
+
 ---
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-		<TestAstro>
-			<!-- {isTrue && <p slot="name">Dan</p>} -->
-		</TestAstro>
-	</body>
-</html>
+<BaseLayout>
+	<h1>Astro</h1>
+	<TestAstro>
+		<!-- {isTrue && <p slot="name">Dan</p>} -->
+	</TestAstro>
+</BaseLayout>

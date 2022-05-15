@@ -9,7 +9,6 @@ export interface Props {
   astroComponents?: { [key: string]: any },
   tableComponent?: Object | false,
   inlineSlotFormat?: RegExp,
-  ignoreCSS?: string[],
 }
 
 const { content, slots, components, tableComponent, ignoreCSS } = Astro.props;
@@ -19,6 +18,6 @@ const { content, slots, components, tableComponent, ignoreCSS } = Astro.props;
 // const astroComponentFiles = (await Astro.glob("./global/astro/*.astro"));
 
 ---
-<div>
-  {content.map(c => <RenderContent {...Astro.props} content={c} />)}
-</div>
+<>
+  {content.map(c => <RenderContent {...Astro.props} content={c} ignoreCSS={["font-family", "font-size", "background-color"]} />)}
+</>

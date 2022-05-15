@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": "es2019",
+    "lib": ["es2019"],
     "jsx": "preserve",
     "moduleResolution": "node",
     "types": ["vite/client"]

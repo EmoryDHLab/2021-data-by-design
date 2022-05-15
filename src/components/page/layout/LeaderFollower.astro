@@ -1,0 +1,41 @@
+---
+import GridLayout from "./GridLayout.astro";
+---
+  <GridLayout>
+    <div class="left-col col-start-1 col-end-6 2xl:col-end-8
+                self-center
+                grid grid-cols-7">
+      <slot name="left"></slot>
+    </div>
+    <div class="right-col col-span-full col-start-7 2xl:col-start-8
+                self-center
+                grid grid-cols-7">
+        <slot name="right"></slot>
+    </div>
+  </GridLayout>
+
+
+<style is:global>
+  .right-col .doc-table-root {
+    justify-content: center;
+  }
+
+  .left-col > *, .right-col > * {
+    @apply col-span-full
+  }
+
+  .right-col > div {
+    grid-column: 2 / -2;
+  }
+
+  .left-col > p {
+    grid-column-start: 2;
+  }
+
+  @media (min-width: 1536px) {
+    .left-col > p {
+      grid-column-start: 3;
+    }
+  }
+
+</style>
