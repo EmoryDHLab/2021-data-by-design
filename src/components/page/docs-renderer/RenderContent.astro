@@ -28,11 +28,14 @@ const slotHTML = isSlot && slots[isSlot];
 
 // if (content?.table) console.log(content.table);
 if (!isString || !isElement) {
-  // console.log(content)
+}
+
+if (isAstroComponent) {
+  console.log(content?.slots?.default);
 }
  
 function stringifyStyle (style: object){
-  return Object.keys(style).filter(key => !ignoreCSS.includes(key)).map(key => `${key}: ${style[key]};`).join(" ");
+  return Object.keys(style).filter(key => !ignoreCSS || !ignoreCSS.includes(key)).map(key => `${key}: ${style[key]};`).join(" ");
 };
 
 function replaceInlineSlots (content: string) {
@@ -42,10 +45,12 @@ function replaceInlineSlots (content: string) {
     }
   });
 }
+
+
 ---
 {
-  isAstroComponent ? (<><component.astro {...content?.props}>
-    {content?.slots?.default && <Astro.self content={content.slots.default} />}
+  isAstroComponent ? (<><component.astro {...content?.props} namedSlots={content.slots}>
+    {content?.slots?.default && content.slots.default.map(child => <Astro.self {...Astro.props} content={child} />)}
   </component.astro></>) :
 
   isVueComponent ? <VueRenderer ignoreCss={ignoreCSS} content={[content]} components={vueComponents}/> :

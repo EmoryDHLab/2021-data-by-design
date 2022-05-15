@@ -1,0 +1,13 @@
+---
+import { ProcessedContent } from "google-docs-components";
+import RenderContent from "./RenderContent.astro";
+export interface Props {
+  slot: ProcessedContent,
+}
+const slot = Astro.props.slot;
+---
+<>
+  {slot && slot.map(child => (
+    <RenderContent content={child} ignoreCSS={["font-family", "font-size", "background-color"]} slots={{}} astroComponents={{}} vueComponents={{}}/>
+  ))}
+</>

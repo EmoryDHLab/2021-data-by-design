@@ -1,12 +1,11 @@
 ---
+import RenderNamedSlot from "../../page/docs-renderer/RenderNamedSlot.astro";
 ---
 <div class="border border-red-500">
   This is an Astro component
-  <div class="font-bold"> Default slot
-    <slot/>
-  </div>
+  <slot/>
   <div>Named slot 
-    <slot name="name"/>
+    <RenderNamedSlot slot={Astro.props.namedSlots.name} />
   </div>
   <div>
     Validprop: {Astro.props.validProp}

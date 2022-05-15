@@ -3,12 +3,22 @@ const docsDefinitions: Array<ComponentDef> = [
   {
     matchName: "TestAstro",
     componentName: "TestAstro",
-    slots: ["default"],
+    slots: ["default", "name"],
     props: {
       validProp: {
         type: "string",
       },
     },
+  },
+  {
+    matchName: ["Captioned"],
+    componentName: "Captioned",
+    props: {
+      width: {
+        type: "string",
+      },
+    },
+    slots: ["default", "caption"],
   },
 ];
 
