@@ -2,7 +2,7 @@
   <g>
     <text
       fill="black"
-      :x="height / 2"
+      :x="28"
       y="2.3"
       font-family="Times New Roman"
       font-size="2.3"
@@ -14,7 +14,7 @@
       :y="2"
       font-family="Times New Roman"
       font-size="2.3"
-      transform="rotate(-90) translate(-37, 0)"
+      transform="rotate(-90) translate(-30, 0)"
     >
       U.S. Dollar
     </text>
@@ -23,13 +23,13 @@
       x="3"
       y="3"
       :height="height"
-      :width="(width / 11) * 10"
+      :width="(width / 11) * 10 - 2"
       opacity="0.2"
     ></rect>
     <rect
       v-for="(bar, index) in exportBars"
       fill="#E4AE95"
-      v-bind:data="x"
+      v-bind:data="index"
       :key="index + 'export'"
       :height="bar.height"
       :width="bar.width"
@@ -39,7 +39,7 @@
     <rect
       v-for="(bar, index) in importBars"
       fill="#ABAF7B"
-      v-bind:data="x"
+      v-bind:data="index"
       :key="index + 'import'"
       :height="bar.height"
       :width="bar.width"
@@ -61,7 +61,7 @@
       v-bind:key="y + 'h'"
       :y-scale="yScale"
       :y="y"
-      :innerWidth="innerGridWidth"
+      :innerWidth="innerGridWidth - 2"
     ></HorizontalGrid>
     <OvalTitle
       color="#FCE2B0"
@@ -80,9 +80,9 @@
       stroke-width="0.25"
     ></rect>
     <line
-      :x1="innerGridWidth"
+      :x1="innerGridWidth - 2"
       y1="3"
-      :x2="innerGridWidth"
+      :x2="innerGridWidth - 2"
       y2="47"
       stroke="black"
       stroke-width="0.1"
@@ -133,10 +133,10 @@ export default {
   created() {
     this.interval = 500000;
 
-    this.ellipse = { cx: 20, cy: 17, rx: (94 / 11) * 1.9, ry: 10 };
-    this.topText = { text: "EXPORTS & IMPORTS", x: 6, y: 15 };
-    this.midText = { text: "to and from all", x: 14, y: 18.5 };
-    this.botText = { text: "NORTH AMERICA", x: 7, y: 22 };
+    this.ellipse = { cx: 20, cy: 14, rx: (94 / 11) * 1.9, ry: 10 };
+    this.topText = { text: "EXPORTS & IMPORTS", x: 6, y: 12 };
+    this.midText = { text: "to and from all", x: 14, y: 15.5 };
+    this.botText = { text: "NORTH AMERICA", x: 7, y: 19 };
   },
   methods: {
     tickFormatterY(tickVal) {
@@ -210,7 +210,7 @@ export default {
     xScale() {
       return d3
         .scaleLinear()
-        .range([0, (this.width / 11) * 10])
+        .range([0, this.innerGridWidth - 5])
         .domain([this.minYear - 5, this.maxYear + 5]);
     },
     yScale() {
@@ -232,7 +232,6 @@ export default {
           height: this.height - this.yScale(d[1])
         };
       });
-      console.log(importBars);
       return importBars;
     },
     exportBars() {
@@ -245,7 +244,6 @@ export default {
           height: this.height - this.yScale(d[1])
         };
       });
-      console.log(exportBars);
       return exportBars;
     }
   }
