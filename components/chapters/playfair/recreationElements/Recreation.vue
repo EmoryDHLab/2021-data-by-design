@@ -1,25 +1,25 @@
 <template>
   <g>
-    <text
-      v-if="scrollData.current >= 10"
-      fill="black"
-      :x="width / 2"
-      y="2.3"
-      font-family="Times New Roman"
-      font-size="2.3"
-    >
-      Time
-    </text>
-    <text
-      v-if="scrollData.current >= 10"
-      fill="black"
-      :y="2"
-      font-family="Times New Roman"
-      font-size="2.3"
-      transform="rotate(-90) translate(-28, 0)"
-    >
-      Money
-    </text>
+    <g v-if="scrollProg >= 9.5" :opacity="transitionIn(scrollProg, [9.5, 10])">
+      <text
+        fill="black"
+        :x="width / 2"
+        y="2.3"
+        font-family="Times New Roman"
+        font-size="2.3"
+      >
+        Time
+      </text>
+      <text
+        fill="black"
+        :y="2"
+        font-family="Times New Roman"
+        font-size="2.3"
+        transform="rotate(-90) translate(-28, 0)"
+      >
+        Money
+      </text>
+    </g>
     <rect
       fill="white"
       x="3"
@@ -37,7 +37,7 @@
       stroke="black"
       stroke-width="0.25"
     ></rect>
-    <g v-if="scrollData.current >= 8">
+    <g v-if="scrollProg >= 7.5" :opacity="transitionIn(scrollProg, [7.5, 8])">
       <text
         fill="black"
         font-size="3"
@@ -64,7 +64,10 @@
       ticks
       :offset="3"
     ></VerticalGrid>
-    <g v-if="scrollData.current === 5">
+    <g
+      v-if="scrollProg >= 4.5 && scrollProg < 6"
+      :opacity="transitionInOut(scrollProg, [4.5, 5], [5.75, 6])"
+    >
       <VerticalGrid
         id="minor"
         v-for="x in xMinorTicks"
@@ -83,7 +86,10 @@
       :y="y"
       :innerWidth="innerGridWidth"
     ></HorizontalGrid>
-    <g v-if="scrollData.current === 2">
+    <g
+      v-if="scrollProg >= 1.5 && scrollProg < 3"
+      :opacity="transitionInOut(scrollProg, [1.5, 2], [2.75, 3])"
+    >
       <ScatterPlot
         v-for="x in scatterImport"
         v-bind:data="x"
@@ -104,7 +110,8 @@
       ></ScatterPlot>
     </g>
     <OvalTitle
-      v-if="scrollData.current >= 9"
+      v-if="scrollProg >= 8.5"
+      :opacity="transitionIn(scrollProg, [8.5, 9])"
       color="#FCE2B0"
       :ellipse="ellipse"
       :topText="topText"
@@ -112,12 +119,17 @@
       :botText="botText"
     ></OvalTitle>
     <StippleHatch
-      v-if="scrollData.current >= 4 && scrollData.current < 7"
+      v-if="scrollProg >= 3.5 && scrollProg < 7"
+      :opacity="transitionInOut(scrollProg, [3.5, 4], [6.75, 7])"
       :area="fillStippleHatchArea"
     ></StippleHatch>
-    <ColorArea v-if="scrollData.current >= 8"></ColorArea>
+    <ColorArea
+      v-if="scrollProg >= 7.5"
+      :opacity="transitionIn(scrollProg, [7.5, 8])"
+    ></ColorArea>
     <g
-      v-if="scrollData.current >= 3 && scrollData.current < 7"
+      v-if="scrollProg >= 2.5 && scrollProg < 7"
+      :opacity="transitionInOut(scrollProg, [2.5, 3], [6.5, 7])"
       transform="scale(0.106, 0.09) translate(28,155)"
     >
       <path
@@ -134,13 +146,20 @@
       />
     </g>
     <g
-      v-if="scrollData.current >= 7"
+      v-if="scrollProg >= 6.75"
+      :opacity="transitionIn(scrollProg, [6.75, 7])"
       transform="scale(0.22, 0.195) translate(14,58)"
     >
       <path :d="pathImport" stroke="#F4B20C" fill="none" />
       <path :d="pathExport" stroke="#56190F" fill="none" />
     </g>
-    <image v-if="scrollData.current === 11" y="-4" :href="imgSrc" width="100" />
+    <image
+      v-if="scrollProg >= 10.75"
+      :opacity="transitionIn(scrollProg, [10.75, 11])"
+      y="-4"
+      :href="imgSrc"
+      width="100"
+    />
   </g>
 </template>
 <script>
@@ -215,25 +234,13 @@ export default {
   },
   methods: {
     tickFormatterY(tickVal) {
-      if (tickVal / 1000000 === 1) {
-        //if the value is 1, omit s
-        return "1 Million";
-      } else if (tickVal === 0 || tickVal === 6000000) {
-        //don't show if min / max values
-        return "";
-      } else if ((tickVal / 1000000) % 1 === 0) {
-        //if the value is not 1, add an s
+      if (tickVal / 1000000 === 1) return "1 Million";
+      else if (tickVal === 0 || tickVal === 6000000) return "";
+      else if ((tickVal / 1000000) % 1 === 0)
         return tickVal / 1000000 + " Millions";
-      } else if (tickVal === 200000) {
-        //first number on y-axis...might need to change to adapt for other data
-        return tickVal.toLocaleString(); //adds the comma back into the number, for some reason comes in with comma but returns without
-      } else if (tickVal < 1000000) {
-        //less than 1 million but not the first y-value
-        return tickVal / 100000;
-      } else {
-        //return the decimal numbers
-        return tickVal / 1000000;
-      }
+      else if (tickVal === 200000) return tickVal.toLocaleString();
+      else if (tickVal < 1000000) return tickVal / 100000;
+      else return tickVal / 1000000;
     },
     opacityFormatterY(tickVal) {
       if ((tickVal / 1000000) % 1 === 0) return 0.4;
@@ -242,9 +249,39 @@ export default {
     strokeFormatterY(tickVal) {
       if ((tickVal / 1000000) % 1 === 0) return 0.2;
       else return 0.1;
+    },
+    scaleMapper(sOut, sIn) {
+      const m = (1.0 * sOut[1] - sOut[0]) / (sIn[1] - sIn[0]);
+      return x => sOut[0] + m * (x - sIn[0]);
+    },
+    transitionIn(val, array) {
+      if (val <= array[0]) {
+        return 0;
+      } else if (val > array[0] && val <= array[1]) {
+        let progToOpacity = this.scaleMapper([0.0, 1.0], array);
+        return progToOpacity(val);
+      } else {
+        return 1;
+      }
+    },
+    transitionInOut(val, arrayIn, arrayOut) {
+      let progToOpacityIn = this.scaleMapper([0.0, 1.0], arrayIn);
+      let progToOpacityOut = this.scaleMapper([1.0, 0.0], arrayOut);
+      if (val <= arrayIn[0]) {
+        return 0;
+      } else if (val > arrayIn[0] && val <= arrayIn[1]) {
+        return progToOpacityIn(val);
+      } else if (val > arrayOut[0] && val <= arrayOut[1]) {
+        return progToOpacityOut(val);
+      } else {
+        return 1;
+      }
     }
   },
   computed: {
+    scrollProg() {
+      return this.scrollData.current + this.scrollData.progress;
+    },
     imgSrc() {
       return require("@/assets/images/playfair/1-northamerica.jpg");
     },
@@ -270,12 +307,12 @@ export default {
 
       return path(this.playfairData);
     },
-    transformImportText: function() {
+    transformImportText() {
       return (
         "rotate(-11) translate(" + this.width / 9 + "," + this.height + ")"
       );
     },
-    transformExportText: function() {
+    transformExportText() {
       return "rotate(-65) translate(" + -8 + "," + 60 + ")";
     },
     scatterImport: function() {
@@ -294,7 +331,7 @@ export default {
         }))
         .slice(8, 21); // years 1770-1782
     },
-    xMinorTicks: function() {
+    xMinorTicks() {
       return this.xMinorScale.ticks();
     },
     xMinorScale() {
@@ -303,10 +340,10 @@ export default {
         .range([0, (this.width / 100) * 9])
         .domain([1770, 1780]);
     },
-    xTicks: function() {
+    xTicks() {
       return this.xScale.ticks();
     },
-    yTicks: function() {
+    yTicks() {
       return this.yScale.ticks(20); //20 is the number of horizontal lines/ ticks
     },
     xScale() {
