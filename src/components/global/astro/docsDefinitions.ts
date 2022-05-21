@@ -20,6 +20,19 @@ const docsDefinitions: Array<ComponentDef> = [
     },
     slots: ["default", "caption"],
   },
+  {
+    matchName: ["Image"],
+    componentName: "LocalImage",
+    props: {
+      path: {
+        type: "string",
+        required: true,
+      },
+      width: {
+        type: "string",
+      },
+    },
+  },
 ];
 
 export default docsDefinitions;

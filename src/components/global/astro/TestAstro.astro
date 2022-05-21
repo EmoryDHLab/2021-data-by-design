@@ -5,7 +5,7 @@ import RenderNamedSlot from "../../page/docs-renderer/RenderNamedSlot.astro";
   This is an Astro component
   <slot/>
   <div>Named slot 
-    <RenderNamedSlot slot={Astro.props.namedSlots.name} />
+    <RenderNamedSlot slot={Astro.props.namedSlots?.name} />
   </div>
   <div>
     Validprop: {Astro.props.validProp}

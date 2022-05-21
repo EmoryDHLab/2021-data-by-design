@@ -23,8 +23,6 @@ export function chapterSections(componentArray: ContentData[]): {
     metadataDef,
   ]);
 
-  console.log(findSectionsData);
-
   const sectionsData = findSectionsData.section;
   const metadataEnd = findSectionsData.metadata?.[0]?.endIndex || 0;
 

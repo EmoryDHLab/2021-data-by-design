@@ -1,0 +1,10 @@
+---
+export interface Props {
+  path: string,
+  width?: string
+}
+
+const { path, width } = Astro.props;
+const src = "/images/" + path;
+---
+<img src={src} {width && { width }} />
