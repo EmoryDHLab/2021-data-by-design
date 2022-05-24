@@ -18,7 +18,8 @@
     "google-docs-components": "latest",
     "google-docs-parser": "latest",
     "gsap": "^3.7.0",
-    "nuxt": "^2.15.3"
+    "nuxt": "^2.15.3",
+    "p5": "0.10.2"
   },
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.14.8",
