@@ -1,92 +1,122 @@
 <template>
   <div class="col-span-6 2xl:col-span-8 col-start-3 2xl:col-start-4 mt-6 flex">
     <div id="vue-canvas"></div>
-    <svg
-      class="w-full"
-      viewBox="0 0 99 99"
-      @mousemove="over($event)"
-      v-if="bounds.minX"
-    >
-      <rect :height="100" :width="100" fill="#FFFFFF"></rect>
-      <circle
-        v-for="(node, i) in graph.nodes"
-        :key="i"
-        :cx="coords[i].x"
-        :cy="coords[i].y"
-        r="2"
-        stroke-width="0.2"
-        stroke="black"
-        fill="red"
-        @mousedown="
-          currentMove = { x: $event.screenX, y: $event.screenY, node: node }
-        "
-      ></circle>
-    </svg>
   </div>
 </template>
 <script>
-import * as d3 from "d3";
+import p5 from "p5";
+
 export default {
   components: {},
-  data() {
-    return {
-      padding: 20,
-      width: 100,
-      height: 100,
-      graph: {
-        nodes: d3.range(100).map(i => ({ index: i, x: null, y: null }))
+  mounted() {
+    const script = function(p5) {
+      let height = 500;
+      let width = 500;
+      let numBalls = 330;
+      let balls = [];
+      let diameter = 15;
+      let canvas;
+      let angles = [30, 10, 45, 35, 60, 38, 75, 67];
+
+      class Ball {
+        constructor(xin, yin, din, idin, oin) {
+          this.x = xin;
+          this.y = yin;
+          this.vx = 0;
+          this.vy = 0;
+          this.id = idin;
+          this.diameter = din;
+          this.others = oin;
+        }
+        display() {
+          p5.fill(canvas.get(p5.int(this.x), p5.int(this.y)));
+
+          p5.ellipse(this.x, this.y, this.diameter, this.diameter);
+        }
+        wiggle() {
+          // this.x = this.x + p5.random(-0.1, 0.1);
+          // this.y = this.y + p5.random(-0.1, 0.1);
+        }
       }
-    };
-  },
-  created() {
-    this.simulation = d3
-      .forceSimulation(this.graph.nodes)
-      .force("x", d3.forceX())
-      .force("y", d3.forceY())
-      .force("charge", d3.forceManyBody())
-      .force(
-        "collide",
-        d3
-          .forceCollide()
-          .radius(d => d.r + 1)
-          .iterations(3)
-      )
-      .force("center", d3.forceCenter(this.width / 2, this.height / 2));
-  },
-  computed: {
-    bounds() {
-      return {
-        minX: Math.min(...this.graph.nodes.map(n => n.x)),
-        maxX: Math.max(...this.graph.nodes.map(n => n.x)),
-        minY: Math.min(...this.graph.nodes.map(n => n.y)),
-        maxY: Math.max(...this.graph.nodes.map(n => n.y))
+
+      let tryNum = 0;
+      function placeBalls() {
+        let become = true;
+        let rx = p5.random(0, width);
+        let ry = p5.random(0, height);
+
+        for (let i = 0; i < balls.length; i++) {
+          // if colliding or the area is not the circle
+          if (
+            p5.dist(rx, ry, balls[i].x, balls[i].y) - balls[i].diameter / 2 <
+              balls[i].diameter / 2 ||
+            p5.brightness(canvas.get(p5.int(rx), p5.int(ry))) < 10
+          ) {
+            become = false;
+            break;
+          }
+        }
+
+        if (become) {
+          tryNum = 0;
+          // if (!(p5.brightness(canvas.get(p5.int(rx), p5.int(ry))) < 100)) {
+          balls.push(new Ball(rx, ry, diameter, "placed", balls));
+          // }
+        } else {
+          if (tryNum < 30) {
+            tryNum++;
+            placeBalls();
+          } else {
+            tryNum = 0;
+            console.log("FINISHED");
+          }
+        }
+      }
+      function pieChart(diameter, data) {
+        let lastAngle = 0;
+        for (let i = 0; i < data.length; i++) {
+          let gray = p5.map(i, 0, data.length, 30, 255);
+          // p5.fill("white");
+          p5.fill(gray);
+          p5.arc(
+            width / 2,
+            height / 2,
+            diameter,
+            diameter,
+            lastAngle,
+            lastAngle + p5.radians(angles[i])
+          );
+          lastAngle += p5.radians(angles[i]);
+        }
+      }
+
+      p5.setup = function() {
+        canvas = p5.createCanvas(width, height);
+        canvas.parent("vue-canvas");
+
+        pieChart(500, angles);
+
+        for (let i = 0; i < numBalls; i++) {
+          placeBalls();
+        }
       };
-    },
-    coords() {
-      return this.graph.nodes.map(node => {
-        return {
-          x:
-            this.padding +
-            ((node.x - this.bounds.minX) * (this.width - 2 * this.padding)) /
-              (this.bounds.maxX - this.bounds.minX),
-          y:
-            this.padding +
-            ((node.y - this.bounds.minY) * (this.height - 2 * this.padding)) /
-              (this.bounds.maxY - this.bounds.minY)
-        };
-      });
-    }
+
+      p5.draw = function() {
+        p5.background(0);
+        pieChart(500, angles);
+
+        p5.stroke("black");
+
+        balls.forEach(ball => {
+          ball.display();
+          ball.wiggle();
+        });
+      };
+    };
+    new p5(script);
   },
-  methods: {
-    randomNumber() {
-      return Math.random() * 100; //multiply to generate random number between 0, 100
-    },
-    over(e) {
-      const [x, y] = d3.pointer(e);
-      console.log(this.graph.nodes[0]);
-      // this.graph.nodes[0].fx = x - this.width / 2;
-      // this.graph.nodes[0].fy = y - this.height / 2;
-    }
+  data() {
+    return {};
   }
 };
 </script>
