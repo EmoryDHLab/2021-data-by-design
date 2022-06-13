@@ -1,14 +1,15 @@
 <template>
   <div>
 <!--    <div class="bg-black text-white"> -->
-    <svg width="100%" :height="part1_height + 'px'">
+    <svg width="100%" :height="part1_height + 'px'"
+         @mouseup="setNewPos()">
       <image ref="timeline_img" v-for="(img, index) in img_data.slice(10, 20)"
            :xlink:href="generateImg(img)"
            :width="150"
-           :x="getXpos(index)"
-           :y="getYpos(index)"
-           @mousedown="drag(index)"
-           @mouseup="drop(index)"
+           :x="randXPos[index]"
+           :y="randYPos[index]"
+           @click="shiftTimeline(img)"
+           @mousedown="getCurrIdx(index)"
       ></image>
     </svg>
 
@@ -18,7 +19,7 @@
              :width="150"
              :x="lineXPos[index] + timelinePos"
              :y="100"
-             @mousedown="shift(index)"
+             @click="shift(index)"
       ></image>
 
 
@@ -41,11 +42,11 @@
 
 <!--    </div>-->
     <div class="bg-brooks_sec flex">
-      <div class="w-1/2">
-        <img class="p-20 object-scale-down justify-items-end" :src="generateImg(displayImg)">
+      <div class="w-1/3">
+        <img class="p-20 w-full" :src="generateImg(displayImg)">
       </div>
 
-      <div class="p-20 font-william">
+      <div class="p-20 font-william w-2/3">
         <div class="text-4xl p-5">
 <!--        An Interactive History of Data Visualization-->
 <!--          by ABC XYZ 1786–1900-->
@@ -83,8 +84,15 @@ export default {
       lineXPos: [],
       pageWidth: 1600,
       sortedImg: null,
-      displayImg: img_data[0],
+      displayImg: img_data[10],
+      currIdx: null,
+      currX: null,
+      currY: null,
     }
+  },
+  mounted() {
+    this.randXPos = Array.from({length: 10}, () => Math.random() * this.pageWidth);
+    this.randYPos = Array.from({length: 10}, () => Math.random() * (this.part1_height - 100));
   },
   methods: {
     generateImg(img) {
@@ -93,10 +101,6 @@ export default {
     },
     getImgPath(chapter, file_name) {
       return require(`~/assets/images/${chapter}/${file_name}`);
-    },
-    getRand(b) {
-      // TODO: figure out how to get window size
-      return Math.random()*b;
     },
     sortByYear(imgs) {
       let sorted =  imgs.sort(function compYear(a, b) {
@@ -117,42 +121,27 @@ export default {
       }
       return sorted
     },
-    getXpos(idx) {
-      if (this.randXPos.length <= idx) {
-        let x = this.getRand(this.pageWidth);
-        this.randXPos.push(x);
-        return x;
-      } else {
-        return this.randXPos[idx];
-      }
-    },
-    getYpos(idx) {
-      if (this.randYPos.length <= idx) {
-        let y = this.getRand(this.part1_height - 100);
-        this.randYPos.push(y);
-        return y;
-      } else {
-        return this.randYPos[idx];
-      }
-    },
-    drag(idx) {
-      // console.log("clicked!" + idx)
-      this.dragOffsetX = event.offsetX - this.randXPos[idx];
-      this.dragOffsetY = event.offsetY - this.randYPos[idx];
-      this.$refs.timeline_img.addEventListener('mousemove', this.move(idx))
-    },
-    drop(idx) {
-      this.dragOffsetX = this.dragOffsetY = null;
-      this.$refs.timeline_img.removeEventListener('mousemove', this.move(idx))
-    },
-    move(idx) {
-      this.randXPos[idx] = event.offsetX - this.dragOffsetX;
-      this.randYPos[idx] = event.offsetY - this.dragOffsetY;
+    shiftTimeline(rand_img) {
+      let real_idx = this.sortedImg.indexOf(rand_img);
+      this.timelinePos = 700 - real_idx*120;
     },
     shift(idx) {
       this.timelinePos = 700 - idx*120;
       this.displayImg = this.sortedImg[idx]
     },
+    getCurrIdx(idx) {
+      this.currY = event.clientY;
+      this.currX = event.clientX;
+      this.currIdx = idx;
+    },
+    setNewPos() {
+      let idx = this.currIdx;
+      let xOffset = event.clientX - this.currX;
+      this.randXPos[idx] += xOffset;
+      let yOffset = event.clientY - this.currY;
+      this.randYPos[idx] += yOffset;
+      this.$forceUpdate();
+    }
   }
 };
 </script>
