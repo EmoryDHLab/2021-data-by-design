@@ -3,6 +3,9 @@
     <template v-slot:[slots.test]>
       <Testcomp></Testcomp>
     </template>
+    <template v-slot:[slots.testUSA]>
+      <TestUSA></TestUSA>
+    </template>
   </Slots>
 </template>
 
@@ -14,6 +17,7 @@ import Captioned from "../global/docs-inclusions/Captioned.vue";
 import HoverText from "../global/HoverText";
 import StaticData from "@/components/data-access/StaticData";
 import Testcomp from "@/components/chapters/dubois/Testcomp";
+import TestUSA from "@/components/chapters/dubois/TestUSA";
 
 export default {
   components: {
@@ -22,12 +26,13 @@ export default {
     MoveBorder,
     Captioned,
     HoverText,
-    Testcomp
+    Testcomp,
+    TestUSA
   },
   mixins: [ChapterSlots],
   data() {
     return {
-      slots: { test: "TestComponent" }
+      slots: { test: "TestComponent", testUSA: "TestUSA" }
     };
   },
   chapterState: {},
