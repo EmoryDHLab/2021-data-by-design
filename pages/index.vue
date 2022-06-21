@@ -2,7 +2,7 @@
   <div class="bg-black">
     <FrontPageTitle></FrontPageTitle>
     <Timeline></Timeline>
-    <h3 class="text-white font-william font-bold text-center text-3xl mb-7">Chapters</h3>
+    <h3 class="text-white font-william font-bold text-center text-3xl mb-7">CHAPTERS</h3>
     <ChapterCardGrid></ChapterCardGrid>
     <AboutSite></AboutSite>
     <SiteFooter v-if="!$isMobile" class="bg-nightingale_blue text-offwhite"></SiteFooter>

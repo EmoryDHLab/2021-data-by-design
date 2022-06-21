@@ -1,9 +1,17 @@
 <template>
   <div>
-<!--    <div class="bg-black text-white"> -->
     <svg width="100%" :height="part1_height + 'px'"
          @mouseup="setNewPos()">
-      <image ref="timeline_img" v-for="(img, index) in img_data.slice(10, 20)"
+      <text :y="part1_start" :x="pageWidth/2 - 100"
+            style="fill: white; font-size: 35px; font-family: VTC William, serif;"
+      >TIMELINE</text>
+      <image :y="10"
+             :x="900"
+             :width="arrow_size"
+             xlink:href="../../../assets/ui/homepage/sort.png"
+             @click="part2_vis='visible'"
+      ></image>
+      <image ref="timeline_img" v-for="(img, index) in img_data.slice(img_slice_idx, img_slice_idx + 10)"
            :xlink:href="generateImg(img)"
            :width="150"
            :x="randXPos[index]"
@@ -13,17 +21,23 @@
       ></image>
     </svg>
 
-    <svg width="100%" :height="part1_height + 'px'">
-      <image v-for="(img, index) in sortByYear(img_data.slice(10, 20))"
+<!--    part 2-->
+    <svg width="100%" :height="part2_height + 'px'" :visibility=part2_vis>
+      <image v-for="(img, index) in sortByYear(img_data)"
              :xlink:href="generateImg(img)"
              :width="150"
              :x="lineXPos[index] + timelinePos"
-             :y="100"
+             :y="50"
              @click="shift(index)"
       ></image>
+      <text v-for="(year,index) in getUniqYear(sortedImg)"
+            :x="index*200 + timelinePos"
+            :y="40"
+            style="fill: white; font-size: 15px; font-family: VTC William, serif;"
+      >{{year}}</text>
 
 
-      <image :y="part1_height - 50"
+      <image :y="part2_height - 50"
              :x="300"
              :width="arrow_size"
              xlink:href="../../../assets/ui/homepage/left_arrow.png"
@@ -31,7 +45,7 @@
       ></image>
 <!--      TODO: get screen size!!-->
       <image xlink:href="../../../assets/ui/homepage/right_arrow.png"
-             :y="part1_height - 50"
+             :y="part2_height - 50"
              :x="pageWidth - 300"
              :width="arrow_size"
              @click="timelinePos += 40"
@@ -40,7 +54,6 @@
 
 
 
-<!--    </div>-->
     <div class="bg-brooks_sec flex">
       <div class="w-1/3">
         <img class="p-20 w-full" :src="generateImg(displayImg)">
@@ -48,13 +61,9 @@
 
       <div class="p-20 font-william w-2/3">
         <div class="text-4xl p-5">
-<!--        An Interactive History of Data Visualization-->
-<!--          by ABC XYZ 1786–1900-->
           {{displayImg.TITLE}} by {{displayImg.ARTIST}} {{displayImg.YEAR}}
         </div>
         <div class="text-lg p-5">
-<!--          The Amalgamation of White and Black elements of the population in the United States by W.E.B Du Bois.-->
-<!--          Atlanta university. Library of Congress.-->
           <span style="white-space: pre">{{displayImg.CREDIT}} </span>
           <span style="white-space: pre">{{displayImg.DIGITIZED}}</span>
         </div>
@@ -73,7 +82,10 @@ export default {
   data(){
     return{
       img_data: img_data,
+      img_slice_idx: 20,
+      part1_start: 40,
       part1_height: 400,
+      part2_height: 350,
       // windowWidth: window.innerWidth,
       dragOffsetX: null,
       dragOffsetY: null,
@@ -84,15 +96,18 @@ export default {
       lineXPos: [],
       pageWidth: 1600,
       sortedImg: null,
+      uniqYear: [],
       displayImg: img_data[10],
       currIdx: null,
       currX: null,
       currY: null,
+      part2_vis: "hidden",
     }
   },
   mounted() {
     this.randXPos = Array.from({length: 10}, () => Math.random() * this.pageWidth);
-    this.randYPos = Array.from({length: 10}, () => Math.random() * (this.part1_height - 100));
+    this.randYPos = Array.from({length: 10}, () => this.part1_start + Math.random() * (this.part1_height - 200));
+    this.img_slice_idx = Math.floor(Math.random() * 98);
   },
   methods: {
     generateImg(img) {
@@ -104,7 +119,7 @@ export default {
     },
     sortByYear(imgs) {
       let sorted =  imgs.sort(function compYear(a, b) {
-        return a.YEAR - b.YEAR;
+        return a.YEAR.slice(0,4) - b.YEAR.slice(0,4);
       });
       if (this.lineXPos.length < sorted.length) {
         this.lineXPos.push(0)
@@ -121,12 +136,25 @@ export default {
       }
       return sorted
     },
+    getUniqYear(sorted) {
+      let years = [sorted[0].YEAR];
+      for (let i = 1; i < sorted.length; i++) {
+        let y = sorted[i].YEAR.slice(0,4);
+        if (y != years[years.length-1]) {
+          years.push(y);
+        }
+      }
+      this.uniqYear = years;
+      return years;
+    },
     shiftTimeline(rand_img) {
-      let real_idx = this.sortedImg.indexOf(rand_img);
-      this.timelinePos = 700 - real_idx*120;
+      let year = rand_img.YEAR;
+      let real_idx = this.uniqYear.indexOf(year);
+      // let real_idx = this.sortedImg.indexOf(rand_img);
+      this.timelinePos = 700 - real_idx*200;
     },
     shift(idx) {
-      this.timelinePos = 700 - idx*120;
+      this.timelinePos = 700 - idx*200;
       this.displayImg = this.sortedImg[idx]
     },
     getCurrIdx(idx) {
@@ -135,12 +163,15 @@ export default {
       this.currIdx = idx;
     },
     setNewPos() {
-      let idx = this.currIdx;
-      let xOffset = event.clientX - this.currX;
-      this.randXPos[idx] += xOffset;
-      let yOffset = event.clientY - this.currY;
-      this.randYPos[idx] += yOffset;
-      this.$forceUpdate();
+      if (this.currIdx != null) {
+        let idx = this.currIdx;
+        let xOffset = event.clientX - this.currX;
+        this.randXPos[idx] += xOffset;
+        let yOffset = event.clientY - this.currY;
+        this.randYPos[idx] += yOffset;
+        this.$forceUpdate();
+        this.currIdx = null;
+      }
     }
   }
 };
