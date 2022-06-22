@@ -22,7 +22,7 @@
       stroke="#7e7e7e"
       stroke-width="0.15"
       v-bind:data="outlineArcs[index](1)"
-      :key="index + 'importArcs'"
+      :key="index + 'outlineArcs'"
       :d="outlineArcs[index](1)"
       transform=" translate(82, 32)"
     ></path>
@@ -233,7 +233,6 @@ export default {
           .endAngle(endAng);
         exportArcs.push(ea);
       }
-      console.log(exportArcs.length);
       return exportArcs;
     },
     outlineArcs() {
