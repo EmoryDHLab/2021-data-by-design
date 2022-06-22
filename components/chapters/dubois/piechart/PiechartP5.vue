@@ -1,43 +1,76 @@
 <template>
-  <div class="col-span-6 2xl:col-span-8 col-start-3 2xl:col-start-4 mt-6 flex">
-    <div id="vue-canvas" ref="pieChartVis" class="w-full"></div>
+  <div class="contents">
+    <div
+      class="col-span-3 2xl:col-span-3 col-start-1 col-end-4 2xl:col-start-2 mt-6"
+    >
+      <Legend :legendList="legendList" lang="eng"></Legend>
+    </div>
+    <div
+      class="col-span-4 2xl:col-span-6 col-start-4 col-end-8 2xl:col-start-5 mt-6 "
+    >
+      <div id="vue-canvas" ref="pieChartVis" class="w-full h-full"></div>
+    </div>
+    <div
+      class="col-span-3 2xl:col-span-3 col-start-8 col-end-11 2xl:col-start-11 mt-6"
+    >
+      <Legend :legendList="legendList" lang="fr"></Legend>
+    </div>
   </div>
 </template>
 <script>
 import p5 from "p5";
+import Legend from "@/components/chapters/dubois/piechart/Legend";
 
 export default {
-  data: { canvasWidth: 0 },
-  created() {
-    window.addEventListener("resize", this.myEventHandler);
+  components: {
+    Legend
   },
-  destroyed() {
-    window.removeEventListener("resize", this.myEventHandler);
-  },
-  methods: {
-    myEventHandler(e) {
-      // your code for handling resize...
-    }
+  data() {
+    return {
+      legendList: [
+        {
+          eng: "Teachers",
+          fr: "Professeurs et Instituteurs",
+          color: "#C71D39"
+        },
+        { eng: "Ministers", fr: "Ministres de L'evangile", color: "#7882AD" },
+        {
+          eng: "Government Service",
+          fr: "Employés du Government",
+          color: "#E3BCAF"
+        },
+        { eng: "Business", fr: "Marchanos", color: "#C0A089" },
+        {
+          eng: "Other Professions",
+          fr: "Medicins, Advocats, Et étudiants",
+          color: "#9A9682"
+        },
+        { eng: "House Wives", fr: "Mères de Famille", color: "#EEB85A" }
+      ]
+    };
   },
   mounted() {
-    this.canvasWidth = this.$refs.pieChartVis.clientWidth;
     const script = p5 => {
-      let cWidth = this.canvasWidth;
-
-      let pieHeight = 500;
-      let pieWidth = 500;
+      let pieHeight = p5.windowWidth * 0.4;
       let numBalls = 330;
       let balls = [];
-      let diameter = 18;
       let canvas;
 
-      let pieChartColors = ["#FFD0D4", "teal", "green", "blue", "cyan"];
+      let pieChartColors = [
+        "#C71D39",
+        "#7882AD",
+        "#C0A089",
+        "#E3BCAF",
+        "#9A9682",
+        "#EEB85A"
+      ];
       let angles = [
-        (28.1 / 96.8) * 360,
-        (3.8 / 96.8) * 360,
-        (2.1 / 96.8) * 360,
-        (4.3 / 96.8) * 360,
-        (58.5 / 96.8) * 360
+        0.585 * 360,
+        0.043 * 360,
+        0.021 * 360,
+        0.032 * 360,
+        0.038 * 360,
+        0.281 * 360
       ];
 
       class Ball {
@@ -136,12 +169,16 @@ export default {
           this.y = this.y + p5.sin(p5.PI * dy + t * sy) * 0.1;
         }
         withinBounds() {
-          const dx = this.x - cWidth / 2;
-          const dy = this.y - pieHeight / 2;
+          const dx = this.x - (p5.windowWidth * 0.4) / 2;
+          const dy = this.y - (p5.windowWidth * 0.4) / 2;
           const collision =
-            Math.sqrt(dx * dx + dy * dy) >= pieHeight / 2 - this.diameter / 2;
+            Math.sqrt(dx * dx + dy * dy) >=
+            (p5.windowWidth * 0.4 - 20) / 2 - this.diameter / 2;
           if (collision) {
-            const center = [Math.floor(cWidth / 2), Math.floor(pieHeight / 2)];
+            const center = [
+              Math.floor((p5.windowWidth * 0.4) / 2),
+              Math.floor((p5.windowWidth * 0.4) / 2)
+            ];
             const radvec = [this.x, this.y].map((c, i) => c - center[i]);
 
             if (radvec[0] < 0) this.x += 0.1;
@@ -151,12 +188,11 @@ export default {
           }
         }
       }
-
       let tryNum = 0;
       function placeBalls() {
         let become = true;
-        let rx = p5.random(0, cWidth);
-        let ry = p5.random(0, pieHeight);
+        let rx = p5.random(0, p5.windowWidth * 0.4);
+        let ry = p5.random(0, p5.windowWidth * 0.4);
 
         for (let i = 0; i < balls.length; i++) {
           // if colliding or the area is not the circle
@@ -172,6 +208,8 @@ export default {
 
         if (become) {
           tryNum = 0;
+          let diameter = p5.windowWidth * 0.4 * (18 / 466);
+
           if (!(p5.brightness(canvas.get(p5.int(rx), p5.int(ry))) < 5)) {
             balls.push(new Ball(rx, ry, diameter, balls.length + 1, balls));
           }
@@ -185,16 +223,15 @@ export default {
         }
       }
       function pieChart(diameter, data) {
-        let lastAngle = 0;
+        let lastAngle = p5.radians(180);
         for (let i = 0; i < data.length; i++) {
-          // let gray = p5.map(i, 0, data.length, 30, 255);
           p5.fill(pieChartColors[i]);
           p5.stroke("black");
           p5.arc(
-            cWidth / 2,
-            pieHeight / 2,
-            diameter,
-            diameter,
+            (p5.windowWidth * 0.4) / 2,
+            (p5.windowWidth * 0.4) / 2,
+            diameter - 20 < 500 ? diameter - 20 : 500,
+            diameter - 20 < 500 ? diameter - 20 : 500,
             lastAngle,
             lastAngle + p5.radians(angles[i]),
             p5.PIE
@@ -204,10 +241,13 @@ export default {
       }
 
       p5.setup = function() {
-        canvas = p5.createCanvas(cWidth, pieHeight + 50);
+        canvas = p5.createCanvas(p5.windowWidth * 0.4, p5.windowWidth * 0.4);
         canvas.parent("vue-canvas");
 
-        pieChart(pieHeight - 7, angles);
+        pieChart(
+          p5.windowWidth * 0.4 - 7 < 500 ? p5.windowWidth * 0.4 - 7 : 500 - 7,
+          angles
+        );
 
         for (let i = 0; i < numBalls; i++) {
           placeBalls();
@@ -216,7 +256,10 @@ export default {
 
       p5.draw = function() {
         p5.background("rgb(250, 241, 233)");
-        pieChart(500, angles);
+        pieChart(
+          p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500,
+          angles
+        );
 
         balls.forEach(ball => {
           ball.display();
@@ -243,11 +286,17 @@ export default {
           ball.released();
         });
       };
+      p5.windowResized = function() {
+        p5.resizeCanvas(p5.windowWidth * 0.4, p5.windowWidth * 0.4);
+        balls = [];
+
+        for (let i = 0; i < numBalls; i++) {
+          placeBalls();
+        }
+        p5.redraw();
+      };
     };
-    const myp5 = new p5(script);
-  },
-  data() {
-    return {};
+    new p5(script);
   }
 };
 </script>

@@ -54,7 +54,7 @@
     <div
       class="col-span-2 2xl:col-span-2 col-start-8 2xl:col-start-11 mt-6 flex font-william uppercase text-center"
     >
-      <p>
+      <p class="text-red-500">
         préparées et exxecutées par des étudiants nègres sous la direction de l’
         universitê d’ atlanta, etat de gêorgie, etas unis d’ amerique.
       </p>
