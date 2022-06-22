@@ -169,11 +169,13 @@ export default {
           this.y = this.y + p5.sin(p5.PI * dy + t * sy) * 0.1;
         }
         withinBounds() {
+          let wWidth = p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500;
+
           const dx = this.x - (p5.windowWidth * 0.4) / 2;
           const dy = this.y - (p5.windowWidth * 0.4) / 2;
           const collision =
             Math.sqrt(dx * dx + dy * dy) >=
-            (p5.windowWidth * 0.4 - 20) / 2 - this.diameter / 2;
+            (wWidth - 20) / 2 - this.diameter / 2;
           if (collision) {
             const center = [
               Math.floor((p5.windowWidth * 0.4) / 2),
@@ -191,28 +193,35 @@ export default {
       let tryNum = 0;
       function placeBalls() {
         let become = true;
-        let rx = p5.random(0, p5.windowWidth * 0.4);
-        let ry = p5.random(0, p5.windowWidth * 0.4);
+        let wWidth = p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500;
+
+        let rx = p5.random(0, wWidth);
+        let ry = p5.random(0, wWidth);
+        if (p5.windowWidth * 0.4 > 500) {
+          let dist = p5.windowWidth * 0.4 - 500;
+          rx = p5.random(dist / 2, dist / 2 + 500);
+          ry = p5.random(dist / 2, dist / 2 + 500);
+        }
+        let diameter = wWidth * (18 / 466);
 
         for (let i = 0; i < balls.length; i++) {
-          // if colliding or the area is not the circle
+          const dx = rx - (p5.windowWidth * 0.4) / 2;
+          const dy = ry - (p5.windowWidth * 0.4) / 2;
+          const outOfBounds =
+            Math.sqrt(dx * dx + dy * dy) >= (wWidth - 20) / 2 - diameter / 2;
+          // if colliding with another ball or not in the piechart
           if (
             p5.dist(rx, ry, balls[i].x, balls[i].y) - balls[i].diameter / 2 <
               balls[i].diameter / 2 ||
-            p5.brightness(canvas.get(p5.int(rx), p5.int(ry))) < 10
+            outOfBounds
           ) {
             become = false;
             break;
           }
         }
-
         if (become) {
           tryNum = 0;
-          let diameter = p5.windowWidth * 0.4 * (18 / 466);
-
-          if (!(p5.brightness(canvas.get(p5.int(rx), p5.int(ry))) < 5)) {
-            balls.push(new Ball(rx, ry, diameter, balls.length + 1, balls));
-          }
+          balls.push(new Ball(rx, ry, diameter, balls.length + 1, balls));
         } else {
           if (tryNum < 300) {
             tryNum++;
