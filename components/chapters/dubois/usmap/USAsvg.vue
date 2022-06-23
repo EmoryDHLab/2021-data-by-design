@@ -5,7 +5,7 @@
     @loaded="loadedData"
   >
     <div
-      class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 flex flex-col font-william uppercase"
+      class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 flex flex-col font-dubois uppercase"
     >
       <p class="font-bold text-2xl">
         A series of statistical charts, illustrating the condition of the
@@ -19,7 +19,7 @@
       </p>
     </div>
     <div
-      class="col-span-2 2xl:col-span-2 col-start-2 2xl:col-start-3 mt-6 flex font-william uppercase text-center"
+      class="col-span-2 2xl:col-span-2 col-start-2 2xl:col-start-3 mt-6 flex font-dubois uppercase text-center"
     >
       <p>
         prepared and executed by negro students under the direction of atlanta
@@ -52,7 +52,7 @@
       </svg>
     </div>
     <div
-      class="col-span-2 2xl:col-span-2 col-start-8 2xl:col-start-11 mt-6 flex font-william uppercase text-center"
+      class="col-span-2 2xl:col-span-2 col-start-8 2xl:col-start-11 mt-6 flex font-dubois uppercase text-center"
     >
       <p class="text-red-500">
         préparées et exxecutées par des étudiants nègres sous la direction de l’
@@ -60,7 +60,7 @@
       </p>
     </div>
     <div
-      class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 flex flex-col font-william uppercase text-center "
+      class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 flex flex-col font-dubois uppercase text-center "
     >
       <p>
         The university was founded in 1867. It has instructed 6000 negro

@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       fontFamily: {
         william: ["VTC William", "serif"],
+        dubois: ["VTC DuBois", "serif"],
         sans: ["neue-haas-unica", "sans-serif"],
         icons: ["DxD Icons"]
       },

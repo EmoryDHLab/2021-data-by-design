@@ -1,7 +1,7 @@
 <template>
   <div class="contents">
     <div
-      class="col-span-3 2xl:col-span-3 col-start-1 col-end-4 2xl:col-start-2 mt-6"
+      class="col-span-3 2xl:col-span-3 col-start-1 col-end-4 2xl:col-start-2 mt-6 flex flex-col justify-center"
     >
       <Legend :legendList="legendList" lang="eng"></Legend>
     </div>
@@ -11,9 +11,37 @@
       <div id="vue-canvas" ref="pieChartVis" class="w-full h-full"></div>
     </div>
     <div
-      class="col-span-3 2xl:col-span-3 col-start-8 col-end-11 2xl:col-start-11 mt-6"
+      class="col-span-3 2xl:col-span-3 col-start-8 col-end-11 2xl:col-start-11 mt-6 flex flex-col justify-center"
     >
       <Legend :legendList="legendList" lang="fr"></Legend>
+    </div>
+    <div
+      class="col-span-8 2xl:col-span-12 col-start-2 2xl:col-start-3 mt-6 font-dubois uppercase "
+    >
+      <p>
+        THE UNIVERSITY HAS 20 PROFESSORS AND INSTRUCTORS AND 250 STUDENTS AT
+        PRESENT. IT HAS FIVE BUILDINGS, 60 ACRES OF CAMPUS. AND A LIBRARY OF
+        11000 VOLUMES IT AIMS TO RAISE AND CIVILIZE THE SONS OF THE FREEDMEN BY
+        TRAINING THEIR MORE CAPABLE MEMBERS IN THE LIBERAL ARTS ACCORDING TO THE
+        BEST STANDARDS OF THE DAY.
+      </p>
+      <p>
+        THE PROPER ACCOMPLISHMENT OF THIS WORK DEMANDS AN ENDOWMENT FUND OF
+        $500,000.
+      </p>
+      <p>
+        L UNIVERSITÉ A ACTUELLEMENT 20 PROFESSEURS ET INSTRUCTEURS ET 250
+        ÉTUDIANTS. ELLE EST COMPOSÉE DE CINO BÂTIMENTS, 60 ACRES (ENVIRON 26
+        HECTARES DE TERRAIN SERVANT DE COUR ET DE CHAMP DE RÉCRÉATION ET DUNE
+        BIBLIOTHEQUE CONTENANT 11000 VOLUMES. SON BUT EST D'ÉLEVER ET DE
+        CIVILISER LES FILS DES NEGRES AFFRANCHIS EN DONNANT AUX MEUX DOUÉS UNE
+        ÉDUCATION DANS LES ARTS LIBÉRAUX EN ACCORD AVEC LES IDÉES LES PLUS
+        PROGRESSISTES DE ÉPOQUE.
+      </p>
+      <p>
+        L'ACCOMPLISSEMENT DE CETTE CEUVRE DEMANDE UNE DOTATION DE $500000
+        2,500,000 FRANCS).
+      </p>
     </div>
   </div>
 </template>
@@ -252,11 +280,6 @@ export default {
       p5.setup = function() {
         canvas = p5.createCanvas(p5.windowWidth * 0.4, p5.windowWidth * 0.4);
         canvas.parent("vue-canvas");
-
-        pieChart(
-          p5.windowWidth * 0.4 - 7 < 500 ? p5.windowWidth * 0.4 - 7 : 500 - 7,
-          angles
-        );
 
         for (let i = 0; i < numBalls; i++) {
           placeBalls();
