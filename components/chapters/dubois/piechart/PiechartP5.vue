@@ -16,7 +16,7 @@
       <Legend :legendList="legendList" lang="fr"></Legend>
     </div>
     <div
-      class="col-span-8 2xl:col-span-12 col-start-2 2xl:col-start-3 mt-6 font-dubois uppercase "
+      class="col-span-8 2xl:col-span-12 col-start-2 2xl:col-start-3 mt-6 font-dubois font-bold uppercase "
     >
       <p>
         THE UNIVERSITY HAS 20 PROFESSORS AND INSTRUCTORS AND 250 STUDENTS AT

@@ -17,6 +17,15 @@ export default {
       primaryColorText: "white"
     }
   },
+  dubois: {
+    doc: "1UJbLms1_C_3AEjlXw3VFMRsCscH-5EOjss2IAA9wn5Q",
+    id: "dubois",
+    navName: "dubois",
+    theme: {
+      primaryColor: "#3B6FE0",
+      primaryColorText: "white"
+    }
+  },
   sandbox: {
     id: "sandbox",
     doc: "1ZnzdhstuleNMzjzl6EuJzD1SxAsj54bMOu-5IxeaRWo",

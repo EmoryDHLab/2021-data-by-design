@@ -14,6 +14,14 @@
 }
 
 @font-face {
+  font-family: "VTC Dubois";
+  src: url("~assets/fonts/VTCDubois/VTCDuBois-BoldWide.woff") format("woff"),
+    url("~assets/fonts/VTCDubois/VTCDuBois-BoldWide.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "Chancery Cursive";
   src: url("~assets/fonts/Chancery/Chancery_Cursive_Italic.ttf")
     format("truetype");
