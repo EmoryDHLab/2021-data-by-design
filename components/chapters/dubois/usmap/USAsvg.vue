@@ -5,21 +5,21 @@
     @loaded="loadedData"
   >
     <div
-      class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 flex flex-col font-dubois uppercase"
+      class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 flex flex-col font-duboisWide uppercase"
     >
-      <p class="font-bold text-2xl">
-        A series of statistical charts, illustrating the condition of the
-        descendants of former african slaves now resident in the united states
-        of america.
+      <p class="font-bold 2xl:text-4xl text-2xl tracking-wider">
+        &emsp;&emsp; A series of statistical charts, illustrating the condition
+        of the descendants of former african slaves now resident in the united
+        states of america.
       </p>
-      <p class="text-red-500">
-        une série de cartes est diagrammes statistiques montrant la condition
-        preésente des descendants des anciens esclaves africans actuellment
-        érablis dans les etas unis d’ amérique.
+      <p class="font-light text-red-500 2xl:text-3xl text-xl">
+        &emsp;&emsp;une série de cartes est diagrammes statistiques montrant la
+        condition preésente des descendants des anciens esclaves africans
+        actuellment érablis dans les etas unis d' amérique.
       </p>
     </div>
     <div
-      class="col-span-2 2xl:col-span-2 col-start-2 2xl:col-start-3 mt-6 flex font-dubois uppercase text-center"
+      class="col-span-2 2xl:col-span-2 col-start-2 2xl:col-start-3 mt-6 flex font-duboisNarrow uppercase text-center 2xl:text-xl text-lg"
     >
       <p>
         prepared and executed by negro students under the direction of atlanta
@@ -36,7 +36,7 @@
           :key="state.name"
           :d="pathGenerator(state.feature)"
           :fill="state.color"
-          stroke="darkslategray"
+          stroke="black"
           stroke-width="1.5"
         />
         <circle
@@ -46,17 +46,28 @@
           :cy="city.y"
           :r="5"
           fill="white"
-          stroke="darkslategray"
+          stroke="black"
           stroke-width="1.5"
         ></circle>
       </svg>
     </div>
     <div
-      class="col-span-2 2xl:col-span-2 col-start-8 2xl:col-start-11 mt-6 flex font-dubois uppercase text-center"
+      class="col-span-2 2xl:col-span-2 col-start-8 2xl:col-start-11 mt-6 flex font-duboisNarrow font-light uppercase text-center 2xl:text-xl text-lg"
     >
       <p class="text-red-500">
-        préparées et exxecutées par des étudiants nègres sous la direction de l’
-        universitê d’ atlanta, etat de gêorgie, etas unis d’ amerique.
+        préparées et exxecutées par des étudiants nègres sous la direction de l'
+        universitê d' atlanta, etat de gêorgie, etas unis d' amerique.
+      </p>
+    </div>
+    <div class="col-span-10 2xl:col-span-14 flex justify-center">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path
+          d="M13.94 27.108C21.248 27.108 27.116 21.204 27.116 13.932C27.116 6.768 21.356 0.827998 13.94 0.827998C6.74 0.827998 0.836 6.516 0.836 13.932C0.836 21.204 6.704 27.108 13.94 27.108ZM6.812 23.58L9.548 15.444L2.924 10.98H11.06L13.94 2.196L16.892 10.98H25.028L18.404 15.444L21.14 23.58L13.94 18.396L6.812 23.58Z"
+          fill="black"
+        />
+      </svg>
+      <p class="font-dubois uppercase">
+        Atlanta University
       </p>
     </div>
     <div
@@ -67,7 +78,7 @@
         students.
       </p>
       <p class="text-red-500">
-        L’ université a été fondée en 1867. Elle a donné l’’ instruction a’ 6000
+        L' université a été fondée en 1867. Elle a donné l'' instruction a' 6000
         étudiants negres.
       </p>
       <p>
@@ -109,54 +120,54 @@ export default {
         { city: "Charleston, SC", lat: "32.82", lng: "-79.96" }
       ],
       colorStates: [
-        { state: "Alabama", color: "#E32D47" },
-        { state: "Arizona", color: "#F8BF55" },
-        { state: "Arkansas", color: "#EF4F6D" },
-        { state: "California", color: "#E32D47" },
-        { state: "Colorado", color: "#E32D47" },
-        { state: "Connecticut", color: "#F8BF55" },
-        { state: "Delaware", color: "#F8BF55" },
-        { state: "Florida", color: "#F8BF55" },
-        { state: "Georgia", color: "#F8BF55" },
-        { state: "Idaho", color: "#EBCFC3" },
-        { state: "Illinois", color: "#F8BF55" },
-        { state: "Indiana", color: "#EBCFC3" },
-        { state: "Iowa", color: "#F8BF55" },
-        { state: "Kansas", color: "#F8BF55" },
-        { state: "Kentucky", color: "#765C4A" },
-        { state: "Louisiana", color: "#F8BF55" },
-        { state: "Maine", color: "#9E9D8A" },
-        { state: "Maryland", color: "#F8BF55" },
-        { state: "Massachusetts", color: "#2B2E76" },
-        { state: "Michigan", color: "#2B2E76" },
-        { state: "Minnesota", color: "#6374A5" },
-        { state: "Mississippi", color: "#969BB9" },
-        { state: "Missouri", color: "#F8BF55" },
-        { state: "Montana", color: "#EDB863" },
-        { state: "Nebraska", color: "#F8BF55" },
-        { state: "Nevada", color: "#F8BF55" },
-        { state: "New Hampshire", color: "#F8BF55" },
-        { state: "New Jersey", color: "#F8BF55" },
-        { state: "New Mexico", color: "#9E9D8A" },
-        { state: "New York", color: "#F8BF55" },
-        { state: "North Carolina", color: "#F8BF55" },
-        { state: "North Dakota", color: "#EBCFC3" },
-        { state: "Ohio", color: "#F8BF55" },
-        { state: "Oklahoma", color: "#352B67" },
-        { state: "Oregon", color: "#9E9D8A" },
-        { state: "Pennsylvania", color: "#F8BF55" },
+        { state: "Alabama", color: "#D92944" },
+        { state: "Arizona", color: "#D0EEFF" },
+        { state: "Arkansas", color: "#9AE4C1" },
+        { state: "California", color: "#D92944" },
+        { state: "Colorado", color: "#D92944" },
+        { state: "Connecticut", color: "#FEC313" },
+        { state: "Delaware", color: "#94715B" },
+        { state: "Florida", color: "#DBF5E9" },
+        { state: "Georgia", color: "#9AE4C1" },
+        { state: "Idaho", color: "#FFD3D3" },
+        { state: "Illinois", color: "#FFF6C9" },
+        { state: "Indiana", color: "#FFD3D3" },
+        { state: "Iowa", color: "#9AE4C1" },
+        { state: "Kansas", color: "#DBF5E9" },
+        { state: "Kentucky", color: "#9AE4C1" },
+        { state: "Louisiana", color: "#94715B" },
+        { state: "Maine", color: "#DBF5E9" },
+        { state: "Maryland", color: "#94715B" },
+        { state: "Massachusetts", color: "#D92944" },
+        { state: "Michigan", color: "#3B6FE0" },
+        { state: "Minnesota", color: "#3B6FE0" },
+        { state: "Mississippi", color: "#D0EEFF" },
+        { state: "Missouri", color: "#D92944" },
+        { state: "Montana", color: "#FFF6C9" },
+        { state: "Nebraska", color: "#FEC313" },
+        { state: "Nevada", color: "#FFF6C9" },
+        { state: "New Hampshire", color: "#FEC313" },
+        { state: "New Jersey", color: "#94715B" },
+        { state: "New Mexico", color: "#DBF5E9" },
+        { state: "New York", color: "#FFF6C9" },
+        { state: "North Carolina", color: "#FFF6C9" },
+        { state: "North Dakota", color: "#FFD3D3" },
+        { state: "Ohio", color: "#D0EEFF" },
+        { state: "Oklahoma", color: "#FFD3D3" },
+        { state: "Oregon", color: "#9AE4C1" },
+        { state: "Pennsylvania", color: "#3B6FE0" },
         { state: "Rhode Island", color: "#F8BF55" },
-        { state: "South Carolina", color: "#EDB863" },
-        { state: "South Dakota", color: "#765C4A" },
-        { state: "Tennessee", color: "#352B67" },
-        { state: "Texas", color: "#EDB863" },
-        { state: "Utah", color: "#F8BF55" },
-        { state: "Vermont", color: "#EDB863" },
-        { state: "Virginia", color: "#969BB9" },
-        { state: "Washington", color: "#EDB863" },
-        { state: "West Virginia", color: "#F8BF55" },
+        { state: "South Carolina", color: "#FEC313" },
+        { state: "South Dakota", color: "#94715B" },
+        { state: "Tennessee", color: "#3B6FE0" },
+        { state: "Texas", color: "#FEC313" },
+        { state: "Utah", color: "#9AE4C1" },
+        { state: "Vermont", color: "#94715B" },
+        { state: "Virginia", color: "#D0EEFF" },
+        { state: "Washington", color: "#FEC313" },
+        { state: "West Virginia", color: "#F3D9FF" },
         { state: "Wisconsin", color: "#F8BF55" },
-        { state: "Wyoming", color: "#2B2E76" },
+        { state: "Wyoming", color: "#3B6FE0" },
         { state: "Hawaii", color: "#FFFFFF" },
         { state: "Alaska", color: "#FFFFFF" }
       ]

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="lang == 'eng'" class="flex flex-col font-dubois uppercase">
+  <div class="font-duboisNarrow uppercase">
+    <div v-if="lang == 'eng'" class="flex flex-col">
       <div
         v-for="item in legendList"
         :key="item.eng"
@@ -17,7 +17,7 @@
     </div>
     <div
       v-else
-      class="flex flex-col font-dubois uppercase items-end text-red-500 pr-4 whitespace-nowrap"
+      class="flex flex-col items-end text-red-500 pr-4 whitespace-nowrap"
     >
       <div
         v-for="item in legendList"
