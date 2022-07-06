@@ -1,57 +1,70 @@
 <template>
   <div>
+    <h3 class="text-white font-william font-bold text-center text-3xl">TIMELINE</h3>
     <svg width="100%" :height="part1_height + 'px'"
          @mouseup="setNewPos()">
-      <text :y="part1_start" :x="pageWidth/2 - 100"
-            style="fill: white; font-size: 35px; font-family: VTC William, serif;"
-      >TIMELINE</text>
+<!--      <text :y="part1_start" :x="pageWidth/2 - 100"-->
+<!--            style="fill: white; font-size: 35px; font-family: VTC William, serif;"-->
+<!--      >TIMELINE</text>-->
+
+<!--      shuffle-->
+      <image :y="10"
+             :x="600"
+             :width="arrow_size"
+             xlink:href="../../../assets/ui/homepage/sort.png"
+             @click="viewShuffle()"
+      ></image>
+<!--      sort-->
       <image :y="10"
              :x="900"
              :width="arrow_size"
              xlink:href="../../../assets/ui/homepage/sort.png"
-             @click="part2_vis='visible'"
+             @click="viewSort()"
       ></image>
-      <image ref="timeline_img" v-for="(img, index) in img_data.slice(img_slice_idx, img_slice_idx + 10)"
-           :xlink:href="generateImg(img)"
-           :width="150"
-           :x="randXPos[index]"
-           :y="randYPos[index]"
-           @click="shiftTimeline(img)"
-           @mousedown="getCurrIdx(index)"
-      ></image>
+
+<!--      part 1-->
+      <g v-for="(img, index) in img_data.slice(img_slice_idx, img_slice_idx + img_lengh)">
+        <image ref="timeline_img"
+               :xlink:href="generateImg(img)"
+               :width="150"
+               :transform="getTransform(index)"
+               @click="shiftTimeline(img)"
+               @mousedown="changeDisplay(index)"
+               :visibility=part1_vis
+        ></image>
+      </g>
+
+<!--      part 2-->
+      <g :visibility=part2_vis>
+        <image v-for="(img, index) in sortByYear(img_data)"
+               :xlink:href="generateImg(img)"
+               :width="150"
+               :x="lineXPos[index] + timelinePos"
+               :y="80"
+               @click="shift(index)"
+        ></image>
+        <text v-for="(year,index) in getUniqYear(sortedImg)"
+              :x="index*200 + timelinePos"
+              :y="70"
+              style="fill: white; font-size: 15px; font-family: VTC William, serif;"
+        >{{year}}</text>
+
+
+        <image :y="part1_height - 50"
+               :x="300"
+               :width="arrow_size"
+               xlink:href="../../../assets/ui/homepage/left_arrow.png"
+               @click="timelinePos -= 40"
+        ></image>
+        <!--      TODO: get screen size!!-->
+        <image xlink:href="../../../assets/ui/homepage/right_arrow.png"
+               :y="part1_height - 50"
+               :x="pageWidth - 300"
+               :width="arrow_size"
+               @click="timelinePos += 40"
+        ></image>
+      </g>
     </svg>
-
-<!--    part 2-->
-    <svg width="100%" :height="part2_height + 'px'" :visibility=part2_vis>
-      <image v-for="(img, index) in sortByYear(img_data)"
-             :xlink:href="generateImg(img)"
-             :width="150"
-             :x="lineXPos[index] + timelinePos"
-             :y="50"
-             @click="shift(index)"
-      ></image>
-      <text v-for="(year,index) in getUniqYear(sortedImg)"
-            :x="index*200 + timelinePos"
-            :y="40"
-            style="fill: white; font-size: 15px; font-family: VTC William, serif;"
-      >{{year}}</text>
-
-
-      <image :y="part2_height - 50"
-             :x="300"
-             :width="arrow_size"
-             xlink:href="../../../assets/ui/homepage/left_arrow.png"
-             @click="timelinePos -= 40"
-      ></image>
-<!--      TODO: get screen size!!-->
-      <image xlink:href="../../../assets/ui/homepage/right_arrow.png"
-             :y="part2_height - 50"
-             :x="pageWidth - 300"
-             :width="arrow_size"
-             @click="timelinePos += 40"
-      ></image>
-    </svg>
-
 
 
     <div class="bg-brooks_sec flex">
@@ -82,9 +95,10 @@ export default {
   data(){
     return{
       img_data: img_data,
-      img_slice_idx: 20,
+      img_slice_idx: 30,
+      img_lengh: 30,
       part1_start: 40,
-      part1_height: 400,
+      part1_height: 450,
       part2_height: 350,
       // windowWidth: window.innerWidth,
       dragOffsetX: null,
@@ -101,15 +115,19 @@ export default {
       currIdx: null,
       currX: null,
       currY: null,
+      part1_vis: "visible",
       part2_vis: "hidden",
     }
   },
   mounted() {
-    this.randXPos = Array.from({length: 10}, () => Math.random() * this.pageWidth);
-    this.randYPos = Array.from({length: 10}, () => this.part1_start + Math.random() * (this.part1_height - 200));
-    this.img_slice_idx = Math.floor(Math.random() * 98);
+    this.refreshShuffle();
   },
   methods: {
+    refreshShuffle() {
+      this.randXPos = Array.from({length: this.img_lengh}, () => Math.random() * this.pageWidth);
+      this.randYPos = Array.from({length: this.img_lengh}, () => this.part1_start + Math.random() * (this.part1_height - 200));
+      this.img_slice_idx = Math.floor(Math.random() * 98);
+    },
     generateImg(img) {
       let p = this.getImgPath(img.CHAPTER, img.FILE_NAME);
       return p;
@@ -147,6 +165,24 @@ export default {
       this.uniqYear = years;
       return years;
     },
+    getTransform(idx) {
+      let x = this.randXPos[idx];
+      let y = this.randYPos[idx];
+      let r = Math.random() * (60) - 30;
+      return "translate(" + x + "," + y + ") rotate(" + r + ")";
+    },
+    viewShuffle() {
+      if (this.part1_vis == "visible") {
+        this.refreshShuffle();
+      } else {
+        this.part1_vis = "visible";
+        this.part2_vis = "hidden";
+      }
+    },
+    viewSort() {
+      this.part2_vis = "visible";
+      this.part1_vis = "hidden";
+    },
     shiftTimeline(rand_img) {
       let year = rand_img.YEAR;
       let real_idx = this.uniqYear.indexOf(year);
@@ -154,13 +190,19 @@ export default {
       this.timelinePos = 700 - real_idx*200;
     },
     shift(idx) {
-      this.timelinePos = 700 - idx*200;
-      this.displayImg = this.sortedImg[idx]
+      // this.timelinePos = 700 - idx*200;
+      this.displayImg = this.sortedImg[idx];
     },
-    getCurrIdx(idx) {
+    // getCurrIdx(idx) {
+    //   this.currY = event.clientY;
+    //   this.currX = event.clientX;
+    //   this.currIdx = idx;
+    // },
+    changeDisplay(idx) {
       this.currY = event.clientY;
       this.currX = event.clientX;
       this.currIdx = idx;
+      this.displayImg = this.img_data[idx + this.img_slice_idx];
     },
     setNewPos() {
       if (this.currIdx != null) {
