@@ -4,12 +4,14 @@ import BaseLayout from "../components/layouts/BaseLayout.astro";
 const slots = ["name"];
 const dyn = {t: TestAstro}
 
-const isTrue = false;
+const isTrue = true;
 
 ---
 <BaseLayout>
 	<h1>Astro</h1>
 	<TestAstro>
-		<!-- {isTrue && <p slot="name">Dan</p>} -->
+		<div>
+			{isTrue && <p slot="name">Dan aaa</p>}
+		</div>
 	</TestAstro>
 </BaseLayout>

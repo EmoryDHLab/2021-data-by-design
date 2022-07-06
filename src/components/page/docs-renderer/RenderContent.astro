@@ -28,11 +28,6 @@ const component = {
 
 const slotHTML = isSlot && slots[isSlot];
 
-if (content?.cells) {
-  console.log("I'm a table!", content.cells);
-}
-
- 
 function stringifyStyle (style: object){
   return Object.keys(style).filter(key => !ignoreCSS || !ignoreCSS.includes(key)).map(key => `${key}: ${style[key]};`).join(" ");
 };
