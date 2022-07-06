@@ -3,6 +3,10 @@
     "lib": ["es2019"],
     "jsx": "preserve",
     "moduleResolution": "node",
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    }
   }
 }

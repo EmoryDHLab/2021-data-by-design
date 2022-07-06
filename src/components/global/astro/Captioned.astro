@@ -2,8 +2,8 @@
 import RenderNamedSlot from "../../page/docs-renderer/RenderNamedSlot.astro";
 
 export interface Props {
-  width: number,
-  namedSlots: {
+  width?: number,
+  namedSlots?: {
     caption: string
   }
 }
@@ -11,25 +11,22 @@ export interface Props {
 const { width, namedSlots } = Astro.props;
 ---
 
-<div
-  class="flex flex-col items-center middle-full"
-  style={Astro.props.width && `width: ${Astro.props.width}px;`}
->
+<div class="flex flex-col items-center middle-full" style={Astro.props.width && `width: ${Astro.props.width}px;`}>
   <div>
     <slot />
   </div>
-  {namedSlots.caption && 
-    <div class="caption text-center mt-10 w-5/6" >
-      <RenderNamedSlot slot={namedSlots.caption} />
-    </div>
-  }
+  <div class="caption text-center mt-10 w-5/6">
+    {namedSlots?.caption &&
+    <RenderNamedSlot slot={namedSlots.caption} />}
+    <slot name="caption" />
+  </div>
 </div>
 
 
 <style>
-.caption,
-.caption p,
-.caption span {
-  @apply text-sm lg:text-lg;
-}
+  .caption,
+  .caption p,
+  .caption span {
+    @apply text-sm lg:text-lg;
+  }
 </style>

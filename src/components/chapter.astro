@@ -73,7 +73,7 @@ const docsRendererProps = {
 <div class="chapter-root">
   {splitSections.map( ({title, renderGroups}) => {
     return <div>
-      <SectionTitle>{title}</SectionTitle>
+      {title && <SectionTitle>{title}</SectionTitle>}
       {renderGroups.map(group => (
         group?.components ?
          <MiddleSubgrid><DocsRenderer content={group.components} {...docsRendererProps}/></MiddleSubgrid> : 
