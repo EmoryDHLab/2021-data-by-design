@@ -1,32 +1,32 @@
 <template
-  ><div class="col-span-10 2xl:col-span-14 flex mx-auto bg-black">
-    <div class="button py-10 px-5">
-      <button @click="selectedSet = 1">
-        <img
-          src="@/assets/images/dubois/stack12.png"
-          v-bind:class="selectedSet == 1 ? 'hidden' : 'block'"
-        />
-        <img
-          style="width:17.33px;height:15px;"
-          src="@/assets/images/dubois/eye.png"
-          v-bind:class="selectedSet == 1 ? 'block' : 'hidden'"
-        />
+  ><div
+    class="col-span-10 2xl:col-span-14 2xl:col-end-13 flex w-full mx-auto bg-black"
+  >
+    <div class="button py-10 px-5 flex flex-col items-center">
+      <button @click="selectedSet = 1" class="mb-4">
+        <div v-bind:class="selectedSet == 1 ? 'hidden' : 'block'">
+          <img src="@/assets/images/dubois/stack1.png" />
+          <img src="@/assets/images/dubois/set1.png" />
+        </div>
+        <div v-bind:class="selectedSet == 1 ? 'block' : 'hidden'">
+          <img src="@/assets/images/dubois/eyeframe.png" />
+          <img src="@/assets/images/dubois/set1.png" />
+        </div>
       </button>
       <button @click="selectedSet = 2">
-        <img
-          src="@/assets/images/dubois/stack11.png"
-          v-bind:class="selectedSet == 2 ? 'hidden' : 'block'"
-        />
-        <img
-          style="width:17.33px;height:15px;"
-          src="@/assets/images/dubois/eye.png"
-          v-bind:class="selectedSet == 2 ? 'block' : 'hidden'"
-        />
+        <div v-bind:class="selectedSet == 2 ? 'hidden' : 'block'">
+          <img src="@/assets/images/dubois/stack2.png" />
+          <img src="@/assets/images/dubois/set2.png" />
+        </div>
+        <div v-bind:class="selectedSet == 2 ? 'block' : 'hidden'">
+          <img src="@/assets/images/dubois/eyeframe.png" />
+          <img src="@/assets/images/dubois/set2.png" />
+        </div>
       </button>
     </div>
 
-    <div class="stack min-h-screen items-center justify-center">
-      <div class="grid grid-cols-4 md:grid-cols-9 gap-4 py-5 px-20">
+    <div class="min-h-screen items-center justify-center">
+      <div class="stack grid grid-cols-4 md:grid-cols-9 gap-4 py-5 px-20">
         <template v-for="(img, index) in imgs">
           <img
             v-bind:class="
@@ -44,11 +44,11 @@
         <div>
           <img class="slide-img" src="@/assets/images/dubois/Slides.png" />
 
-          <div class="flex justify-center align-middle relative">
+          <div class="flex align-middle justify-between">
             <div class="flex justify-center align-middle">
               <button>
                 <img
-                  style="position: absolute; left: 107px; width:27.5px;height:19.5px; margin-top:20px;"
+                  style="width:27.5px;height:19.5px; margin-top:20px;"
                   src="@/assets/images/dubois/leftarrow.png"
                   @click="showNext"
                 />
@@ -84,7 +84,7 @@
             <div class="flex justify-center align-middle">
               <button>
                 <img
-                  style="position: absolute; left: 657px; width:27.5px;height:19.5px; margin-top:20px;"
+                  style="width:27.5px;height:19.5px; margin-top:20px;"
                   src="@/assets/images/dubois/rightarrow.png"
                   @click="showNext"
                 />
@@ -696,10 +696,11 @@ export default {
 .stack img {
   width: 85.1px;
   height: 102.4px;
+  cursor: pointer;
 }
 .button img {
-  width: 66px;
-  height: 106px;
+  width: 80px;
+  padding: 6px;
 }
 .slides img {
   width: 800px;

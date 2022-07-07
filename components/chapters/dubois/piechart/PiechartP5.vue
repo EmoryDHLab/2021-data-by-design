@@ -80,8 +80,9 @@ export default {
   mounted() {
     const script = p5 => {
       let pieHeight = p5.windowWidth * 0.4;
-      let numBalls = 330;
-      let balls = [];
+      let numCircles = 330;
+      let circles = [];
+      let outsideCircles = [];
       let canvas;
 
       let pieChartColors = [
@@ -219,7 +220,7 @@ export default {
         }
       }
       let tryNum = 0;
-      function placeBalls() {
+      function placeCircles() {
         let become = true;
         let wWidth = p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500;
 
@@ -232,15 +233,16 @@ export default {
         }
         let diameter = wWidth * (18 / 466);
 
-        for (let i = 0; i < balls.length; i++) {
+        for (let i = 0; i < circles.length; i++) {
           const dx = rx - (p5.windowWidth * 0.4) / 2;
           const dy = ry - (p5.windowWidth * 0.4) / 2;
           const outOfBounds =
             Math.sqrt(dx * dx + dy * dy) >= (wWidth - 20) / 2 - diameter / 2;
           // if colliding with another ball or not in the piechart
           if (
-            p5.dist(rx, ry, balls[i].x, balls[i].y) - balls[i].diameter / 2 <
-              balls[i].diameter / 2 ||
+            p5.dist(rx, ry, circles[i].x, circles[i].y) -
+              circles[i].diameter / 2 <
+              circles[i].diameter / 2 ||
             outOfBounds
           ) {
             become = false;
@@ -249,14 +251,37 @@ export default {
         }
         if (become) {
           tryNum = 0;
-          balls.push(new Ball(rx, ry, diameter, balls.length + 1, balls));
+          circles.push(new Ball(rx, ry, diameter, circles.length + 1, circles));
         } else {
           if (tryNum < 300) {
             tryNum++;
-            placeBalls();
+            placeCircles();
           } else {
             tryNum = 0;
           }
+        }
+      }
+      function placeOutsideCircles() {
+        let wWidth = p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500;
+
+        let diameter = wWidth * (18 / 466);
+        let outsideCoordinates = [
+          { x: 12, y: 352 },
+          { x: 43, y: 390 },
+          { x: 444, y: 374 },
+          { x: 390, y: 426 },
+          { x: 348, y: 445 }
+        ];
+        for (let i = 0; i < 5; i++) {
+          outsideCircles.push(
+            new Ball(
+              outsideCoordinates[i].x,
+              outsideCoordinates[i].y,
+              diameter,
+              outsideCircles.length + 1,
+              outsideCircles
+            )
+          );
         }
       }
       function pieChart(diameter, data) {
@@ -281,9 +306,10 @@ export default {
         canvas = p5.createCanvas(p5.windowWidth * 0.4, p5.windowWidth * 0.4);
         canvas.parent("vue-canvas");
 
-        for (let i = 0; i < numBalls; i++) {
-          placeBalls();
+        for (let i = 0; i < numCircles; i++) {
+          placeCircles();
         }
+        placeOutsideCircles();
       };
 
       p5.draw = function() {
@@ -293,38 +319,56 @@ export default {
           angles
         );
 
-        balls.forEach(ball => {
+        circles.forEach(ball => {
           ball.display();
           ball.collide();
           ball.wiggle();
           ball.withinBounds();
         });
-        balls.forEach(ball => {
+        circles.forEach(ball => {
+          ball.mouseOn();
+        });
+        outsideCircles.forEach(ball => {
+          ball.display();
+        });
+        outsideCircles.forEach(ball => {
           ball.mouseOn();
         });
       };
       p5.mousePressed = function() {
-        balls.forEach(ball => {
+        circles.forEach(ball => {
           ball.pressed();
+        });
+        outsideCircles.forEach(ball => {
+          ball.pressed();
+          console.log(ball);
         });
       };
       p5.mouseDragged = function() {
-        balls.forEach(ball => {
+        circles.forEach(ball => {
+          ball.update();
+        });
+        outsideCircles.forEach(ball => {
           ball.update();
         });
       };
       p5.mouseReleased = function() {
-        balls.forEach(ball => {
+        circles.forEach(ball => {
+          ball.released();
+        });
+        outsideCircles.forEach(ball => {
           ball.released();
         });
       };
       p5.windowResized = function() {
         p5.resizeCanvas(p5.windowWidth * 0.4, p5.windowWidth * 0.4);
-        balls = [];
+        circles = [];
+        outsideCircles = [];
 
-        for (let i = 0; i < numBalls; i++) {
-          placeBalls();
+        for (let i = 0; i < numCircles; i++) {
+          placeCircles();
         }
+        placeOutsideCircles();
         p5.redraw();
       };
     };
