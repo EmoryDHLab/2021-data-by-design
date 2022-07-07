@@ -24,8 +24,19 @@
       <template v-slot:caption>We have come to believe that data visualizations should be clear and efficient.
         Is there value in designs that make us pause and reflect?</template>
     </ChapterCard>
-    <ChapterCard class="cardDubois bg-dubois_sec hover:text-white col-span-2" style="text-align: center">
+<!--    Example for one col card -->
+<!--    <ChapterCard class="cardDubois bg-dubois_sec hover:text-white col-span-2" style="text-align: center">-->
+<!--      <template v-slot:title>Between Data and Truth</template>-->
+<!--      <template v-slot:subtitle>W. E. B. Du Bois’s “Data Portraits”</template>-->
+<!--      <template v-slot:caption>How can data visualization bear witness to oppression? How can it hold space for what cannot be conveyed through data alone? </template>-->
+<!--    </ChapterCard>-->
+    <ChapterCard class="cardDubois bg-dubois_sec hover:text-white">
       <template v-slot:title>Between Data and Truth</template>
+      <template v-slot:subtitle>W. E. B. Du Bois’s “Data Portraits”</template>
+      <template v-slot:caption>How can data visualization bear witness to oppression? How can it hold space for what cannot be conveyed through data alone? </template>
+    </ChapterCard>
+    <ChapterCard class="cardLabour bg-labour_sec hover:text-white">
+      <template v-slot:title>Labour</template>
       <template v-slot:subtitle>W. E. B. Du Bois’s “Data Portraits”</template>
       <template v-slot:caption>How can data visualization bear witness to oppression? How can it hold space for what cannot be conveyed through data alone? </template>
     </ChapterCard>
@@ -64,5 +75,10 @@ export default {
 .cardDubois:hover {
   background-size: cover;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../assets/images/dubois/ch5-01-phila.jpg') center;
+}
+
+.cardLabour:hover {
+  background-size: cover;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../assets/images/railroadscaled.jpg') center;
 }
 </style>
