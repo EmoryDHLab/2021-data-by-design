@@ -1,12 +1,12 @@
 <template>
   <div class="text-black font-william">
-    <div class="text-3xl mt-10 mb-2 px-20">
+    <div class="text-3xl mt-16 mb-3 px-28 font-bold">
       <slot name="title"></slot>
     </div>
-    <div class="text-2xl mb-1 px-20">
+    <div class="text-2xl mb-2 px-28">
       <slot name="subtitle"></slot>
     </div>
-    <div class="px-20 mb-10">
+    <div class="px-28 mb-10">
       <slot name="caption"></slot>
     </div>
   </div>
