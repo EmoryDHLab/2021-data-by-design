@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="bg-black">
-      some other text
+      Stanford Footnote Placeholder
     </div>
   </div>
 </template>
