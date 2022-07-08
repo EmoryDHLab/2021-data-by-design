@@ -1,12 +1,17 @@
 <template>
-  <div class="contents">
+  <StaticData
+    :dataset="['330_students']"
+    v-slot="staticData"
+    @loaded="loadedData"
+  >
     <div
       class="col-span-3 2xl:col-span-3 col-start-1 col-end-4 2xl:col-start-2 mt-6 flex flex-col justify-center"
     >
       <Legend :legendList="legendList" lang="eng"></Legend>
     </div>
     <div
-      class="col-span-4 2xl:col-span-6 col-start-4 col-end-8 2xl:col-start-5 mt-6 "
+      class="col-span-4 2xl:col-span-6 col-start-4 col-end-8 2xl:col-start-5 mt-6"
+      v-if="staticData"
     >
       <div id="vue-canvas" ref="pieChartVis" class="w-full h-full"></div>
     </div>
@@ -43,42 +48,59 @@
         2,500,000 FRANCS).
       </p>
     </div>
-  </div>
+  </StaticData>
 </template>
 <script>
 import p5 from "p5";
 import Legend from "@/components/chapters/dubois/piechart/Legend";
+import StaticData from "@/components/data-access/StaticData";
 
 export default {
   components: {
-    Legend
+    Legend,
+    StaticData
   },
   data() {
     return {
+      studentData: null,
       legendList: [
         {
           eng: "Teachers",
           fr: "Professeurs et Instituteurs",
-          color: "#C71D39"
+          color: "#D92944"
         },
-        { eng: "Ministers", fr: "Ministres de L'evangile", color: "#7882AD" },
+        { eng: "Ministers", fr: "Ministres de L'evangile", color: "#FFD3D3" },
         {
           eng: "Government Service",
           fr: "Employés du Government",
-          color: "#E3BCAF"
+          color: "#B5CCFF"
         },
-        { eng: "Business", fr: "Marchanos", color: "#C0A089" },
+        { eng: "Business", fr: "Marchanos", color: "#2F4F4F" },
         {
           eng: "Other Professions",
           fr: "Medicins, Advocats, Et étudiants",
-          color: "#9A9682"
+          color: "#F8E690"
         },
-        { eng: "House Wives", fr: "Mères de Famille", color: "#EEB85A" }
+        { eng: "House Wives", fr: "Mères de Famille", color: "#FEC313" }
       ]
     };
   },
+  methods: {
+    // loadedData({ name, data }) {
+    //   this.studentData = data;
+    // },
+    loadedData: function({ name, data }) {
+      this.$nextTick(function() {
+        this.studentData = data;
+      });
+    }
+  },
   mounted() {
+    let $vm = this;
+
+    // console.log($vm.studentData);
     const script = p5 => {
+      let attachedData = this.studentData;
       let pieHeight = p5.windowWidth * 0.4;
       let numCircles = 330;
       let circles = [];
@@ -86,12 +108,12 @@ export default {
       let canvas;
 
       let pieChartColors = [
-        "#C71D39",
-        "#7882AD",
-        "#C0A089",
-        "#E3BCAF",
-        "#9A9682",
-        "#EEB85A"
+        "#D92944",
+        "#FFD3D3",
+        "#2F4F4F",
+        "#B5CCFF",
+        "#F8E690",
+        "#FEC313"
       ];
       let angles = [
         0.585 * 360,
@@ -119,13 +141,16 @@ export default {
             this.diameter / 2
           ) {
             this.rollover = true;
+            // console.log(attachedData);
+            //tooltip - implement in HTML?
+            p5.rectMode(p5.CENTER);
             p5.fill("white");
             p5.stroke("black");
-            p5.rect(p5.mouseX, p5.mouseY + 15, 80, 20);
+            p5.rect(p5.mouseX, p5.mouseY + 20, 80, 20);
 
             p5.fill("black");
             p5.noStroke();
-            p5.text("Tanvi", p5.mouseX, p5.mouseY + 30);
+            p5.text("Tanvi", p5.mouseX, p5.mouseY + 25);
           } else {
             this.rollover = false;
           }
@@ -341,7 +366,6 @@ export default {
         });
         outsideCircles.forEach(ball => {
           ball.pressed();
-          console.log(ball);
         });
       };
       p5.mouseDragged = function() {

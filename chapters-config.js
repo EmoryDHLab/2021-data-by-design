@@ -20,7 +20,7 @@ export default {
   dubois: {
     doc: "1UJbLms1_C_3AEjlXw3VFMRsCscH-5EOjss2IAA9wn5Q",
     id: "dubois",
-    navName: "dubois",
+    navName: "Between Data and Truth",
     theme: {
       primaryColor: "#3B6FE0",
       primaryColorText: "white"
