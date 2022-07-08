@@ -14,19 +14,15 @@
 </template>
 
 <script>
-
 export const docsDefinition = {
   matchName: ["Pullquote"],
   componentName: "Pullquote",
-  slots: ["title", "subtitle"]
-}
-export default {
-}
+  slots: ["title", "subtitle"],
+};
+export default {};
 </script>
 
 <style scoped>
-
-
 .big p:last-child {
   margin-block-end: 0.5em;
 }

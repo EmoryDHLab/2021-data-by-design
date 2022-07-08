@@ -10,7 +10,7 @@ export default {
   mixins: [ChapterSlots],
   data() {},
   chapterState: {},
-  methods: {}
+  methods: {},
 };
 </script>
 

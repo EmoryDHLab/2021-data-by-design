@@ -105,13 +105,13 @@ export default {
       height: 44,
       width: 94,
       margin: 3,
-      innerGridWidth: (94 / 11) * 10 + 3
+      innerGridWidth: (94 / 11) * 10 + 3,
     };
   },
   props: {
     dataFile: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   created() {
     this.interval = 500;
@@ -123,37 +123,37 @@ export default {
     this.botText = { text: "U.S. AND U.K.", x: 13, y: 22 };
   },
   methods: {
-    tickFormatterX: function(tickVal) {
+    tickFormatterX: function (tickVal) {
       return this.dataFile[this.dataFile.length - tickVal].date.substring(
         5,
         10
       );
     },
-    tickFormatterY: function(tickVal) {
+    tickFormatterY: function (tickVal) {
       if (tickVal < 1000) return tickVal;
       return tickVal / 1000 + "k";
     },
-    opacityFormatterY: function(tickVal) {
+    opacityFormatterY: function (tickVal) {
       if ((tickVal / 250) % 1 === 0) return 0.4;
       else return 0.2;
     },
-    strokeFormatterY: function(tickVal) {
+    strokeFormatterY: function (tickVal) {
       if ((tickVal / 250) % 1 === 0) return 0.2;
       else return 0.1;
-    }
+    },
   },
   computed: {
     fillColorArea() {
       const path = d3
         .area()
         .curve(d3.curveCatmullRom)
-        .x0(d => this.xScale(d.date) + 3)
-        .x1(d => this.xScale(d.date) + 3)
-        .y0(d => this.yScale(d.ukDeaths) + 3)
-        .y1(d => this.yScale(d.usDeaths) + 3);
+        .x0((d) => this.xScale(d.date) + 3)
+        .x1((d) => this.xScale(d.date) + 3)
+        .y0((d) => this.yScale(d.ukDeaths) + 3)
+        .y1((d) => this.yScale(d.usDeaths) + 3);
       return path(this.transformedData);
     },
-    transformedData: function() {
+    transformedData: function () {
       function perCapita(capita, population, count) {
         return ((capita * count) / population).toFixed(2);
       }
@@ -164,7 +164,7 @@ export default {
 
       const newData = [];
       var idx = 0;
-      this.dataFile.forEach(function(d) {
+      this.dataFile.forEach(function (d) {
         var newObj = { ukDeaths: 0, usDeaths: 0, date: 0 };
         newObj.ukDeaths = perCapita(
           capita,
@@ -178,25 +178,28 @@ export default {
       });
       return newData;
     },
-    maxUK: function() {
-      var maxOn = prop => Math.max(...this.transformedData.map(d => d[prop]));
+    maxUK: function () {
+      var maxOn = (prop) =>
+        Math.max(...this.transformedData.map((d) => d[prop]));
       return maxOn("ukDeaths");
     },
-    minUK: function() {
-      var minOn = prop => Math.min(...this.transformedData.map(d => d[prop]));
+    minUK: function () {
+      var minOn = (prop) =>
+        Math.min(...this.transformedData.map((d) => d[prop]));
       return minOn("ukDeaths");
     },
-    maxUS: function() {
-      var maxOn = prop => Math.max(...this.transformedData.map(d => d[prop]));
+    maxUS: function () {
+      var maxOn = (prop) =>
+        Math.max(...this.transformedData.map((d) => d[prop]));
       return maxOn("usDeaths");
     },
-    transformUSText: function() {
+    transformUSText: function () {
       return "rotate(-14) translate(" + 33 + "," + 41 + ")";
     },
-    transformUKText: function() {
+    transformUKText: function () {
       return "rotate(-10) translate(" + 36 + "," + 29 + ")";
     },
-    xValues: function() {
+    xValues: function () {
       var xNums = [];
       for (
         var i = this.dateInterval;
@@ -207,7 +210,7 @@ export default {
       }
       return xNums.reverse();
     },
-    yValues: function() {
+    yValues: function () {
       var yNums = [];
       for (
         var i = 50;
@@ -221,10 +224,10 @@ export default {
     ukLine() {
       const path = d3
         .area()
-        .x(d => this.xScale(d.date) + 3)
-        .y(d => this.yScale(d.ukDeaths) + 3)
+        .x((d) => this.xScale(d.date) + 3)
+        .y((d) => this.yScale(d.ukDeaths) + 3)
         .curve(d3.curveCatmullRom)
-        .defined(function(d) {
+        .defined(function (d) {
           return d.ukDeaths;
         });
       return path(this.transformedData);
@@ -232,10 +235,10 @@ export default {
     usLine() {
       const path = d3
         .area()
-        .x(d => this.xScale(d.date) + 3)
-        .y(d => this.yScale(d.usDeaths) + 3)
+        .x((d) => this.xScale(d.date) + 3)
+        .y((d) => this.yScale(d.usDeaths) + 3)
         .curve(d3.curveCatmullRom)
-        .defined(function(d) {
+        .defined(function (d) {
           return d.usDeaths;
         });
       return path(this.transformedData);
@@ -251,8 +254,8 @@ export default {
         .scaleLinear()
         .range([this.height, 0])
         .domain([0, Math.max(this.maxUK, this.maxUS) + 100]);
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped></style>

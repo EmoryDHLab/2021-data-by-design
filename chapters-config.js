@@ -5,8 +5,8 @@ export default {
     id: "peabody",
     theme: {
       primaryColor: "#93E3BD",
-      primaryColorText: "black"
-    }
+      primaryColorText: "black",
+    },
   },
   playfair: {
     doc: "1r_nPqLVD1yYufNxNRENTfUuTJA5Z5LzPTX6uOJhf8vI",
@@ -14,8 +14,8 @@ export default {
     navName: "Visualization as Argument",
     theme: {
       primaryColor: "#3B6FE0",
-      primaryColorText: "white"
-    }
+      primaryColorText: "white",
+    },
   },
   dubois: {
     doc: "1UJbLms1_C_3AEjlXw3VFMRsCscH-5EOjss2IAA9wn5Q",
@@ -23,8 +23,8 @@ export default {
     navName: "Between Data and Truth",
     theme: {
       primaryColor: "#3B6FE0",
-      primaryColorText: "white"
-    }
+      primaryColorText: "white",
+    },
   },
   sandbox: {
     id: "sandbox",
@@ -32,7 +32,7 @@ export default {
     navName: "Sandbox",
     theme: {
       primaryColor: "#93E3BD",
-      primaryColorText: "black"
-    }
-  }
+      primaryColorText: "black",
+    },
+  },
 };

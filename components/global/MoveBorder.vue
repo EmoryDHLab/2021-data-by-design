@@ -1,13 +1,11 @@
 <template functional>
   <div class="border-primary border-4 border-dashed p-1">
-    <slot/>
+    <slot />
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style scoped>

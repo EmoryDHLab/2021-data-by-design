@@ -1,102 +1,124 @@
 <template>
   <div>
-    <svg width="100%" :height="part1_height + 'px'"
-         @mouseup="currIdx = null"
-         @mousemove="moveImage()">
-
-<!--      part 1-->
-      <g v-for="(img, index) in img_data.slice(img_slice_idx, img_slice_idx + img_lengh)">
-        <image ref="timeline_img"
-               :xlink:href="generateImg(img)"
-               :width="150"
-               :transform="getTransform(index)"
-               @click="shiftTimeline(img)"
-               @mousedown="changeDisplay(index)"
-               :visibility=part1_vis
+    <svg
+      width="100%"
+      :height="part1_height + 'px'"
+      @mouseup="currIdx = null"
+      @mousemove="moveImage()"
+    >
+      <!--      part 1-->
+      <g
+        v-for="(img, index) in img_data.slice(
+          img_slice_idx,
+          img_slice_idx + img_lengh
+        )"
+      >
+        <image
+          ref="timeline_img"
+          :xlink:href="generateImg(img)"
+          :width="150"
+          :transform="getTransform(index)"
+          @click="shiftTimeline(img)"
+          @mousedown="changeDisplay(index)"
+          :visibility="part1_vis"
         ></image>
       </g>
 
-<!--      part 2-->
-      <g :visibility=part2_vis>
-        <image v-for="(img, index) in sortByYear(img_data)"
-               :xlink:href="generateImg(img)"
-               :width="150"
-               :x="lineXPos[index] + timelinePos"
-               :y="150"
-               @click="shift(index)"
+      <!--      part 2-->
+      <g :visibility="part2_vis">
+        <image
+          v-for="(img, index) in sortByYear(img_data)"
+          :xlink:href="generateImg(img)"
+          :width="150"
+          :x="lineXPos[index] + timelinePos"
+          :y="150"
+          @click="shift(index)"
         ></image>
-        <text v-for="(year,index) in getUniqYear(sortedImg)"
-              :x="yearTLpos[index] + timelinePos"
-              :y="140"
-              style="fill: white; font-size: 15px; font-family: VTC William, serif;"
-        >{{year}}</text>
+        <text
+          v-for="(year, index) in getUniqYear(sortedImg)"
+          :x="yearTLpos[index] + timelinePos"
+          :y="140"
+          style="fill: white; font-size: 15px; font-family: VTC William, serif"
+        >
+          {{ year }}
+        </text>
 
-        <image :y="part1_height - 100"
-               :x="300"
-               :width="arrow_size"
-               xlink:href="../../../assets/ui/homepage/left_arrow.png"
-               @click="timelinePos -= 80"
+        <image
+          :y="part1_height - 100"
+          :x="300"
+          :width="arrow_size"
+          xlink:href="../../../assets/ui/homepage/left_arrow.png"
+          @click="timelinePos -= 80"
         ></image>
-        <image xlink:href="../../../assets/ui/homepage/right_arrow.png"
-               :y="part1_height - 100"
-               :x="pageWidth - 350"
-               :width="arrow_size"
-               @click="timelinePos += 80"
+        <image
+          xlink:href="../../../assets/ui/homepage/right_arrow.png"
+          :y="part1_height - 100"
+          :x="pageWidth - 350"
+          :width="arrow_size"
+          @click="timelinePos += 80"
         ></image>
       </g>
 
-<!--      TITLE-->
-      <text :y="part1_start + 10" :x="pageWidth/2" text-anchor="middle"
-                    style="fill: white; font-size: 35px; font-family: VTC William, serif;"
-              >TIMELINE</text>
+      <!--      TITLE-->
+      <text
+        :y="part1_start + 10"
+        :x="pageWidth / 2"
+        text-anchor="middle"
+        style="fill: white; font-size: 35px; font-family: VTC William, serif"
+      >
+        TIMELINE
+      </text>
 
-        <!--      shuffle-->
-        <image :y="part1_start + 20"
-               :x="pageWidth/2 - 20 - 35"
-               :width="arrow_size"
-               :xlink:href="require(`~/assets/ui/homepage/${shuffle_icon}.png`)"
-               @click="viewShuffle()"
-               @mousedown="shuffle_icon='shuffle_click'"
-               @mouseup="shuffle_icon = 'shuffle_unclick'"
-        ></image>
-        <!--      sort-->
-        <image :y="part1_start + 20"
-               :x="pageWidth/2 - 20 + 35"
-               :width="arrow_size"
-               :xlink:href="require(`~/assets/ui/homepage/${sort_icon}.png`)"
-               @click="viewSort()"
-        ></image>
-
+      <!--      shuffle-->
+      <image
+        :y="part1_start + 20"
+        :x="pageWidth / 2 - 20 - 35"
+        :width="arrow_size"
+        :xlink:href="require(`~/assets/ui/homepage/${shuffle_icon}.png`)"
+        @click="viewShuffle()"
+        @mousedown="shuffle_icon = 'shuffle_click'"
+        @mouseup="shuffle_icon = 'shuffle_unclick'"
+      ></image>
+      <!--      sort-->
+      <image
+        :y="part1_start + 20"
+        :x="pageWidth / 2 - 20 + 35"
+        :width="arrow_size"
+        :xlink:href="require(`~/assets/ui/homepage/${sort_icon}.png`)"
+        @click="viewSort()"
+      ></image>
     </svg>
-
 
     <div class="bg-brooks_sec flex mb-20">
       <div class="w-2/5">
-        <img class="p-20 w-full" :src="generateImg(displayImg)" :alt="displayImg.ALT-TEXT">
+        <img
+          class="p-20 w-full"
+          :src="generateImg(displayImg)"
+          :alt="displayImg.ALT - TEXT"
+        />
       </div>
 
       <div class="p-20 font-william w-3/5">
         <div class="text-4xl p-5">
-          {{displayImg.TITLE}} by {{displayImg.ARTIST}} {{displayImg.YEAR}}
+          {{ displayImg.TITLE }} by {{ displayImg.ARTIST }}
+          {{ displayImg.YEAR }}
         </div>
         <div class="text-lg p-5">
-          <span style="white-space: pre">{{displayImg.CREDIT}} </span>
-          <span style="white-space: pre">{{displayImg.DIGITIZED}}</span>
+          <span style="white-space: pre">{{ displayImg.CREDIT }} </span>
+          <span style="white-space: pre">{{ displayImg.DIGITIZED }}</span>
         </div>
-        <div class="text-lg p-5">
-          {{displayImg.CHAPTER}} ->
-        </div>
+        <div class="text-lg p-5">{{ displayImg.CHAPTER }} -></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import img_data from './img.json';
+import img_data from "./img.json";
 export default {
   name: "Timeline",
-  data(){
-    return{
+  data() {
+    return {
       img_data: img_data,
       img_slice_idx: 30,
       img_lengh: 30,
@@ -123,10 +145,10 @@ export default {
       part2_vis: "hidden",
       sort_icon: "sort_unselected",
       shuffle_icon: "shuffle_unclick",
-    }
+    };
   },
   mounted() {
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
     this.pageWidth = innerWidth;
     this.refreshShuffle();
   },
@@ -135,9 +157,18 @@ export default {
       this.pageWidth = innerWidth;
     },
     refreshShuffle() {
-      this.randXPos = Array.from({length: this.img_lengh}, () => Math.random() * (this.pageWidth-100));
-      this.randYPos = Array.from({length: this.img_lengh}, () => this.part1_start + Math.random() * (this.part1_height - 200));
-      this.randRotation = Array.from({length: this.img_lengh}, () => Math.random() * (60) - 30);
+      this.randXPos = Array.from(
+        { length: this.img_lengh },
+        () => Math.random() * (this.pageWidth - 100)
+      );
+      this.randYPos = Array.from(
+        { length: this.img_lengh },
+        () => this.part1_start + Math.random() * (this.part1_height - 200)
+      );
+      this.randRotation = Array.from(
+        { length: this.img_lengh },
+        () => Math.random() * 60 - 30
+      );
       this.img_slice_idx = Math.floor(Math.random() * 98);
     },
     generateImg(img) {
@@ -148,8 +179,8 @@ export default {
       return require(`~/assets/images/${chapter}/${file_name}`);
     },
     sortByYear(imgs) {
-      let sorted =  imgs.sort(function compYear(a, b) {
-        return a.YEAR.slice(0,4) - b.YEAR.slice(0,4);
+      let sorted = imgs.sort(function compYear(a, b) {
+        return a.YEAR.slice(0, 4) - b.YEAR.slice(0, 4);
       });
       if (this.lineXPos.length < sorted.length) {
         this.lineXPos.push(0);
@@ -158,20 +189,20 @@ export default {
           if (sorted[i - 1].YEAR === sorted[i].YEAR) {
             this.lineXPos.push(this.lineXPos[i - 1] + 10);
           } else {
-            let newyearpos = this.lineXPos[i - 1] + 200
+            let newyearpos = this.lineXPos[i - 1] + 200;
             this.lineXPos.push(newyearpos);
             this.yearTLpos.push(newyearpos);
           }
         }
         this.sortedImg = sorted;
       }
-      return sorted
+      return sorted;
     },
     getUniqYear(sorted) {
       let years = [sorted[0].YEAR];
       for (let i = 1; i < sorted.length; i++) {
         let y = sorted[i].YEAR;
-        if (y != years[years.length-1]) {
+        if (y != years[years.length - 1]) {
           years.push(y);
         }
       }
@@ -187,7 +218,7 @@ export default {
     viewShuffle() {
       if (this.part1_vis == "visible") {
         this.refreshShuffle();
-        console.log("shuffle!")
+        console.log("shuffle!");
       } else {
         this.part1_vis = "visible";
         this.part2_vis = "hidden";
@@ -203,7 +234,7 @@ export default {
       let year = rand_img.YEAR;
       let real_idx = this.uniqYear.indexOf(year);
       // let real_idx = this.sortedImg.indexOf(rand_img);
-      this.timelinePos = 700 - real_idx*200;
+      this.timelinePos = 700 - real_idx * 200;
     },
     shift(idx) {
       this.displayImg = this.sortedImg[idx];
@@ -225,15 +256,14 @@ export default {
         this.currY = event.clientY;
         this.$forceUpdate();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-image{
+image {
   /*TODO: If you have time, maybe add more cursor changes 加油！*/
   cursor: pointer;
 }
-
 </style>

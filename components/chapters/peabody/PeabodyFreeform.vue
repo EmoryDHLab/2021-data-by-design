@@ -1,14 +1,7 @@
 <template>
   <div class="middle-center bg-offblack text-white mt-12 pt-8">
     <div
-      class="
-        w-full
-        flex flex-row
-        xl:flex-col
-        gap-8
-        justify-center
-        xl:items-center
-      "
+      class="w-full flex flex-row xl:flex-col gap-8 justify-center xl:items-center"
     >
       <ActorSelect
         :vertical="!$breakpoints.includes('xl')"

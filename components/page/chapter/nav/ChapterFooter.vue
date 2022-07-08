@@ -1,19 +1,16 @@
 <template>
   <div class="root">
-    <div class="title main-title">
-      Keep reading below
-    </div>
+    <div class="title main-title">Keep reading below</div>
   </div>
-
 </template>
 
 <script>
 export default {
   props: {
     title: String,
-    subtitle: String
-  }
-}
+    subtitle: String,
+  },
+};
 </script>
 
 <style scoped>
@@ -35,5 +32,4 @@ export default {
   text-align: center;
   margin: 40px 0;
 }
-
 </style>

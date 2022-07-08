@@ -56,7 +56,7 @@
   {
     "event": "Pilgrims settle Plymouth",
     "year": 1620,
-    "squares": [1,2,3,4,5,7,8,9],
+    "squares": [1, 2, 3, 4, 5, 7, 8, 9],
     "actors": ["England"]
   },
   {
@@ -218,7 +218,7 @@
   {
     "event": "New Netherlands surrendered to the English",
     "year": 1664,
-    "squares": [1,2,4,5,6,7,8,9],
+    "squares": [1, 2, 4, 5, 6, 7, 8, 9],
     "actors": ["England"]
   },
   {
@@ -249,7 +249,7 @@
     "event": "King Philip's War",
     "year": 1675,
     "squares": [2],
-    "actors": ["England","Americas"]
+    "actors": ["England", "Americas"]
   },
   {
     "event": "Narragansetts destroyed",
@@ -279,7 +279,7 @@
     "event": "\"Indian War\" in Virginia",
     "year": 1676,
     "squares": [2],
-    "actors": ["England","Americas"]
+    "actors": ["England", "Americas"]
   },
   {
     "event": "\"Indian War\" in Virginia",

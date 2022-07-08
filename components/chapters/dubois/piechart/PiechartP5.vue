@@ -21,7 +21,7 @@
       <Legend :legendList="legendList" lang="fr"></Legend>
     </div>
     <div
-      class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 font-dubois font-bold uppercase "
+      class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 font-dubois font-bold uppercase"
     >
       <p>
         THE UNIVERSITY HAS 20 PROFESSORS AND INSTRUCTORS AND 250 STUDENTS AT
@@ -58,7 +58,7 @@ import StaticData from "@/components/data-access/StaticData";
 export default {
   components: {
     Legend,
-    StaticData
+    StaticData,
   },
   data() {
     return {
@@ -67,39 +67,39 @@ export default {
         {
           eng: "Teachers",
           fr: "Professeurs et Instituteurs",
-          color: "#D92944"
+          color: "#D92944",
         },
         { eng: "Ministers", fr: "Ministres de L'evangile", color: "#FFD3D3" },
         {
           eng: "Government Service",
           fr: "Employés du Government",
-          color: "#B5CCFF"
+          color: "#B5CCFF",
         },
         { eng: "Business", fr: "Marchanos", color: "#2F4F4F" },
         {
           eng: "Other Professions",
           fr: "Medicins, Advocats, Et étudiants",
-          color: "#F8E690"
+          color: "#F8E690",
         },
-        { eng: "House Wives", fr: "Mères de Famille", color: "#FEC313" }
-      ]
+        { eng: "House Wives", fr: "Mères de Famille", color: "#FEC313" },
+      ],
     };
   },
   methods: {
     // loadedData({ name, data }) {
     //   this.studentData = data;
     // },
-    loadedData: function({ name, data }) {
-      this.$nextTick(function() {
+    loadedData: function ({ name, data }) {
+      this.$nextTick(function () {
         this.studentData = data;
       });
-    }
+    },
   },
   mounted() {
     let $vm = this;
 
     // console.log($vm.studentData);
-    const script = p5 => {
+    const script = (p5) => {
       let attachedData = this.studentData;
       let pieHeight = p5.windowWidth * 0.4;
       let numCircles = 330;
@@ -113,7 +113,7 @@ export default {
         "#2F4F4F",
         "#B5CCFF",
         "#F8E690",
-        "#FEC313"
+        "#FEC313",
       ];
       let angles = [
         0.585 * 360,
@@ -121,7 +121,7 @@ export default {
         0.021 * 360,
         0.032 * 360,
         0.038 * 360,
-        0.281 * 360
+        0.281 * 360,
       ];
 
       class Ball {
@@ -233,7 +233,7 @@ export default {
           if (collision) {
             const center = [
               Math.floor((p5.windowWidth * 0.4) / 2),
-              Math.floor((p5.windowWidth * 0.4) / 2)
+              Math.floor((p5.windowWidth * 0.4) / 2),
             ];
             const radvec = [this.x, this.y].map((c, i) => c - center[i]);
 
@@ -295,7 +295,7 @@ export default {
           { x: 43, y: 390 },
           { x: 444, y: 374 },
           { x: 390, y: 426 },
-          { x: 348, y: 445 }
+          { x: 348, y: 445 },
         ];
         for (let i = 0; i < 5; i++) {
           outsideCircles.push(
@@ -327,7 +327,7 @@ export default {
         }
       }
 
-      p5.setup = function() {
+      p5.setup = function () {
         canvas = p5.createCanvas(p5.windowWidth * 0.4, p5.windowWidth * 0.4);
         canvas.parent("vue-canvas");
 
@@ -337,54 +337,54 @@ export default {
         placeOutsideCircles();
       };
 
-      p5.draw = function() {
+      p5.draw = function () {
         p5.background("rgb(250, 241, 233)");
         pieChart(
           p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500,
           angles
         );
 
-        circles.forEach(ball => {
+        circles.forEach((ball) => {
           ball.display();
           ball.collide();
           ball.wiggle();
           ball.withinBounds();
         });
-        circles.forEach(ball => {
+        circles.forEach((ball) => {
           ball.mouseOn();
         });
-        outsideCircles.forEach(ball => {
+        outsideCircles.forEach((ball) => {
           ball.display();
         });
-        outsideCircles.forEach(ball => {
+        outsideCircles.forEach((ball) => {
           ball.mouseOn();
         });
       };
-      p5.mousePressed = function() {
-        circles.forEach(ball => {
+      p5.mousePressed = function () {
+        circles.forEach((ball) => {
           ball.pressed();
         });
-        outsideCircles.forEach(ball => {
+        outsideCircles.forEach((ball) => {
           ball.pressed();
         });
       };
-      p5.mouseDragged = function() {
-        circles.forEach(ball => {
+      p5.mouseDragged = function () {
+        circles.forEach((ball) => {
           ball.update();
         });
-        outsideCircles.forEach(ball => {
+        outsideCircles.forEach((ball) => {
           ball.update();
         });
       };
-      p5.mouseReleased = function() {
-        circles.forEach(ball => {
+      p5.mouseReleased = function () {
+        circles.forEach((ball) => {
           ball.released();
         });
-        outsideCircles.forEach(ball => {
+        outsideCircles.forEach((ball) => {
           ball.released();
         });
       };
-      p5.windowResized = function() {
+      p5.windowResized = function () {
         p5.resizeCanvas(p5.windowWidth * 0.4, p5.windowWidth * 0.4);
         circles = [];
         outsideCircles = [];
@@ -397,6 +397,6 @@ export default {
       };
     };
     new p5(script);
-  }
+  },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <img :src="src" alt="" :width="width">
+  <img :src="src" alt="" :width="width" />
 </template>
 
 <script>
@@ -8,34 +8,32 @@ export const docsDefinition = {
   componentName: "LocalImage",
   props: {
     path: {
-      type: 'string',
-      required: true
+      type: "string",
+      required: true,
     },
     width: {
-      type: 'string'
-    }
-  }
-}
+      type: "string",
+    },
+  },
+};
 
 export default {
   name: "LocalImage",
   props: {
     path: {
       type: String,
-      required: true
+      required: true,
     },
     width: {
       type: String,
-    }
+    },
   },
   computed: {
-    src () {
+    src() {
       return require(`~/assets/images/${this.path}`);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

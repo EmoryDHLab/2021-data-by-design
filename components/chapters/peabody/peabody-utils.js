@@ -1,28 +1,31 @@
 const actorColors = {
-  "England": "rgb(119,43,21)",
-  "Americas": "rgb(222,145,49)",
-  "France": "rgb(60,100,100)",
-  "Holland": "rgb(68,108,73)",
-  "Sweden": "rgb(217,182,17)",
-  "Spain": "rgb(209,42,5)",
-  "Mexico": "rgb(209,42,5)",
-  "Native": "native"
-}
+  England: "rgb(119,43,21)",
+  Americas: "rgb(222,145,49)",
+  France: "rgb(60,100,100)",
+  Holland: "rgb(68,108,73)",
+  Sweden: "rgb(217,182,17)",
+  Spain: "rgb(209,42,5)",
+  Mexico: "rgb(209,42,5)",
+  Native: "native",
+};
 
 const womensRightsActorColors = {
-  "Legislature": actorColors.England,
-  "Women": actorColors.Americas,
-  "Court": actorColors.France
-}
+  Legislature: actorColors.England,
+  Women: actorColors.Americas,
+  Court: actorColors.France,
+};
 
-const actorsIn = data => {
+const actorsIn = (data) => {
   if (Array.isArray(data)) {
-    const uniqueActors = new Set(data.flatMap(obj => obj.actors));
-    return [...uniqueActors].map(actor => ({actor, color: actorColors[actor]}));
+    const uniqueActors = new Set(data.flatMap((obj) => obj.actors));
+    return [...uniqueActors].map((actor) => ({
+      actor,
+      color: actorColors[actor],
+    }));
   }
-}
+};
 
-const dataToYears = data => {
+const dataToYears = (data) => {
   //Passes actors arrays BY REFERENCE
   return data.reduce((yearsObj, curr) => {
     if (!yearsObj[curr.year]) {
@@ -42,27 +45,48 @@ const dataToYears = data => {
           [bot],
           [left, bot],
           [bot],
-          [bot]
-        ]
-        yearsObj[curr.year] = actorsArr.map(actors => ({event: curr.event, actors}))
+          [bot],
+        ];
+        yearsObj[curr.year] = actorsArr.map((actors) => ({
+          event: curr.event,
+          actors,
+        }));
       } else if (curr.actors.length == 2) {
         const top = [curr.actors[0]];
         const bottom = [curr.actors[1]];
         const both = [curr.actors[0], curr.actors[1]];
-        const actorsArr = [top, top, both,
-          top, both, bottom,
-          both, bottom, bottom];
-        yearsObj[curr.year] = actorsArr.map(actors => ({event: curr.event, actors}))
+        const actorsArr = [
+          top,
+          top,
+          both,
+          top,
+          both,
+          bottom,
+          both,
+          bottom,
+          bottom,
+        ];
+        yearsObj[curr.year] = actorsArr.map((actors) => ({
+          event: curr.event,
+          actors,
+        }));
       } else {
-        yearsObj[curr.year] = Array(9).fill({event: curr.event, actors: curr.actors})
+        yearsObj[curr.year] = Array(9).fill({
+          event: curr.event,
+          actors: curr.actors,
+        });
       }
     } else {
-      curr.squares.forEach(squareNum =>
-        yearsObj[curr.year][squareNum - 1] = {event: curr.event, actors: curr.actors}
+      curr.squares.forEach(
+        (squareNum) =>
+          (yearsObj[curr.year][squareNum - 1] = {
+            event: curr.event,
+            actors: curr.actors,
+          })
       );
     }
-    return yearsObj
-  }, {})
-}
+    return yearsObj;
+  }, {});
+};
 
-export {actorsIn, actorColors, dataToYears, womensRightsActorColors}
+export { actorsIn, actorColors, dataToYears, womensRightsActorColors };

@@ -10,13 +10,13 @@ module.exports = {
         duboisWide: ["VTC Du Bois Wide", "serif"],
         duboisNarrow: ["VTC Du Bois Narrow", "serif"],
         sans: ["neue-haas-unica", "sans-serif"],
-        icons: ["DxD Icons"]
+        icons: ["DxD Icons"],
       },
       gridTemplateColumns: {
-        "14": "repeat(14, minmax(0, 1fr))"
+        14: "repeat(14, minmax(0, 1fr))",
       },
-      backgroundImage : {
-        'brooks': "url('/assets/images/brooks/1-sof_slaveship.jpg')",
+      backgroundImage: {
+        brooks: "url('/assets/images/brooks/1-sof_slaveship.jpg')",
       },
       colors: {
         black: "#1C1817",
@@ -38,18 +38,18 @@ module.exports = {
       },
       inset: {
         screen: "100vh",
-        "-screen": "-100vh"
+        "-screen": "-100vh",
       },
       fontSize: {
-        frontTitle: "14rem"
+        frontTitle: "14rem",
       },
       lineHeight: {
-        veryTight: "0.8"
-      }
-    }
+        veryTight: "0.8",
+      },
+    },
   },
   variants: {
-    extend: {}
+    extend: {},
   },
-  plugins: []
+  plugins: [],
 };

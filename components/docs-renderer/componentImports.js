@@ -1,10 +1,11 @@
 //The FootnoteReference component is special; if the DocsRenderer sees "FootnoteReference" as an entry in the components object, it will use that as the footnote reference component; it isn't referenced by the Google Doc itself, so it doesn't need a docsDefinition.
-import FootnoteReference from "@/components/global/docs-inclusions/FootnoteReference"
+import FootnoteReference from "@/components/global/docs-inclusions/FootnoteReference";
 
 export function contextModules(context) {
-  const modules = context.keys()
-    .map(key => context(key))
-    .filter(module => "docsDefinition" in module);
+  const modules = context
+    .keys()
+    .map((key) => context(key))
+    .filter((module) => "docsDefinition" in module);
   return modules;
 }
 
@@ -19,11 +20,16 @@ async function chapterModules(chapterId) {
 }
 
 function definitions(modules) {
-  return modules.map(module => module.docsDefinition);
+  return modules.map((module) => module.docsDefinition);
 }
 
 function components(modules) {
-  return Object.fromEntries(modules.map(module => [module.docsDefinition.componentName, module.default]));
+  return Object.fromEntries(
+    modules.map((module) => [
+      module.docsDefinition.componentName,
+      module.default,
+    ])
+  );
 }
 
 export async function chapterComponents(chapterId) {
@@ -34,7 +40,12 @@ export async function chapterDefinitions(chapterId) {
   return definitions(await chapterModules(chapterId));
 }
 
-const globalModules = contextModules(require.context("@/components/global/docs-inclusions", true, /\.vue$/));
+const globalModules = contextModules(
+  require.context("@/components/global/docs-inclusions", true, /\.vue$/)
+);
 
 export const globalDefinitions = definitions(globalModules);
-export const globalComponents = {FootnoteReference, ...components(globalModules)};
+export const globalComponents = {
+  FootnoteReference,
+  ...components(globalModules),
+};

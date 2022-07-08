@@ -25,12 +25,12 @@ export default {
     innerWidth: Number,
     y: Number,
     yScale: Function,
-    maxY: Number
+    maxY: Number,
   },
   computed: {
-    yValue: function() {
+    yValue: function () {
       return this.yScale(this.y);
-    }
-  }
+    },
+  },
 };
 </script>

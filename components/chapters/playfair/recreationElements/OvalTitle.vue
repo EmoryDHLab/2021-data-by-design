@@ -46,8 +46,8 @@ export default {
     ellipse: Object,
     topText: Object,
     midText: Object,
-    botText: Object
+    botText: Object,
   },
-  computed: {}
+  computed: {},
 };
 </script>

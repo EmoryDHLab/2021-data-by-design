@@ -94,10 +94,10 @@ export const docsDefinition = {
   componentName: "Scrollytell",
   props: {
     groups: {
-      type: "number"
-    }
+      type: "number",
+    },
   },
-  slots: ["sticky", /^group:(\d+)/]
+  slots: ["sticky", /^group:(\d+)/],
 };
 
 export default {
@@ -105,7 +105,7 @@ export default {
     return {
       htmlAttrs: {
         // style: "scroll-snap-type:y mandatory"
-      }
+      },
     };
   },
   components: { GridLayout },
@@ -113,12 +113,12 @@ export default {
     groups: Number,
     collect: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   provide() {
     return {
-      scrollData: this.scrollData
+      scrollData: this.scrollData,
     };
   },
   data: () => ({
@@ -130,19 +130,19 @@ export default {
     sections: {
       above: {
         enter: false,
-        leave: false
+        leave: false,
       },
       below: {
         enter: false,
-        leave: false
-      }
+        leave: false,
+      },
     },
     scrollData: {
       direction: undefined,
       progress: -1,
       leaveProgress: 0,
-      current: undefined
-    }
+      current: undefined,
+    },
   }),
   computed: {
     snapRange() {
@@ -165,9 +165,9 @@ export default {
     },
     totalHeightStyle() {
       return {
-        height: this.totalHeightUnits
+        height: this.totalHeightUnits,
       };
-    }
+    },
     // localVars() {
     //   const gap = "600px";
     //   return {
@@ -184,7 +184,7 @@ export default {
       return {
         position: "sticky",
         top: `${this.cumulativeHeights[i] + this.leaveOffset}px`,
-        marginBottom: `100rem`
+        marginBottom: `100rem`,
       };
     },
     mobileNextClick() {
@@ -193,7 +193,7 @@ export default {
     mobilePrevClick() {
       this.scrollData.current--;
     },
-    transitionStyle(i) {}
+    transitionStyle(i) {},
   },
   mounted() {
     ScrollTrigger.create({
@@ -201,7 +201,7 @@ export default {
       // endTrigger: this.$refs.screenBelow,
       start: "+20px bottom",
       end: "bottom top",
-      onToggle: instance => {
+      onToggle: (instance) => {
         const { isActive } = instance;
         this.scrollytellActive = isActive;
         if (isActive) {
@@ -210,10 +210,10 @@ export default {
       },
       onUpdate: ({ direction }) => {
         this.direction = direction;
-      }
+      },
     });
 
-    ["above", "below"].map(side => {
+    ["above", "below"].map((side) => {
       const section = this.sections[side];
       ScrollTrigger.create({
         trigger: this.$refs[side],
@@ -230,7 +230,7 @@ export default {
         },
         onLeave: () => {
           section.leave = true;
-        }
+        },
       });
     });
 
@@ -254,8 +254,8 @@ export default {
             start: "bottom bottom",
             end: `top ${cumulative}px`,
             onUpdate: ({ progress }) => (this.scrollData.progress = progress),
-            onEnter: instance => (this.scrollData.current = i),
-            onLeaveBack: instance => (this.scrollData.current = i - 1)
+            onEnter: (instance) => (this.scrollData.current = i),
+            onLeaveBack: (instance) => (this.scrollData.current = i - 1),
           });
         });
         ScrollTrigger.create({
@@ -265,7 +265,7 @@ export default {
           onUpdate: ({ progress, direction, start, end }) => {
             this.scrollData.leaveProgress = progress;
             this.leaveOffset = (start - end) * progress;
-          }
+          },
         });
         this.cumulativeHeights = cumulativeHeights;
       } else {
@@ -278,13 +278,13 @@ export default {
               this.scrollData.progress = progress;
               this.scrollData.direction = direction;
             },
-            onEnter: instance => (this.scrollData.current = i),
-            onLeaveBack: instance => (this.scrollData.current = i - 1)
+            onEnter: (instance) => (this.scrollData.current = i),
+            onLeaveBack: (instance) => (this.scrollData.current = i - 1),
           });
         });
       }
     }, 2100);
-  }
+  },
 };
 </script>
 <style scoped>

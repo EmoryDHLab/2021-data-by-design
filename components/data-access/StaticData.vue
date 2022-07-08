@@ -5,39 +5,35 @@
 </template>
 
 <script>
-import {mapMutations, mapGetters} from "vuex"
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   props: {
     dataset: {
       type: [String, Array],
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
-    ...mapMutations("currentChapter", ["setStaticData"])
+    ...mapMutations("currentChapter", ["setStaticData"]),
   },
   computed: {
-    ...mapGetters("currentChapter", ["staticData"])
+    ...mapGetters("currentChapter", ["staticData"]),
   },
   async fetch() {
     const toFetch = Array.isArray(this.dataset) ? this.dataset : [this.dataset];
 
     toFetch
-      .filter(name => !(name in this.staticData))
-      .forEach(name => {
+      .filter((name) => !(name in this.staticData))
+      .forEach((name) => {
         console.log("Fetching static dataset " + name);
-      this.$http.$get(`/api/data/${name}`)
-        .then(data => {
-          this.$emit("loaded", {name, data});
-          this.setStaticData({name, data});
-        })
-    })
-
-  }
-}
+        this.$http.$get(`/api/data/${name}`).then((data) => {
+          this.$emit("loaded", { name, data });
+          this.setStaticData({ name, data });
+        });
+      });
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

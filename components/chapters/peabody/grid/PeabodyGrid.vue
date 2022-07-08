@@ -1,12 +1,23 @@
 <template>
   <svg class="w-full" viewBox="0 0 99 99" @click="$emit('click')">
-    <image v-if="overlayPath" :href="imgSrc" x="-3.5" y="-3.5" width="105.5" height="106"/>
+    <image
+      v-if="overlayPath"
+      :href="imgSrc"
+      x="-3.5"
+      y="-3.5"
+      width="105.5"
+      height="106"
+    />
     <g :opacity="overlayPath && 1">
-      <rect v-if="!overlayPath" class="text-peabodyorange fill-current" x="0" width="100" height="99" @mouseout="hoveredYear = false"/>
-      <g
-        v-for="(n, i) in 100"
-        @mouseover="hoveredYear = i"
-      >
+      <rect
+        v-if="!overlayPath"
+        class="text-peabodyorange fill-current"
+        x="0"
+        width="100"
+        height="99"
+        @mouseout="hoveredYear = false"
+      />
+      <g v-for="(n, i) in 100" @mouseover="hoveredYear = i">
         <YearSquare
           :width="yearWidth - yearWidth / 48"
           :height="yearWidth - yearWidth / 48"
@@ -23,18 +34,20 @@
           :year="getYear(i)"
           :label="showLabels && startYear + n"
           v-on="$listeners"
-        >
-        </YearSquare>
+        ></YearSquare>
       </g>
     </g>
-    <slot v-bind:hoveredYear="hoveredYear" v-bind:methods="{ getYearXFromIndex, getYearYFromIndex }"></slot>
+    <slot
+      v-bind:hoveredYear="hoveredYear"
+      v-bind:methods="{ getYearXFromIndex, getYearYFromIndex }"
+    ></slot>
   </svg>
 </template>
 
 <script>
 import Visualization from "~/components/mixins/Visualization";
-import {actorColors, dataToYears} from "../peabody-utils";
-import YearSquare from './YearSquare.vue';
+import { actorColors, dataToYears } from "../peabody-utils";
+import YearSquare from "./YearSquare.vue";
 import EventKeyBox from "../key/EventKeyBox";
 
 export const docsDefinition = {
@@ -53,8 +66,7 @@ export default {
         if (isNaN(number)) return false;
         const str = String(number);
         const hasDecimal = str.includes(".");
-        const oneDigitDecimal =
-          str.slice(str.indexOf(".") + 1).length == 1;
+        const oneDigitDecimal = str.slice(str.indexOf(".") + 1).length == 1;
         return (!hasDecimal || oneDigitDecimal) && number >= 1 && number < 101;
       },
     },
@@ -62,14 +74,17 @@ export default {
       type: [Array, Number],
       validator(arr) {
         if (Array.isArray(arr)) {
-          return arr?.every(yearObj => {
+          return arr?.every((yearObj) => {
             const requiredKeys = ["event", "year", "squares", "actors"];
-            return typeof yearObj === "object" && requiredKeys.every(key => key in yearObj);
-          })
+            return (
+              typeof yearObj === "object" &&
+              requiredKeys.every((key) => key in yearObj)
+            );
+          });
         }
         const num = arr;
         return num >= 0;
-      }
+      },
     },
     showSquares: {
       type: Boolean,
@@ -94,7 +109,7 @@ export default {
     return {
       yearWidth: 9,
       hoveredYear: false,
-    }
+    };
   },
   computed: {
     years() {
@@ -124,17 +139,20 @@ export default {
       return this.highlighted && Math.floor(this.highlighted);
     },
     highlightedSquare() {
-      return this.highlighted && Math.round((this.highlighted - this.highlightedYear) * 10);
+      return (
+        this.highlighted &&
+        Math.round((this.highlighted - this.highlightedYear) * 10)
+      );
     },
-    imgSrc () {
+    imgSrc() {
       if (this.overlayPath) {
         return require(`~/assets/images/${this.overlayPath}`);
       }
-    }
+    },
   },
   methods: {
-    hoverStart (data) {
-      this.$emit('hoverStart', data);
+    hoverStart(data) {
+      this.$emit("hoverStart", data);
     },
     getYear(n) {
       return this.startYear + n;

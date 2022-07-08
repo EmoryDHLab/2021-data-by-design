@@ -9,7 +9,7 @@ const injects = {
   registerEvent: "registerEvent",
   registerEvents: "registerEvents",
   data: "data",
-  transform: "transform"
+  transform: "transform",
 };
 
 // This mixin helps the visualization interface with vuex to get its data
@@ -17,21 +17,21 @@ const Visualization = ({
   staticDataset,
   mutableDataset,
   notebookName,
-  saveProps
+  saveProps,
 } = {}) => ({
   props: {
     width: {
       type: String,
-      required: true
+      required: true,
     },
     showIndicator: {
       type: Boolean,
-      default: true
+      default: true,
     },
     isInNotebook: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
     /*Looks for these "optional" props on the mixed-in Component:
     staticDataset: String
     mutableDataset: String
@@ -40,7 +40,7 @@ const Visualization = ({
   data() {
     return {
       registeredEvents: {},
-      indicatorRendered: false
+      indicatorRendered: false,
     };
   },
   methods: {
@@ -51,10 +51,10 @@ const Visualization = ({
       return `calc(${this.width} ${expression})`;
     },
     registerEvent(vueInstance, eventName) {
-      vueInstance.$on(eventName, event => this.$emit(eventName, event));
+      vueInstance.$on(eventName, (event) => this.$emit(eventName, event));
     },
     registerEvents(vueInstance, eventsArray) {
-      eventsArray.forEach(eventName =>
+      eventsArray.forEach((eventName) =>
         this.registerEvent(vueInstance, eventName)
       );
     },
@@ -62,7 +62,7 @@ const Visualization = ({
       if (this.mutableId) {
         this.transformMutableData({
           id: this.mutableId,
-          transform: transformFunc
+          transform: transformFunc,
         });
       }
     },
@@ -77,8 +77,8 @@ const Visualization = ({
     },
     ...mapActions({
       loadStaticDataset: "dataset/loadDataset",
-      registerVisualization: "chapters/registerVisualization"
-    })
+      registerVisualization: "chapters/registerVisualization",
+    }),
   },
   provide() {
     return Object.fromEntries(
@@ -181,7 +181,7 @@ const Visualization = ({
     //   this.$el.append(dragger);
     //   this.indicatorRendered = true;
     // }
-  }
+  },
 });
 
 export { injects, Visualization as default };

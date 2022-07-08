@@ -2,16 +2,16 @@
 export default {
   inject: {
     theme: {
-      default: false
-    }
+      default: false,
+    },
   },
-  mounted () {
+  mounted() {
     if (this.theme) {
       const styleString = Object.entries(this.theme)
-        .map( ([propName, propValue]) => `--${propName}: ${propValue}`)
+        .map(([propName, propValue]) => `--${propName}: ${propValue}`)
         .join("; ");
 
       this.$el.style = styleString;
     }
   },
-}
+};

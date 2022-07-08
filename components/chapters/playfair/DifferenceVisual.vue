@@ -15,6 +15,6 @@ import Recreation from "@/components/chapters/playfair/recreationElements/Recrea
 import StaticData from "@/components/data-access/StaticData";
 
 export default {
-  components: { Recreation, StaticData }
+  components: { Recreation, StaticData },
 };
 </script>

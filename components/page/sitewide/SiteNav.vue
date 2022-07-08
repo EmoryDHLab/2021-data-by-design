@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full bg-black flex justify-evenly pb-2 pt-2 ">
-    <div class="font-william text-white text-2xl ">
+  <div class="w-full bg-black flex justify-evenly pb-2 pt-2">
+    <div class="font-william text-white text-2xl">
       <NuxtLink to="/">Data by Design</NuxtLink>
     </div>
     <div class="flex justify-between w-2/5">
@@ -16,7 +16,7 @@
           class="absolute z-20 top-10 border divide-y"
           :class="{
             visible: hoverPage == page.name,
-            invisible: hoverPage != page.name
+            invisible: hoverPage != page.name,
           }"
         >
           <div
@@ -37,7 +37,7 @@ import chaptersConfig from "@/chapters-config";
 const chaptersChildren = Object.values(chaptersConfig).map(
   ({ navName, id }) => ({
     to: `/chapters/${id}/`,
-    name: navName
+    name: navName,
   })
 );
 
@@ -48,18 +48,18 @@ export default {
       pages: [
         {
           name: "Home",
-          to: "/"
+          to: "/",
         },
         {
           name: "Chapters",
           to: "/",
-          children: chaptersChildren
+          children: chaptersChildren,
         },
         {
           name: "About this Site",
-          to: "/sandbox"
-        }
-      ]
+          to: "/sandbox",
+        },
+      ],
     };
   },
   methods: {
@@ -68,7 +68,7 @@ export default {
     },
     onLeave() {
       this.hoverPage = "";
-    }
-  }
+    },
+  },
 };
 </script>

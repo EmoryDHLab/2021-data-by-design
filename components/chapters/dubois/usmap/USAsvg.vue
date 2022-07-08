@@ -68,12 +68,10 @@
           fill="black"
         />
       </svg>
-      <p class="font-dubois uppercase">
-        Atlanta University
-      </p>
+      <p class="font-dubois uppercase">Atlanta University</p>
     </div>
     <div
-      class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 flex flex-col font-dubois uppercase text-center "
+      class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 flex flex-col font-dubois uppercase text-center"
     >
       <p>
         The university was founded in 1867. It has instructed 6000 negro
@@ -83,9 +81,7 @@
         L' université a été fondée en 1867. Elle a donné l'' instruction a' 6000
         étudiants negres.
       </p>
-      <p>
-        It has graduated 330 negroes among whom are:
-      </p>
+      <p>It has graduated 330 negroes among whom are:</p>
       <p class="text-red-500">Elle a délivre des diplomes a 330 nègres dont:</p>
     </div>
   </StaticData>
@@ -96,7 +92,7 @@ import StaticData from "@/components/data-access/StaticData";
 
 export default {
   components: { StaticData },
-  data: function() {
+  data: function () {
     return {
       statesJson: null,
       collegeList: [
@@ -119,7 +115,7 @@ export default {
         { city: "Glendale, CA", lat: "34.15", lng: "-118.26" },
         { city: "San Diego, CA", lat: "32.82", lng: "-117.13" },
         { city: "St. Paul, MN", lat: "44.95", lng: "-93.10" },
-        { city: "Charleston, SC", lat: "32.82", lng: "-79.96" }
+        { city: "Charleston, SC", lat: "32.82", lng: "-79.96" },
       ],
       colorStates: [
         { state: "Alabama", color: "#D92944" },
@@ -171,14 +167,14 @@ export default {
         { state: "Wisconsin", color: "#F8BF55" },
         { state: "Wyoming", color: "#3B6FE0" },
         { state: "Hawaii", color: "#FFFFFF" },
-        { state: "Alaska", color: "#FFFFFF" }
-      ]
+        { state: "Alaska", color: "#FFFFFF" },
+      ],
     };
   },
   methods: {
     loadedData({ name, data }) {
       this.statesJson = data;
-    }
+    },
   },
   computed: {
     projectionUSA() {
@@ -189,27 +185,27 @@ export default {
     },
     stateData() {
       return this.statesJson
-        ? this.statesJson.features.map(feature => {
+        ? this.statesJson.features.map((feature) => {
             let state = this.colorStates.find(
-              state => state.state === feature.properties.NAME
+              (state) => state.state === feature.properties.NAME
             );
             return {
               feature,
               name: state.state,
-              color: state.color
+              color: state.color,
             };
           })
         : [];
     },
     cityData() {
-      return this.collegeList.map(city => {
+      return this.collegeList.map((city) => {
         return {
           city: city.city,
           x: this.projectionUSA([city.lng, city.lat])[0],
-          y: this.projectionUSA([city.lng, city.lat])[1]
+          y: this.projectionUSA([city.lng, city.lat])[1],
         };
       });
-    }
-  }
+    },
+  },
 };
 </script>

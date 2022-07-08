@@ -7,15 +7,15 @@ export default {
     x: Object,
     xScale: Function,
     yScale: Function,
-    color: String
+    color: String,
   },
   computed: {
-    xValue: function() {
+    xValue: function () {
       return this.xScale(this.x.x);
     },
-    yValue: function() {
+    yValue: function () {
       return this.yScale(this.x.y);
-    }
-  }
+    },
+  },
 };
 </script>

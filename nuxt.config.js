@@ -1,32 +1,27 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'data-by-design',
+    title: "data-by-design",
     htmlAttrs: {
-      lang: 'en',
+      lang: "en",
     },
     meta: [
-      {charset: 'utf-8'},
-      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-      {hid: 'description', name: 'description', content: ''}
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { hid: "description", name: "description", content: "" },
     ],
-    link: [
-      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
-    ]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
-  serverMiddleware:
-    {
-      "/api": "~/api/index.js"
-    },
+  serverMiddleware: {
+    "/api": "~/api/index.js",
+  },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["@/assets/fonts.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    "~/plugins/breakpoints.js"
-  ],
+  plugins: ["~/plugins/breakpoints.js"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   // components: [
@@ -35,31 +30,27 @@ export default {
   // ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    "@nuxtjs/tailwindcss",
-  ],
+  buildModules: ["@nuxtjs/tailwindcss"],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    "@nuxt/http"
-  ],
+  modules: ["@nuxt/http"],
 
   target: "static",
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: ["gsap"]
+    transpile: ["gsap"],
   },
 
   server: {
-    port: "3003"
+    port: "3003",
   },
 
   generate: {
-    routes: ["/chapters/peabody", "/chapters/playfair"]
+    routes: ["/chapters/peabody", "/chapters/playfair"],
   },
 
   tailwindcss: {
-    exposeConfig: true
-  }
-}
+    exposeConfig: true,
+  },
+};

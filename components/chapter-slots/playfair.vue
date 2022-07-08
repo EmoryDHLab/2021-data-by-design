@@ -32,19 +32,19 @@ export default {
     DifferenceVisual,
     PChart,
     BySide,
-    HoverText
+    HoverText,
   },
   mixins: [ChapterSlots],
   data() {
     return {
       slots: {
-        hoverText: n => `Hover${n}`,
+        hoverText: (n) => `Hover${n}`,
         diffVis: "Difference Visualization",
         pCharts: "Playfair-style Charts",
-        bySide: "Side-by-side"
+        bySide: "Side-by-side",
       },
       hover: ["Covid", "Income", "Women"],
-      chosenHover: "Covid"
+      chosenHover: "Covid",
     };
   },
   chapterState: {},
@@ -60,8 +60,8 @@ export default {
       this.chapterState.overlayHighlight = positions[n - 4];
       this.chosenHover = n;
     },
-    overlayHoverOut() {}
-  }
+    overlayHoverOut() {},
+  },
 };
 </script>
 

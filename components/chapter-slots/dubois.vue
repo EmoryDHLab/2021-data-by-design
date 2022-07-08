@@ -22,16 +22,20 @@ export default {
   components: {
     PiechartP5,
     USAsvg,
-    Chart63
+    Chart63,
   },
   mixins: [ChapterSlots],
   data() {
     return {
-      slots: { test: "TestComponent", testUSA: "TestUSA", chart63: "63 Charts" }
+      slots: {
+        test: "TestComponent",
+        testUSA: "TestUSA",
+        chart63: "63 Charts",
+      },
     };
   },
   chapterState: {},
-  methods: {}
+  methods: {},
 };
 </script>
 
