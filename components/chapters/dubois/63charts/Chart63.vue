@@ -683,7 +683,6 @@ export default {
     },
 
     showNext() {
-      console.log(this.imgs.length);
       if (this.imgs.length > this.showImgIndex) {
         this.showImgIndex += 1;
         this.showImg = this.imgs.find((v, i) => i == this.showImgIndex);
