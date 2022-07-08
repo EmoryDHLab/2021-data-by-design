@@ -178,7 +178,7 @@ export default {
     ScatterPlot,
     OvalTitle,
     StippleHatch,
-    ColorArea
+    ColorArea,
   },
   inject: ["scrollData"],
   data() {
@@ -186,14 +186,14 @@ export default {
       height: 44,
       width: 94,
       margin: 3,
-      innerGridWidth: (94 / 11) * 10 + 3
+      innerGridWidth: (94 / 11) * 10 + 3,
     };
   },
   props: {
     playfairData: {
       type: Array,
       validator(arr) {
-        return arr?.every(data => {
+        return arr?.every((data) => {
           const requiredKeys = [
             "Years",
             "Imports",
@@ -202,16 +202,16 @@ export default {
             "Imports1801",
             "Exports1801",
             "ImportsDraft",
-            "ExportsDraft"
+            "ExportsDraft",
           ];
-          return requiredKeys.every(key => key in data);
+          return requiredKeys.every((key) => key in data);
         });
-      }
-    }
+      },
+    },
   },
   created() {
-    this.maxOn = prop => Math.max(...this.playfairData.map(d => d[prop]));
-    this.minOn = prop => Math.min(...this.playfairData.map(d => d[prop]));
+    this.maxOn = (prop) => Math.max(...this.playfairData.map((d) => d[prop]));
+    this.minOn = (prop) => Math.min(...this.playfairData.map((d) => d[prop]));
     this.maxImport = this.maxOn("Imports");
     this.minImport = this.minOn("Imports");
     this.maxExport = this.maxOn("Exports");
@@ -252,7 +252,7 @@ export default {
     },
     scaleMapper(sOut, sIn) {
       const m = (1.0 * sOut[1] - sOut[0]) / (sIn[1] - sIn[0]);
-      return x => sOut[0] + m * (x - sIn[0]);
+      return (x) => sOut[0] + m * (x - sIn[0]);
     },
     transitionIn(val, array) {
       if (val <= array[0]) {
@@ -276,7 +276,7 @@ export default {
       } else {
         return 1;
       }
-    }
+    },
   },
   computed: {
     scrollProg() {
@@ -289,10 +289,10 @@ export default {
       const path = d3
         .area()
         .curve(d3.curveCatmullRom)
-        .x0(d => this.xScale(d.Years) + 3)
-        .x1(d => this.xScale(d.Years) + 3)
-        .y0(d => this.yScale(d.Imports) + 3)
-        .y1(d => this.yScale(d.Exports) + 3);
+        .x0((d) => this.xScale(d.Years) + 3)
+        .x1((d) => this.xScale(d.Years) + 3)
+        .y0((d) => this.yScale(d.Imports) + 3)
+        .y1((d) => this.yScale(d.Exports) + 3);
       return path(this.playfairData);
     },
 
@@ -300,10 +300,10 @@ export default {
       const path = d3
         .area()
         .curve(d3.curveCatmullRom)
-        .x0(d => this.xScale(d.Years) + 3)
-        .x1(d => this.xScale(d.Years) + 3)
-        .y0(d => this.yScale(d.Imports1801) + 3)
-        .y1(d => this.yScale(d.Exports1801) + 3);
+        .x0((d) => this.xScale(d.Years) + 3)
+        .x1((d) => this.xScale(d.Years) + 3)
+        .y0((d) => this.yScale(d.Imports1801) + 3)
+        .y1((d) => this.yScale(d.Exports1801) + 3);
 
       return path(this.playfairData);
     },
@@ -315,19 +315,19 @@ export default {
     transformExportText() {
       return "rotate(-65) translate(" + -8 + "," + 60 + ")";
     },
-    scatterImport: function() {
+    scatterImport: function () {
       return this.playfairData
-        .map(d => ({
+        .map((d) => ({
           x: d.Years,
-          y: d.Imports
+          y: d.Imports,
         }))
         .slice(8, 21); // years 1770-1782
     },
-    scatterExport: function() {
+    scatterExport: function () {
       return this.playfairData
-        .map(d => ({
+        .map((d) => ({
           x: d.Years,
-          y: d.Exports
+          y: d.Exports,
         }))
         .slice(8, 21); // years 1770-1782
     },
@@ -352,7 +352,7 @@ export default {
         .range([0, (this.width / 11) * 10])
         .domain(
           // extent is the equivalent of calling min and max simultaneously
-          d3.extent(this.playfairData, function(d) {
+          d3.extent(this.playfairData, function (d) {
             return d.Years;
           })
         );
@@ -365,8 +365,8 @@ export default {
           // pick y domain based on smallest and largest number of combined import and export numbers + yInterval for more space
           .domain([0, this.maxY + this.interval])
       );
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped></style>

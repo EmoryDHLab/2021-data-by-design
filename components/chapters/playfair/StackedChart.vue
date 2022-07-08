@@ -122,13 +122,13 @@ export default {
       height: 44,
       width: 58,
       margin: 3,
-      innerGridWidth: (58 / 11) * 10 + 3
+      innerGridWidth: (58 / 11) * 10 + 3,
     };
   },
   props: {
     playfairData: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   created() {
     this.interval = 500000;
@@ -159,48 +159,48 @@ export default {
     strokeFormatterY(tickVal) {
       if ((tickVal / 1000000) % 1 === 0) return 0.2;
       else return 0.1;
-    }
+    },
   },
   computed: {
-    maxImport: function() {
-      var maxOn = prop => Math.max(...this.playfairData.map(d => d[prop]));
+    maxImport: function () {
+      var maxOn = (prop) => Math.max(...this.playfairData.map((d) => d[prop]));
       return maxOn("Imports");
     },
-    minImport: function() {
-      var minOn = prop => Math.min(...this.playfairData.map(d => d[prop]));
+    minImport: function () {
+      var minOn = (prop) => Math.min(...this.playfairData.map((d) => d[prop]));
       return minOn("Imports");
     },
-    maxExport: function() {
-      var maxOn = prop => Math.max(...this.playfairData.map(d => d[prop]));
+    maxExport: function () {
+      var maxOn = (prop) => Math.max(...this.playfairData.map((d) => d[prop]));
       return maxOn("Exports");
     },
-    maxY: function() {
-      return d3.max(this.playfairData, function(d) {
+    maxY: function () {
+      return d3.max(this.playfairData, function (d) {
         return Number(d.Exports) + Number(d.Imports);
       });
     },
-    minYear: function() {
+    minYear: function () {
       return Number(
-        d3.min(this.playfairData, function(d) {
+        d3.min(this.playfairData, function (d) {
           return d.Years;
         })
       );
     },
-    maxYear: function() {
+    maxYear: function () {
       return Number(
-        d3.max(this.playfairData, function(d) {
+        d3.max(this.playfairData, function (d) {
           return d.Years;
         })
       );
     },
-    xValues: function() {
+    xValues: function () {
       var xNums = [];
       for (var i = this.minYear; i <= this.maxYear; i += 10) {
         xNums.push(i);
       }
       return xNums;
     },
-    yValues: function() {
+    yValues: function () {
       var yNums = [];
       for (var i = this.interval; i <= this.maxY; i += this.interval) {
         yNums.push(i);
@@ -223,30 +223,30 @@ export default {
       return d3.stack().keys(["Imports", "Exports"])(this.playfairData);
     },
     importBars() {
-      let importBars = this.stackedData[0].map(d => {
+      let importBars = this.stackedData[0].map((d) => {
         return {
           xLabel: "Imports",
           x: this.xScale(d.data.Years),
           y: this.yScale(d[1]),
           width: 3,
-          height: this.height - this.yScale(d[1])
+          height: this.height - this.yScale(d[1]),
         };
       });
       return importBars;
     },
     exportBars() {
-      let exportBars = this.stackedData[1].map(d => {
+      let exportBars = this.stackedData[1].map((d) => {
         return {
           xLabel: "Exports",
           x: this.xScale(d.data.Years),
           y: this.yScale(d[1]),
           width: 3,
-          height: this.height - this.yScale(d[1])
+          height: this.height - this.yScale(d[1]),
         };
       });
       return exportBars;
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped></style>

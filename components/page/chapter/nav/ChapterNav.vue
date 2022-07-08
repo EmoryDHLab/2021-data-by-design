@@ -1,47 +1,48 @@
 <template>
-  <div class="nav-bar transition" ref="bar"
-       :style="barStyle"
-       @mouseout="hovering=false" @mouseover="hovering=true">
+  <div
+    class="nav-bar transition"
+    ref="bar"
+    :style="barStyle"
+    @mouseout="hovering = false"
+    @mouseover="hovering = true"
+  >
     <div v-if="$isMobile" class="flex flex-row justify-between px-2">
       <a href="javascript:;" class="hover:underline" @click="prevClick"> << </a>
-<!--      <div> {{ currentSection }}</div>-->
+      <!--      <div> {{ currentSection }}</div>-->
       <a href="javascript:;" class="hover:underline" @click="nextClick"> >> </a>
     </div>
-    <div v-else>
-      breakpoint {{$breakpoint}}
-    </div>
+    <div v-else>breakpoint {{ $breakpoint }}</div>
   </div>
 </template>
 
 <script>
-import gsap from "gsap"
-import {ScrollTrigger} from "gsap/ScrollTrigger";
-import {mapMutations, mapState} from "vuex";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { mapMutations, mapState } from "vuex";
 
-if (process.client)
-  gsap.registerPlugin(ScrollTrigger);
+if (process.client) gsap.registerPlugin(ScrollTrigger);
 
 export default {
   data: () => ({
     hovering: false,
-    fixed: false
+    fixed: false,
   }),
   computed: {
-    barStyle () {
+    barStyle() {
       const show = !this.fixed || this.hovering;
       return {
-        opacity: show ? "100%" : "0%"
-      }
+        opacity: show ? "100%" : "0%",
+      };
     },
-    ...mapState("currentChapter", ["currentSection"])
+    ...mapState("currentChapter", ["currentSection"]),
   },
-  mounted () {
-      ScrollTrigger.create({
-        trigger: this.$refs.bar,
-        start: "bottom top",
-        onEnter: () => this.fixed = true,
-        onEnterBack: () => this.fixed = false
-      })
+  mounted() {
+    ScrollTrigger.create({
+      trigger: this.$refs.bar,
+      start: "bottom top",
+      onEnter: () => (this.fixed = true),
+      onEnterBack: () => (this.fixed = false),
+    });
   },
   methods: {
     ...mapMutations("currentChapter", ["nextSection", "prevSection"]),
@@ -50,10 +51,9 @@ export default {
     },
     nextClick() {
       this.nextSection();
-    }
+    },
   },
-
-}
+};
 </script>
 
 <style scoped>
@@ -73,5 +73,4 @@ export default {
 .transition {
   transition: opacity 0.5s;
 }
-
 </style>

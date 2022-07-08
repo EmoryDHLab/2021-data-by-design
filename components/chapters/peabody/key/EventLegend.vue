@@ -1,14 +1,7 @@
 <template>
   <div class="font-sans text-sm tracking-wide" :class="layoutClass">
     <div
-      class="
-        cursor-pointer
-        flex flex-row
-        gap-2
-        h-12
-        pl-2
-        border-l-2 border-transparent
-      "
+      class="cursor-pointer flex flex-row gap-2 h-12 pl-2 border-l-2 border-transparent"
       v-for="(event, i) in legendText"
       :key="event"
       :class="{ 'border-peabodyorange': value == i + 1 }"

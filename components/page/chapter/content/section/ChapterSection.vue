@@ -1,24 +1,30 @@
 <template>
   <div class="section-root">
-    <SectionTitle class="my-12" v-if="title" :title="title"/>
+    <SectionTitle class="my-12" v-if="title" :title="title" />
 
     <GridLayout v-if="$isMobile" class="space-y-4 my-8">
       <template v-for="(group, g) in renderGroups">
-        <div v-for="(components, c) in mobileGroups(group)"
-             :key="`${g}-${c}`"
-             class="col-start-2 col-end-10"
+        <div
+          v-for="(components, c) in mobileGroups(group)"
+          :key="`${g}-${c}`"
+          class="col-start-2 col-end-10"
         >
-          <Component
-            :is="docsRenderer"
-            :docContent="components"></Component>
+          <Component :is="docsRenderer" :docContent="components"></Component>
         </div>
       </template>
     </GridLayout>
 
     <div class="space-y-10" v-else>
       <div v-for="group in renderGroups">
-        <MiddleSubgrid v-if="'components' in group" :docContent="group.components"></MiddleSubgrid>
-        <LeaderFollowPair v-else :left-content="group.left" :right-content="group.right || []">
+        <MiddleSubgrid
+          v-if="'components' in group"
+          :docContent="group.components"
+        ></MiddleSubgrid>
+        <LeaderFollowPair
+          v-else
+          :left-content="group.left"
+          :right-content="group.right || []"
+        >
         </LeaderFollowPair>
       </div>
     </div>
@@ -36,21 +42,23 @@ export default {
     title: [String, Boolean],
     renderGroups: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
-  components: {MiddleSubgrid, SectionTitle, GridLayout, LeaderFollowPair},
+  components: { MiddleSubgrid, SectionTitle, GridLayout, LeaderFollowPair },
 
   inject: ["docsRenderer"],
   methods: {
     mobileGroups(renderGroup) {
       const order = ["components", "right", "left"];
-      const groups = order.map(key => key in renderGroup && renderGroup[key]).filter(Boolean);
+      const groups = order
+        .map((key) => key in renderGroup && renderGroup[key])
+        .filter(Boolean);
       if (!groups || !groups.length) {
         debugger;
       }
       return groups;
-    }
-  }
-}
+    },
+  },
+};
 </script>

@@ -14,10 +14,8 @@
 
 <script>
 export default {
-  name: "ChapterCard"
-}
+  name: "ChapterCard",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

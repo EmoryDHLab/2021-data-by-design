@@ -1,5 +1,5 @@
-<template
-  ><div
+<template>
+  <div
     class="col-span-10 2xl:col-span-14 2xl:col-end-13 flex w-full mx-auto bg-black"
   >
     <div class="button py-10 px-5 flex flex-col items-center">
@@ -48,7 +48,7 @@
             <div class="flex justify-center align-middle">
               <button>
                 <img
-                  style="width:27.5px;height:19.5px; margin-top:20px;"
+                  style="width: 27.5px; height: 19.5px; margin-top: 20px"
                   src="@/assets/images/dubois/leftarrow.png"
                   @click="showNext"
                 />
@@ -58,25 +58,25 @@
             <div>
               <p
                 class="my-2 text-white-600 font-normal text-lg"
-                style="color: white; text-align: center;margin-top:20px;"
+                style="color: white; text-align: center; margin-top: 20px"
               >
                 {{ showImg.text }}
               </p>
               <p
                 class="text-white-600 font-thin text-sm"
-                style="color: white; text-align: center;"
+                style="color: white; text-align: center"
               >
                 {{ showImg.credit1 }}
               </p>
               <p
                 class="text-white-600 font-thin text-sm"
-                style="color: white; text-align: center;"
+                style="color: white; text-align: center"
               >
                 {{ showImg.credit2 }}
               </p>
               <p
                 class="text-white-600 font-thin text-sm"
-                style="color: white; text-align: center;"
+                style="color: white; text-align: center"
               >
                 {{ showImg.credit3 }}
               </p>
@@ -84,7 +84,7 @@
             <div class="flex justify-center align-middle">
               <button>
                 <img
-                  style="width:27.5px;height:19.5px; margin-top:20px;"
+                  style="width: 27.5px; height: 19.5px; margin-top: 20px"
                   src="@/assets/images/dubois/rightarrow.png"
                   @click="showNext"
                 />
@@ -94,7 +94,13 @@
         </div>
         <div>
           <img
-            style="position: absolute; left: 50%;transform: translate(-50%, 0); width:283.7px;height:341.3px;"
+            style="
+              position: absolute;
+              left: 50%;
+              transform: translate(-50%, 0);
+              width: 283.7px;
+              height: 341.3px;
+            "
             :src="showImg.img"
           />
         </div>
@@ -178,7 +184,7 @@ export default {
         credit1: "Image courtesy of the Library of Congress,",
         credit2: "Prints & Photographs Division,",
         credit3: "LC-DIG-ppmsca-33863.",
-        text: "The Georgia Negro: A Social Study"
+        text: "The Georgia Negro: A Social Study",
       },
       showImgIndex: 0,
       setData: [
@@ -190,7 +196,7 @@ export default {
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33863.",
-              text: "The Georgia Negro: A Social Study"
+              text: "The Georgia Negro: A Social Study",
             },
             {
               img: img864,
@@ -198,257 +204,247 @@ export default {
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33864.",
               text: `Relative Negro population of the states of the United States.`,
-              date: "1900"
+              date: "1900",
             },
             {
               img: img865,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33865.",
-              text:
-                "The states of the United States according to their Negro population."
+              text: "The states of the United States according to their Negro population.",
             },
             {
               img: img866,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33866.",
-              text: "Negro population of Georgia."
+              text: "Negro population of Georgia.",
             },
             {
               img: img867,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33867.",
-              text: "Negro population of Georgia by counties. 1890."
+              text: "Negro population of Georgia by counties. 1890.",
             },
             {
               img: img868,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33868.",
-              text: "Negro population of Georgia by counties."
+              text: "Negro population of Georgia by counties.",
             },
             {
               img: img869,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33869.",
-              text:
-                "Comparative increase of white and colored population of Georgia."
+              text: "Comparative increase of white and colored population of Georgia.",
             },
             {
               img: img870,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33870.",
-              text: "Migration of Negroes. 1890."
+              text: "Migration of Negroes. 1890.",
             },
             {
               img: img871,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33871.",
-              text: "Age distribution of Georgia Negroes compared with France."
+              text: "Age distribution of Georgia Negroes compared with France.",
             },
             {
               img: img872,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33872.",
-              text: "Conjugal condition."
+              text: "Conjugal condition.",
             },
             {
               img: img873,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33873.",
-              text: "City and Rural Population. 1890."
+              text: "City and Rural Population. 1890.",
             },
             {
               img: img874,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33874.",
-              text: "Slaves and free Negroes."
+              text: "Slaves and free Negroes.",
             },
             {
               img: img875,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33875.",
-              text:
-                "Race amalgamation in Georgia based on a study of 40,000 individuals of Negro descent."
+              text: "Race amalgamation in Georgia based on a study of 40,000 individuals of Negro descent.",
             },
             {
               img: img876,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33876.",
-              text: "Illiteracy."
+              text: "Illiteracy.",
             },
             {
               img: img877,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33877.",
-              text: "Negro children enrolled in the public schools."
+              text: "Negro children enrolled in the public schools.",
             },
             {
               img: img878,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33878.",
-              text: "Negro teachers in Georgia public schools."
+              text: "Negro teachers in Georgia public schools.",
             },
             {
               img: img879,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33879.",
-              text:
-                "Number of Negro students taking the various courses of study offered in Georgia schools."
+              text: "Number of Negro students taking the various courses of study offered in Georgia schools.",
             },
             {
               img: img880,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33880.",
-              text: "Value of land owned by Georgia Negroes."
+              text: "Value of land owned by Georgia Negroes.",
             },
             {
               img: img881,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33881.",
-              text: "Acres of land owned by Negroes in Georgia."
+              text: "Acres of land owned by Negroes in Georgia.",
             },
             {
               img: img882,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33882.",
-              text: "Land owned by Negroes in Georgia, U.S.A. 1870-1900."
+              text: "Land owned by Negroes in Georgia, U.S.A. 1870-1900.",
             },
             {
               img: img883,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33883.",
-              text:
-                "Valuation of town and city property owned by Georgia Negroes."
+              text: "Valuation of town and city property owned by Georgia Negroes.",
             },
             {
               img: img884,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33884.",
-              text:
-                "Assessed Valuation of All Taxable Property Owned by Georgia Negroes."
+              text: "Assessed Valuation of All Taxable Property Owned by Georgia Negroes.",
             },
             {
               img: img885,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33885.",
-              text: "Negro property in two cities of Georgia."
+              text: "Negro property in two cities of Georgia.",
             },
             {
               img: img886,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33886.",
-              text: "Value of farming tools."
+              text: "Value of farming tools.",
             },
             {
               img: img887,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33887.",
-              text:
-                "Assessed Value of Household and Kitchen Furniture Owned by Georgia Negroes."
+              text: "Assessed Value of Household and Kitchen Furniture Owned by Georgia Negroes.",
             },
             {
               img: img888,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33888.",
-              text: "Occupations of Georgia Negroes. Males over 10."
+              text: "Occupations of Georgia Negroes. Males over 10.",
             },
             {
               img: img889,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33889.",
-              text: "Occupations of Negroes and whites in Georgia."
+              text: "Occupations of Negroes and whites in Georgia.",
             },
             {
               img: img890,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33890.",
-              text: "Occupations."
+              text: "Occupations.",
             },
             {
               img: img891,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33891.",
-              text: "Occupations and income."
+              text: "Occupations and income.",
             },
             {
               img: img892,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33892.",
-              text:
-                "Condition of 300 Negro farm tenants after 1 year's toil, 1898."
+              text: "Condition of 300 Negro farm tenants after 1 year's toil, 1898.",
             },
             {
               img: img893,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33893.",
-              text:
-                "Income and expenditure of 150 Negro families in Atlanta, Ga., U.S.A."
+              text: "Income and expenditure of 150 Negro families in Atlanta, Ga., U.S.A.",
             },
             {
               img: img894,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33894.",
-              text: "Family budgets."
+              text: "Family budgets.",
             },
             {
               img: img895,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33895.",
-              text: "Family budgets."
+              text: "Family budgets.",
             },
             {
               img: img896,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33896.",
-              text:
-                "Albany, Dougherty County, Ga. Distribution of 2,500 Negro inhabitants."
+              text: "Albany, Dougherty County, Ga. Distribution of 2,500 Negro inhabitants.",
             },
             {
               img: img897,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33897.",
-              text: "McIntosh County, Georgia."
+              text: "McIntosh County, Georgia.",
             },
             {
               img: img898,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33898.",
-              text: "Darien, McIntosh Co., GA"
-            }
-          ]
+              text: "Darien, McIntosh Co., GA",
+            },
+          ],
         },
         {
           id: 2,
@@ -458,215 +454,199 @@ export default {
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33899.",
-              text:
-                "A series of statistical charts illustrating the condition of the descendants of former African slaves now in residence in the United States of America"
+              text: "A series of statistical charts illustrating the condition of the descendants of former African slaves now in residence in the United States of America",
             },
             {
               img: img900,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33900.",
-              text: "Distribution of Negroes in the United States."
+              text: "Distribution of Negroes in the United States.",
             },
             {
               img: img901,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33901.",
-              text:
-                "Increase of the Negro population in the United States of America"
+              text: "Increase of the Negro population in the United States of America",
             },
             {
               img: img902,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33902.",
-              text:
-                "Comparative rate of increase of the white and Negro elements of the population of the United States"
+              text: "Comparative rate of increase of the white and Negro elements of the population of the United States",
             },
             {
               img: img903,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33903.",
-              text:
-                "Negro Population in the United States Compared with the Total Popuation of Other Countries."
+              text: "Negro Population in the United States Compared with the Total Popuation of Other Countries.",
             },
             {
               img: img904,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33904.",
-              text:
-                "Proportion of Negroes in the total population of the United States"
+              text: "Proportion of Negroes in the total population of the United States",
             },
             {
               img: img905,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33905.",
-              text: "Occupations in which American Negroes are engaged"
+              text: "Occupations in which American Negroes are engaged",
             },
             {
               img: img906,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33906.",
-              text:
-                "Proportion of Whites and Negroes in the different classes of occupation in the United States"
+              text: "Proportion of Whites and Negroes in the different classes of occupation in the United States",
             },
             {
               img: img907,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33907.",
-              text:
-                "Occupations in which 10,000 or more American Negroes are engaged"
+              text: "Occupations in which 10,000 or more American Negroes are engaged",
             },
             {
               img: img908,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33908.",
-              text:
-                "Number of Negro teachers in the public schools of the United States"
+              text: "Number of Negro teachers in the public schools of the United States",
             },
             {
               img: img909,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33909.",
-              text:
-                "Illiteracy of the American Negroes compared with that of other nations."
+              text: "Illiteracy of the American Negroes compared with that of other nations.",
             },
             {
               img: img910,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33910.",
-              text:
-                "Enrollment in the Negro common schools of the former slave states of the United States."
+              text: "Enrollment in the Negro common schools of the former slave states of the United States.",
             },
             {
               img: img911,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33911.",
-              text:
-                "Proportion of total Negro children of school age who are enrolled in the public schools."
+              text: "Proportion of total Negro children of school age who are enrolled in the public schools.",
             },
             {
               img: img912,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33912.",
-              text:
-                "The Rise of the Negroes from Slavery to Freedom in One Generation"
+              text: "The Rise of the Negroes from Slavery to Freedom in One Generation",
             },
             {
               img: img913,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33913.",
-              text: "Proportion of freemen and slaves among American Negroes."
+              text: "Proportion of freemen and slaves among American Negroes.",
             },
             {
               img: img914,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33914.",
-              text:
-                "City and rural population among American Negroes in the former slave states."
+              text: "City and rural population among American Negroes in the former slave states.",
             },
             {
               img: img915,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33915.",
-              text:
-                "Conjugal condition of American Negroes according to age periods."
+              text: "Conjugal condition of American Negroes according to age periods.",
             },
             {
               img: img916,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33916.",
-              text:
-                "The Amalgamation of the White and Black elements of the population in the United States."
+              text: "The Amalgamation of the White and Black elements of the population in the United States.",
             },
             {
               img: img917,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33917.",
-              text:
-                "Assessed value of property owned by Negroes in three states of the United States."
+              text: "Assessed value of property owned by Negroes in three states of the United States.",
             },
             {
               img: img918,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33918.",
-              text: "Negro landholders in various states of the United States."
+              text: "Negro landholders in various states of the United States.",
             },
             {
               img: img919,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33919.",
-              text: "Negro business men in the United States."
+              text: "Negro business men in the United States.",
             },
             {
               img: img920,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33920.",
-              text: "Pauperism among American Negroes."
+              text: "Pauperism among American Negroes.",
             },
             {
               img: img921,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33921.",
-              text: "Mortality of American Negroes."
+              text: "Mortality of American Negroes.",
             },
             {
               img: img922,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33922.",
-              text: "Crime among American Negroes."
+              text: "Crime among American Negroes.",
             },
             {
               img: img923,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33923.",
-              text: "American Negro newspapers and periodicals."
+              text: "American Negro newspapers and periodicals.",
             },
             {
               img: img924,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33924.",
-              text: "Religion of American Negroes."
+              text: "Religion of American Negroes.",
             },
             {
               img: img925,
               credit1: "Image courtesy of the Library of Congress,",
               credit2: "Prints & Photographs Division,",
               credit3: "LC-DIG-ppmsca-33925.",
-              text: "Statistics of Negro church organizations."
-            }
-          ]
-        }
-      ]
+              text: "Statistics of Negro church organizations.",
+            },
+          ],
+        },
+      ],
     };
   },
   computed: {
     imgs() {
-      return this.setData.find(v => v.id == this.selectedSet).imgs;
-    }
+      return this.setData.find((v) => v.id == this.selectedSet).imgs;
+    },
   },
 
   methods: {
@@ -687,8 +667,8 @@ export default {
         this.showImgIndex += 1;
         this.showImg = this.imgs.find((v, i) => i == this.showImgIndex);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

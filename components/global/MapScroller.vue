@@ -1,6 +1,13 @@
 <template>
   <div class="w-full overflow-hidden border-2">
-    <img :src="require(`~/assets/${asset}`)" @load="imgLoaded" :style="imgStyles" ref="img" alt="" @click="test">
+    <img
+      :src="require(`~/assets/${asset}`)"
+      @load="imgLoaded"
+      :style="imgStyles"
+      ref="img"
+      alt=""
+      @click="test"
+    />
   </div>
 </template>
 
@@ -9,19 +16,20 @@ import * as d3 from "d3";
 
 import gsap from "gsap";
 
-const transform = ({x, y, scale}) => `translate3d(${x}, ${y}, 0px) scale(${scale})`;
+const transform = ({ x, y, scale }) =>
+  `translate3d(${x}, ${y}, 0px) scale(${scale})`;
 
-const validPoint = obj => {
-    if (typeof obj != "object") return false;
-    const passedCoords = "x" in obj && "y" in obj;
-    if (!passedCoords) return false;
-    if (obj.scale) {
-      if (typeof obj.scale != "number") {
-        return false;
-      }
+const validPoint = (obj) => {
+  if (typeof obj != "object") return false;
+  const passedCoords = "x" in obj && "y" in obj;
+  if (!passedCoords) return false;
+  if (obj.scale) {
+    if (typeof obj.scale != "number") {
+      return false;
     }
-    return true;
   }
+  return true;
+};
 
 export default {
   props: {
@@ -32,34 +40,35 @@ export default {
     },
     restingPoint: {
       type: Object,
-      validator: validPoint
+      validator: validPoint,
     },
     points: {
       type: Array, //[{x, y, scale}] coordinates to center around, optional scale parameter
       validator(value) {
-        return Array.isArray(value) && value.every(validPoint)
-      }
+        return Array.isArray(value) && value.every(validPoint);
+      },
       // required: true,
     },
     //seconds
     animationDuration: {
       type: Number,
-      default: 1
+      default: 1,
     },
     currentPoint: {
       type: Number,
-      default: -1
+      default: -1,
       // required: true
     },
     controlledAnimation: {
       type: Boolean,
       default: false,
     },
-    elapsePercent: { // applies only if controlledAnimation is true
+    elapsePercent: {
+      // applies only if controlledAnimation is true
       type: Number,
       validator(value) {
         return value >= 0 && value <= 1;
-      }
+      },
     },
     width: {
       type: String,
@@ -69,32 +78,34 @@ export default {
     return {
       prevView: null,
       loaded: false,
-      currentAnimation: null
-    }
+      currentAnimation: null,
+    };
   },
   methods: {
     imgLoaded() {
       this.loaded = true;
     },
     test() {
-      const {x, y, scale} = this.transformPoints[0];
+      const { x, y, scale } = this.transformPoints[0];
     },
     transformPoint(point) {
       if (!this.loaded) return;
       const natural = {
         x: this.$refs.img.naturalWidth,
-        y: this.$refs.img.naturalHeight
-      }
-      const [x, y] = ["x", "y"].map(dim => {
+        y: this.$refs.img.naturalHeight,
+      };
+      const [x, y] = ["x", "y"].map((dim) => {
         const coord = point[dim];
-        const units = typeof coord == 'string' ? coord : 100 * (coord / natural[dim]) + '%';
-        return `calc(-1 * ${units} + 50%)`
-      })
+        const units =
+          typeof coord == "string" ? coord : 100 * (coord / natural[dim]) + "%";
+        return `calc(-1 * ${units} + 50%)`;
+      });
       return {
-        x, y,
-        scale: point.scale || 1
-      }
-    }
+        x,
+        y,
+        scale: point.scale || 1,
+      };
+    },
   },
   watch: {
     currentPoint(newVal) {
@@ -107,14 +118,16 @@ export default {
           ease: "power2.inOut",
           duration: this.animationDuration,
           paused: this.controlledAnimation,
-        })
+        });
       } else if (this.currentAnimation) {
         this.currentAnimation = gsap.to(this.$refs.img, {
-          transform: this.restingTransformPoint ? transform(this.restingTransformPoint) : "",
+          transform: this.restingTransformPoint
+            ? transform(this.restingTransformPoint)
+            : "",
           ease: "power2.inOut",
           duration: this.animationDuration,
-          paused: this.controlledAnimation
-        })
+          paused: this.controlledAnimation,
+        });
       }
     },
     elapsePercent(newVal) {
@@ -130,18 +143,18 @@ export default {
     },
     transformPoints() {
       if (this.points.length) {
-        return this.points.map(point => this.transformPoint(point))
+        return this.points.map((point) => this.transformPoint(point));
       }
     },
     imgStyles() {
       if (this.restingTransformPoint) {
         return {
-          transform: transform(this.restingTransformPoint)
-        }
+          transform: transform(this.restingTransformPoint),
+        };
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

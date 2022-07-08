@@ -105,17 +105,17 @@ export default {
       height: 44,
       width: 94,
       margin: 3,
-      innerGridWidth: (94 / 11) * 10 + 3
+      innerGridWidth: (94 / 11) * 10 + 3,
     };
   },
   props: {
     dataFile: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   created() {
-    this.maxOn = prop => Math.max(...this.dataFile.map(d => d[prop]));
-    this.minOn = prop => Math.min(...this.dataFile.map(d => d[prop]));
+    this.maxOn = (prop) => Math.max(...this.dataFile.map((d) => d[prop]));
+    this.minOn = (prop) => Math.min(...this.dataFile.map((d) => d[prop]));
     this.maxUK = this.maxOn("ukFemalePercentage");
     this.minUK = this.minOn("ukFemalePercentage");
     this.maxUS = this.maxOn("usFemalePercentage");
@@ -128,7 +128,7 @@ export default {
     this.botText = { text: "U.S. AND U.K.", x: 24, y: 26 };
   },
   methods: {
-    tickFormatterY: function(tickVal) {
+    tickFormatterY: function (tickVal) {
       return tickVal + "%";
     },
     opacityFormatterY(tickVal) {
@@ -138,26 +138,26 @@ export default {
     strokeFormatterY(tickVal) {
       if ((tickVal / 10) % 1 === 0) return 0.2;
       else return 0.1;
-    }
+    },
   },
   computed: {
     fillColorArea() {
       const path = d3
         .area()
         .curve(d3.curveCatmullRom)
-        .x0(d => this.xScale(d.Year) + 3)
-        .x1(d => this.xScale(d.Year) + 3)
-        .y0(d => this.yScale(d.ukFemalePercentage) + 3)
-        .y1(d => this.yScale(d.usFemalePercentage) + 3);
+        .x0((d) => this.xScale(d.Year) + 3)
+        .x1((d) => this.xScale(d.Year) + 3)
+        .y0((d) => this.yScale(d.ukFemalePercentage) + 3)
+        .y1((d) => this.yScale(d.usFemalePercentage) + 3);
       return path(this.dataFile);
     },
-    transformUKText: function() {
+    transformUKText: function () {
       return "rotate(-15) translate(" + 62 + "," + 40 + ")";
     },
-    transformUSText: function() {
+    transformUSText: function () {
       return "rotate(-15) translate(" + 61 + "," + 48.5 + ")";
     },
-    xValues: function() {
+    xValues: function () {
       var xNums = [];
       var startYear = parseInt(this.dataFile[0].Year);
       var endYear = parseInt(this.dataFile[this.dataFile.length - 1].Year);
@@ -166,7 +166,7 @@ export default {
       }
       return xNums;
     },
-    yValues: function() {
+    yValues: function () {
       var yNums = [];
       for (var i = this.interval / 2; i <= this.maxY; i += this.interval / 2) {
         yNums.push(i);
@@ -178,7 +178,7 @@ export default {
         .scaleLinear()
         .range([0, (this.width / 11) * 10])
         .domain(
-          d3.extent(this.dataFile, function(d) {
+          d3.extent(this.dataFile, function (d) {
             return d.Year;
           })
         );
@@ -192,10 +192,10 @@ export default {
     ukLine() {
       const path = d3
         .area()
-        .x(d => this.xScale(d.Year) + 3)
-        .y(d => this.yScale(d.ukFemalePercentage) + 3)
+        .x((d) => this.xScale(d.Year) + 3)
+        .y((d) => this.yScale(d.ukFemalePercentage) + 3)
         .curve(d3.curveCatmullRom)
-        .defined(function(d) {
+        .defined(function (d) {
           return d.ukFemalePercentage;
         });
       return path(this.dataFile);
@@ -203,15 +203,15 @@ export default {
     usLine() {
       const path = d3
         .area()
-        .x(d => this.xScale(d.Year) + 3)
-        .y(d => this.yScale(d.usFemalePercentage) + 3)
+        .x((d) => this.xScale(d.Year) + 3)
+        .y((d) => this.yScale(d.usFemalePercentage) + 3)
         .curve(d3.curveCatmullRom)
-        .defined(function(d) {
+        .defined(function (d) {
           return d.usFemalePercentage;
         });
       return path(this.dataFile);
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped></style>

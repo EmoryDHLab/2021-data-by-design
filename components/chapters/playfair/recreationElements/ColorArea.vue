@@ -26,6 +26,6 @@
 </template>
 <script>
 export default {
-  computed: {}
+  computed: {},
 };
 </script>

@@ -36,15 +36,15 @@
       dy="2.3em"
       :transform="
         'translate(' +
-          (offset +
-            width / 2 +
-            Math.sin(((2 * Math.PI) / 11) * (index + 0.4)) * (maxOuterR + 6)) +
-          ',' +
-          (32 -
-            Math.cos(((2 * Math.PI) / 11) * (index + 0.4)) * (maxOuterR + 6)) +
-          ') rotate(' +
-          ((index + 0.4) * 360) / 11 +
-          ')'
+        (offset +
+          width / 2 +
+          Math.sin(((2 * Math.PI) / 11) * (index + 0.4)) * (maxOuterR + 6)) +
+        ',' +
+        (32 -
+          Math.cos(((2 * Math.PI) / 11) * (index + 0.4)) * (maxOuterR + 6)) +
+        ') rotate(' +
+        ((index + 0.4) * 360) / 11 +
+        ')'
       "
       >{{ 1700 + index * 10 }}</text
     >
@@ -90,13 +90,13 @@ export default {
     return {
       height: 50,
       width: 34,
-      offset: 65
+      offset: 65,
     };
   },
   props: {
     playfairData: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   created() {
     this.interval = 500000;
@@ -109,51 +109,51 @@ export default {
     strokeFormatterY(tickVal) {
       if (tickVal % 2 === 0) return 0.2;
       else return 0.1;
-    }
+    },
   },
   computed: {
-    maxImport: function() {
-      var maxOn = prop => Math.max(...this.playfairData.map(d => d[prop]));
+    maxImport: function () {
+      var maxOn = (prop) => Math.max(...this.playfairData.map((d) => d[prop]));
       return maxOn("Imports");
     },
-    minImport: function() {
-      var minOn = prop => Math.min(...this.playfairData.map(d => d[prop]));
+    minImport: function () {
+      var minOn = (prop) => Math.min(...this.playfairData.map((d) => d[prop]));
       return minOn("Imports");
     },
-    maxExport: function() {
-      var maxOn = prop => Math.max(...this.playfairData.map(d => d[prop]));
+    maxExport: function () {
+      var maxOn = (prop) => Math.max(...this.playfairData.map((d) => d[prop]));
       return maxOn("Exports");
     },
-    maxY: function() {
-      return d3.max(this.playfairData, function(d) {
+    maxY: function () {
+      return d3.max(this.playfairData, function (d) {
         return Number(d.Exports) + Number(d.Imports);
       });
     },
-    maxOuterR: function() {
+    maxOuterR: function () {
       return ((this.maxY / this.interval + 1) * this.radiusScale) / 2;
     },
-    minYear: function() {
+    minYear: function () {
       return Number(
-        d3.min(this.playfairData, function(d) {
+        d3.min(this.playfairData, function (d) {
           return d.Years;
         })
       );
     },
-    maxYear: function() {
+    maxYear: function () {
       return Number(
-        d3.max(this.playfairData, function(d) {
+        d3.max(this.playfairData, function (d) {
           return d.Years;
         })
       );
     },
-    xValues: function() {
+    xValues: function () {
       var xNums = [];
       for (var i = this.minYear; i <= this.maxYear; i += 10) {
         xNums.push(i);
       }
       return xNums;
     },
-    yValues: function() {
+    yValues: function () {
       var yNums = [];
       for (var i = this.interval; i <= this.maxY; i += this.interval) {
         yNums.push(i);
@@ -250,8 +250,8 @@ export default {
         outlineArcs.push(oa);
       }
       return outlineArcs;
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped></style>

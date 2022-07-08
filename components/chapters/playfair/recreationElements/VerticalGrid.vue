@@ -35,12 +35,12 @@ export default {
     x: Number,
     xScale: Function,
     ticks: Boolean,
-    offset: Number
+    offset: Number,
   },
   computed: {
-    xValue: function() {
+    xValue: function () {
       return this.xScale(this.x);
-    }
-  }
+    },
+  },
 };
 </script>

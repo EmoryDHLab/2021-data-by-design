@@ -26,14 +26,7 @@
       <div class="w-full flex flex-row py-12 xl:py-8">
         <div class="w-1/2 flex flex-col gap-4 items-center">
           <div
-            class="
-              flex flex-col
-              gap-12
-              xl:flex-row
-              w-4/5
-              justify-between
-              items-center
-            "
+            class="flex flex-col gap-12 xl:flex-row w-4/5 justify-between items-center"
           >
             <div class="w-full xl:w-4/5">
               <EventLegend class="text-white ml-4" :value="hoveredType" />

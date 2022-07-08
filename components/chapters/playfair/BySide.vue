@@ -19,6 +19,6 @@ import CoxcombChart from "@/components/chapters/playfair/CoxcombChart";
 import StaticData from "@/components/data-access/StaticData";
 
 export default {
-  components: { StackedChart, StaticData, CoxcombChart }
+  components: { StackedChart, StaticData, CoxcombChart },
 };
 </script>

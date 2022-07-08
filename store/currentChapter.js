@@ -7,41 +7,41 @@ export const state = () => ({
   sections: [],
   currentRenderGroup: 0,
   currentSection: 0,
-})
+});
 
 export const getters = {
   staticData(state) {
     return Object.assign({}, state.staticData);
-  }
-}
+  },
+};
 
 export const mutations = {
-
-  setStaticData(state, {name, data}) {
+  setStaticData(state, { name, data }) {
     Vue.set(state.staticData, name, data);
   },
 
-  initializeChapterState(state, {initialState}) {
+  initializeChapterState(state, { initialState }) {
     if (!state.chapterStateInitialized) {
-      Object.keys(initialState).forEach(key => Vue.set(state.chapterState, key, initialState[key]));
+      Object.keys(initialState).forEach((key) =>
+        Vue.set(state.chapterState, key, initialState[key])
+      );
       state.chapterState._mutationCount++;
       state.chapterStateInitialized = true;
     }
   },
 
-  updateChapterState(state, {key, value}) {
+  updateChapterState(state, { key, value }) {
     state.chapterState[key] = value;
     state.chapterState._mutationCount++;
   },
 
-  initializeSections(state, {sectionsData}) {
-    state.sections =
-      sectionsData.map(sectionData => {
-        return sectionData.renderGroups.length;
-      })
+  initializeSections(state, { sectionsData }) {
+    state.sections = sectionsData.map((sectionData) => {
+      return sectionData.renderGroups.length;
+    });
   },
 
-  prevSection (state) {
+  prevSection(state) {
     // if (state.currentRenderGroup > 0) {
     //   state.currentRenderGroup--;
     // } else if (state.currentSection > 0) {
@@ -55,7 +55,7 @@ export const mutations = {
     return false;
   },
 
-  nextSection (state) {
+  nextSection(state) {
     // if (state.currentRenderGroup + 1 >= state.sections[state.currentSection]) {
     //   if (state.sections + 1 == state.sections.length) {
     //     return false;
@@ -72,12 +72,11 @@ export const mutations = {
     return false;
   },
 
-  setSection (state, {sectionNumber}) {
+  setSection(state, { sectionNumber }) {
     if (sectionNumber >= 0 && sectionNumber < state.sections.length) {
       state.currentSection = sectionNumber;
       return true;
     }
     return false;
-  }
-
-}
+  },
+};

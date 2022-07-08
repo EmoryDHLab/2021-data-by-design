@@ -6,10 +6,8 @@
 
 <script>
 export default {
-  name: "GridLayout"
-}
+  name: "GridLayout",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -1,4 +1,4 @@
-import {findSections} from "google-docs-components";
+import { findSections } from "google-docs-components";
 
 export function renderGroups(componentArray) {
   const def = {
@@ -6,50 +6,51 @@ export function renderGroups(componentArray) {
     start: /^-(left|right)/i,
     end: "-",
     endByNextStart: true,
-    endByContentEnd: true
-  }
+    endByContentEnd: true,
+  };
 
   const divisions = findSections(componentArray, [def]).align;
 
   const componentGroups = [];
   let lastEndIndex = -1;
 
-  divisions.forEach(({startString, startIndex, endIndex}) => {
-
+  divisions.forEach(({ startString, startIndex, endIndex }) => {
     if (startIndex - lastEndIndex > 1) {
       componentGroups.push({
-        components: componentArray.slice(lastEndIndex + 1, startIndex)
-      })
+        components: componentArray.slice(lastEndIndex + 1, startIndex),
+      });
     }
 
     const [alignment, pairingId] = startString
       .replace("\n", "")
       .replace(/-/g, "")
       .split(":")
-      .map(s => s.trim().toLowerCase());
+      .map((s) => s.trim().toLowerCase());
 
     componentGroups.push({
       alignment,
       pairingId,
-      components: componentArray.slice(startIndex + 1, endIndex)
-    })
+      components: componentArray.slice(startIndex + 1, endIndex),
+    });
 
     lastEndIndex = endIndex;
   });
 
   if (componentArray.length - lastEndIndex > 0) {
     componentGroups.push({
-      components: componentArray.slice(lastEndIndex + 1, componentArray.length)
+      components: componentArray.slice(lastEndIndex + 1, componentArray.length),
     });
   }
 
-  const idIndexMap = {}
+  const idIndexMap = {};
   return componentGroups.reduce((acc, curr, i, source) => {
     if (curr.alignment) {
       if (curr.pairingId in idIndexMap) {
         const pair = acc[idIndexMap[curr.pairingId]];
         if (curr.alignment in pair) {
-          console.warning(`There are two groups labeled ${curr.alignment}:${curr.pairingId}. Joining them`)
+          console.warning(
+            `There are two groups labeled ${curr.alignment}:${curr.pairingId}. Joining them`
+          );
           pair[curr.alignment].push(...curr.components);
           return acc;
         }
@@ -57,10 +58,10 @@ export function renderGroups(componentArray) {
         return acc;
       }
       idIndexMap[curr.pairingId] = acc.length;
-      acc.push({[curr.alignment]: [...curr.components]});
+      acc.push({ [curr.alignment]: [...curr.components] });
       return acc;
     }
-    acc.push({components: [...curr.components]});
+    acc.push({ components: [...curr.components] });
     return acc;
   }, []);
 }

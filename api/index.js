@@ -1,10 +1,10 @@
 import express from "express";
 import livedoc from "./livedoc";
-import data from "./data"
+import data from "./data";
 const app = express();
 
 app.get("/test", function (req, res) {
-  const html = "<p>test</p>"
+  const html = "<p>test</p>";
   res.send(html);
 });
 

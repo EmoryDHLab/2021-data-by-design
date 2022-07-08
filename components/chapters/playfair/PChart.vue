@@ -31,14 +31,14 @@ export default {
     StaticData,
     RecreationCovid,
     RecreationWomen,
-    RecreationIncome
+    RecreationIncome,
   },
   props: {
     chartName: {
-      type: String
-    }
+      type: String,
+    },
   },
-  data: function() {
+  data: function () {
     return {};
   },
   computed: {
@@ -50,7 +50,7 @@ export default {
       } else if (this.chartName == "Women") {
         return "femaleRPs";
       }
-    }
-  }
+    },
+  },
 };
 </script>

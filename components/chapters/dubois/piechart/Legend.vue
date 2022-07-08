@@ -40,12 +40,12 @@ export default {
   props: {
     legendList: Array,
     lang: String,
-    colors: Array
+    colors: Array,
   },
   computed: {
-    xValue: function() {
+    xValue: function () {
       return this.xScale(this.x);
-    }
-  }
+    },
+  },
 };
 </script>

@@ -1,7 +1,10 @@
 <template>
-  <div class="flex flex-col items-center middle-full" :style="{width: this.width}">
+  <div
+    class="flex flex-col items-center middle-full"
+    :style="{ width: this.width }"
+  >
     <div>
-      <slot/>
+      <slot />
     </div>
     <div class="caption text-center mt-10 w-5/6" v-if="$scopedSlots.caption">
       <slot name="caption"></slot>
@@ -15,20 +18,22 @@ export const docsDefinition = {
   componentName: "Captioned",
   props: {
     width: {
-      type: 'string'
-    }
+      type: "string",
+    },
   },
-  slots: ["caption"]
-}
+  slots: ["caption"],
+};
 export default {
   props: {
     width: String,
   },
-}
+};
 </script>
 
 <style scoped>
-.caption, .caption p, .caption span {
-  @apply font-william text-sm lg:text-lg
+.caption,
+.caption p,
+.caption span {
+  @apply font-william text-sm lg:text-lg;
 }
 </style>

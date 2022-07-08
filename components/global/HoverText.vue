@@ -3,12 +3,11 @@
 </template>
 
 <script>
-
 export default {
   props: {
     html: String,
   },
-}
+};
 </script>
 
 <style scoped>
@@ -20,6 +19,6 @@ a {
 
 a:hover {
   text-decoration: underline;
-  text-decoration-color: var(--primaryColor)
+  text-decoration-color: var(--primaryColor);
 }
 </style>

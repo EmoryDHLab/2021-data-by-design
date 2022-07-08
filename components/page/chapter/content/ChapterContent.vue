@@ -1,48 +1,61 @@
 <template>
-  <div class="chapter-content md:my-10 lg:my-52 max-w-screen-2xl font-sans text-base lg:text-xl">
+  <div
+    class="chapter-content md:my-10 lg:my-52 max-w-screen-2xl font-sans text-base lg:text-xl"
+  >
     <template v-if="sections.length">
       <template v-if="$isMobile">
         <ChapterTitle v-if="currentSection == 0"></ChapterTitle>
-        <ChapterSection :title="mobileSection.title" :renderGroups="mobileSection.renderGroups"></ChapterSection>
+        <ChapterSection
+          :title="mobileSection.title"
+          :renderGroups="mobileSection.renderGroups"
+        ></ChapterSection>
       </template>
       <template v-else>
-        <ChapterSection v-for="(section, i) in sections" :key="i" :title="section.title" :renderGroups="section.renderGroups"></ChapterSection>
+        <ChapterSection
+          v-for="(section, i) in sections"
+          :key="i"
+          :title="section.title"
+          :renderGroups="section.renderGroups"
+        ></ChapterSection>
       </template>
     </template>
   </div>
 </template>
 <script>
-import ChapterSection from "./section/ChapterSection"
+import ChapterSection from "./section/ChapterSection";
 import ChapterSectionMobile from "./section/ChapterSectionMobile";
-import {mapMutations, mapState} from "vuex";
-import {renderGroups} from "./renderGroups";
+import { mapMutations, mapState } from "vuex";
+import { renderGroups } from "./renderGroups";
 import ChapterTitle from "@/components/page/chapter/nav/ChapterTitle";
 
 export default {
-  name: 'ChapterComponent',
-  components: {ChapterTitle, ChapterSection, ChapterSectionMobile},
+  name: "ChapterComponent",
+  components: { ChapterTitle, ChapterSection, ChapterSectionMobile },
   props: {
     chapterSections: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   data: () => ({
-    sections: []
+    sections: [],
   }),
   methods: {
-    ...mapMutations("currentChapter", ["initializeSections"])
+    ...mapMutations("currentChapter", ["initializeSections"]),
   },
   mounted() {
     if (!this.chapterSections?.length) console.error("empty section");
     else {
-      const sections = this.chapterSections.map(section => Object.assign({}, section,
-        {renderGroups: renderGroups(section.components)}));
-      this.initializeSections({sectionsData: sections});
+      const sections = this.chapterSections.map((section) =>
+        Object.assign({}, section, {
+          renderGroups: renderGroups(section.components),
+        })
+      );
+      this.initializeSections({ sectionsData: sections });
       this.sections = sections;
     }
   },
   computed: {
-    mobileSection () {
+    mobileSection() {
       return this.sections[this.currentSection];
     },
     // mobileRenderGroup () {
@@ -57,7 +70,7 @@ export default {
     //   }
     //   return false;
     // },
-    ...mapState("currentChapter", ["currentSection"])
-  }
-}
+    ...mapState("currentChapter", ["currentSection"]),
+  },
+};
 </script>

@@ -14,6 +14,6 @@
 <script>
 export default {
   props: { area: String },
-  computed: {}
+  computed: {},
 };
 </script>
