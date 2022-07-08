@@ -6,6 +6,47 @@
 }
 
 @font-face {
+  font-family: "VTC Du Bois";
+  src: url("~assets/fonts/VTCDubois/VTCDuBois-Regular.woff") format("woff"),
+    url("~assets/fonts/VTCDubois/VTCDuBois-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "VTC Du Bois Wide";
+  src: url("~assets/fonts/VTCDubois/VTCDuBois-BoldWide.woff") format("woff"),
+    url("~assets/fonts/VTCDubois/VTCDuBois-BoldWide.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "VTC Du Bois Wide";
+  src: url("~assets/fonts/VTCDubois/VTCDuBois-LightWide.woff") format("woff"),
+    url("~assets/fonts/VTCDubois/VTCDuBois-LightWide.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "VTC Du Bois Narrow";
+  src: url("~assets/fonts/VTCDubois/VTCDuBois-RegularNarrow.woff")
+      format("woff"),
+    url("~assets/fonts/VTCDubois/VTCDuBois-RegularNarrow.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "VTC Du Bois Narrow";
+  src: url("~assets/fonts/VTCDubois/VTCDuBois-LightNarrow.woff") format("woff"),
+    url("~assets/fonts/VTCDubois/VTCDuBois-LightNarrow.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "Chancery Cursive";
   src: url("~assets/fonts/Chancery/Chancery_Cursive_Italic.ttf")
     format("truetype");
