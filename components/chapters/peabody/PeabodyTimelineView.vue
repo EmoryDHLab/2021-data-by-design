@@ -93,7 +93,7 @@ import PeabodyGrid from "./grid/PeabodyGrid";
 import StaticData from "@/components/data-access/StaticData";
 import EventSquare from "./grid/EventSquare";
 
-import { actorsIn, dataToYears, actorColors } from "./peabody-utils";
+import { actorsIn, dataToYears, actorColors } from "./peabodyUtils";
 import LocalImage from "../../global/docs-inclusions/LocalImage";
 
 export const docsDefinition = {

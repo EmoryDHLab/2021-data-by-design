@@ -94,7 +94,7 @@
         <img
           class="p-20 w-full"
           :src="generateImg(displayImg)"
-          :alt="displayImg.ALT - TEXT"
+          :alt="displayImg.ALT - displayImg.TEXT"
         />
       </div>
 

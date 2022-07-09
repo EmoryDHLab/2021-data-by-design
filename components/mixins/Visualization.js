@@ -32,7 +32,7 @@ const Visualization = ({
       type: Boolean,
       default: false,
     },
-    /*Looks for these "optional" props on the mixed-in Component:
+    /* Looks for these "optional" props on the mixed-in Component:
     staticDataset: String
     mutableDataset: String
      */
@@ -58,7 +58,7 @@ const Visualization = ({
         this.registerEvent(vueInstance, eventName)
       );
     },
-    transform(transformFunc /*function (dataObj) => transformedData*/) {
+    transform(transformFunc /* function (dataObj) => transformedData */) {
       if (this.mutableId) {
         this.transformMutableData({
           id: this.mutableId,
@@ -67,11 +67,11 @@ const Visualization = ({
       }
     },
     transformMutableData(payload) {
-      this.$store.dispatch(this.mutableModule + "/transform", payload);
+      this.$store.dispatch(`${this.mutableModule  }/transform`, payload);
     },
     registerMutableData(payload) {
       this.$store.dispatch(
-        this.mutableModule + "/registerMutableData",
+        `${this.mutableModule  }/registerMutableData`,
         payload
       );
     },

@@ -53,4 +53,6 @@ export default {
   tailwindcss: {
     exposeConfig: true,
   },
+
+  devServerHandlers: []
 };

@@ -46,7 +46,7 @@
 
 <script>
 import EventSquare, { events } from "./EventSquare";
-import { actorColors } from "../peabody-utils";
+import { actorColors } from "../peabodyUtils";
 
 // const EventSquareInjected = Object.assign({ injects: [injects.registerEvents, injects.calcWidth, injects.data]}, EventSquare);
 

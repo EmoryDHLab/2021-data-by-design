@@ -53,7 +53,7 @@ import EventLegend from "./key/EventLegend";
 import StaticData from "@/components/data-access/StaticData";
 import EventSquare from "./grid/EventSquare";
 
-import { actorsIn } from "./peabody-utils";
+import { actorsIn } from "./peabodyUtils";
 export const docsDefinition = {
   matchName: ["PeabodyTutorial"],
   componentName: "PeabodyTutorial",

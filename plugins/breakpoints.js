@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { theme } from "~tailwind.config";
+import { theme } from "~/tailwind.config";
 
 export default (options, inject) => {
   const screens = Object.entries(theme.screens)

@@ -11,7 +11,7 @@ export const state = () => ({
 
 export const getters = {
   staticData(state) {
-    return Object.assign({}, state.staticData);
+    return { ...state.staticData};
   },
 };
 
@@ -36,9 +36,7 @@ export const mutations = {
   },
 
   initializeSections(state, { sectionsData }) {
-    state.sections = sectionsData.map((sectionData) => {
-      return sectionData.renderGroups.length;
-    });
+    state.sections = sectionsData.map((sectionData) => sectionData.renderGroups.length);
   },
 
   prevSection(state) {

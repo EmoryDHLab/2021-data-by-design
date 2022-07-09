@@ -21,9 +21,7 @@ const ChapterSlots = {
       const obj = {};
       Object.keys(this.$options.chapterState).forEach((key) =>
         Object.defineProperty(obj, key, {
-          get: () => {
-            return this.$store.state.currentChapter.chapterState[key];
-          },
+          get: () => this.$store.state.currentChapter.chapterState[key],
           set: (value) => {
             this.$store.commit("currentChapter/updateChapterState", {
               key,
