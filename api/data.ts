@@ -1,13 +1,13 @@
 import { Router } from "express";
 import glob from "glob";
-import { readFileSync, createReadStream, readFile } from "fs";
+import { createReadStream, readFile } from "fs";
 import { extname } from "path";
 import parse from "csv-parse";
 
 const router = Router();
 
 const dataFolder = "api/static/data/";
-const loadDataset = function (name) {
+const loadDataset = function (name: string) {
   return new Promise(function (resolve, reject) {
     glob(dataFolder + name + "*.{json,csv}", (error, files) => {
       if (error) {
