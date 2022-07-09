@@ -3,13 +3,13 @@ import { getDoc, parseDoc } from "google-docs-parser";
 
 const router = Router();
 
-const private_key = process.env.PRIVATE_KEY_64
+const privateKey = process.env.PRIVATE_KEY_64
   ? Buffer.from(process.env.PRIVATE_KEY_64, "base64")
   : process.env.PRIVATE_KEY;
 
 const config = {
   client_email: process.env.CLIENT_EMAIL,
-  private_key,
+  privateKey,
 };
 
 router.get("/", (req, res) => {

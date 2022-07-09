@@ -82,7 +82,7 @@ import StaticData from "@/components/data-access/StaticData";
 import EventSquare from "./grid/EventSquare";
 import ActorSelect from "./quiz/ActorSelect";
 
-import { actorsIn } from "./peabody-utils";
+import { actorsIn } from "./peabodyUtils";
 import BaseButton from "../../base/BaseButton";
 import LocalImage from "../../global/docs-inclusions/LocalImage";
 

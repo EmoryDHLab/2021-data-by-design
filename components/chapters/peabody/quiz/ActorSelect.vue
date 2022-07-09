@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { actorColors } from "../peabody-utils";
+import { actorColors } from "../peabodyUtils";
 import EventSquare from "../grid/EventSquare";
 
 export default {

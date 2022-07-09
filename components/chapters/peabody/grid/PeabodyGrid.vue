@@ -46,7 +46,7 @@
 
 <script>
 import Visualization from "~/components/mixins/Visualization";
-import { actorColors, dataToYears } from "../peabody-utils";
+import { actorColors, dataToYears } from "../peabodyUtils";
 import YearSquare from "./YearSquare.vue";
 import EventKeyBox from "../key/EventKeyBox";
 

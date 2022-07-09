@@ -15,7 +15,7 @@ const womensRightsActorColors = {
   Court: actorColors.France,
 };
 
-const actorsIn = (data) => {
+function actorsIn(data) {
   if (Array.isArray(data)) {
     const uniqueActors = new Set(data.flatMap((obj) => obj.actors));
     return [...uniqueActors].map((actor) => ({
@@ -23,11 +23,11 @@ const actorsIn = (data) => {
       color: actorColors[actor],
     }));
   }
-};
+}
 
-const dataToYears = (data) => 
+const dataToYears = (data) =>
   // Passes actors arrays BY REFERENCE
-   data.reduce((yearsObj, curr) => {
+  data.reduce((yearsObj, curr) => {
     if (!yearsObj[curr.year]) {
       yearsObj[curr.year] = Array(9).fill(undefined);
     }
@@ -86,7 +86,5 @@ const dataToYears = (data) =>
       );
     }
     return yearsObj;
-  }, {})
-;
-
+  }, {});
 export { actorsIn, actorColors, dataToYears, womensRightsActorColors };
