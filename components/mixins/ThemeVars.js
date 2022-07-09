@@ -1,4 +1,4 @@
-//No need to use this anymore; theme vars are brought into chapter scope by ChapterLayout
+// No need to use this anymore; theme vars are brought into chapter scope by ChapterLayout
 export default {
   inject: {
     theme: {
