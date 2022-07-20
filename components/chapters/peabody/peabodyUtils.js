@@ -23,20 +23,24 @@ function actorsIn(data) {
       color: actorColors[actor],
     }));
   }
+
+  // TODO: Ideally change this
+  return undefined;
 }
 
-const dataToYears = (data) =>
-  // Passes actors arrays BY REFERENCE
-  data.reduce((yearsObj, curr) => {
+function dataToYears(data) {
+  const yearsObj = {};
+
+  for (const curr of data) {
     if (!yearsObj[curr.year]) {
       yearsObj[curr.year] = Array(9).fill(undefined);
     }
     if (curr.squares === "full") {
-      if (curr.actors.length == 3) {
+      if (curr.actors.length === 3) {
         const top = curr.actors[0];
         const left = curr.actors[1];
         const bot = curr.actors[2];
-        const actorsArr = [
+        const actorsArray = [
           [top, left, top, left, "trigger edge case"],
           [top],
           [top, bot],
@@ -47,15 +51,15 @@ const dataToYears = (data) =>
           [bot],
           [bot],
         ];
-        yearsObj[curr.year] = actorsArr.map((actors) => ({
+        yearsObj[curr.year] = actorsArray.map((actors) => ({
           event: curr.event,
           actors,
         }));
-      } else if (curr.actors.length == 2) {
+      } else if (curr.actors.length === 2) {
         const top = [curr.actors[0]];
         const bottom = [curr.actors[1]];
         const both = [curr.actors[0], curr.actors[1]];
-        const actorsArr = [
+        const actorsArray = [
           top,
           top,
           both,
@@ -66,7 +70,7 @@ const dataToYears = (data) =>
           bottom,
           bottom,
         ];
-        yearsObj[curr.year] = actorsArr.map((actors) => ({
+        yearsObj[curr.year] = actorsArray.map((actors) => ({
           event: curr.event,
           actors,
         }));
@@ -77,14 +81,16 @@ const dataToYears = (data) =>
         });
       }
     } else {
-      curr.squares.forEach(
-        (squareNum) =>
-          (yearsObj[curr.year][squareNum - 1] = {
-            event: curr.event,
-            actors: curr.actors,
-          })
-      );
+      for (const squareNum of curr.squares) {
+        yearsObj[curr.year][squareNum - 1] = {
+          event: curr.event,
+          actors: curr.actors,
+        };
+      }
     }
-    return yearsObj;
-  }, {});
+  }
+
+  return yearsObj;
+}
+
 export { actorsIn, actorColors, dataToYears, womensRightsActorColors };

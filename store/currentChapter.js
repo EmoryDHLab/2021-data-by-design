@@ -11,7 +11,7 @@ export const state = () => ({
 
 export const getters = {
   staticData(state) {
-    return { ...state.staticData};
+    return { ...state.staticData };
   },
 };
 
@@ -25,18 +25,20 @@ export const mutations = {
       Object.keys(initialState).forEach((key) =>
         Vue.set(state.chapterState, key, initialState[key])
       );
-      state.chapterState._mutationCount++;
+      state.chapterState._mutationCount += 1;
       state.chapterStateInitialized = true;
     }
   },
 
   updateChapterState(state, { key, value }) {
     state.chapterState[key] = value;
-    state.chapterState._mutationCount++;
+    state.chapterState._mutationCount += 1;
   },
 
   initializeSections(state, { sectionsData }) {
-    state.sections = sectionsData.map((sectionData) => sectionData.renderGroups.length);
+    state.sections = sectionsData.map(
+      (sectionData) => sectionData.renderGroups.length
+    );
   },
 
   prevSection(state) {
@@ -64,7 +66,7 @@ export const mutations = {
     // }
     // state.currentRenderGroup++;
     if (state.currentSection + 1 < state.sections.length) {
-      state.currentSection++;
+      state.currentSection += 1;
       return true;
     }
     return false;

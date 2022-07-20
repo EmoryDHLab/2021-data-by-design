@@ -7,7 +7,8 @@ import parse from "csv-parse";
 const router = Router();
 
 const dataFolder = "api/static/data/";
-const loadDataset = function (name) {
+
+function loadDataset(name) {
   return new Promise(function (resolve, reject) {
     glob(dataFolder + name + "*.{json,csv}", (error, files) => {
       if (error) {
@@ -55,7 +56,7 @@ const loadDataset = function (name) {
       }
     });
   });
-};
+}
 
 router.get("/", function (req, res) {
   //res.type("html"); automatically done by Express

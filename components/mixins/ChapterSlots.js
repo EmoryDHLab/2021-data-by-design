@@ -36,7 +36,7 @@ const ChapterSlots = {
   },
   components: {
     Slots: {
-      render(createElement, context) {
+      render(createElement) {
         return createElement(DocsRenderer, {
           props: {
             docContent: this.$parent.docContent,

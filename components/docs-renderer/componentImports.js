@@ -1,4 +1,8 @@
-// The FootnoteReference component is special; if the DocsRenderer sees "FootnoteReference" as an entry in the components object, it will use that as the footnote reference component; it isn't referenced by the Google Doc itself, so it doesn't need a docsDefinition.
+// The FootnoteReference component is special;
+// if the DocsRenderer sees "FootnoteReference" as an entry in the components
+// object, it will use that as the footnote reference component;
+// it isn't referenced by the Google Doc itself,
+// so it doesn't need a docsDefinition.
 import FootnoteReference from "@/components/global/docs-inclusions/FootnoteReference";
 
 export function contextModules(context) {
@@ -11,7 +15,7 @@ export function contextModules(context) {
 
 async function chapterModules(chapterId) {
   try {
-    const dynamicImport = await import(`@/components/chapters/${  chapterId}`);
+    const dynamicImport = await import(`@/components/chapters/${chapterId}`);
     const modules = dynamicImport.default;
     return modules;
   } catch (e) {

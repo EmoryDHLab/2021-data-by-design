@@ -1,5 +1,6 @@
-import { mapGetters, mapActions, mapState } from "vuex";
+import { mapActions } from "vuex";
 
+//import { mapGetters, mapActions, mapState } from "vuex";
 // import { notebookTypes } from 'dxd-common'
 
 const injects = {
@@ -67,11 +68,11 @@ const Visualization = ({
       }
     },
     transformMutableData(payload) {
-      this.$store.dispatch(`${this.mutableModule  }/transform`, payload);
+      this.$store.dispatch(`${this.mutableModule}/transform`, payload);
     },
     registerMutableData(payload) {
       this.$store.dispatch(
-        `${this.mutableModule  }/registerMutableData`,
+        `${this.mutableModule}/registerMutableData`,
         payload
       );
     },
