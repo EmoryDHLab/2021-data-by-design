@@ -8,7 +8,8 @@
     "start": "nuxi preview",
     "format": "prettier --write .",
     "typecheck": "tsc",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@nuxt/http": "^0.6.4",
@@ -21,6 +22,7 @@
     "google-docs-components": "latest",
     "google-docs-parser": "latest",
     "gsap": "^3.7.0",
+    "husky": "^8.0.1",
     "nuxt-edge": "latest",
     "p5": "^1.4.1"
   },

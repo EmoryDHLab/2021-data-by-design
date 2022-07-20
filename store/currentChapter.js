@@ -49,7 +49,7 @@ export const mutations = {
     //   state.currentRenderGroup = state.sections[state.currentSection] - 1;
     // }
     if (state.currentSection > 0) {
-      state.currentSection--;
+      state.currentSection -= 1;
       return true;
     }
     return false;

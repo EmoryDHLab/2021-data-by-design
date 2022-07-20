@@ -1,6 +1,4 @@
-import { mapActions } from "vuex";
-
-//import { mapGetters, mapActions, mapState } from "vuex";
+// import { mapGetters, mapActions, mapState } from "vuex";
 // import { notebookTypes } from 'dxd-common'
 
 const injects = {
