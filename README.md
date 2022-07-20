@@ -5,7 +5,7 @@ This is the repository for the Data By Design book. To see the latest version, g
 ## Getting Started
 
 Please install Node v16. We highly recommend using [nvm](https://github.com/nvm-sh/nvm). 
-There is a [known issue](#node-17+) with Node v17+.
+There is a [known issue](#node-17) with Node v17+.
 
 ```bash
 # install dependencies
@@ -21,6 +21,11 @@ $ yarn start
 # generate static project
 $ yarn generate
 ```
+
+We use [Prettier](https://prettier.io/) and [ESLint](https://eslint.org/). 
+You are expected to check that your code is valid according to both before 
+committing code. There is a GitHub Action that validates both, but it is also 
+recommended that you create a [pre-commit hook]()
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
