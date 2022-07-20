@@ -115,6 +115,7 @@
 
 <script>
 import imageData from "./img.json";
+
 export default {
   name: "Timeline",
   data() {
@@ -172,14 +173,14 @@ export default {
       this.imageSliceIndex = Math.floor(Math.random() * 98);
     },
     generateImg(img) {
-      let p = this.getImgPath(img.CHAPTER, img.FILE_NAME);
-      return p;
+      return this.getImgPath(img.CHAPTER, img.FILE_NAME);
     },
     getImgPath(chapter, file_name) {
       return require(`~/assets/images/${chapter}/${file_name}`);
     },
     sortByYear(imgs) {
-      let sorted = imgs.sort((a, b) => a.YEAR.slice(0, 4) - b.YEAR.slice(0, 4));
+      const sorted = [...imgs];
+      sorted.sort((a, b) => a.YEAR.slice(0, 4) - b.YEAR.slice(0, 4));
 
       if (this.lineXPosition.length < sorted.length) {
         this.lineXPosition.push(0);
@@ -212,7 +213,10 @@ export default {
       let x = this.randomXPosition[idx];
       let y = this.randomYPosition[idx];
       let r = this.randRotation[idx];
-      return `translate(${x},${y}) rotate(${r})`;
+      if (x && y && r) {
+        return `translate(${x},${y}) rotate(${r})`;
+      }
+      return "";
     },
     viewShuffle() {
       if (this.part1Vis === "visible") {
