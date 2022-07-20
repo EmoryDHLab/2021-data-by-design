@@ -166,8 +166,6 @@ export default {
           title: section.startString.split(":")[1].replace("\n", "").trim(),
         })),
       ];
-      console.table(sections);
-      console.log(sections[2]);
       return sections;
     },
     metadata() {
