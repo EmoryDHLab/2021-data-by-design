@@ -36,7 +36,7 @@
         ></image>
         <text
           v-for="(year, index) in getUniqYear(sortedImages)"
-          :x="yearTLpos[index] + timelinePosition"
+          :x="yearTimelinePosition[index] + timelinePosition"
           :y="140"
           style="fill: white; font-size: 15px; font-family: VTC William, serif"
         >
@@ -136,7 +136,7 @@ export default {
       lineXPosition: [],
       sortedImages: null,
       uniqueYear: [],
-      yearTLpos: [],
+      yearTimelinePosition: [],
       displayImage: imageData[10],
       currentIndex: null,
       currentX: null,
@@ -183,14 +183,14 @@ export default {
 
       if (this.lineXPosition.length < sorted.length) {
         this.lineXPosition.push(0);
-        this.yearTLpos.push(0);
+        this.yearTimelinePosition.push(0);
         for (let i = 1; i < sorted.length; i++) {
           if (sorted[i - 1].YEAR === sorted[i].YEAR) {
             this.lineXPosition.push(this.lineXPosition[i - 1] + 10);
           } else {
             let newyearpos = this.lineXPosition[i - 1] + 200;
             this.lineXPosition.push(newyearpos);
-            this.yearTLpos.push(newyearpos);
+            this.yearTimelinePosition.push(newyearpos);
           }
         }
         this.sortedImages = sorted;
