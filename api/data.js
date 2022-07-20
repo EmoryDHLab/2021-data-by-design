@@ -7,7 +7,7 @@ import parse from "csv-parse";
 const router = Router();
 
 const dataFolder = "api/static/data/";
-const loadDataset = function (name: string) {
+const loadDataset = function (name) {
   return new Promise(function (resolve, reject) {
     glob(dataFolder + name + "*.{json,csv}", (error, files) => {
       if (error) {
@@ -27,7 +27,7 @@ const loadDataset = function (name: string) {
         dataStream
           .pipe(parser)
           .on("data", (data) => {
-            if (dataObjProps.length == 0) {
+            if (dataObjProps.length === 0) {
               dataObjProps = data;
             } else {
               const newObj = {};

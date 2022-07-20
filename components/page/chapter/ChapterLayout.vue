@@ -29,11 +29,7 @@ import ChapterContent from "./content/ChapterContent";
 import MobileTitleNav from "./nav/MobileTitleNav";
 import SiteFooter from "../sitewide/SiteFooter";
 
-import {
-  globalDefinitions,
-  chapterDefinitions,
-  chapterComponents,
-} from "@/components/docs-renderer/componentImports";
+import { chapterComponents, chapterDefinitions, globalDefinitions } from "@/components/docs-renderer/componentImports";
 
 export default {
   props: {
@@ -156,7 +152,7 @@ export default {
         metadataEnd + 1,
         sectionsData[0]?.startIndex || this.bodyComponents.length
       );
-      const sections = [
+      return [
         { title: false, components: firstSectionComponents },
         ...sectionsData.map((section) => ({
           components: this.bodyComponents.slice(
@@ -166,7 +162,6 @@ export default {
           title: section.startString.split(":")[1].replace("\n", "").trim(),
         })),
       ];
-      return sections;
     },
     metadata() {
       if (!this.divisions) return;
