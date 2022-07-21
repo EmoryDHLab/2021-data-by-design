@@ -25,6 +25,7 @@ module.exports = {
     "no-shadow": 0,
     "consistent-return": 0,
     "no-underscore-dangle": 0,
+    "prefer-promise-reject-errors": 0,
     "no-restricted-syntax": [
       "error",
       {
