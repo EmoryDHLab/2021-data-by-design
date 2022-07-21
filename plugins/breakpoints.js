@@ -1,11 +1,12 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Vue from "vue";
 import { theme } from "~/tailwind.config";
 
-export default (options, inject) => {
+export default () => {
   const screens = Object.entries(theme.screens)
     .map(([key, value]) => ({
       name: key,
-      min: parseInt(value),
+      min: parseInt(value, 10),
     }))
     .sort((a, b) => b.min - a.min);
 
@@ -25,6 +26,7 @@ export default (options, inject) => {
         if (widestReached) {
           return widestReached.name;
         }
+        return undefined;
       },
       $breakpoints() {
         return screens

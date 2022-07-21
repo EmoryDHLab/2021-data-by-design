@@ -22,7 +22,6 @@ router.get("/", (req, res) => {
 
 router.get("/:id", async (req, res) => {
   const docID = req.params.id;
-  console.log(config);
   const docDownload = parseDoc(await getDoc(config, docID));
   res.send(docDownload);
 });

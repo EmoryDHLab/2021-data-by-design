@@ -18,9 +18,13 @@ module.exports = {
         ignorePropertyModificationsFor: ["state"],
       },
     ],
+    "import/prefer-default-export": 0,
+    "no-console": ["error", { allow: ["warn", "error"] }],
     "import/no-unresolved": 0,
     "import/extensions": 0,
     "no-shadow": 0,
+    "consistent-return": 0,
+    "no-underscore-dangle": 0,
     "no-restricted-syntax": [
       "error",
       {
