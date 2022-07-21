@@ -4,19 +4,19 @@ module.exports = {
   media: false, // or 'media' or 'class'
   theme: {
     screens: {
-      'sm': '640px',
+      sm: "640px",
       // => @media (min-width: 640px) { ... }
 
-      'md': '768px',
+      md: "768px",
       // => @media (min-width: 768px) { ... }
 
-      'lg': '1024px',
+      lg: "1024px",
       // => @media (min-width: 1024px) { ... }
 
-      'xl': '1280px',
+      xl: "1280px",
       // => @media (min-width: 1280px) { ... }
 
-      '2xl': '1536px',
+      "2xl": "1536px",
       // => @media (min-width: 1536px) { ... }
     },
     extend: {
@@ -45,7 +45,7 @@ module.exports = {
         dubois_sec: "#FFD3D3",
         dubois_pri: "#D92944",
         playfair_sec: "#D1E4FF",
-        playfair_pri: "#3B6FE0",
+        playfairPrimary: "#3B6FE0",
         peabody_sec: "#DBF5E9",
         peabody_pri: "#9AE4C1",
         willard_sec: "#FEFFC9",

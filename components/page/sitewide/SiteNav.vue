@@ -10,18 +10,19 @@
         @mouseover="onHover(page)"
         @mouseleave="onLeave()"
       >
-        <NuxtLink :to="page.to">{{ page.name }}</NuxtLink>
+        <div v-if="page.to"><NuxtLink :to="page.to">{{ page.name }}</NuxtLink></div>
+        <div v-else>{{ page.name }}</div>
         <div
           v-if="page.children"
           class="absolute z-20 top-10 border divide-y"
           :class="{
-            visible: hoverPage == page.name,
-            invisible: hoverPage != page.name,
+            visible: hoverPage === page.name,
+            invisible: hoverPage !== page.name,
           }"
         >
           <div
             v-for="child in page.children"
-            class="bg-black text-lg hover:bg-royalblue pl-2 pr-3 pb-0.5 pt-0.5"
+            class="bg-black text-lg hover:bg-playfairPrimary pl-2 pr-3 pb-0.5 pt-0.5"
           >
             <NuxtLink :to="child.to">{{ child.name }}</NuxtLink>
           </div>
@@ -52,11 +53,10 @@ export default {
         },
         {
           name: "Chapters",
-          to: "/",
           children: chaptersChildren,
         },
         {
-          name: "About this Site",
+          name: "About",
           to: "/sandbox",
         },
       ],
