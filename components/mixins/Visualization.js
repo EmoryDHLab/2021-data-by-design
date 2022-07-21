@@ -1,6 +1,6 @@
-import { mapGetters, mapActions, mapState } from "vuex";
-
+// import { mapGetters, mapActions, mapState } from "vuex";
 // import { notebookTypes } from 'dxd-common'
+import { mapActions } from "vuex";
 
 const injects = {
   width: "width",
@@ -13,12 +13,14 @@ const injects = {
 };
 
 // This mixin helps the visualization interface with vuex to get its data
-const Visualization = ({
+/* {
   staticDataset,
   mutableDataset,
   notebookName,
   saveProps,
-} = {}) => ({
+} = {} */
+
+const Visualization = () => ({
   props: {
     width: {
       type: String,
@@ -67,11 +69,11 @@ const Visualization = ({
       }
     },
     transformMutableData(payload) {
-      this.$store.dispatch(`${this.mutableModule  }/transform`, payload);
+      this.$store.dispatch(`${this.mutableModule}/transform`, payload);
     },
     registerMutableData(payload) {
       this.$store.dispatch(
-        `${this.mutableModule  }/registerMutableData`,
+        `${this.mutableModule}/registerMutableData`,
         payload
       );
     },
@@ -184,4 +186,5 @@ const Visualization = ({
   },
 });
 
-export { injects, Visualization as default };
+export { injects };
+export default Visualization;

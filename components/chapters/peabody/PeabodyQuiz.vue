@@ -178,7 +178,7 @@ export default {
     },
     actorsIn,
     eventHovered({ type, year, event }) {
-      this.hoveredType = type == "full" ? null : type;
+      this.hoveredType = type === "full" ? null : type;
       this.hoveredEvent = event || {};
       if (year < this.currentCenturyNum) {
         year += this.currentCenturyNum;

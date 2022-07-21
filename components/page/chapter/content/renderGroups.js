@@ -43,12 +43,12 @@ export function renderGroups(componentArray) {
   }
 
   const idIndexMap = {};
-  return componentGroups.reduce((acc, curr, i, source) => {
+  return componentGroups.reduce((acc, curr) => {
     if (curr.alignment) {
       if (curr.pairingId in idIndexMap) {
         const pair = acc[idIndexMap[curr.pairingId]];
         if (curr.alignment in pair) {
-          console.warning(
+          console.warn(
             `There are two groups labeled ${curr.alignment}:${curr.pairingId}. Joining them`
           );
           pair[curr.alignment].push(...curr.components);

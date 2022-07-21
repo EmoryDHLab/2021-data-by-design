@@ -1,6 +1,6 @@
 import express from "express";
 import livedoc from "./livedoc";
-import data from "./data";
+import data from "./data.ts";
 
 const app = express();
 
