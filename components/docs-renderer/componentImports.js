@@ -3,7 +3,7 @@
 // object, it will use that as the footnote reference component;
 // it isn't referenced by the Google Doc itself,
 // so it doesn't need a docsDefinition.
-import FootnoteReference from "@/components/global/docs-inclusions/FootnoteReference";
+import FootnoteReference from "~/components/global/docs-inclusions/FootnoteReference";
 
 export function contextModules(context) {
   const modules = context

@@ -1,4 +1,4 @@
-import DocsRenderer from "@/components/docs-renderer/DocsRenderer.vue";
+import DocsRenderer from "~/components/docs-renderer/DocsRenderer.vue";
 
 const ChapterSlots = {
   props: {

@@ -98,7 +98,6 @@ export default {
   mounted() {
     let $vm = this;
 
-    // console.log($vm.studentData);
     const script = (p5) => {
       let attachedData = this.studentData;
       let pieHeight = p5.windowWidth * 0.4;
@@ -113,7 +112,7 @@ export default {
         "#2F4F4F",
         "#B5CCFF",
         "#F8E690",
-        "#FEC313",
+        "#FEC313"
       ];
       let angles = [
         0.585 * 360,
@@ -121,7 +120,7 @@ export default {
         0.021 * 360,
         0.032 * 360,
         0.038 * 360,
-        0.281 * 360,
+        0.281 * 360
       ];
 
       class Ball {
@@ -135,6 +134,7 @@ export default {
           this.dragging = false; // Is the object being dragged?
           this.rollover = false; // Is the mouse over the ellipse?
         }
+
         mouseOn() {
           if (
             p5.dist(p5.mouseX, p5.mouseY, this.x, this.y) <
@@ -155,6 +155,7 @@ export default {
             this.rollover = false;
           }
         }
+
         pressed() {
           if (
             p5.dist(p5.mouseX, p5.mouseY, this.x, this.y) <
@@ -166,6 +167,7 @@ export default {
             this.offsetY = this.y - p5.mouseY;
           }
         }
+
         update() {
           // Adjust location if being dragged
           if (this.dragging) {
@@ -173,6 +175,7 @@ export default {
             this.y = p5.mouseY + this.offsetY;
           }
         }
+
         released() {
           // Quit dragging
           this.dragging = false;
@@ -197,6 +200,7 @@ export default {
             }
           }
         }
+
         display() {
           if (
             p5.dist(p5.mouseX, p5.mouseY, this.x, this.y) <
@@ -212,6 +216,7 @@ export default {
           }
           p5.ellipse(this.x, this.y, this.diameter, this.diameter);
         }
+
         wiggle() {
           let dx = p5.random();
           let dy = p5.random();
@@ -222,6 +227,7 @@ export default {
           this.x = this.x + p5.sin(p5.PI * dx + t * sx) * 0.1;
           this.y = this.y + p5.sin(p5.PI * dy + t * sy) * 0.1;
         }
+
         withinBounds() {
           let wWidth = p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500;
 
@@ -233,7 +239,7 @@ export default {
           if (collision) {
             const center = [
               Math.floor((p5.windowWidth * 0.4) / 2),
-              Math.floor((p5.windowWidth * 0.4) / 2),
+              Math.floor((p5.windowWidth * 0.4) / 2)
             ];
             const radvec = [this.x, this.y].map((c, i) => c - center[i]);
 
@@ -244,7 +250,9 @@ export default {
           }
         }
       }
+
       let tryNum = 0;
+
       function placeCircles() {
         let become = true;
         let wWidth = p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500;
@@ -266,8 +274,8 @@ export default {
           // if colliding with another ball or not in the piechart
           if (
             p5.dist(rx, ry, circles[i].x, circles[i].y) -
-              circles[i].diameter / 2 <
-              circles[i].diameter / 2 ||
+            circles[i].diameter / 2 <
+            circles[i].diameter / 2 ||
             outOfBounds
           ) {
             become = false;
@@ -286,6 +294,7 @@ export default {
           }
         }
       }
+
       function placeOutsideCircles() {
         let wWidth = p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500;
 
@@ -295,7 +304,7 @@ export default {
           { x: 43, y: 390 },
           { x: 444, y: 374 },
           { x: 390, y: 426 },
-          { x: 348, y: 445 },
+          { x: 348, y: 445 }
         ];
         for (let i = 0; i < 5; i++) {
           outsideCircles.push(
@@ -309,6 +318,7 @@ export default {
           );
         }
       }
+
       function pieChart(diameter, data) {
         let lastAngle = p5.radians(180);
         for (let i = 0; i < data.length; i++) {
@@ -327,7 +337,7 @@ export default {
         }
       }
 
-      p5.setup = function () {
+      p5.setup = function() {
         canvas = p5.createCanvas(p5.windowWidth * 0.4, p5.windowWidth * 0.4);
         canvas.parent("vue-canvas");
 
@@ -337,7 +347,7 @@ export default {
         placeOutsideCircles();
       };
 
-      p5.draw = function () {
+      p5.draw = function() {
         p5.background("rgb(250, 241, 233)");
         pieChart(
           p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500,
@@ -360,7 +370,7 @@ export default {
           ball.mouseOn();
         });
       };
-      p5.mousePressed = function () {
+      p5.mousePressed = function() {
         circles.forEach((ball) => {
           ball.pressed();
         });
@@ -368,7 +378,7 @@ export default {
           ball.pressed();
         });
       };
-      p5.mouseDragged = function () {
+      p5.mouseDragged = function() {
         circles.forEach((ball) => {
           ball.update();
         });
@@ -376,7 +386,7 @@ export default {
           ball.update();
         });
       };
-      p5.mouseReleased = function () {
+      p5.mouseReleased = function() {
         circles.forEach((ball) => {
           ball.released();
         });
@@ -384,7 +394,7 @@ export default {
           ball.released();
         });
       };
-      p5.windowResized = function () {
+      p5.windowResized = function() {
         p5.resizeCanvas(p5.windowWidth * 0.4, p5.windowWidth * 0.4);
         circles = [];
         outsideCircles = [];
@@ -396,6 +406,7 @@ export default {
         p5.redraw();
       };
     };
+
     new p5(script);
   },
 };

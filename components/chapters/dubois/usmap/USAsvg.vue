@@ -1,9 +1,5 @@
 <template>
-  <StaticData
-    :dataset="['us_features']"
-    v-slot="staticData"
-    @loaded="loadedData"
-  >
+  <div class="contents">
     <div
       class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 flex flex-col font-duboisWide uppercase"
     >
@@ -28,7 +24,6 @@
         </p>
       </div>
       <div
-        v-if="staticData"
         class="col-span-4 2xl:col-span-6 col-start-4 2xl:col-start-5 mt-6 flex"
       >
         <svg height="100%" width="100%" viewBox="0 0 1000 600">
@@ -84,17 +79,19 @@
       <p>It has graduated 330 negroes among whom are:</p>
       <p class="text-red-500">Elle a délivre des diplomes a 330 nègres dont:</p>
     </div>
-  </StaticData>
+  </div>
 </template>
 <script>
 import * as d3 from "d3";
 import StaticData from "@/components/data-access/StaticData";
+import usFeatures from "~/api/static/data/us_features.json"
 
 export default {
   components: { StaticData },
   data: function () {
+    console.log(usFeatures);
     return {
-      statesJson: null,
+      statesJson: usFeatures,
       collegeList: [
         { city: "Plano, TX", lat: "33.05", lng: "-96.75" },
         { city: "Irvine, CA", lat: "33.68", lng: "-117.77" },
@@ -170,11 +167,6 @@ export default {
         { state: "Alaska", color: "#FFFFFF" },
       ],
     };
-  },
-  methods: {
-    loadedData({ name, data }) {
-      this.statesJson = data;
-    },
   },
   computed: {
     projectionUSA() {
