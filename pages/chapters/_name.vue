@@ -11,7 +11,7 @@
 <script>
 import ChapterLayout from "~/components/page/chapter/ChapterLayout";
 
-import chaptersConfig from "@/chaptersConfig";
+import chaptersConfig from "~/chaptersConfig";
 
 export default {
   async asyncData({ params, $http }) {

@@ -23,12 +23,6 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ["~/plugins/breakpoints.js"],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  // components: [
-  //   {path: "~/components/global", extensions: ["vue"], prefix: ""},
-  //   {path: "~/components/page-layout", extensions: ["vue"], prefix: ""},
-  // ],
-
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxtjs/tailwindcss"],
 

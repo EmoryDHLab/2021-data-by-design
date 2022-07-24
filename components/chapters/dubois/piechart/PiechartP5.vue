@@ -1,20 +1,11 @@
 <template>
-  <StaticData
-    :dataset="['330_students']"
-    v-slot="staticData"
-    @loaded="loadedData"
-  >
+  <div class="contents">
     <div
       class="col-span-3 2xl:col-span-3 col-start-1 col-end-4 2xl:col-start-2 mt-6 flex flex-col justify-center"
     >
       <Legend :legendList="legendList" lang="eng"></Legend>
     </div>
-    <div
-      class="col-span-4 2xl:col-span-6 col-start-4 col-end-8 2xl:col-start-5 mt-6"
-      v-if="staticData"
-    >
-      <div id="vue-canvas" ref="pieChartVis" class="w-full h-full"></div>
-    </div>
+    <div id="vue-canvas" ref="pieChartVis" class="w-full h-full"></div>
     <div
       class="col-span-3 2xl:col-span-3 col-start-8 col-end-11 2xl:col-start-11 mt-6 flex flex-col justify-center"
     >
@@ -48,21 +39,19 @@
         2,500,000 FRANCS).
       </p>
     </div>
-  </StaticData>
+  </div>
 </template>
 <script>
 import p5 from "p5";
-import Legend from "@/components/chapters/dubois/piechart/Legend";
-import StaticData from "@/components/data-access/StaticData";
+import Legend from "~/components/chapters/dubois/piechart/Legend";
+import chartOneData from "~/api/static/data/chartOneGrouped.json";
 
 export default {
   components: {
     Legend,
-    StaticData,
   },
   data() {
     return {
-      studentData: null,
       legendList: [
         {
           eng: "Teachers",
@@ -85,54 +74,25 @@ export default {
       ],
     };
   },
-  methods: {
-    // loadedData({ name, data }) {
-    //   this.studentData = data;
-    // },
-    loadedData: function ({ name, data }) {
-      this.$nextTick(function () {
-        this.studentData = data;
-      });
-    },
-  },
   mounted() {
     let $vm = this;
 
     const script = (p5) => {
-      let attachedData = this.studentData;
-      let pieHeight = p5.windowWidth * 0.4;
-      let numCircles = 330;
       let circles = [];
       let outsideCircles = [];
       let canvas;
 
-      let pieChartColors = [
-        "#D92944",
-        "#FFD3D3",
-        "#2F4F4F",
-        "#B5CCFF",
-        "#F8E690",
-        "#FEC313"
-      ];
-      let angles = [
-        0.585 * 360,
-        0.043 * 360,
-        0.021 * 360,
-        0.032 * 360,
-        0.038 * 360,
-        0.281 * 360
-      ];
-
-      class Ball {
-        constructor(xin, yin, din, idin, oin) {
-          this.x = xin;
-          this.y = yin;
-          this.col = "white";
-          this.id = idin;
-          this.diameter = din;
-          this.others = oin;
+      class Circle {
+        constructor(x, y, diameter, id, others, text) {
+          this.x = x;
+          this.y = y;
+          this.color = "white";
+          this.id = id;
+          this.diameter = diameter;
+          this.others = others;
           this.dragging = false; // Is the object being dragged?
           this.rollover = false; // Is the mouse over the ellipse?
+          this.text = text;
         }
 
         mouseOn() {
@@ -141,8 +101,6 @@ export default {
             this.diameter / 2
           ) {
             this.rollover = true;
-            // console.log(attachedData);
-            //tooltip - implement in HTML?
             p5.rectMode(p5.CENTER);
             p5.fill("white");
             p5.stroke("black");
@@ -150,7 +108,7 @@ export default {
 
             p5.fill("black");
             p5.noStroke();
-            p5.text("Tanvi", p5.mouseX, p5.mouseY + 25);
+            p5.text(this.text, p5.mouseX, p5.mouseY + 25);
           } else {
             this.rollover = false;
           }
@@ -239,7 +197,7 @@ export default {
           if (collision) {
             const center = [
               Math.floor((p5.windowWidth * 0.4) / 2),
-              Math.floor((p5.windowWidth * 0.4) / 2)
+              Math.floor((p5.windowWidth * 0.4) / 2),
             ];
             const radvec = [this.x, this.y].map((c, i) => c - center[i]);
 
@@ -251,52 +209,144 @@ export default {
         }
       }
 
-      let tryNum = 0;
+      /**
+       * Tries to create a new circle that does not overlap with the previous
+       * circles and is inside a specific arc. If the circle does overlap, we
+       * return undefined.
+       */
+      function createNewCircle(
+        createdCircles,
+        id,
+        student,
+        pieChartRadius,
+        circleRadius,
+        startAngle,
+        endAngle,
+        center
+      ) {
+        // Using polar coordinates here
+        // Get a random radius
+        const r = 0.1; //p5.random(0, pieChartRadius);
+        // And a random angle
+        console.log("------");
+        console.log(startAngle);
+        console.log(endAngle);
+        console.log("------");
+        const angle = p5.random(startAngle, endAngle);
+        // Convert to cartesian
+        const rx = r * Math.cos(angle);
+        const ry = r * Math.sin(angle);
+
+        // Now we need to get the coordinates from the center
+        const x = rx + center.x;
+        const y = rx + center.y;
+
+        for (const circle of circles) {
+          const overlapsWithCircle =
+            p5.dist(x, y, circle.x, circle.y) < circle.diameter / 2;
+
+          if (overlapsWithCircle) {
+            return undefined;
+          }
+        }
+
+        return new Circle(
+          rx,
+          ry,
+          circleRadius * 2,
+          id,
+          createdCircles,
+          student.name
+        );
+      }
+
+      function placeCategoryCircles(currentAngle, categoryAngle, students) {
+        const diameter = p5.width * (18 / 466);
+        const radius = diameter / 2;
+        const center = {
+          x: p5.width / 2,
+          y: p5.height / 2,
+        };
+
+        for (let i = 0; i < 1; i++) {
+          while (true) {
+            const circle = createNewCircle(
+              circles,
+              i,
+              students[i],
+              (p5.width - 20) / 2,
+              radius,
+              currentAngle,
+              currentAngle + categoryAngle,
+              center
+            );
+
+            if (circle) {
+              circles.push(circle);
+              break;
+            }
+          }
+        }
+      }
+
+      function placeCategories() {
+        const { count, ...categories } = chartOneData;
+        let currentAngle = 0;
+
+        for (const { students } of Object.values(categories)) {
+          const categoryAngle = (students.length / count) * 2 * Math.PI;
+          placeCategoryCircles(currentAngle, categoryAngle, students);
+          currentAngle += categoryAngle;
+        }
+      }
 
       function placeCircles() {
-        let become = true;
-        let wWidth = p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500;
+        let windowWidth = Math.min(p5.windowWidth * 0.4, 500);
 
-        let rx = p5.random(0, wWidth);
-        let ry = p5.random(0, wWidth);
+        let rx = p5.random(0, windowWidth);
+        let ry = p5.random(0, windowWidth);
+
         if (p5.windowWidth * 0.4 > 500) {
           let dist = p5.windowWidth * 0.4 - 500;
           rx = p5.random(dist / 2, dist / 2 + 500);
           ry = p5.random(dist / 2, dist / 2 + 500);
         }
-        let diameter = wWidth * (18 / 466);
 
-        for (let i = 0; i < circles.length; i++) {
-          const dx = rx - (p5.windowWidth * 0.4) / 2;
-          const dy = ry - (p5.windowWidth * 0.4) / 2;
-          const outOfBounds =
-            Math.sqrt(dx * dx + dy * dy) >= (wWidth - 20) / 2 - diameter / 2;
-          // if colliding with another ball or not in the piechart
-          if (
-            p5.dist(rx, ry, circles[i].x, circles[i].y) -
-            circles[i].diameter / 2 <
-            circles[i].diameter / 2 ||
-            outOfBounds
-          ) {
-            become = false;
-            break;
+        let diameter = windowWidth * (18 / 466);
+
+        for (let tryNum = 0; tryNum < 300; tryNum++) {
+          let isValid = true;
+          for (let i = 0; i < circles.length; i++) {
+            const dx = rx - (p5.windowWidth * 0.4) / 2;
+            const dy = ry - (p5.windowWidth * 0.4) / 2;
+            const outOfBounds =
+              Math.sqrt(dx * dx + dy * dy) >=
+              (windowWidth - 20) / 2 - diameter / 2;
+
+            const overlapsWithCircle =
+              p5.dist(rx, ry, circles[i].x, circles[i].y) <
+              circles[i].diameter / 2;
+
+            // If colliding with another ball or not in the pie chart
+            if (overlapsWithCircle || outOfBounds) {
+              isValid = false;
+              break;
+            }
+          }
+
+          if (isValid) {
+            circles.push(
+              new Circle(rx, ry, diameter, circles.length + 1, circles)
+            );
+            return;
           }
         }
-        if (become) {
-          tryNum = 0;
-          circles.push(new Ball(rx, ry, diameter, circles.length + 1, circles));
-        } else {
-          if (tryNum < 300) {
-            tryNum++;
-            placeCircles();
-          } else {
-            tryNum = 0;
-          }
-        }
+
+        console.error("Failed to place circles");
       }
 
       function placeOutsideCircles() {
-        let wWidth = p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500;
+        let wWidth = p5.width < 500 ? p5.width : 500;
 
         let diameter = wWidth * (18 / 466);
         let outsideCoordinates = [
@@ -304,11 +354,11 @@ export default {
           { x: 43, y: 390 },
           { x: 444, y: 374 },
           { x: 390, y: 426 },
-          { x: 348, y: 445 }
+          { x: 348, y: 445 },
         ];
         for (let i = 0; i < 5; i++) {
           outsideCircles.push(
-            new Ball(
+            new Circle(
               outsideCoordinates[i].x,
               outsideCoordinates[i].y,
               diameter,
@@ -319,40 +369,48 @@ export default {
         }
       }
 
-      function pieChart(diameter, data) {
-        let lastAngle = p5.radians(180);
-        for (let i = 0; i < data.length; i++) {
-          p5.fill(pieChartColors[i]);
+      function pieChart(diameter) {
+        let lastAngle = Math.PI;
+        const { count, ...categories } = chartOneData;
+        const padding = 20;
+
+        for (const { color, students } of Object.values(categories)) {
+          const angle = (students.length / count) * Math.PI * 2;
+
+          p5.fill(color);
           p5.stroke("black");
           p5.arc(
-            (p5.windowWidth * 0.4) / 2,
-            (p5.windowWidth * 0.4) / 2,
-            diameter - 20 < 500 ? diameter - 20 : 500,
-            diameter - 20 < 500 ? diameter - 20 : 500,
+            p5.width / 2,
+            p5.height / 2,
+            diameter - padding,
+            diameter - padding,
             lastAngle,
-            lastAngle + p5.radians(angles[i]),
+            lastAngle + angle,
             p5.PIE
           );
-          lastAngle += p5.radians(angles[i]);
+
+          lastAngle += angle;
         }
       }
 
-      p5.setup = function() {
-        canvas = p5.createCanvas(p5.windowWidth * 0.4, p5.windowWidth * 0.4);
+      p5.setup = function () {
+        // Equivalent of
+        //   width: 40vw
+        //   maxWidth: 500px;
+        canvas = p5.createCanvas(
+          Math.min(p5.windowWidth * 0.4, 500),
+          Math.min(p5.windowWidth * 0.4, 500)
+        );
         canvas.parent("vue-canvas");
 
-        for (let i = 0; i < numCircles; i++) {
-          placeCircles();
-        }
-        placeOutsideCircles();
+        placeCategories();
+
+        //placeOutsideCircles();
       };
 
-      p5.draw = function() {
+      p5.draw = function () {
         p5.background("rgb(250, 241, 233)");
-        pieChart(
-          p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500,
-          angles
-        );
+        pieChart(p5.width);
 
         circles.forEach((ball) => {
           ball.display();
@@ -370,7 +428,7 @@ export default {
           ball.mouseOn();
         });
       };
-      p5.mousePressed = function() {
+      p5.mousePressed = function () {
         circles.forEach((ball) => {
           ball.pressed();
         });
@@ -378,7 +436,7 @@ export default {
           ball.pressed();
         });
       };
-      p5.mouseDragged = function() {
+      p5.mouseDragged = function () {
         circles.forEach((ball) => {
           ball.update();
         });
@@ -386,7 +444,7 @@ export default {
           ball.update();
         });
       };
-      p5.mouseReleased = function() {
+      p5.mouseReleased = function () {
         circles.forEach((ball) => {
           ball.released();
         });
@@ -394,15 +452,16 @@ export default {
           ball.released();
         });
       };
-      p5.windowResized = function() {
-        p5.resizeCanvas(p5.windowWidth * 0.4, p5.windowWidth * 0.4);
+      p5.windowResized = function () {
+        p5.resizeCanvas(
+          Math.min(p5.windowWidth * 0.4, 500),
+          Math.min(p5.windowWidth * 0.4, 500)
+        );
         circles = [];
         outsideCircles = [];
 
-        for (let i = 0; i < numCircles; i++) {
-          placeCircles();
-        }
-        placeOutsideCircles();
+        placeCategories();
+        //placeOutsideCircles();
         p5.redraw();
       };
     };

@@ -84,14 +84,13 @@
 <script>
 import * as d3 from "d3";
 import StaticData from "@/components/data-access/StaticData";
-import usFeatures from "~/api/static/data/us_features.json"
+import statesJson from "~/api/static/data/usFeatures.json";
 
 export default {
   components: { StaticData },
   data: function () {
-    console.log(usFeatures);
     return {
-      statesJson: usFeatures,
+      statesJson,
       collegeList: [
         { city: "Plano, TX", lat: "33.05", lng: "-96.75" },
         { city: "Irvine, CA", lat: "33.68", lng: "-117.77" },
