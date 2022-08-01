@@ -1,6 +1,7 @@
 {
   "count": 331,
-  "business": {
+  "categories": [{
+    "name": "business",
     "color": "#CDCE9D",
     "students": [
       {
@@ -61,7 +62,8 @@
       }
     ]
   },
-  "deceased": {
+  {
+    "name": "deceased",
     "color": "#000000",
     "students": [
       {
@@ -402,7 +404,8 @@
       }
     ]
   },
-  "government": {
+  {
+    "name": "government",
     "color": "#FFD3D3",
     "students": [
       {
@@ -479,7 +482,8 @@
       }
     ]
   },
-  "housewives": {
+  {
+    "name": "housewives",
     "color": "#FEC313",
     "students": [
       {
@@ -916,7 +920,8 @@
       }
     ]
   },
-  "ministers": {
+  {
+    "name": "ministers",
     "color": "#5A7BC3",
     "students": [
       {
@@ -1017,7 +1022,8 @@
       }
     ]
   },
-  "other": {
+  {
+    "name": "other",
     "color": "#2F4F4F",
     "students": [
       {
@@ -1102,7 +1108,8 @@
       }
     ]
   },
-  "teachers": {
+  {
+    "name": "teachers",
     "color": "#D92944",
     "students": [
       {
@@ -2403,7 +2410,8 @@
       }
     ]
   },
-  "unknown": {
+  {
+    "name": "unknown",
     "color": "#FFFFFF",
     "students": [
       {
@@ -2687,5 +2695,5 @@
         "type": "Normal Graduates"
       }
     ]
-  }
+  }]
 }

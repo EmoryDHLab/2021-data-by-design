@@ -104,17 +104,36 @@ export default {
             p5.rectMode(p5.CENTER);
             p5.fill("white");
             p5.stroke("black");
-            const textWidth = p5.textWidth(this.text);
-            p5.rect(
-              p5.mouseX + textWidth / 2,
-              p5.mouseY + 20,
-              textWidth + 40,
-              40
-            );
+
+            let textWidth = 0;
+            const lineWidths = this.text
+              .split("\n")
+              .map((line) => p5.textWidth(line));
+            for (const width of lineWidths) {
+              if (width > textWidth) {
+                textWidth = width;
+              }
+            }
+            const x = p5.mouseX;
+            const y = p5.mouseY;
+            const width = textWidth + 20;
+            const height = 55;
+
+            p5.beginShape();
+            p5.vertex(x, y);
+            p5.vertex(x + 10, y - 10);
+            p5.vertex(x + width - 10, y - 10);
+            p5.vertex(x + width, y);
+            p5.vertex(x + width, y + height);
+            p5.vertex(x + width - 10, y + height + 10);
+            p5.vertex(x + 10, y + height + 10);
+            p5.vertex(x, y + height);
+            p5.endShape();
 
             p5.fill("black");
             p5.noStroke();
-            p5.text(this.text, p5.mouseX, p5.mouseY + 20);
+            p5.textSize(16);
+            p5.text(this.text, p5.mouseX + 10, p5.mouseY + 10);
           } else {
             this.rollover = false;
           }
@@ -171,12 +190,12 @@ export default {
             this.diameter / 2
           ) {
             p5.fill("white");
-            p5.stroke("black");
+            p5.stroke("#FEF6D8");
           } else {
-            let c = p5.color("#AA3842");
-            c.setAlpha(230);
+            let c = p5.color("#FAF1E9");
+            c.setAlpha(76.5);
             p5.fill(c);
-            p5.noStroke();
+            p5.stroke("#FEF6D8");
           }
           p5.ellipse(this.x, this.y, this.diameter, this.diameter);
         }
@@ -193,7 +212,7 @@ export default {
         }
 
         withinBounds() {
-          let wWidth = p5.windowWidth * 0.4 < 500 ? p5.windowWidth * 0.4 : 500;
+          let wWidth = Math.min(p5.windowWidth * 0.4, 500);
 
           const dx = this.x - (p5.windowWidth * 0.4) / 2;
           const dy = this.y - (p5.windowWidth * 0.4) / 2;
@@ -221,11 +240,11 @@ export default {
        * return undefined.
        */
       function createNewCircle(
-        createdCircles,
+        categoryCircles,
         id,
         student,
         pieChartRadius,
-        circleRadius,
+        circleDiameter,
         startAngle,
         endAngle,
         center
@@ -246,9 +265,9 @@ export default {
         const x = rx + center.x;
         const y = ry + center.y;
 
-        for (const circle of circles) {
+        for (const circle of categoryCircles) {
           const overlapsWithCircle =
-            p5.dist(x, y, circle.x, circle.y) < circle.diameter / 2;
+            p5.dist(x, y, circle.x, circle.y) < circle.diameter;
 
           if (overlapsWithCircle) {
             return undefined;
@@ -258,100 +277,60 @@ export default {
         return new Circle(
           x,
           y,
-          circleRadius * 2,
+          circleDiameter,
           id,
-          createdCircles,
-          `${student.name}\n${student.year}`
+          circles,
+          `${student.name}\n${student.location}\n${student.year}`
         );
       }
 
       function placeCategoryCircles(currentAngle, categoryAngle, students) {
-        const diameter = p5.width * (18 / 466);
-        const radius = diameter / 2;
+        const diameter = p5.width * (15 / 466);
         const center = {
           x: p5.width / 2,
           y: p5.height / 2,
         };
+        // We store the category circles separately because we want to
+        // do the overlap check only for the category circles.
+        const categoryCircles = [];
 
         for (let i = 0; i < students.length; i++) {
           while (true) {
             const circle = createNewCircle(
-              circles,
+              categoryCircles,
               i,
               students[i],
               (p5.width - 20) / 2,
-              radius,
+              diameter,
               currentAngle,
               currentAngle + categoryAngle,
               center
             );
 
             if (circle) {
-              circles.push(circle);
+              categoryCircles.push(circle);
               break;
             }
           }
         }
+
+        // Then we add the category circles to the main circle
+        circles.push(...categoryCircles);
       }
 
       function placeCategories() {
-        const { count, ...categories } = chartOneData;
+        const { count, categories } = chartOneData;
         let currentAngle = 0;
 
-        for (const { students } of Object.values(categories)) {
+        for (const { students } of categories) {
           const categoryAngle = (students.length / count) * 2 * Math.PI;
           placeCategoryCircles(currentAngle, categoryAngle, students);
           currentAngle += categoryAngle;
         }
       }
 
-      function placeCircles() {
-        let windowWidth = Math.min(p5.windowWidth * 0.4, 500);
-
-        let rx = p5.random(0, windowWidth);
-        let ry = p5.random(0, windowWidth);
-
-        if (p5.windowWidth * 0.4 > 500) {
-          let dist = p5.windowWidth * 0.4 - 500;
-          rx = p5.random(dist / 2, dist / 2 + 500);
-          ry = p5.random(dist / 2, dist / 2 + 500);
-        }
-
-        let diameter = windowWidth * (18 / 466);
-
-        for (let tryNum = 0; tryNum < 300; tryNum++) {
-          let isValid = true;
-          for (let i = 0; i < circles.length; i++) {
-            const dx = rx - (p5.windowWidth * 0.4) / 2;
-            const dy = ry - (p5.windowWidth * 0.4) / 2;
-            const outOfBounds =
-              Math.sqrt(dx * dx + dy * dy) >=
-              (windowWidth - 20) / 2 - diameter / 2;
-
-            const overlapsWithCircle =
-              p5.dist(rx, ry, circles[i].x, circles[i].y) <
-              circles[i].diameter / 2;
-
-            // If colliding with another ball or not in the pie chart
-            if (overlapsWithCircle || outOfBounds) {
-              isValid = false;
-              break;
-            }
-          }
-
-          if (isValid) {
-            circles.push(
-              new Circle(rx, ry, diameter, circles.length + 1, circles)
-            );
-            return;
-          }
-        }
-
-        console.error("Failed to place circles");
-      }
-
       function placeOutsideCircles() {
-        let wWidth = p5.width < 500 ? p5.width : 500;
+        let wWidth = Math.min(p5.width, 500);
 
         let diameter = wWidth * (18 / 466);
         let outsideCoordinates = [
@@ -375,11 +354,11 @@ export default {
       }
 
       function pieChart(diameter) {
-        let lastAngle = Math.PI;
-        const { count, ...categories } = chartOneData;
+        let lastAngle = 0;
+        const { count, categories } = chartOneData;
         const padding = 20;
 
-        for (const { color, students } of Object.values(categories)) {
+        for (const { color, students } of categories) {
           const angle = (students.length / count) * Math.PI * 2;
 
           p5.fill(color);
@@ -410,7 +389,7 @@ export default {
 
         placeCategories();
 
-        //placeOutsideCircles();
+        placeOutsideCircles();
       };
 
       p5.draw = function () {
@@ -421,7 +400,7 @@ export default {
           ball.display();
           ball.collide();
           ball.wiggle();
-          ball.withinBounds();
+          //ball.withinBounds();
         });
         circles.forEach((ball) => {
           ball.mouseOn();
