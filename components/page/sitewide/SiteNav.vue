@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import chaptersConfig from "@/chapters-config";
+import chaptersConfig from "@/chaptersConfig";
 
 const chaptersChildren = Object.values(chaptersConfig).map(
   ({ navName, id }) => ({

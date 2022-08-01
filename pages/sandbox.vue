@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import EventSquare from "@/components/chapters/peabody/grid/EventSquare";
+import EventSquare from "~/components/chapters/peabody/grid/EventSquare";
 import PeabodyQuiz from "../components/chapters/peabody/PeabodyQuiz";
 import PeabodyTimelineView from "../components/chapters/peabody/PeabodyTimelineView";
 import PeabodyFreeform from "../components/chapters/peabody/PeabodyFreeform.vue";
