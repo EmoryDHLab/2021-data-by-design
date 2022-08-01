@@ -104,11 +104,17 @@ export default {
             p5.rectMode(p5.CENTER);
             p5.fill("white");
             p5.stroke("black");
-            p5.rect(p5.mouseX, p5.mouseY + 20, 80, 20);
+            const textWidth = p5.textWidth(this.text);
+            p5.rect(
+              p5.mouseX + textWidth / 2,
+              p5.mouseY + 20,
+              textWidth + 40,
+              40
+            );
 
             p5.fill("black");
             p5.noStroke();
-            p5.text(this.text, p5.mouseX, p5.mouseY + 25);
+            p5.text(this.text, p5.mouseX, p5.mouseY + 20);
           } else {
             this.rollover = false;
           }
@@ -226,12 +232,11 @@ export default {
       ) {
         // Using polar coordinates here
         // Get a random radius
-        const r = 0.1; //p5.random(0, pieChartRadius);
+        // We need to take the square root of a random variable
+        // in order to get a better distribution:
+        // http://www.anderswallin.net/2009/05/uniform-random-points-in-a-circle-using-polar-coordinates/
+        const r = pieChartRadius * Math.sqrt(p5.random(0, 1));
         // And a random angle
-        console.log("------");
-        console.log(startAngle);
-        console.log(endAngle);
-        console.log("------");
         const angle = p5.random(startAngle, endAngle);
         // Convert to cartesian
         const rx = r * Math.cos(angle);
@@ -239,7 +244,7 @@ export default {
 
         // Now we need to get the coordinates from the center
         const x = rx + center.x;
-        const y = rx + center.y;
+        const y = ry + center.y;
 
         for (const circle of circles) {
           const overlapsWithCircle =
@@ -251,12 +256,12 @@ export default {
         }
 
         return new Circle(
-          rx,
-          ry,
+          x,
+          y,
           circleRadius * 2,
           id,
           createdCircles,
-          student.name
+          `${student.name}\n${student.year}`
         );
       }
 
@@ -268,7 +273,7 @@ export default {
           y: p5.height / 2,
         };
 
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < students.length; i++) {
           while (true) {
             const circle = createNewCircle(
               circles,
