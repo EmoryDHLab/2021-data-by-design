@@ -44,7 +44,7 @@
 <script>
 import p5 from "p5";
 import Legend from "~/components/chapters/dubois/piechart/Legend";
-import chartOneData from "~/api/static/data/chartOneGrouped.json";
+import studentData from "~/api/static/data/chartOneGrouped.json";
 
 export default {
   components: {
@@ -128,7 +128,7 @@ export default {
             p5.vertex(x + width - 10, y + height + 10);
             p5.vertex(x + 10, y + height + 10);
             p5.vertex(x, y + height);
-            p5.endShape();
+            p5.endShape(p5.CLOSE);
 
             p5.fill("black");
             p5.noStroke();
@@ -152,6 +152,7 @@ export default {
         }
 
         update() {
+          const center = { x: p5.width / 2, y: p5.width / 2 };
           // Adjust location if being dragged
           if (this.dragging) {
             this.x = p5.mouseX + this.offsetX;
@@ -212,18 +213,17 @@ export default {
         }
 
         withinBounds() {
-          let wWidth = Math.min(p5.windowWidth * 0.4, 500);
+          let wWidth = Math.min(p5.width, 500);
 
-          const dx = this.x - (p5.windowWidth * 0.4) / 2;
-          const dy = this.y - (p5.windowWidth * 0.4) / 2;
+          const dx = this.x - p5.width / 2;
+          const dy = this.y - p5.width / 2;
+
           const collision =
             Math.sqrt(dx * dx + dy * dy) >=
             (wWidth - 20) / 2 - this.diameter / 2;
+
           if (collision) {
-            const center = [
-              Math.floor((p5.windowWidth * 0.4) / 2),
-              Math.floor((p5.windowWidth * 0.4) / 2),
-            ];
+            const center = [Math.floor(p5.width / 2), Math.floor(p5.width / 2)];
             const radvec = [this.x, this.y].map((c, i) => c - center[i]);
 
             if (radvec[0] < 0) this.x += 0.1;
@@ -319,7 +319,7 @@ export default {
       }
 
       function placeCategories() {
-        const { count, categories } = chartOneData;
+        const { count, categories } = studentData;
         let currentAngle = 0;
 
         for (const { students } of categories) {
@@ -355,7 +355,7 @@ export default {
 
       function pieChart(diameter) {
         let lastAngle = 0;
-        const { count, categories } = chartOneData;
+        const { count, categories } = studentData;
         const padding = 20;
 
         for (const { color, students } of categories) {
@@ -400,7 +400,7 @@ export default {
           ball.display();
           ball.collide();
           ball.wiggle();
-          //ball.withinBounds();
+          ball.withinBounds();
         });
         circles.forEach((ball) => {
           ball.mouseOn();

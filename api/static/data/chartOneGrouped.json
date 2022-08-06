@@ -2,6 +2,10 @@
   "count": 331,
   "categories": [{
     "name": "business",
+    "displayName": {
+      "english": "Business",
+      "french": "Marchands"
+    },
     "color": "#CDCE9D",
     "students": [
       {
@@ -64,6 +68,10 @@
   },
   {
     "name": "deceased",
+    "displayName": {
+      "english": "Deceased",
+      "french": "Défunt"
+    },
     "color": "#000000",
     "students": [
       {
@@ -407,6 +415,10 @@
   {
     "name": "government",
     "color": "#FFD3D3",
+    "displayName": {
+      "english": "Government Service",
+      "french": "Employés du Government"
+    },
     "students": [
       {
         "name": "Henry Harrison Williams",
@@ -484,6 +496,10 @@
   },
   {
     "name": "housewives",
+    "displayName": {
+      "english": "House Wives",
+      "french": "Mères de Famille"
+    },
     "color": "#FEC313",
     "students": [
       {
@@ -922,6 +938,10 @@
   },
   {
     "name": "ministers",
+    "displayName": {
+      "english": "Ministers",
+      "french": "Ministres de L'evangile"
+    },
     "color": "#5A7BC3",
     "students": [
       {
@@ -1024,6 +1044,10 @@
   },
   {
     "name": "other",
+    "displayName": {
+      "english": "Other Professions",
+      "french": "Medicins, Advocats, Et étudiants"
+    },
     "color": "#2F4F4F",
     "students": [
       {
@@ -1110,6 +1134,10 @@
   },
   {
     "name": "teachers",
+    "displayName": {
+      "english": "Teachers",
+      "french": "Professeurs et Instituteurs"
+    },
     "color": "#D92944",
     "students": [
       {
