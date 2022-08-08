@@ -1,58 +1,18 @@
 <template>
-  <div class="contents">
-    <div
-      class="col-span-3 2xl:col-span-3 col-start-1 col-end-4 2xl:col-start-2 mt-6 flex flex-col justify-center"
-    >
-      <Legend :legendList="studentData.categories"></Legend>
-    </div>
-    <div id="vue-canvas" ref="pieChartVis" class="w-full h-full"></div>
-    <div
-      class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 font-dubois font-bold uppercase"
-    >
-      <p>
-        THE UNIVERSITY HAS 20 PROFESSORS AND INSTRUCTORS AND 250 STUDENTS AT
-        PRESENT. IT HAS FIVE BUILDINGS, 60 ACRES OF CAMPUS. AND A LIBRARY OF
-        11000 VOLUMES IT AIMS TO RAISE AND CIVILIZE THE SONS OF THE FREEDMEN BY
-        TRAINING THEIR MORE CAPABLE MEMBERS IN THE LIBERAL ARTS ACCORDING TO THE
-        BEST STANDARDS OF THE DAY.
-      </p>
-      <p>
-        THE PROPER ACCOMPLISHMENT OF THIS WORK DEMANDS AN ENDOWMENT FUND OF
-        $500,000.
-      </p>
-      <p>
-        L UNIVERSITÉ A ACTUELLEMENT 20 PROFESSEURS ET INSTRUCTEURS ET 250
-        ÉTUDIANTS. ELLE EST COMPOSÉE DE CINO BÂTIMENTS, 60 ACRES (ENVIRON 26
-        HECTARES DE TERRAIN SERVANT DE COUR ET DE CHAMP DE RÉCRÉATION ET DUNE
-        BIBLIOTHEQUE CONTENANT 11000 VOLUMES. SON BUT EST D'ÉLEVER ET DE
-        CIVILISER LES FILS DES NEGRES AFFRANCHIS EN DONNANT AUX MEUX DOUÉS UNE
-        ÉDUCATION DANS LES ARTS LIBÉRAUX EN ACCORD AVEC LES IDÉES LES PLUS
-        PROGRESSISTES DE ÉPOQUE.
-      </p>
-      <p>
-        L'ACCOMPLISSEMENT DE CETTE CEUVRE DEMANDE UNE DOTATION DE $500000
-        2,500,000 FRANCS).
-      </p>
-    </div>
-  </div>
+  <div id="vue-canvas" ref="pieChartVis" class="w-full h-full"></div>
 </template>
 <script>
 import p5 from "p5";
-import Legend from "~/components/chapters/dubois/piechart/Legend";
-import studentData from "~/api/static/data/chartOneGrouped.json";
 
 export default {
-  components: {
-    Legend,
-  },
-  data() {
-    return {
-      studentData,
-    };
+  props: {
+    studentData: Object,
   },
   mounted() {
-    let $vm = this;
     const OFFSET = Math.PI * 1.1;
+    // We predefine studentData because `this` changes inside
+    // the subsequent functions
+    const studentData = this.studentData;
 
     const script = (p5) => {
       let circles = [];
@@ -423,7 +383,7 @@ export default {
         outsideCircles = [];
 
         placeCategories();
-        //placeOutsideCircles();
+        placeOutsideCircles();
         p5.redraw();
       };
     };
