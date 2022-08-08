@@ -1,15 +1,9 @@
 import DocsRenderer from "~/components/docs-renderer/DocsRenderer.vue";
 
-const ChapterSlots = {
+export default {
   props: {
     docContent: Array,
   },
-  // async fetch() {
-  //   Object.entries(this.$options.staticData).forEach( ([key, value]) => {
-  //     const obj = await this.$http.$get(`/api/data/${value}`);
-  //
-  //   })
-  // },
   created() {
     this.$store.commit("currentChapter/initializeChapterState", {
       initialState: this.$options.chapterState,
@@ -48,4 +42,3 @@ const ChapterSlots = {
     },
   },
 };
-export default ChapterSlots;

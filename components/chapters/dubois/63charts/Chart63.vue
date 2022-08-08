@@ -5,22 +5,22 @@
     <div class="button py-10 px-5 flex flex-col items-center">
       <button @click="selectedSet = 1" class="mb-4">
         <div v-bind:class="selectedSet == 1 ? 'hidden' : 'block'">
-          <img src="@/assets/images/dubois/stack1.png" />
-          <img src="@/assets/images/dubois/set1.png" />
+          <img src="~/assets/images/dubois/stack1.png" />
+          <img src="~/assets/images/dubois/set1.png" />
         </div>
         <div v-bind:class="selectedSet == 1 ? 'block' : 'hidden'">
-          <img src="@/assets/images/dubois/eyeframe.png" />
-          <img src="@/assets/images/dubois/set1.png" />
+          <img src="~/assets/images/dubois/eyeframe.png" />
+          <img src="~/assets/images/dubois/set1.png" />
         </div>
       </button>
       <button @click="selectedSet = 2">
         <div v-bind:class="selectedSet == 2 ? 'hidden' : 'block'">
-          <img src="@/assets/images/dubois/stack2.png" />
-          <img src="@/assets/images/dubois/set2.png" />
+          <img src="~/assets/images/dubois/stack2.png" />
+          <img src="~/assets/images/dubois/set2.png" />
         </div>
         <div v-bind:class="selectedSet == 2 ? 'block' : 'hidden'">
-          <img src="@/assets/images/dubois/eyeframe.png" />
-          <img src="@/assets/images/dubois/set2.png" />
+          <img src="~/assets/images/dubois/eyeframe.png" />
+          <img src="~/assets/images/dubois/set2.png" />
         </div>
       </button>
     </div>

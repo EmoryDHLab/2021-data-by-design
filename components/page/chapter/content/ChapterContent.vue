@@ -4,7 +4,7 @@
   >
     <template v-if="sections.length">
       <template v-if="$isMobile">
-        <ChapterTitle v-if="currentSection == 0"></ChapterTitle>
+        <ChapterTitle v-if="currentSection === 0"></ChapterTitle>
         <ChapterSection
           :title="mobileSection.title"
           :renderGroups="mobileSection.renderGroups"
@@ -26,7 +26,7 @@ import ChapterSection from "./section/ChapterSection";
 import ChapterSectionMobile from "./section/ChapterSectionMobile";
 import { mapMutations, mapState } from "vuex";
 import { renderGroups } from "./renderGroups";
-import ChapterTitle from "@/components/page/chapter/nav/ChapterTitle";
+import ChapterTitle from "~/components/page/chapter/nav/ChapterTitle";
 
 export default {
   name: "ChapterComponent",

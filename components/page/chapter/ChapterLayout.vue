@@ -29,7 +29,11 @@ import ChapterContent from "./content/ChapterContent";
 import MobileTitleNav from "./nav/MobileTitleNav";
 import SiteFooter from "../sitewide/SiteFooter";
 
-import { chapterComponents, chapterDefinitions, globalDefinitions } from "@/components/docs-renderer/componentImports";
+import {
+  chapterComponents,
+  chapterDefinitions,
+  globalDefinitions,
+} from "~/components/docs-renderer/componentImports";
 
 export default {
   props: {
@@ -84,6 +88,7 @@ export default {
         ...globalDefinitions,
         ...this.docsComponents.definitions,
       ];
+
       const componentData = componentsFromDoc(
         {
           components: componentDefinitions,
@@ -99,10 +104,10 @@ export default {
   computed: {
     docsRendererComponent() {
       if (this.config.id) {
-        //https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
-        //Loads the correct slots component from the chapter-slots folder. That component
-        //handles the doc rendering, injecting the specified slots into the docs renderer.
-        return () => import("@/components/chapter-slots/" + this.config.id);
+        // https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
+        // Loads the correct slots component from the chapter-slots folder. That component
+        // handles the doc rendering, injecting the specified slots into the docs renderer.
+        return () => import(`@/components/chapter-slots/${this.config.id}`);
       }
     },
     theme() {
@@ -137,11 +142,7 @@ export default {
           endByContentEnd: true,
         };
 
-        const sectionData = findSections(this.bodyComponents, [
-          sectionDef,
-          metadataDef,
-        ]);
-        return sectionData;
+        return findSections(this.bodyComponents, [sectionDef, metadataDef]);
       }
     },
     chapterSections() {
@@ -173,13 +174,14 @@ export default {
       const flattenChildren = (componentData) =>
         componentData.children
           .map((child) => {
-            if (typeof child == "string") return child;
+            if (typeof child === "string") return child;
             if ("children" in child) {
               return flattenChildren(child);
             }
             return "";
           })
           .join("");
+
       const lines = components
         .map((componentData) => flattenChildren(componentData))
         .map((line) => line.replace("\n", ""));

@@ -6,18 +6,16 @@
 import FootnoteReference from "~/components/global/docs-inclusions/FootnoteReference";
 
 export function contextModules(context) {
-  const modules = context
+  return context
     .keys()
     .map((key) => context(key))
     .filter((module) => "docsDefinition" in module);
-  return modules;
 }
 
 async function chapterModules(chapterId) {
   try {
-    const dynamicImport = await import(`@/components/chapters/${chapterId}`);
-    const modules = dynamicImport.default;
-    return modules;
+    const dynamicImport = await import(`~/components/chapters/${chapterId}`);
+    return dynamicImport.default;
   } catch (e) {
     return [];
   }

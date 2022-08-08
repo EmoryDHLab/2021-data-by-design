@@ -3,14 +3,9 @@
     <div
       class="col-span-3 2xl:col-span-3 col-start-1 col-end-4 2xl:col-start-2 mt-6 flex flex-col justify-center"
     >
-      <Legend :legendList="legendList" lang="eng"></Legend>
+      <Legend :legendList="studentData.categories"></Legend>
     </div>
     <div id="vue-canvas" ref="pieChartVis" class="w-full h-full"></div>
-    <div
-      class="col-span-3 2xl:col-span-3 col-start-8 col-end-11 2xl:col-start-11 mt-6 flex flex-col justify-center"
-    >
-      <Legend :legendList="legendList" lang="fr"></Legend>
-    </div>
     <div
       class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 font-dubois font-bold uppercase"
     >
@@ -44,7 +39,7 @@
 <script>
 import p5 from "p5";
 import Legend from "~/components/chapters/dubois/piechart/Legend";
-import chartOneData from "~/api/static/data/chartOneGrouped.json";
+import studentData from "~/api/static/data/chartOneGrouped.json";
 
 export default {
   components: {
@@ -52,30 +47,12 @@ export default {
   },
   data() {
     return {
-      legendList: [
-        {
-          eng: "Teachers",
-          fr: "Professeurs et Instituteurs",
-          color: "#D92944",
-        },
-        { eng: "Ministers", fr: "Ministres de L'evangile", color: "#FFD3D3" },
-        {
-          eng: "Government Service",
-          fr: "Employés du Government",
-          color: "#B5CCFF",
-        },
-        { eng: "Business", fr: "Marchanos", color: "#2F4F4F" },
-        {
-          eng: "Other Professions",
-          fr: "Medicins, Advocats, Et étudiants",
-          color: "#F8E690",
-        },
-        { eng: "House Wives", fr: "Mères de Famille", color: "#FEC313" },
-      ],
+      studentData,
     };
   },
   mounted() {
     let $vm = this;
+    const OFFSET = Math.PI * 1.1;
 
     const script = (p5) => {
       let circles = [];
@@ -119,6 +96,7 @@ export default {
             const width = textWidth + 20;
             const height = 55;
 
+            // Drawing the text box with the cut corners
             p5.beginShape();
             p5.vertex(x, y);
             p5.vertex(x + 10, y - 10);
@@ -128,7 +106,7 @@ export default {
             p5.vertex(x + width - 10, y + height + 10);
             p5.vertex(x + 10, y + height + 10);
             p5.vertex(x, y + height);
-            p5.endShape();
+            p5.endShape(p5.CLOSE);
 
             p5.fill("black");
             p5.noStroke();
@@ -152,6 +130,7 @@ export default {
         }
 
         update() {
+          const center = { x: p5.width / 2, y: p5.width / 2 };
           // Adjust location if being dragged
           if (this.dragging) {
             this.x = p5.mouseX + this.offsetX;
@@ -212,18 +191,17 @@ export default {
         }
 
         withinBounds() {
-          let wWidth = Math.min(p5.windowWidth * 0.4, 500);
+          let wWidth = Math.min(p5.width, 500);
 
-          const dx = this.x - (p5.windowWidth * 0.4) / 2;
-          const dy = this.y - (p5.windowWidth * 0.4) / 2;
+          const dx = this.x - p5.width / 2;
+          const dy = this.y - p5.width / 2;
+
           const collision =
             Math.sqrt(dx * dx + dy * dy) >=
             (wWidth - 20) / 2 - this.diameter / 2;
+
           if (collision) {
-            const center = [
-              Math.floor((p5.windowWidth * 0.4) / 2),
-              Math.floor((p5.windowWidth * 0.4) / 2),
-            ];
+            const center = [Math.floor(p5.width / 2), Math.floor(p5.width / 2)];
             const radvec = [this.x, this.y].map((c, i) => c - center[i]);
 
             if (radvec[0] < 0) this.x += 0.1;
@@ -319,8 +297,8 @@ export default {
       }
 
       function placeCategories() {
-        const { count, categories } = chartOneData;
-        let currentAngle = 0;
+        const { count, categories } = studentData;
+        let currentAngle = OFFSET;
 
         for (const { students } of categories) {
           const categoryAngle = (students.length / count) * 2 * Math.PI;
@@ -354,8 +332,8 @@ export default {
       }
 
       function pieChart(diameter) {
-        let lastAngle = 0;
-        const { count, categories } = chartOneData;
+        let lastAngle = OFFSET;
+        const { count, categories } = studentData;
         const padding = 20;
 
         for (const { color, students } of categories) {
@@ -400,7 +378,7 @@ export default {
           ball.display();
           ball.collide();
           ball.wiggle();
-          //ball.withinBounds();
+          ball.withinBounds();
         });
         circles.forEach((ball) => {
           ball.mouseOn();

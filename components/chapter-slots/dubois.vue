@@ -1,9 +1,9 @@
 <template>
   <Slots>
-    <template v-slot:[slots.test]>
-      <PiechartP5></PiechartP5>
+    <template v-slot:[slots.pieChart]>
+      <PieChart></PieChart>
     </template>
-    <template v-slot:[slots.testUSA]>
+    <template v-slot:[slots.usaChart]>
       <USAsvg></USAsvg>
     </template>
     <template v-slot:[slots.chart63]>
@@ -13,14 +13,14 @@
 </template>
 
 <script>
-import ChapterSlots from "@/components/mixins/ChapterSlots";
-import PiechartP5 from "@/components/chapters/dubois/piechart/PiechartP5";
-import USAsvg from "@/components/chapters/dubois/usmap/USAsvg";
-import Chart63 from "@/components/chapters/dubois/63charts/Chart63";
+import ChapterSlots from "~/components/mixins/ChapterSlots";
+import PieChart from "~/components/chapters/dubois/piechart/PieChart";
+import USAsvg from "~/components/chapters/dubois/usmap/USAsvg";
+import Chart63 from "~/components/chapters/dubois/63charts/Chart63";
 
 export default {
   components: {
-    PiechartP5,
+    PieChart,
     USAsvg,
     Chart63,
   },
@@ -28,8 +28,8 @@ export default {
   data() {
     return {
       slots: {
-        test: "TestComponent",
-        testUSA: "TestUSA",
+        pieChart: "PieChart",
+        usaChart: "TestUSA",
         chart63: "63 Charts",
       },
     };

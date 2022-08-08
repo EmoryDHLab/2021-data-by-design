@@ -18,7 +18,6 @@
 <script>
 import { Renderer } from "docs-renderer-vue2";
 import { globalComponents } from "./componentImports";
-// import globalComponents from "@/components/global/docs-inclusions/docsInclusions";
 
 export default {
   components: { Renderer },
@@ -28,7 +27,7 @@ export default {
   inject: ["docsComponents"],
   mounted() {
     setTimeout(() => {
-      //TODO: Find a way to run this exactly after all assets are loaded
+      // TODO: Find a way to run this exactly after all assets are loaded
       const el = this.$refs.renderer;
       const height = [...el.children].reduce(
         (acc, child) => acc + child.scrollHeight,

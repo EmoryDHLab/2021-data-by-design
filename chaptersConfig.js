@@ -1,8 +1,8 @@
 export default {
   peabody: {
     doc: "1MpzjlvyBpGKY652umleryda7RiGrkromPjtV2eGDXOQ",
-    navName: "The Work of Knowledge",
     id: "peabody",
+    navName: "The Work of Knowledge",
     theme: {
       primaryColor: "#93E3BD",
       primaryColorText: "black",
@@ -22,13 +22,22 @@ export default {
     id: "dubois",
     navName: "Between Data and Truth",
     theme: {
-      primaryColor: "#3B6FE0",
+      primaryColor: "#D92944",
       primaryColorText: "white",
     },
   },
+  brooks: {
+    doc: "179zM9VbyjZEah59yqZ2yUaECTaiFrZbe0i8zd_05gJ0",
+    id: "brooks",
+    navName: "Every Datapoint a Person",
+    theme: {
+      primaryColor: "#8C20E1",
+      primaryColorText: "black",
+    },
+  },
   sandbox: {
-    id: "sandbox",
     doc: "1ZnzdhstuleNMzjzl6EuJzD1SxAsj54bMOu-5IxeaRWo",
+    id: "sandbox",
     navName: "Sandbox",
     theme: {
       primaryColor: "#93E3BD",

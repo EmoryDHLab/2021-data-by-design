@@ -8,7 +8,6 @@
   >
     <div v-if="$isMobile" class="flex flex-row justify-between px-2">
       <a href="javascript:;" class="hover:underline" @click="prevClick"> << </a>
-      <!--      <div> {{ currentSection }}</div>-->
       <a href="javascript:;" class="hover:underline" @click="nextClick"> >> </a>
     </div>
     <div v-else>breakpoint {{ $breakpoint }}</div>
@@ -60,7 +59,7 @@ export default {
 .nav-bar {
   margin: 0 auto;
   position: sticky;
-  top: 0px;
+  top: 0;
   max-width: 1400px;
   background-color: lavenderblush;
   text-align: center;
