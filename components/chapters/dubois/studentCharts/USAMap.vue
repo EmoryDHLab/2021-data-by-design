@@ -1,5 +1,5 @@
 <template>
-  <svg height="100%" width="100%" viewBox="0 0 1000 600">
+  <svg height="100%" width="100%" viewBox="0 0 1000 500">
     <path
       v-for="state in stateData"
       :key="state.name"
@@ -23,11 +23,9 @@
 
 <script>
 import * as d3 from "d3";
-import StaticData from "@/components/data-access/StaticData";
 import statesJson from "~/api/static/data/usFeatures.json";
 
 export default {
-  components: { StaticData },
   data: function () {
     return {
       statesJson,

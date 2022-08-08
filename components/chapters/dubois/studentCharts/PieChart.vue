@@ -1,5 +1,5 @@
 <template>
-  <div id="vue-canvas" ref="pieChartVis" class="w-full h-full"></div>
+  <div id="vue-canvas" ref="pieChartVis"></div>
 </template>
 <script>
 import p5 from "p5";

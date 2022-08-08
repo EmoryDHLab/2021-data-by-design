@@ -21,12 +21,6 @@ export default {
 </script>
 
 <style>
-/*.middle-subgrid {*/
-/*  display: grid;*/
-/*  grid-column: 1 / -1;*/
-/*  grid: inherit;*/
-/*}*/
-
 .middle-subgrid > p,
 .middle-subgrid > .middle-text,
 .middle-subgrid > div.middle-center {
