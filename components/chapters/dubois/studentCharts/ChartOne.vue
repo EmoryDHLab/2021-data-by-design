@@ -3,7 +3,9 @@
     <div
       class="col-span-8 2xl:col-span-10 col-start-2 2xl:col-start-3 mt-6 flex flex-col font-duboisWide uppercase"
     >
-      <p class="font-bold xl:text-2xl 2xl:text-3xl text-xl tracking-wider">
+      <p
+        class="font-bold xl:text-2xl 2xl:text-3xl text-xl tracking-wider text-center"
+      >
         &emsp;&emsp; A series of statistical charts, illustrating information
         about the graduates of atlanta university, and other black college
         graduates in the united states, who contributed data, knowledge, and
@@ -83,7 +85,7 @@
 <script>
 import Legend from "./Legend";
 import PieChart from "./PieChart";
-import studentData from "~/api/static/data/chartOneGrouped.json";
+import studentData from "~/api/static/data/chartOne.json";
 import USAMap from "./USAMap";
 
 export default {
