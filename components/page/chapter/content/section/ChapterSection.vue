@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import GridLayout from "@/components/page/chapter/layout/GridLayout.vue";
-import LeaderFollowPair from "@/components/page/chapter/layout/LeaderFollowPair.vue";
+import GridLayout from "~/components/page/chapter/layout/GridLayout.vue";
+import LeaderFollowPair from "~/components/page/chapter/layout/LeaderFollowPair.vue";
 import SectionTitle from "./SectionTitle";
-import MiddleSubgrid from "@/components/page/chapter/layout/MiddleSubgrid";
+import MiddleSubgrid from "~/components/page/chapter/layout/MiddleSubgrid";
 
 export default {
   props: {
@@ -46,7 +46,6 @@ export default {
     },
   },
   components: { MiddleSubgrid, SectionTitle, GridLayout, LeaderFollowPair },
-
   inject: ["docsRenderer"],
   methods: {
     mobileGroups(renderGroup) {

@@ -20,10 +20,5 @@ export default {
   props: {
     legendList: Array,
   },
-  computed: {
-    xValue: function () {
-      return this.xScale(this.x);
-    },
-  },
 };
 </script>

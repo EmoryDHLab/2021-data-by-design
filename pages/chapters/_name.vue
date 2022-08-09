@@ -15,11 +15,15 @@ import chaptersConfig from "~/chaptersConfig";
 export default {
   async asyncData({ req, params, $http }) {
     const config = chaptersConfig[params.name];
-    const host = process.server ? req.headers.host : location.host;
-    const protocol = host.startsWith("localhost") ? "http://" : "https://";
+
     if (config) {
+      if (process.server) {
+        const docsData = await $http.$get(`/api/livedoc/${config.doc}`);
+        return { docsData, config };
+      }
+
       const request = await fetch(
-        `${protocol}${host}/api/livedoc/${config.doc}`
+        `http://${location.host}/api/livedoc/${config.doc}`
       );
       const docsData = await request.json();
       return { docsData, config };
