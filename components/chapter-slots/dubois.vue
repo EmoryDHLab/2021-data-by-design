@@ -1,6 +1,6 @@
 <template>
   <Slots>
-    <template v-slot:[slots.pieChart]>
+    <template v-slot:[slots.studentCharts]>
       <StudentCharts />
     </template>
     <template v-slot:[slots.chart63]>
@@ -11,16 +11,12 @@
 
 <script>
 import ChapterSlots from "~/components/mixins/ChapterSlots";
-import PieChart from "~/components/chapters/dubois/studentCharts/PieChart";
-import USAMap from "~/components/chapters/dubois/studentCharts/USAMap";
 import Chart63 from "~/components/chapters/dubois/63charts/Chart63";
 import StudentCharts from "../chapters/dubois/studentCharts/StudentCharts";
 import studentData from "~/api/static/data/chartOne.json";
 
 export default {
   components: {
-    PieChart,
-    USAMap,
     Chart63,
     StudentCharts,
   },
@@ -29,8 +25,7 @@ export default {
     return {
       studentData,
       slots: {
-        pieChart: "PieChart",
-        usaChart: "TestUSA",
+        studentCharts: "StudentCharts",
         chart63: "63 Charts",
       },
     };
