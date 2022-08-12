@@ -9,10 +9,8 @@
       ></ChapterTitle>
     </template>
     <ChapterNav></ChapterNav>
-    <div v-if="docsComponents.loaded" class="chapter-flex flex bg-offwhite">
-      <div class="h-full flex-grow"></div>
+    <div v-if="docsComponents.loaded" class="flex bg-offwhite">
       <ChapterContent :chapter-sections="chapterSections" />
-      <div class="h-full flex-grow"></div>
     </div>
     <ChapterFooter v-if="!$isMobile"> </ChapterFooter>
     <SiteFooter v-if="!$isMobile"></SiteFooter>

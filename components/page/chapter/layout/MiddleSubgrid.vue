@@ -1,32 +1,17 @@
 <template>
-  <GridLayout>
-    <Component
-      :is="docsRenderer"
-      :docContent="docContent"
-      class="contents middle-subgrid"
-    ></Component>
-  </GridLayout>
+  <FullBleedGridLayout>
+    <Component :is="docsRenderer" :docContent="docContent"></Component>
+  </FullBleedGridLayout>
 </template>
 
 <script>
-import GridLayout from "./GridLayout";
+import FullBleedGridLayout from "./FullBleedGridLayout";
 
 export default {
-  components: { GridLayout },
+  components: { FullBleedGridLayout },
   inject: ["docsRenderer"],
   props: {
     docContent: Array,
   },
 };
 </script>
-
-<style>
-.middle-subgrid > p,
-.middle-subgrid > .middle-text,
-.middle-subgrid > div.middle-center {
-  @apply col-span-6 2xl:col-span-8 col-start-3 2xl:col-start-4;
-}
-.middle-subgrid > div.middle-full {
-  @apply col-span-full;
-}
-</style>

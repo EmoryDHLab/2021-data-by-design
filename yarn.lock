@@ -4498,10 +4498,8 @@ dlv@^1.1.3:
   resolved "https://registry.yarnpkg.com/dlv/-/dlv-1.1.3.tgz#5c198a8a11453596e751494d49874bc7732f2e79"
   integrity sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==
 
-docs-renderer-vue2@latest:
+"docs-renderer-vue2@file:./lib/docs-cms/packages/vue2":
   version "0.3.0"
-  resolved "https://registry.yarnpkg.com/docs-renderer-vue2/-/docs-renderer-vue2-0.3.0.tgz#fa1cfe708307e1aef578aed0e68e9763ef17f3c0"
-  integrity sha512-+Mn1ugFB49yYZN75JWJwr0W68aRjavKrt20t/fTgV+JKARPFSwLm82lZju+EEI6LS/n6zL5HUy1HA1pu5AQbgA==
   dependencies:
     google-docs-components "workspace:*"
     vue "^2.6.11"
@@ -11386,6 +11384,11 @@ vue-eslint-parser@^9.0.1:
     esquery "^1.4.0"
     lodash "^4.17.21"
     semver "^7.3.6"
+
+vue-fragment@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/vue-fragment/-/vue-fragment-1.6.0.tgz#2ac0ff656b74fa87d049a003b5dcd5befe9185cc"
+  integrity sha512-a5T8ZZZK/EQzgVShEl374HbobUJ0a7v12BzOzS6Z/wd/5EE/5SffcyHC+7bf9hP3L7Yc0hhY/GhMdwFQ25O/8A==
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"

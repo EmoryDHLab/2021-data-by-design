@@ -4,7 +4,9 @@
       <StudentCharts />
     </template>
     <template v-slot:[slots.chart63]>
-      <Chart63></Chart63>
+      <div class="full-bleed">
+        <Chart63></Chart63>
+      </div>
     </template>
   </Slots>
 </template>

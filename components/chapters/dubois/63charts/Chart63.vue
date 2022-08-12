@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="col-span-10 2xl:col-span-14 2xl:col-end-13 flex w-full mx-auto bg-black"
-  >
+  <div class="flex w-full mx-auto bg-black">
     <div class="button py-10 px-5 flex flex-col items-center">
       <button @click="selectedSet = 1" class="mb-4">
         <div v-bind:class="selectedSet == 1 ? 'hidden' : 'block'">
@@ -176,6 +174,9 @@ import img925 from "@/assets/images/dubois/925.jpeg";
 
 export default {
   name: "Pictures",
+  props: {
+    class: String,
+  },
   data() {
     return {
       selectedSet: 1,

@@ -1,0 +1,3 @@
+[submodule "lib/docs-cms"]
+	path = lib/docs-cms
+	url = git@github.com:EmoryDHLab/docs-cms.git

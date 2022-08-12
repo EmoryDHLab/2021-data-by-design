@@ -16,7 +16,7 @@
     "core-js": "3",
     "csv-parse": "^4.16.0",
     "d3": "^7.0.0",
-    "docs-renderer-vue2": "latest",
+    "docs-renderer-vue2": "file:./lib/docs-cms/packages/vue2",
     "express": "^4.17.1",
     "glob": "^7.1.7",
     "google-docs-components": "latest",
@@ -24,7 +24,8 @@
     "gsap": "^3.7.0",
     "husky": "^8.0.1",
     "nuxt-edge": "latest",
-    "p5": "^1.4.1"
+    "p5": "^1.4.1",
+    "vue-fragment": "^1.6.0"
   },
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.14.8",

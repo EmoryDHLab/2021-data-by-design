@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="chapter-content md:my-10 lg:my-52 max-w-screen-2xl font-sans text-base lg:text-xl"
-  >
+  <div class="md:my-10 lg:my-52 w-screen font-sans text-base lg:text-xl">
     <template v-if="sections.length">
       <template v-if="$isMobile">
         <ChapterTitle v-if="currentSection === 0"></ChapterTitle>

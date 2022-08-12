@@ -1,6 +1,5 @@
 <template>
   <Renderer
-    class="space-y-6"
     ref="renderer"
     :content="docContent"
     :ignoreCss="ignoreCssProperties"
@@ -17,10 +16,11 @@
 
 <script>
 import { Renderer } from "docs-renderer-vue2";
+import { Fragment } from "vue-fragment";
 import { globalComponents } from "./componentImports";
 
 export default {
-  components: { Renderer },
+  components: { Renderer, Fragment },
   props: {
     docContent: Array,
   },
