@@ -1,6 +1,9 @@
 <template>
   <div class="grid grid-cols-2 grid-rows-3">
-    <ChapterCard class="cardBrooks bg-brooks_sec hover:text-white">
+    <ChapterCard
+      to="/chapters/brooks"
+      class="cardBrooks bg-brooks_sec hover:text-white"
+    >
       <template v-slot:title>Every Datapoint a Person</template>
       <template v-slot:subtitle>The Brooks / Diagram of a Slave Ship </template>
       <template v-slot:caption
@@ -8,7 +11,10 @@
         lives as data -- or whose lives become data without consent.</template
       >
     </ChapterCard>
-    <ChapterCard class="cardPlayfair bg-playfair_sec hover:text-white">
+    <ChapterCard
+      to="/chapters/playfair"
+      class="cardPlayfair bg-playfair_sec hover:text-white"
+    >
       <template v-slot:title>What Visualization Reveals</template>
       <template v-slot:subtitle>William Playfair's Time-Series Charts</template>
       <template v-slot:caption
@@ -16,7 +22,10 @@
         meaning -- and an argument -- conveyed through each design.</template
       >
     </ChapterCard>
-    <ChapterCard class="cardWillard bg-willard_sec hover:text-white">
+    <ChapterCard
+      to="/chapters/willard"
+      class="cardWillard bg-willard_sec hover:text-white"
+    >
       <template v-slot:title>Narratives of Possession</template>
       <template v-slot:subtitle
         >Emma Willard and Shanawdithit’s Narrative Maps</template
@@ -26,7 +35,10 @@
         to document multiple pasts?</template
       >
     </ChapterCard>
-    <ChapterCard class="cardPeabody bg-peabody_sec hover:text-white">
+    <ChapterCard
+      to="/chapters/peabody"
+      class="cardPeabody bg-peabody_sec hover:text-white"
+    >
       <template v-slot:title>The Work of Knowledge</template>
       <template v-slot:subtitle
         >Elizabeth Palmer Peabody’s Chronological Grids as Argument</template
@@ -37,13 +49,10 @@
         reflect?</template
       >
     </ChapterCard>
-    <!--    Example for one col card -->
-    <!--    <ChapterCard class="cardDubois bg-dubois_sec hover:text-white col-span-2" style="text-align: center">-->
-    <!--      <template v-slot:title>Between Data and Truth</template>-->
-    <!--      <template v-slot:subtitle>W. E. B. Du Bois’s “Data Portraits”</template>-->
-    <!--      <template v-slot:caption>How can data visualization bear witness to oppression? How can it hold space for what cannot be conveyed through data alone? </template>-->
-    <!--    </ChapterCard>-->
-    <ChapterCard class="cardDubois bg-dubois_sec hover:text-white">
+    <ChapterCard
+      to="/chapters/dubois"
+      class="cardDubois bg-dubois_sec hover:text-white"
+    >
       <template v-slot:title>Between Data and Truth</template>
       <template v-slot:subtitle>W. E. B. Du Bois’s “Data Portraits”</template>
       <template v-slot:caption
@@ -51,7 +60,10 @@
         space for what cannot be conveyed through data alone?
       </template>
     </ChapterCard>
-    <ChapterCard class="cardLabour bg-labour_sec hover:text-white">
+    <ChapterCard
+      to="/chapters/labour"
+      class="cardLabour bg-labour_sec hover:text-white"
+    >
       <template v-slot:title>Labour</template>
       <template v-slot:subtitle>W. E. B. Du Bois’s “Data Portraits”</template>
       <template v-slot:caption

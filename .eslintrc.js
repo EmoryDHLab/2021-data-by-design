@@ -46,5 +46,5 @@ module.exports = {
       },
     ],
   },
-  ignorePatterns: ["dist/", ".nuxt/", "scripts/"],
+  ignorePatterns: ["dist/", ".nuxt/", "scripts/", "lib/docs-cms"],
 };
