@@ -7,18 +7,13 @@
 </template>
 <script>
 import p5 from "p5";
-import Circle from "./Circle";
+import BaseCircle from "./BaseCircle";
 
 export default {
   props: {
     studentData: Object,
   },
   mounted() {
-    const OFFSET = Math.PI * 1.1;
-    // We predefine studentData because `this` changes inside
-    // the subsequent functions
-    const studentData = this.studentData;
-
     const script = (p5) => {
       let circles = [];
       let canvas;
@@ -36,14 +31,14 @@ export default {
         circleDiameter,
         startAngle,
         endAngle,
-        center
+        center,
+        color
       ) {
         // Using polar coordinates here
-        // Get a random radius
-        // We need to take the square root of a random variable
-        // in order to get a better distribution:
-        // http://www.anderswallin.net/2009/05/uniform-random-points-in-a-circle-using-polar-coordinates/
-        const r = radius * Math.sqrt(p5.random(0, 1));
+        // Get a random radius. NOTE: We're purposefully *not* using the square
+        // root of a random variable to get a distribution that clusters more
+        // around the center of the radius
+        const r = radius * p5.random(0, 1);
         // And a random angle
         const angle = p5.random(startAngle, endAngle);
         // Convert to cartesian
@@ -63,7 +58,7 @@ export default {
           }
         }
 
-        return new Circle(
+        return new BaseCircle(
           x,
           y,
           circleDiameter,
@@ -71,11 +66,17 @@ export default {
           circles,
           `${student.name}\n${student.location}\n${student.year}`,
           p5,
-          "black"
+          color
         );
       }
 
-      function placeCategoryCircles(startAngle, endAngle, corner, students) {
+      function placeCategoryCircles(
+        startAngle,
+        endAngle,
+        corner,
+        students,
+        color
+      ) {
         const diameter = p5.height * (15 / 466);
         // We store the category circles separately because we want to
         // do the overlap check only for the category circles.
@@ -91,7 +92,8 @@ export default {
               diameter,
               startAngle,
               endAngle,
-              corner
+              corner,
+              color
             );
 
             if (circle) {
@@ -103,45 +105,56 @@ export default {
 
         // Then we add the category circles to the main circle
         circles.push(...categoryCircles);
-        console.log(circles);
       }
 
       function placeCategories() {
+        const X_OFFSET = 50;
+        const Y_OFFSET = 20;
         const categories = [
-          {
-            students: Array(10),
-            startAngle: Math.PI * 1.5,
-            endAngle: Math.PI * 2,
-            corner: { x: 0, y: 0 },
-          },
-          {
-            students: Array(20),
-            startAngle: Math.PI,
-            endAngle: Math.PI * 1.5,
-            corner: { x: p5.width, y: 0 },
-          },
-          {
-            students: Array(10),
-            startAngle: Math.PI / 2,
-            endAngle: Math.PI,
-            corner: { x: p5.width, y: p5.height },
-          },
           {
             students: Array(10),
             startAngle: 0,
             endAngle: Math.PI / 2,
-            corner: { x: 0, y: p5.height },
+            corner: { x: X_OFFSET, y: Y_OFFSET },
+            color: "#D92944",
+          },
+          {
+            students: Array(20),
+            startAngle: Math.PI / 2,
+            endAngle: Math.PI,
+            corner: { x: p5.width - X_OFFSET, y: Y_OFFSET },
+            color: "#2F4F4F",
+          },
+          {
+            students: Array(10),
+            startAngle: Math.PI,
+            endAngle: Math.PI * 1.5,
+            corner: { x: p5.width - X_OFFSET, y: p5.height - Y_OFFSET },
+            color: "#3B6FE0",
+          },
+          {
+            students: Array(10),
+            startAngle: Math.PI * 1.5,
+            endAngle: Math.PI * 2,
+            corner: { x: X_OFFSET, y: p5.height - Y_OFFSET },
+            color: "#FEC313",
           },
         ];
 
-        for (const { students, startAngle, endAngle, corner } of categories) {
-          placeCategoryCircles(startAngle, endAngle, corner, students);
+        for (const {
+          students,
+          startAngle,
+          endAngle,
+          corner,
+          color,
+        } of categories) {
+          placeCategoryCircles(startAngle, endAngle, corner, students, color);
         }
       }
 
       function pieChart(diameter) {
         const oldWeight = p5.strokeWeight;
-        p5.fill("black");
+        p5.noFill();
         p5.strokeWeight(4);
         p5.circle(p5.width / 2, p5.height / 2, diameter);
         p5.strokeWeight(oldWeight);
@@ -167,23 +180,10 @@ export default {
           ball.display();
           ball.collide();
           ball.wiggle();
-          ball.withinBounds();
-        });
-        circles.forEach((ball) => {
-          ball.mouseOn();
-        });
-        outsideCircles.forEach((ball) => {
-          ball.display();
-        });
-        outsideCircles.forEach((ball) => {
-          ball.mouseOn();
         });
       };
       p5.mousePressed = function () {
         circles.forEach((ball) => {
-          ball.pressed();
-        });
-        outsideCircles.forEach((ball) => {
           ball.pressed();
         });
       };
@@ -191,15 +191,9 @@ export default {
         circles.forEach((ball) => {
           ball.update();
         });
-        outsideCircles.forEach((ball) => {
-          ball.update();
-        });
       };
       p5.mouseReleased = function () {
         circles.forEach((ball) => {
-          ball.released();
-        });
-        outsideCircles.forEach((ball) => {
           ball.released();
         });
       };
@@ -209,7 +203,6 @@ export default {
           Math.min(p5.windowWidth * 0.4, 500)
         );
         circles = [];
-        outsideCircles = [];
 
         placeCategories();
         p5.redraw();

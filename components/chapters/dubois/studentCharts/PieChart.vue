@@ -3,7 +3,94 @@
 </template>
 <script>
 import p5 from "p5";
-import Circle from "./Circle";
+import BaseCircle from "./BaseCircle";
+
+class Circle extends BaseCircle {
+  constructor(...args) {
+    super(...args);
+  }
+
+  display() {
+    if (
+      this.p5.dist(this.p5.mouseX, this.p5.mouseY, this.x, this.y) <
+      this.diameter / 2
+    ) {
+      this.p5.fill("white");
+      this.p5.stroke("#FEF6D8");
+    } else {
+      super.display();
+    }
+  }
+
+  mouseOn() {
+    if (
+      this.p5.dist(this.p5.mouseX, this.p5.mouseY, this.x, this.y) <
+      this.diameter / 2
+    ) {
+      this.rollover = true;
+      this.p5.rectMode(this.p5.CENTER);
+      this.p5.fill("white");
+      this.p5.stroke("black");
+
+      let textWidth = 0;
+      const lineWidths = this.text
+        .split("\n")
+        .map((line) => this.p5.textWidth(line));
+      for (const width of lineWidths) {
+        if (width > textWidth) {
+          textWidth = width;
+        }
+      }
+      const x = this.p5.mouseX;
+      const y = this.p5.mouseY;
+      const width = textWidth + 20;
+      const height = 55;
+
+      // Drawing the text box with the cut corners
+      this.p5.beginShape();
+      this.p5.vertex(x, y);
+      this.p5.vertex(x + 10, y - 10);
+      this.p5.vertex(x + width - 10, y - 10);
+      this.p5.vertex(x + width, y);
+      this.p5.vertex(x + width, y + height);
+      this.p5.vertex(x + width - 10, y + height + 10);
+      this.p5.vertex(x + 10, y + height + 10);
+      this.p5.vertex(x, y + height);
+      this.p5.endShape(this.p5.CLOSE);
+
+      this.p5.fill("black");
+      this.p5.noStroke();
+      this.p5.textSize(16);
+      this.p5.text(this.text, this.p5.mouseX + 10, this.p5.mouseY + 10);
+      this.p5.stroke("black");
+    } else {
+      this.rollover = false;
+    }
+  }
+
+  withinBounds() {
+    const wWidth = Math.min(this.p5.width, 500);
+
+    const dx = this.x - this.p5.width / 2;
+    const dy = this.y - this.p5.width / 2;
+
+    const collision =
+      Math.sqrt(dx * dx + dy * dy) >= (wWidth - 20) / 2 - this.diameter / 2;
+
+    if (collision) {
+      const center = [
+        Math.floor(this.p5.width / 2),
+        Math.floor(this.p5.width / 2),
+      ];
+      const radvec = [this.x, this.y].map((c, i) => c - center[i]);
+
+      if (radvec[0] < 0) this.x += 0.1;
+      else this.x -= 0.1;
+      if (radvec[1] < 0) this.y += 0.1;
+      else this.y -= 0.1;
+    }
+  }
+}
 
 export default {
   props: {
