@@ -35,6 +35,7 @@
         </p>
       </div>
     </div>
+    <QuoteChart />
     <p class="font-duboisNarrow uppercase text-center mt-20">
       This visualization attempts to further humanize the data associated with
       the 3856 Black college graduates whose lives were recorded as data in the
@@ -56,9 +57,11 @@ import Legend from "./Legend";
 import PieChart from "./PieChart";
 import studentData from "~/api/static/data/chartOne.json";
 import USAMap from "./USAMap";
+import QuoteChart from "./QuoteChart";
 
 export default {
   components: {
+    QuoteChart,
     USAMap,
     PieChart,
     Legend,

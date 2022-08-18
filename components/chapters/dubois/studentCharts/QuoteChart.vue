@@ -1,5 +1,9 @@
 <template>
-  <div id="vue-canvas" ref="pieChartVis"></div>
+  <div
+    class="flex flex-col items-center p-10"
+    id="vue-canvas"
+    ref="pieChartVis"
+  ></div>
 </template>
 <script>
 import p5 from "p5";
@@ -17,7 +21,6 @@ export default {
 
     const script = (p5) => {
       let circles = [];
-      let outsideCircles = [];
       let canvas;
 
       /**
@@ -29,7 +32,7 @@ export default {
         categoryCircles,
         id,
         student,
-        pieChartRadius,
+        radius,
         circleDiameter,
         startAngle,
         endAngle,
@@ -40,7 +43,7 @@ export default {
         // We need to take the square root of a random variable
         // in order to get a better distribution:
         // http://www.anderswallin.net/2009/05/uniform-random-points-in-a-circle-using-polar-coordinates/
-        const r = pieChartRadius * Math.sqrt(p5.random(0, 1));
+        const r = radius * Math.sqrt(p5.random(0, 1));
         // And a random angle
         const angle = p5.random(startAngle, endAngle);
         // Convert to cartesian
@@ -67,16 +70,13 @@ export default {
           id,
           circles,
           `${student.name}\n${student.location}\n${student.year}`,
-          p5
+          p5,
+          "black"
         );
       }
 
-      function placeCategoryCircles(currentAngle, categoryAngle, students) {
-        const diameter = p5.width * (15 / 466);
-        const center = {
-          x: p5.width / 2,
-          y: p5.height / 2,
-        };
+      function placeCategoryCircles(startAngle, endAngle, corner, students) {
+        const diameter = p5.height * (15 / 466);
         // We store the category circles separately because we want to
         // do the overlap check only for the category circles.
         const categoryCircles = [];
@@ -86,12 +86,12 @@ export default {
             const circle = createNewCircle(
               categoryCircles,
               i,
-              students[i],
-              (p5.width - 20) / 2,
+              { name: "Bob", location: "Bobsville", year: 2022 },
+              (p5.height - 20) / 2,
               diameter,
-              currentAngle,
-              currentAngle + categoryAngle,
-              center
+              startAngle,
+              endAngle,
+              corner
             );
 
             if (circle) {
@@ -103,67 +103,48 @@ export default {
 
         // Then we add the category circles to the main circle
         circles.push(...categoryCircles);
+        console.log(circles);
       }
 
       function placeCategories() {
-        const { count, categories } = studentData;
-        let currentAngle = OFFSET;
-
-        for (const { students } of categories) {
-          const categoryAngle = (students.length / count) * 2 * Math.PI;
-          placeCategoryCircles(currentAngle, categoryAngle, students);
-          currentAngle += categoryAngle;
-        }
-      }
-
-      function placeOutsideCircles() {
-        let wWidth = Math.min(p5.width, 500);
-
-        let diameter = wWidth * (18 / 466);
-        let outsideCoordinates = [
-          { x: 12, y: 352 },
-          { x: 43, y: 390 },
-          { x: 444, y: 374 },
-          { x: 390, y: 426 },
-          { x: 348, y: 445 },
+        const categories = [
+          {
+            students: Array(10),
+            startAngle: Math.PI * 1.5,
+            endAngle: Math.PI * 2,
+            corner: { x: 0, y: 0 },
+          },
+          {
+            students: Array(20),
+            startAngle: Math.PI,
+            endAngle: Math.PI * 1.5,
+            corner: { x: p5.width, y: 0 },
+          },
+          {
+            students: Array(10),
+            startAngle: Math.PI / 2,
+            endAngle: Math.PI,
+            corner: { x: p5.width, y: p5.height },
+          },
+          {
+            students: Array(10),
+            startAngle: 0,
+            endAngle: Math.PI / 2,
+            corner: { x: 0, y: p5.height },
+          },
         ];
-        for (let i = 0; i < 5; i++) {
-          outsideCircles.push(
-            new Circle(
-              outsideCoordinates[i].x,
-              outsideCoordinates[i].y,
-              diameter,
-              outsideCircles.length + 1,
-              outsideCircles,
-              "",
-              p5
-            )
-          );
+
+        for (const { students, startAngle, endAngle, corner } of categories) {
+          placeCategoryCircles(startAngle, endAngle, corner, students);
         }
       }
 
       function pieChart(diameter) {
-        let lastAngle = OFFSET;
-        const { count, categories } = studentData;
-        const padding = 20;
-
-        for (const { color, students } of categories) {
-          const angle = (students.length / count) * Math.PI * 2;
-
-          p5.fill(color);
-          p5.stroke("black");
-          p5.arc(
-            p5.width / 2,
-            p5.height / 2,
-            diameter - padding,
-            diameter - padding,
-            lastAngle,
-            lastAngle + angle,
-            p5.PIE
-          );
-
-          lastAngle += angle;
-        }
+        const oldWeight = p5.strokeWeight;
+        p5.fill("black");
+        p5.strokeWeight(4);
+        p5.circle(p5.width / 2, p5.height / 2, diameter);
+        p5.strokeWeight(oldWeight);
       }
 
       p5.setup = function () {
@@ -171,19 +152,16 @@ export default {
         //   width: 40vw
         //   maxWidth: 500px;
         canvas = p5.createCanvas(
-          Math.min(p5.windowWidth * 0.4, 500),
+          Math.min(p5.windowWidth, 2250),
           Math.min(p5.windowWidth * 0.4, 500)
         );
-        canvas.parent("vue-canvas");
-
         placeCategories();
-
-        placeOutsideCircles();
+        canvas.parent("vue-canvas");
       };
 
       p5.draw = function () {
         p5.background("rgb(250, 241, 233)");
-        pieChart(p5.width);
+        pieChart(p5.height * 0.8);
 
         circles.forEach((ball) => {
           ball.display();
@@ -234,7 +212,6 @@ export default {
         outsideCircles = [];
 
         placeCategories();
-        placeOutsideCircles();
         p5.redraw();
       };
     };
