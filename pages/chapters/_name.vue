@@ -13,17 +13,17 @@ import ChapterLayout from "~/components/page/chapter/ChapterLayout";
 import chaptersConfig from "~/chaptersConfig";
 
 export default {
-  async asyncData({ req, params, $http }) {
+  async asyncData({ params, $http, isDev, req }) {
     const config = chaptersConfig[params.name];
 
     if (config) {
-      if (process.server) {
+      if (!isDev) {
         const docsData = await $http.$get(`/api/livedoc/${config.doc}`);
         return { docsData, config };
       }
 
       const request = await fetch(
-        `http://${location.host}/api/livedoc/${config.doc}`
+        `http://localhost:3000/api/livedoc/${config.doc}`
       );
       const docsData = await request.json();
       return { docsData, config };
