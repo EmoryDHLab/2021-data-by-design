@@ -24,7 +24,7 @@ export default {
   plugins: ["~/plugins/breakpoints.js"],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxtjs/tailwindcss"],
+  buildModules: ["@nuxtjs/tailwindcss", "@nuxtjs/svg"],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ["@nuxt/http"],
