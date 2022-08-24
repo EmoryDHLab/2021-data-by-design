@@ -6,6 +6,9 @@
     <template v-slot:[slots.chart63]>
       <Chart63></Chart63>
     </template>
+    <template v-slot:[slots.scrollyTellOne]>
+      <div class="middle-full">This is a scrolly tell</div>
+    </template>
   </Slots>
 </template>
 
@@ -27,6 +30,7 @@ export default {
       slots: {
         studentCharts: "StudentCharts",
         chart63: "63 Charts",
+        scrollyTellOne: "ScrollyTellOne",
       },
     };
   },

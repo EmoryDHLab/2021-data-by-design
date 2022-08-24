@@ -36,7 +36,7 @@
           ref="groups"
         >
           <div>
-            <slot :name="'group:' + i"></slot>
+            <slot :name="`group:${i}`"></slot>
           </div>
         </div>
         <div class="h-screen max-h-full" ref="endBuffer"></div>
@@ -84,8 +84,7 @@
 <script>
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import GridLayout from "@/components/page/chapter/layout/GridLayout.vue";
-import Vue from "vue";
+import GridLayout from "~/components/page/chapter/layout/GridLayout.vue";
 
 if (process.client) gsap.registerPlugin(ScrollTrigger);
 
@@ -160,7 +159,7 @@ export default {
         return "100vh";
       }
       if (this.totalHeight > 0) {
-        return this.totalHeight + "px";
+        return `${this.totalHeight}px`;
       }
     },
     totalHeightStyle() {

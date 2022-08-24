@@ -58,6 +58,10 @@ export default {
           }
         }
 
+        if (p5.dist(x, y, p5.width / 2, p5.height / 2) < p5.height * 0.5) {
+          return undefined;
+        }
+
         return new BaseCircle(
           x,
           y,
@@ -152,7 +156,7 @@ export default {
         }
       }
 
-      function pieChart(diameter) {
+      function centerCircle(diameter) {
         const oldWeight = p5.strokeWeight;
         p5.noFill();
         p5.strokeWeight(4);
@@ -174,7 +178,7 @@ export default {
 
       p5.draw = function () {
         p5.background("rgb(250, 241, 233)");
-        pieChart(p5.height * 0.8);
+        centerCircle(p5.height * 0.8);
 
         circles.forEach((ball) => {
           ball.display();
@@ -204,6 +208,7 @@ export default {
         );
         circles = [];
 
+        centerCircle(p5.height * 0.8);
         placeCategories();
         p5.redraw();
       };
