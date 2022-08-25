@@ -1,8 +1,8 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import Vue from "vue";
-import { theme } from "~/tailwind.config";
+import { defineNuxtPlugin } from "nuxt/app";
+import config from "~/tailwind.config";
 
-export default () => {
+export default defineNuxtPlugin(() => {
+  const { theme } = config;
   const screens = Object.entries(theme.screens)
     .map(([key, value]) => ({
       name: key,
@@ -10,38 +10,25 @@ export default () => {
     }))
     .sort((a, b) => b.min - a.min);
 
-  const state = Vue.observable({
-    windowWidth: undefined,
-  });
-
-  Vue.mixin({
-    mounted() {
-      state.windowWidth = window.innerWidth;
-    },
-    computed: {
-      $breakpoint() {
+  return {
+    provide: {
+      $breakpoint(windowWidth) {
         const widestReached = screens.find(
-          (screen) => state.windowWidth > screen.min
+          (screen) => windowWidth > screen.min
         );
         if (widestReached) {
           return widestReached.name;
         }
         return undefined;
       },
-      $breakpoints() {
+      $breakpoints(windowWidth) {
         return screens
-          .filter((screen) => state.windowWidth > screen.min)
+          .filter((screen) => windowWidth > screen.min)
           .map((screen) => screen.name);
       },
       $isMobile() {
         return this.$breakpoints && this.$breakpoints.length <= 1;
       },
     },
-  });
-
-  if (process.client) {
-    window.onresize = () => {
-      state.windowWidth = window.innerWidth;
-    };
-  }
-};
+  };
+});

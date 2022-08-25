@@ -3,7 +3,7 @@
 // object, it will use that as the footnote reference component;
 // it isn't referenced by the Google Doc itself,
 // so it doesn't need a docsDefinition.
-import FootnoteReference from "~/components/global/docs-inclusions/FootnoteReference";
+// import FootnoteReference from "~/components/global/docs-inclusions/FootnoteReference";
 
 export function contextModules(context) {
   return context
@@ -42,12 +42,12 @@ export async function chapterDefinitions(chapterId) {
   return definitions(await chapterModules(chapterId));
 }
 
-const globalModules = contextModules(
-  require.context("@/components/global/docs-inclusions", true, /\.vue$/)
-);
-
-export const globalDefinitions = definitions(globalModules);
-export const globalComponents = {
-  FootnoteReference,
-  ...components(globalModules),
-};
+// const globalModules = contextModules(
+//   require.context("@/components/global/docs-inclusions", true, /\.vue$/)
+// );
+//
+// export const globalDefinitions = definitions(globalModules);
+// export const globalComponents = {
+//   FootnoteReference,
+//   ...components(globalModules),
+// };

@@ -1,7 +1,7 @@
 <template>
   <div class="bg-dubois_sec flex mt-20">
     <div class="w-2/5">
-      <img class="p-20 w-full" src="../../../assets/images/ch4-5.png" />
+      <img class="p-20 w-full" src="/images/ch4-5.png" />
     </div>
 
     <div class="p-20 font-william w-3/5">

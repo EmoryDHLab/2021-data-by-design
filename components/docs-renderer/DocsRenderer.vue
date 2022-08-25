@@ -6,10 +6,7 @@
     :ignoreCss="ignoreCssProperties"
     :components="components"
   >
-    <template
-      v-for="(_, name) in $scopedSlots"
-      :slot="name"
-      slot-scope="slotData"
+    <template v-for="(_, name) in $slots" :slot="name" slot-scope="slotData"
       ><slot :name="name" v-bind="slotData"
     /></template>
   </Renderer>
@@ -17,7 +14,6 @@
 
 <script>
 import { Renderer } from "docs-renderer-vue2";
-import { globalComponents } from "./componentImports";
 
 export default {
   components: { Renderer },
@@ -38,7 +34,7 @@ export default {
   },
   computed: {
     components() {
-      return { ...globalComponents, ...(this.docsComponents.components || {}) };
+      return { ...(this.docsComponents.components || {}) };
     },
     ignoreCssProperties() {
       return ["font-family", "font-size", "background-color"];

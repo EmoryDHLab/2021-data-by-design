@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <div class="border-primary border-4 border-dashed p-1">
     <slot />
   </div>

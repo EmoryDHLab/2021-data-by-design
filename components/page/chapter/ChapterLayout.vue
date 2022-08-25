@@ -8,7 +8,6 @@
         :subtitle="metadata.subtitle"
       ></ChapterTitle>
     </template>
-    <ChapterNav></ChapterNav>
     <div v-if="docsComponents.loaded" class="chapter-flex flex bg-offwhite">
       <div class="h-full flex-grow"></div>
       <ChapterContent :chapter-sections="chapterSections" />
@@ -24,7 +23,7 @@ import { componentsFromDoc, findSections } from "google-docs-components";
 
 import ChapterTitle from "./nav/ChapterTitle.vue";
 import ChapterFooter from "./nav/ChapterFooter.vue";
-import ChapterNav from "./nav/ChapterNav.vue";
+// import ChapterNav from "./nav/ChapterNav.vue";
 import ChapterContent from "./content/ChapterContent";
 import MobileTitleNav from "./nav/MobileTitleNav";
 import SiteFooter from "../sitewide/SiteFooter";
@@ -49,7 +48,7 @@ export default {
     ChapterContent,
     ChapterTitle,
     MobileTitleNav,
-    ChapterNav,
+    //    ChapterNav,
     ChapterFooter,
     SiteFooter,
   },

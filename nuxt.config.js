@@ -1,4 +1,6 @@
-export default {
+import { defineNuxtConfig } from "nuxt";
+
+export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "data-by-design",
@@ -20,14 +22,8 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["@/assets/fonts.css"],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~/plugins/breakpoints.js"],
-
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxtjs/tailwindcss"],
-
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxt/http"],
+  modules: ["@nuxtjs/tailwindcss"],
 
   target: "static",
 
@@ -37,7 +33,7 @@ export default {
   },
 
   server: {
-    port: "3003",
+    port: "3000",
   },
 
   generate: {
@@ -49,4 +45,4 @@ export default {
   },
 
   devServerHandlers: [],
-};
+});

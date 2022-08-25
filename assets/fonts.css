@@ -2,97 +2,97 @@
 
 @font-face {
   font-family: "Maranallo";
-  src: url("~assets/fonts/Maranallo/Maranallo.ttf") format("truetype");
+  src: url("/fonts/Maranallo/Maranallo.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "VTC Du Bois";
-  src: url("~assets/fonts/VTCDubois/VTCDuBois-Regular.woff") format("woff"),
-    url("~assets/fonts/VTCDubois/VTCDuBois-Regular.woff2") format("woff2");
+  src: url("/fonts/VTCDubois/VTCDuBois-Regular.woff") format("woff"),
+    url("/fonts/VTCDubois/VTCDuBois-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "VTC Du Bois Wide";
-  src: url("~assets/fonts/VTCDubois/VTCDuBois-BoldWide.woff") format("woff"),
-    url("~assets/fonts/VTCDubois/VTCDuBois-BoldWide.woff2") format("woff2");
+  src: url("/fonts/VTCDubois/VTCDuBois-BoldWide.woff") format("woff"),
+    url("/fonts/VTCDubois/VTCDuBois-BoldWide.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: "VTC Du Bois Wide";
-  src: url("~assets/fonts/VTCDubois/VTCDuBois-LightWide.woff") format("woff"),
-    url("~assets/fonts/VTCDubois/VTCDuBois-LightWide.woff2") format("woff2");
+  src: url("/fonts/VTCDubois/VTCDuBois-LightWide.woff") format("woff"),
+    url("/fonts/VTCDubois/VTCDuBois-LightWide.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: "VTC Du Bois Narrow";
-  src: url("~assets/fonts/VTCDubois/VTCDuBois-RegularNarrow.woff")
+  src: url("/fonts/VTCDubois/VTCDuBois-RegularNarrow.woff")
       format("woff"),
-    url("~assets/fonts/VTCDubois/VTCDuBois-RegularNarrow.woff2") format("woff2");
+    url("/fonts/VTCDubois/VTCDuBois-RegularNarrow.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "VTC Du Bois Narrow";
-  src: url("~assets/fonts/VTCDubois/VTCDuBois-LightNarrow.woff") format("woff"),
-    url("~assets/fonts/VTCDubois/VTCDuBois-LightNarrow.woff2") format("woff2");
+  src: url("/fonts/VTCDubois/VTCDuBois-LightNarrow.woff") format("woff"),
+    url("/fonts/VTCDubois/VTCDuBois-LightNarrow.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Chancery Cursive";
-  src: url("~assets/fonts/Chancery/Chancery_Cursive_Italic.ttf")
+  src: url("/fonts/Chancery/Chancery_Cursive_Italic.ttf")
     format("truetype");
 }
 
 @font-face {
   font-family: "DxD Icons";
-  src: url("~assets/fonts/DxDIcons/DxDIcons-Regular.ttf") format("truetype");
+  src: url("/fonts/DxDIcons/DxDIcons-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "VTC William";
-  src: url("~assets/fonts/William/VTCWilliam-Regular.woff") format("woff"),
-    url("~assets/fonts/William/VTCWilliam-Regular.woff2") format("woff2");
+  src: url("/fonts/William/VTCWilliam-Regular.woff") format("woff"),
+    url("/fonts/William/VTCWilliam-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "VTC William";
-  src: url("~assets/fonts/William/VTCWilliam-Bold.woff") format("woff"),
-    url("~assets/fonts/William/VTCWilliam-Bold.woff2") format("woff2");
+  src: url("/fonts/William/VTCWilliam-Bold.woff") format("woff"),
+    url("/fonts/William/VTCWilliam-Bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: "VTC William";
-  src: url("~assets/fonts/William/VTCWilliam-BoldItalic.woff") format("woff"),
-    url("~assets/fonts/William/VTCWilliam-BoldItalic.woff2") format("woff2");
+  src: url("/fonts/William/VTCWilliam-BoldItalic.woff") format("woff"),
+    url("/fonts/William/VTCWilliam-BoldItalic.woff2") format("woff2");
   font-weight: bold;
   font-style: italic;
 }
 
 @font-face {
   font-family: "VTC William";
-  src: url("~assets/fonts/William/VTCWilliam-Italic.woff") format("woff"),
-    url("~assets/fonts/William/VTCWilliam-Italic.woff2") format("woff2");
+  src: url("/fonts/William/VTCWilliam-Italic.woff") format("woff"),
+    url("/fonts/William/VTCWilliam-Italic.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
   font-family: "VTC William Wide";
-  src: url("~assets/fonts/William/VTCWilliam-BoldWide.woff") format("woff"),
-    url("~assets/fonts/William/VTCWilliam-BoldWide.woff2") format("woff2");
+  src: url("/fonts/William/VTCWilliam-BoldWide.woff") format("woff"),
+    url("/fonts/William/VTCWilliam-BoldWide.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
 }
