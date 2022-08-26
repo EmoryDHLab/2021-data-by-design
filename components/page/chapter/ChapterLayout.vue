@@ -10,7 +10,6 @@
     </template>
     <div v-if="docsComponents.loaded" class="chapter-flex flex bg-offwhite">
       <div class="h-full flex-grow"></div>
-      <ChapterContent :chapter-sections="chapterSections" />
       <div class="h-full flex-grow"></div>
     </div>
     <ChapterFooter v-if="!$isMobile"> </ChapterFooter>
@@ -19,12 +18,10 @@
 </template>
 
 <script>
-import { componentsFromDoc, findSections } from "google-docs-components";
-
 import ChapterTitle from "./nav/ChapterTitle.vue";
 import ChapterFooter from "./nav/ChapterFooter.vue";
 // import ChapterNav from "./nav/ChapterNav.vue";
-import ChapterContent from "./content/ChapterContent";
+// import ChapterContent from "./content/ChapterContent";
 import MobileTitleNav from "./nav/MobileTitleNav";
 import SiteFooter from "../sitewide/SiteFooter";
 

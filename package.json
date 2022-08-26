@@ -14,11 +14,8 @@
   "dependencies": {
     "csv-parse": "^4.16.0",
     "d3": "^7.0.0",
-    "docs-renderer-vue2": "latest",
     "express": "^4.17.1",
     "glob": "^7.1.7",
-    "google-docs-components": "latest",
-    "google-docs-parser": "latest",
     "gsap": "^3.7.0",
     "husky": "^8.0.1",
     "nuxt": "^3.0.0-rc.8",
@@ -28,6 +25,7 @@
   },
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.14.8",
+    "@nuxtjs/mdx": "file:../mdx-module",
     "@nuxtjs/tailwindcss": "^5.3.2",
     "@types/express": "^4.17.13",
     "@types/glob": "^7.2.0",

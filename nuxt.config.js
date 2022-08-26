@@ -23,7 +23,7 @@ export default defineNuxtConfig({
   css: ["@/assets/fonts.css"],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/tailwindcss"],
+  modules: ["@nuxtjs/tailwindcss", "@nuxtjs/mdx"],
 
   target: "static",
 
