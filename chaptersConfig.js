@@ -27,7 +27,7 @@ export default {
     },
   },
   brooks: {
-    doc: "179zM9VbyjZEah59yqZ2yUaECTaiFrZbe0i8zd_05gJ0",
+    doc: "1wxNazTNBy9eEPWXXk7niv_ZALz2rNvb8g9yKXLQLlqI",
     id: "brooks",
     navName: "Every Datapoint a Person",
     theme: {
