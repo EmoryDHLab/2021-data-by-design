@@ -7,19 +7,19 @@
     -->
     <div
       ref="background"
-      class="bg-theme absolute z-0 left-0 w-screen"
+      class="bg-theme absolute z-0 left-0 w-screen max-w-full"
       :style="totalHeightStyle"
     ></div>
 
     <div class="relative">
       <div
         ref="above"
-        class="opacity-0 pointer-events-none absolute left-0 -top-screen w-screen h-screen"
+        class="opacity-0 pointer-events-none absolute left-0 -top-screen w-screen h-screen max-w-full max-h-full"
         :class="{ 'scroll-snap-child': snapRange }"
       ></div>
       <div
         ref="below"
-        class="opacity-0 pointer-events-none absolute left-0 w-screen h-screen"
+        class="opacity-0 pointer-events-none absolute left-0 w-screen h-screen max-w-full max-h-full"
         :class="{ 'scroll-snap-child': snapRange }"
         :style="{ top: totalHeightUnits }"
       ></div>
@@ -27,11 +27,11 @@
 
     <div v-if="!$isMobile" class="flex flex-row mx-3 lg:mx-12">
       <div class="flex-1 z-10 relative" ref="scrolly">
-        <div class="h-screen" ref="buffer"></div>
+        <div class="h-screen max-h-full" ref="buffer"></div>
         <div
           v-for="(i, zeroIndexed) in groups"
           class="flex items-center"
-          :class="{ 'h-screen': !collect, 'scroll-snap-child': snapRange }"
+          :class="{ 'h-screen max-w-full': !collect, 'scroll-snap-child pr-12': snapRange }"
           :style="collectStyle(zeroIndexed)"
           ref="groups"
         >
@@ -39,10 +39,10 @@
             <slot :name="'group:' + i"></slot>
           </div>
         </div>
-        <div class="h-screen" ref="endBuffer"></div>
+        <div class="h-screen max-h-full" ref="endBuffer"></div>
       </div>
 
-      <div class="flex-1 h-screen sticky top-0 z-10" ref="sticky">
+      <div class="flex-1 h-screen max-h-full sticky top-0 z-10" ref="sticky">
         <slot name="sticky"></slot>
       </div>
     </div>
