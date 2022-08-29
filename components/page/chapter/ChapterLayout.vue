@@ -42,7 +42,6 @@ export default {
     },
   },
   components: {
-    ChapterContent,
     ChapterTitle,
     MobileTitleNav,
     //    ChapterNav,
@@ -202,11 +201,7 @@ TODO: Delete safely
   --vertical-gap-medium: 120px;
   --vertical-gap-large: 200px;
 }
-.chapter-root .bg-theme {
-  background-color: var(--primaryColor);
-}
-
-.chapter-root .text-theme {
+.chapter-root .chapter-root .text-theme {
   color: var(--primaryColorText);
 }
 </style>
