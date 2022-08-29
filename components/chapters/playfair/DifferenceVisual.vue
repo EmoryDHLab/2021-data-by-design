@@ -11,8 +11,8 @@
   </StaticData>
 </template>
 <script>
-import Recreation from "@/components/chapters/playfair/recreationElements/Recreation";
-import StaticData from "@/components/data-access/StaticData";
+import Recreation from "~/components/chapters/playfair/recreationElements/Recreation";
+import StaticData from "~/components/data-access/StaticData";
 
 export default {
   components: { Recreation, StaticData },
