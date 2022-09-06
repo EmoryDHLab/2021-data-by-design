@@ -1,3 +1,7 @@
+// Uncomment for bundle analysis
+// const BundleAnalyzerPlugin =
+//  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -34,6 +38,14 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ["gsap"],
+    // If you want to inspect bundle size, uncomment below and
+    // the require line at the top of file.
+    //
+    // extend(config, { isClient }) {
+    //   if (isClient) {
+    //     config.plugins.push(new BundleAnalyzerPlugin());
+    //   }
+    // },
   },
 
   server: {
