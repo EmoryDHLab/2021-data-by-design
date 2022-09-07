@@ -23,7 +23,7 @@
         <MoveBorder>
           <MapScroller
             class="centered-image"
-            asset="images/railroadscaled.jpg"
+            asset="images/railroadscaled.webp"
             :currentPoint="chapterState.mapPos"
             :points="[
               { x: 3700, y: -200, scale: 3 },
