@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxi dev",
+    "dev": "concurrently \"nuxi dev\" \"yarn fetch-docs\"",
     "build": "nuxt generate",
     "start": "nuxi preview",
     "format": "prettier --write .",
     "typecheck": "tsc",
     "lint": "eslint .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "fetch-docs": "esbuild scripts/fetchGoogleDocsData.js --bundle --platform=node | node"
   },
   "dependencies": {
     "@nuxt/http": "^0.6.4",
@@ -34,6 +35,8 @@
     "@types/glob": "^7.2.0",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
+    "concurrently": "^7.4.0",
+    "esbuild": "^0.15.7",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
