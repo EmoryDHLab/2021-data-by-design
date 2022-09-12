@@ -20,7 +20,10 @@
 </template>
 
 <script>
-import { componentsFromDoc, findSections } from "google-docs-components";
+import {
+  componentsFromDoc,
+  findSections,
+} from "~/lib/docs-cms/packages/google-docs-components";
 
 import ChapterTitle from "./nav/ChapterTitle.vue";
 import ChapterFooter from "./nav/ChapterFooter.vue";

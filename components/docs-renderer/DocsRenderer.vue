@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { Renderer } from "docs-renderer-vue2";
+import Renderer from "~/lib/docs-cms/packages/vue2/dist/docsRenderer.umd";
 import { globalComponents } from "./componentImports";
 
 export default {

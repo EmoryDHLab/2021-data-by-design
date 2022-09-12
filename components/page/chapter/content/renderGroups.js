@@ -1,4 +1,4 @@
-import { findSections } from "google-docs-components";
+import { findSections } from "~/lib/docs-cms/packages/google-docs-components";
 
 export function renderGroups(componentArray) {
   const def = {

@@ -1,0 +1,33 @@
+{
+  "name": "docs-renderer-vue3",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/docsrenderer.umd.js",
+  "module": "./dist/docsrenderer.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/docsrenderer.es.js",
+      "require": "./dist/docsrenderer.umd.js"
+    }
+  },
+  "version": "1.1.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview --port 5050",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "google-docs-components": "latest",
+    "vue": "^3.2.33"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.27",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "@vue/tsconfig": "^0.1.3",
+    "typescript": "~4.6.3",
+    "vite": "^2.9.5",
+    "vue-tsc": "^0.34.7"
+  }
+}
