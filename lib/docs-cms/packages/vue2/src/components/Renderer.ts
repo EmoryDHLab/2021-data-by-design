@@ -42,7 +42,6 @@ export default Vue.extend({
     function fromContent(
       data: ContentData
     ): VNode | Array<String | VNode> | string | false {
-      console.log(data);
       if (typeof data == "string") {
         const inlineSlotMatches = data.matchAll(context.props.inlineSlotFormat);
 

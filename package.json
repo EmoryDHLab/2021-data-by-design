@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"nuxi dev\" \"yarn fetch-docs\"",
+    "dev": "nuxi dev",
     "build": "nuxt generate",
     "start": "nuxi preview",
     "format": "prettier --write .",
