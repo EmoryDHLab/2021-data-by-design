@@ -2,8 +2,8 @@
   <div class="w-full h-full flex flex-col gap-3 justify-center">
     <StaticData :dataset="['peabody1600s']" v-slot="{ peabody1600s }">
       <PeabodyGrid
-        :show-labels="scrollData.current > 0"
-        :show-squares="scrollData.current > 1"
+        :show-labels="scrollData.current >= 0"
+        :show-squares="scrollData.current >= 0"
         :yearsData="yearsData(peabody1600s)"
         @hoverStart="eventHovered"
         v-slot="{
@@ -13,7 +13,7 @@
       >
         >
         <EventKeyBox
-          v-if="scrollData.current == 3"
+          v-if="scrollData.current == 2"
           v-show="Number.isInteger(hoveredYear) && hoveredYear >= 0"
           v-model="keyValue"
           :width="9.5"
@@ -23,7 +23,7 @@
           :drop-shadow="false"
         />
       </PeabodyGrid>
-      <div class="text-sm" :class="{ invisible: scrollData.current <= 2 }">
+      <div class="text-sm" :class="{ invisible: scrollData.current <= 1 }">
         <span v-if="currentEvent.event"
           >{{ currentYear }}: {{ currentEvent.event }}</span
         >
@@ -31,7 +31,7 @@
       </div>
       <div
         class="flex flex-row w-full justify-between"
-        :class="{ invisible: scrollData.current <= 3 }"
+        :class="{ invisible: scrollData.current <= 2 }"
       >
         <div
           v-for="{ actor, color } in actorsIn(peabody1600s)"
@@ -43,6 +43,7 @@
         </div>
       </div>
       <EventLegend v-if="showKey" v-model="keyValue"></EventLegend>
+      <div v-else class="h-52"></div>
     </StaticData>
   </div>
 </template>
@@ -78,7 +79,7 @@ export default {
   },
   computed: {
     showKey() {
-      return this.scrollData.current > 2;
+      return this.scrollData.current > 1;
     },
     highlightedActors() {
       return this.currentEvent.actors || [];
@@ -93,10 +94,10 @@ export default {
       this.currentYear = year;
     },
     yearsData(staticData) {
-      if (this.scrollData.current == 4) {
+      if (this.scrollData.current == 3) {
         return staticData.filter((event) => event.squares === "full");
       }
-      if (this.scrollData.current > 4) {
+      if (this.scrollData.current > 3) {
         return staticData;
       }
       return 1600;
