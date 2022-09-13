@@ -18,15 +18,17 @@ async function fetchGoogleDoc(chapterConfig) {
   const docDownload = parseDoc(await getDoc(config, docID));
   await writeFile(
     `docs/${chapterID}.json`,
-    JSON.stringify(docDownload),
+    JSON.stringify(docDownload, null, 2),
     "utf8"
   );
 }
 
-setInterval(() => {
-  Promise.all(Object.values(chaptersConfig).map(fetchGoogleDoc)).catch(
-    (err) => {
-      console.error(err);
-    }
-  );
-}, 2000);
+async function main() {
+  try {
+    await Promise.all(Object.values(chaptersConfig).map(fetchGoogleDoc));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+main();

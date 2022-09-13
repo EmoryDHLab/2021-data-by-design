@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "types": ["jest", "node"],
+    "paths": {
+      "google-docs-components": [
+        "google-docs-components/src"
+      ],
+      "google-docs-parser": [
+        "google-docs-parser/src"
+      ]
+    }
+  }
+}

@@ -1,0 +1,386 @@
+{
+  "body": [
+    { "element": "p", "children": ["A paragraph before.\n"] },
+    {
+      "element": "p",
+      "children": [
+        "This ",
+        {
+          "element": "span",
+          "children": ["one "],
+          "style": { "font-family": "Calibri", "font-weight": "400" }
+        },
+        "has ",
+        {
+          "element": "span",
+          "children": ["col"],
+          "style": { "color": "rgb(100%, 0%, 0%)" }
+        },
+        { "component": "FootnoteReference", "props": { "footnoteNumber": 1 } },
+        {
+          "element": "span",
+          "children": ["ors "],
+          "style": { "color": "rgb(100%, 0%, 0%)" }
+        },
+        "and stuff.\n"
+      ]
+    },
+    {
+      "element": "div",
+      "children": [
+        {
+          "element": "div",
+          "children": [{
+            "element": "div",
+            "children": ["Super nested", { "slot": "DevSlot1" }]
+          }]
+        }
+      ]
+    },
+    {
+      "element": "p",
+      "children": [
+        {
+          "element": "span",
+          "children": ["This one is all one color.\n"],
+          "style": { "color": "rgb(29.01961%, 52.54902%, 90.98039%)" }
+        }
+      ]
+    },
+    {
+      "component": "MyComponent",
+      "className": "my-class",
+      "slots": {
+        "something-else": [{ "element": "p", "children": ["hi\n"] }],
+        "SlotExample": [
+          {
+            "element": "p",
+            "children": [
+              "Asdf ",
+              {
+                "element": "a",
+                "children": ["asdf"],
+                "style": {
+                  "color": "rgb(6.6666669999999995%, 33.333334%, 80%)",
+                  "font-weight": "bold",
+                  "text-decoration": "underline"
+                },
+                "attrs": {
+                  "href": "https://docs.google.com/document/u/0/d/1VJ8zcBbDL5j8ePzo9-pEi4KOJKdUcdUcJdJNePTqvEs/edit"
+                }
+              }
+            ]
+          },
+          {
+            "element": "ul",
+            "children": [
+              {
+                "element": "li",
+                "children": [
+                  {
+                    "element": "span",
+                    "children": ["list here\n"],
+                    "style": { "font-weight": "bold" }
+                  }
+                ]
+              },
+              {
+                "element": "li",
+                "children": [
+                  {
+                    "element": "span",
+                    "children": ["hi\n"],
+                    "style": { "font-weight": "bold" }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "element": "p",
+            "children": [
+              "There’s all sorts ",
+              {
+                "component": "FootnoteReference",
+                "props": { "footnoteNumber": 2 }
+              },
+              "of stuff in here!\n"
+            ]
+          },
+          {
+            "component": "OneSlot",
+            "slots": {
+              "default": [
+                { "element": "p", "children": ["it’s a default slot\n"] }
+              ]
+            }
+          }
+        ]
+      },
+      "props": { "prop2": "Hi there", "prop1": 2 }
+    },
+    {
+      "rows": [[-1, 0], [1, -1], [-1, 2], [3, -3]],
+      "cells": [
+        [{
+          "element": "p",
+          "children": [
+            {
+              "element": "span",
+              "children": ["top right\n"],
+              "style": {
+                "font-family": "Times",
+                "font-weight": "400",
+                "font-size": "12PT"
+              }
+            }
+          ]
+        }],
+        [{
+          "element": "p",
+          "children": [
+            {
+              "element": "span",
+              "children": ["table\n"],
+              "style": {
+                "font-family": "Times",
+                "font-weight": "400",
+                "font-size": "12PT"
+              }
+            }
+          ]
+        }],
+        [{
+          "element": "p",
+          "children": [
+            {
+              "element": "span",
+              "children": ["bottom right\n"],
+              "style": {
+                "font-family": "Times",
+                "font-weight": "400",
+                "font-size": "12PT"
+              }
+            }
+          ]
+        }],
+        [{
+          "element": "p",
+          "children": [
+            {
+              "element": "span",
+              "children": ["I wonder\n"],
+              "style": {
+                "font-family": "Times",
+                "font-weight": "400",
+                "font-size": "12PT"
+              }
+            }
+          ]
+        }]
+      ],
+      "className": "my-class2"
+    },
+    {
+      "element": "ul",
+      "children": [
+        {
+          "element": "li",
+          "children": [
+            "One Bullet\n",
+            {
+              "element": "ol",
+              "children": [
+                { "element": "li", "children": ["Second level indent\n"] },
+                {
+                  "element": "li",
+                  "children": [
+                    "Another second level indent\n",
+                    {
+                      "element": "ul",
+                      "children": [
+                        {
+                          "element": "li",
+                          "children": [
+                            "Third level indent\n",
+                            {
+                              "element": "ul",
+                              "children": [
+                                {
+                                  "element": "li",
+                                  "children": [
+                                    {
+                                      "element": "span",
+                                      "children": ["Fourth level\n"],
+                                      "style": { "color": "rgb(100%, 0%, 0%)" }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "li",
+                                  "children": [
+                                    "s",
+                                    {
+                                      "element": "span",
+                                      "children": ["asd"],
+                                      "style": { "color": "rgb(100%, 60%, 0%)" }
+                                    },
+                                    "fas\u000bdf\n"
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        { "element": "li", "children": ["Two Bullet\n"] },
+        { "element": "li", "children": ["Three\n"] }
+      ]
+    },
+    {
+      "element": "ol",
+      "children": [{ "element": "li", "children": ["right afterward\n"] }]
+    },
+    {
+      "element": "p",
+      "children": [
+        {
+          "element": "span",
+          "children": ["Section: One\n"],
+          "style": { "font-weight": "bold" }
+        }
+      ]
+    },
+    { "element": "p", "children": ["asdf\n"] },
+    {
+      "element": "p",
+      "children": [
+        {
+          "element": "span",
+          "children": ["-\n"],
+          "style": { "font-weight": "bold" }
+        }
+      ]
+    },
+    {
+      "element": "p",
+      "children": [
+        {
+          "element": "span",
+          "children": ["Section: Two\n"],
+          "style": { "font-weight": "bold" }
+        }
+      ]
+    },
+    {
+      "element": "p",
+      "children": [
+        {
+          "element": "span",
+          "children": ["asdfasdf\n"],
+          "style": { "font-weight": "bold" }
+        }
+      ]
+    },
+    {
+      "element": "p",
+      "children": [
+        {
+          "element": "span",
+          "children": ["Section: Three\n"],
+          "style": { "font-weight": "bold" }
+        }
+      ]
+    },
+    {
+      "element": "p",
+      "children": [
+        {
+          "element": "span",
+          "children": ["left:1\n"],
+          "style": { "font-weight": "bold" }
+        }
+      ]
+    },
+    { "element": "p", "children": ["this is on the left\n"] },
+    { "element": "p", "children": ["-\n"] },
+    {
+      "element": "p",
+      "children": [
+        {
+          "element": "span",
+          "children": ["right:1"],
+          "style": { "font-weight": "bold" }
+        }
+      ]
+    },
+    { "element": "p", "children": ["this is on the right\n"] },
+    { "element": "p", "children": ["hurray\n"] },
+    { "element": "p", "children": ["-\n"] },
+    {
+      "element": "p",
+      "children": [
+        {
+          "element": "span",
+          "children": ["Section: Four\n"],
+          "style": { "font-weight": "bold" }
+        }
+      ]
+    }
+  ],
+  "title": "Components testing",
+  "readAt": 1634256187270,
+  "footnotes": {
+    "1": [
+      {
+        "element": "p",
+        "children": [
+          {
+            "element": "span",
+            "children": [" First footnote.\n"],
+            "style": { "font-size": "10PT" }
+          }
+        ]
+      }
+    ],
+    "2": [
+      {
+        "element": "p",
+        "children": [
+          {
+            "element": "span",
+            "children": [" A footnote with stuff in it \n"],
+            "style": { "font-size": "10PT" }
+          }
+        ]
+      },
+      {
+        "element": "p",
+        "children": [
+          {
+            "element": "span",
+            "children": ["Like a paragraph\n"],
+            "style": { "color": "rgb(100%, 60%, 0%)", "font-size": "10PT" }
+          }
+        ]
+      },
+      {
+        "element": "p",
+        "children": [
+          {
+            "element": "span",
+            "children": ["Etc\n"],
+            "style": { "font-size": "10PT" }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,8 +1,28 @@
 {
-  "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
+    "target": "ES2018",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": ["ESNext", "ESNext.AsyncIterable", "DOM"],
+    "esModuleInterop": true,
+    "allowJs": true,
+    "sourceMap": true,
     "strict": true,
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./*"]
+    },
+    "types": ["@types/node", "@nuxt/types"]
   },
-  "include": ["api/**/*", "components/**/*", "layouts/**/*", "pages/**/*", "plugins/**/*", "store/**/*"]
+  "include": [
+    "api/**/*",
+    "components/**/*",
+    "layouts/**/*",
+    "pages/**/*",
+    "plugins/**/*",
+    "store/**/*"
+  ],
+  "exclude": ["node_modules"]
 }

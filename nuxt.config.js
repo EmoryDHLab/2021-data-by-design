@@ -22,13 +22,13 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ["@/assets/fonts.css"],
+  css: ["~/assets/fonts.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ["~/plugins/breakpoints.js"],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ["@nuxtjs/tailwindcss"],
+  buildModules: ["@nuxtjs/tailwindcss", "@nuxt/typescript-build"],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ["@nuxt/http"],
@@ -53,7 +53,12 @@ export default {
   },
 
   generate: {
-    routes: ["/chapters/peabody", "/chapters/playfair", "/chapters/dubois"],
+    routes: [
+      "/chapters/brooks",
+      "/chapters/dubois",
+      "/chapters/peabody",
+      "/chapters/playfair",
+    ],
   },
 
   tailwindcss: {
