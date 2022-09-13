@@ -1,0 +1,73 @@
+{
+  "readAt": 1663029539581,
+  "title": "LIVE: Labour",
+  "body": [
+    {
+      "type": "unmatched",
+      "endIndex": 1,
+      "sectionBreak": {
+        "sectionStyle": {
+          "columnSeparatorStyle": "NONE",
+          "contentDirection": "LEFT_TO_RIGHT",
+          "sectionType": "CONTINUOUS"
+        }
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "styledText",
+          "text": "Metadata\n",
+          "css": {
+            "font-weight": "400",
+            "font-family": "Calibri",
+            "font-size": "12PT"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "styledText",
+          "text": "Title: Labour\n",
+          "css": {
+            "font-family": "Calibri",
+            "font-weight": "400",
+            "font-size": "12PT"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "styledText",
+          "text": "Subtitle: \n",
+          "css": {
+            "font-family": "Calibri",
+            "font-weight": "400",
+            "font-size": "12PT"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "styledText",
+          "text": "End Metadata\n",
+          "css": {
+            "font-weight": "400",
+            "font-family": "Calibri",
+            "font-size": "12PT"
+          }
+        }
+      ]
+    }
+  ]
+}

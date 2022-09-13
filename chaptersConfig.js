@@ -35,6 +35,24 @@ export default {
       primaryColorText: "black",
     },
   },
+  willard: {
+    doc: "1lfzPK_WEjEOsC08CjdTHRLUf-QF4s2xW1XbloToPD3Y",
+    id: "willard",
+    navName: "Narratives of Possession",
+    theme: {
+      primaryColor: "#8C20E1",
+      primaryColorText: "black",
+    },
+  },
+  labour: {
+    doc: "13S5SfeIhEsL7w27JRpff8nWy2YKxnB0Pjp5xyavjXxY",
+    id: "labour",
+    navName: "Labour",
+    theme: {
+      primaryColor: "#8C20E1",
+      primaryColorText: "black",
+    },
+  },
   sandbox: {
     doc: "1ZnzdhstuleNMzjzl6EuJzD1SxAsj54bMOu-5IxeaRWo",
     id: "sandbox",
