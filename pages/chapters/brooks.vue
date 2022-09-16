@@ -4,6 +4,7 @@
       v-if="docsData"
       :docData="docsData"
       :config="config"
+      :docsRendererComponent="brooksSlots"
     ></ChapterLayout>
   </div>
 </template>
@@ -12,6 +13,7 @@
 import ChapterLayout from "~/components/page/chapter/ChapterLayout";
 import chaptersConfig from "~/chaptersConfig";
 import docsData from "~/docs/brooks.json";
+import brooksSlots from "~/components/chapter-slots/brooks";
 
 export default {
   data() {
@@ -20,6 +22,7 @@ export default {
     return {
       docsData,
       config,
+      brooksSlots,
     };
   },
   computed: {},

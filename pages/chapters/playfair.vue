@@ -4,6 +4,7 @@
       v-if="docsData"
       :docData="docsData"
       :config="config"
+      :docsRendererComponent="peabodySlots"
     ></ChapterLayout>
   </div>
 </template>
@@ -12,6 +13,7 @@
 import ChapterLayout from "~/components/page/chapter/ChapterLayout";
 import chaptersConfig from "~/chaptersConfig";
 import docsData from "~/docs/playfair.json";
+import peabodySlots from "~/components/chapter-slots/peabody";
 
 export default {
   data() {
@@ -20,6 +22,7 @@ export default {
     return {
       docsData,
       config,
+      peabodySlots,
     };
   },
   computed: {},
