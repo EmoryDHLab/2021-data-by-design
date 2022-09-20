@@ -10,6 +10,7 @@
           hoveredYear,
           methods: { getYearXFromIndex, getYearYFromIndex },
         }"
+        class="mt-6"
       >
         >
         <EventKeyBox
@@ -37,6 +38,7 @@
           v-for="{ actor, color } in actorsIn(peabody1600s)"
           class="flex flex-row text-sm gap-2"
           :class="{ 'font-bold': highlightedActors.includes(actor) }"
+          :key="color"
         >
           <EventSquare :colors="[color]" class="w-4"></EventSquare>
           {{ actor }}
