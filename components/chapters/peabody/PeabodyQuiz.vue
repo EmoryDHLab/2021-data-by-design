@@ -173,11 +173,6 @@ export default {
     },
   },
   methods: {
-    // currentDataset() {
-    //   console.log("🚀 ~ file: PeabodyQuiz.vue ~ line 166 ~ currentDataset ~ staticData", staticData)
-    //   const data = staticData["peabody" + this.currentCentury];
-    //   return data;
-    // },
     shownActors() {
       if (!centuryData[`peabody${this.currentCentury}`]) return [];
       const actorObjects = actorsIn(centuryData[`peabody${this.currentCentury}`]);
@@ -209,11 +204,9 @@ export default {
     },
     resetCentury() {
       // this.currentCenturyData.solvedEvents.splice(0, this.currentCenturyData.solvedEvents.length);
-      console.log("🚀 ~ file: PeabodyQuiz.vue ~ line 212 ~ resetCentury ~ this.currentCenturyData", this.currentCenturyData)
       this.currentCenturyData.solvedEvents = [];
     },
     solveClicked(solved) {
-      console.log("🚀 ~ file: PeabodyQuiz.vue ~ line 216 ~ solveClicked ~ solved", solved)
       const { events, eventIndex, solvedEvents } = this.currentCenturyData;
       const currentEvent = events[eventIndex];
       if (solved) {
@@ -225,7 +218,6 @@ export default {
     },
     gridClicked() {
       const { events, eventIndex } = this.currentCenturyData;
-      console.log("🚀 ~ file: PeabodyQuiz.vue ~ line 228 ~ gridClicked ~ events, eventIndex", events, eventIndex)
       const guessing = events[eventIndex];
       if (
         guessing?.year == this.hoveredYear &&

@@ -29,10 +29,5 @@ export default {
       return ukCovidData;
     },
   },
-  // watch: {
-  //   dataFileName() {
-  //     console.log(this);
-  //   }
-  // }
 };
 </script>
