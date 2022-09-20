@@ -69,7 +69,7 @@ export default {
       //and applying more space to one side will throw off the other
       if (this.scrollTriggerInstance) {
         return (
-          this.scrollTriggerInstance.end - this.scrollTriggerInstance.start
+          this.scrollTriggerInstance.end - this.scrollTriggerInstance.start + 24
         );
       }
       return 0;

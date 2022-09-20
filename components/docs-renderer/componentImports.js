@@ -3,14 +3,12 @@
 // object, it will use that as the footnote reference component;
 // it isn't referenced by the Google Doc itself,
 // so it doesn't need a docsDefinition.
+import * as Blockquote from "~/components/global/docs-inclusions/Blockquote";
+import * as Captioned from "~/components/global/docs-inclusions/Captioned";
 import FootnoteReference from "~/components/global/docs-inclusions/FootnoteReference";
-
-export function contextModules(context) {
-  return context
-    .keys()
-    .map((key) => context(key))
-    .filter((module) => "docsDefinition" in module);
-}
+import * as LocalImage from "~/components/global/docs-inclusions/LocalImage";
+import * as Pullquote from "~/components/global/docs-inclusions/Pullquote";
+import * as Scrollytell from "~/components/global/docs-inclusions/Scrollytell";
 
 async function chapterModules(chapterId) {
   try {
@@ -42,9 +40,13 @@ export async function chapterDefinitions(chapterId) {
   return definitions(await chapterModules(chapterId));
 }
 
-const globalModules = contextModules(
-  require.context("@/components/global/docs-inclusions", true, /\.vue$/)
-);
+const globalModules = [
+  Blockquote,
+  Captioned,
+  LocalImage,
+  Pullquote,
+  Scrollytell,
+];
 
 export const globalDefinitions = definitions(globalModules);
 export const globalComponents = {
