@@ -12,7 +12,7 @@
       <DifferenceVisual></DifferenceVisual>
     </template>
     <template v-slot:[slots.pCharts]>
-      <PChart :chartName="chosenHover"></PChart>
+      <PChart></PChart>
     </template>
     <template v-slot:[slots.bySide]>
       <BySide></BySide>
