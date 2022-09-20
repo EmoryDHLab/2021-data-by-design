@@ -1,6 +1,5 @@
 <template>
   <div class="col-span-full bg-offblack text-white mt-12 pt-20">
-    <StaticData :dataset="datasets" v-slot="staticData" @loaded="loadedData">
       <div class="w-full flex flex-row">
         <div class="w-1/2 flex items-center justify-center">
           <div class="w-8/12">
@@ -33,7 +32,7 @@
             </div>
             <ActorSelect
               :vertical="$breakpoints.includes('xl')"
-              :shown-actors="shownActors(staticData)"
+              :shown-actors="shownActors()"
               :selected-actors="highlightedActors"
             ></ActorSelect>
           </div>
@@ -71,7 +70,6 @@
           </div>
         </div>
       </div>
-    </StaticData>
   </div>
 </template>
 <script>
@@ -88,12 +86,24 @@ import LocalImage from "../../global/docs-inclusions/LocalImage";
 
 import EventBox from "./quiz/EventBox";
 import EventCheckbox from "./quiz/EventCheckbox";
+import peabody1500s from "~/api/static/data/peabody1500s.json";
+import peabody1600s from "~/api/static/data/peabody1600s.json";
+import peabody1700s from "~/api/static/data/peabody1700s.json";
+import peabody1800s from "~/api/static/data/peabody1800s.json";
+
 
 export const docsDefinition = {
   matchName: ["PeabodyQuiz"],
   componentName: "PeabodyQuiz",
   props: {},
 };
+
+const centuryData = {
+  peabody1500s,
+  peabody1600s,
+  peabody1700s,
+  peabody1800s,
+}
 
 export default {
   components: {
@@ -112,22 +122,22 @@ export default {
     return {
       centuries: {
         "1500s": {
-          events: [],
+          events: peabody1500s,
           solvedEvents: [],
           eventIndex: 0,
         },
         "1600s": {
-          events: [],
+          events: peabody1600s,
           solvedEvents: [],
           eventIndex: 0,
         },
         "1700s": {
-          events: [],
+          events: peabody1700s,
           solvedEvents: [],
           eventIndex: 0,
         },
         "1800s": {
-          events: [],
+          events: peabody1800s,
           solvedEvents: [],
           eventIndex: 0,
         },
@@ -136,6 +146,7 @@ export default {
       hoveredType: 1,
       hoveredEvent: {},
       hoveredYear: null,
+      currentDataset: peabody1500s,
     };
   },
   computed: {
@@ -162,19 +173,19 @@ export default {
     },
   },
   methods: {
-    currentDataset(staticData) {
-      const data = staticData["peabody" + this.currentCentury];
-      return data;
-    },
-    shownActors(staticData) {
-      const dataset = this.currentDataset(staticData);
-      if (!dataset) return [];
-      const actorObjects = actorsIn(dataset);
+    // currentDataset() {
+    //   console.log("🚀 ~ file: PeabodyQuiz.vue ~ line 166 ~ currentDataset ~ staticData", staticData)
+    //   const data = staticData["peabody" + this.currentCentury];
+    //   return data;
+    // },
+    shownActors() {
+      if (!centuryData[`peabody${this.currentCentury}`]) return [];
+      const actorObjects = actorsIn(centuryData[`peabody${this.currentCentury}`]);
       if (!actorObjects?.length) return [];
       return actorObjects.map(({ actor }) => actor);
     },
-    allEvents(staticData) {
-      // this.currentDataset(staticData).map
+    allEvents() {
+      // this.currentDataset.map
     },
     actorsIn,
     eventHovered({ type, year, event }) {
@@ -198,9 +209,11 @@ export default {
     },
     resetCentury() {
       // this.currentCenturyData.solvedEvents.splice(0, this.currentCenturyData.solvedEvents.length);
+      console.log("🚀 ~ file: PeabodyQuiz.vue ~ line 212 ~ resetCentury ~ this.currentCenturyData", this.currentCenturyData)
       this.currentCenturyData.solvedEvents = [];
     },
     solveClicked(solved) {
+      console.log("🚀 ~ file: PeabodyQuiz.vue ~ line 216 ~ solveClicked ~ solved", solved)
       const { events, eventIndex, solvedEvents } = this.currentCenturyData;
       const currentEvent = events[eventIndex];
       if (solved) {
@@ -212,6 +225,7 @@ export default {
     },
     gridClicked() {
       const { events, eventIndex } = this.currentCenturyData;
+      console.log("🚀 ~ file: PeabodyQuiz.vue ~ line 228 ~ gridClicked ~ events, eventIndex", events, eventIndex)
       const guessing = events[eventIndex];
       if (
         guessing?.year == this.hoveredYear &&
@@ -229,6 +243,6 @@ export default {
         this.currentCenturyData.eventIndex = matchingEventIndex;
       }
     },
-  },
+  }
 };
 </script>

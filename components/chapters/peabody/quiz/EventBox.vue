@@ -64,6 +64,7 @@ export default {
       return this.currentEvent?.event;
     },
     completedText() {
+      console.log("🚀 ~ file: EventBox.vue ~ line 68 ~ completedText ~ this", this)
       if (this.eventData?.length) {
         return `${this.value + 1}/${this.eventData.length}`;
       }
