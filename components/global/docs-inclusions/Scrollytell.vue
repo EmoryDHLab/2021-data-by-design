@@ -140,7 +140,7 @@ export default {
       direction: undefined,
       progress: -1,
       leaveProgress: 0,
-      current: undefined,
+      current: 0,
     },
   }),
   computed: {
