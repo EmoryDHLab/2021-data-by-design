@@ -10,7 +10,6 @@
           hoveredYear,
           methods: { getYearXFromIndex, getYearYFromIndex },
         }"
-        class="mt-6"
       >
         >
         <EventKeyBox
@@ -24,7 +23,7 @@
           :drop-shadow="false"
         />
       </PeabodyGrid>
-      <div class="text-sm" :class="{ invisible: scrollData.current <= 1 }">
+      <div class="text-sm" :class="scrollData.current <= 1 ? 'invisible opacity-0' : ''">
         <span v-if="currentEvent.event"
           >{{ currentYear }}: {{ currentEvent.event }}</span
         >
@@ -32,7 +31,7 @@
       </div>
       <div
         class="flex flex-row w-full justify-between"
-        :class="{ invisible: scrollData.current <= 2 }"
+        :class="scrollData.current <= 1 ? 'invisible opacity-0' : ''"
       >
         <div
           v-for="{ actor, color } in actorsIn(peabody1600s)"
@@ -44,19 +43,19 @@
           {{ actor }}
         </div>
       </div>
-      <EventLegend v-if="showKey" v-model="keyValue"></EventLegend>
-      <div v-else class="h-52"></div>
+      <EventLegend :showing="showKey" v-model="keyValue"></EventLegend>
     </StaticData>
   </div>
 </template>
+
 <script>
 import PeabodyGrid from "./grid/PeabodyGrid";
 import EventKeyBox from "./key/EventKeyBox";
 import EventLegend from "./key/EventLegend";
 import StaticData from "@/components/data-access/StaticData";
 import EventSquare from "./grid/EventSquare";
-
 import { actorsIn } from "./peabodyUtils";
+
 export const docsDefinition = {
   matchName: ["PeabodyTutorial"],
   componentName: "PeabodyTutorial",
@@ -107,3 +106,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  div {
+    transition: height 1s ease, opacity 500ms ease;
+  }
+</style>

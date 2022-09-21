@@ -1,5 +1,5 @@
 <template>
-  <div class="h-52 font-sans text-sm tracking-wide" :class="layoutClass">
+  <div class="font-sans text-sm tracking-wide w-full grid grid-cols-3 gap-y-8 gap-x-4" :class="showing ? 'h-52 opacity-100' : 'h-0 opacity-0'">
     <div
       class="cursor-pointer flex flex-row gap-2 h-12 pl-2 border-l-2 border-transparent"
       v-for="(event, i) in legendText"
@@ -19,6 +19,10 @@
 <script>
 export default {
   props: {
+    showing: {
+      type: Boolean,
+      default: true
+    },
     legendText: {
       type: Array,
       validator(array) {
@@ -44,21 +48,16 @@ export default {
         return num >= 1 && num <= 9;
       },
     },
-  },
-  computed: {
-    layoutClass() {
-      return "w-full grid grid-cols-3 gap-y-8 gap-x-4";
-      // return "flex flex-col";
-    },
-  },
+  }
 };
 </script>
 
 <style scoped>
-div {
-  font-variant: small-caps;
-}
-.event-text {
-  font-variant: small-caps;
-}
+  div {
+    font-variant: small-caps;
+  }
+
+  .event-text {
+    font-variant: small-caps;
+  }
 </style>
