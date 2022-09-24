@@ -29,6 +29,7 @@
 <script>
 import EventBoxArrow from "./EventBoxArrow.vue";
 import EventCheckbox from "./EventCheckbox";
+
 export default {
   props: {
     value: {
@@ -67,6 +68,8 @@ export default {
       if (this.eventData?.length) {
         return `${this.value + 1}/${this.eventData.length}`;
       }
+
+      return null;
     },
   },
 };
