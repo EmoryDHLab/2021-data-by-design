@@ -1,6 +1,6 @@
 <template>
   <span>
-    <span class="circle" @click="show = !show">
+    <span role="button" class="circle" @click="show = !show">
       {{ footnoteNumber }}
     </span>
     <span class="text-blue-400" v-if="show">
@@ -21,19 +21,21 @@ export default {
 </script>
 
 <style scoped>
-.circle {
-  display: inline-block;
-  font-family: "VTC William";
-  font-weight: bold;
-  vertical-align: middle;
-  font-size: 14px;
-  line-height: 22px;
-  border-radius: 50%;
-  min-width: 22px;
-  height: 22px;
-  margin-left: 2px;
-  text-align: center;
-  background-color: var(--primaryColor);
-  color: var(--primaryColorText);
-}
+  .circle {
+    cursor: pointer;
+    display: inline-block;
+    font-family: "VTC William";
+    font-weight: bold;
+    vertical-align: middle;
+    font-size: .75rem;
+    line-height: 1.25rem;
+    border-radius: 50%;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    margin-left: 0.25rem;
+    margin-bottom: 0.2rem;
+    text-align: center;
+    background-color: var(--primaryColor);
+    color: var(--primaryColorText);
+  }
 </style>

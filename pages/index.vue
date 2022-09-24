@@ -22,6 +22,7 @@ import AboutSite from "../components/page/frontpage/AboutSite";
 import ChapterCardGrid from "../components/page/frontpage/ChapterCardGrid";
 import Timeline from "../components/page/frontpage/Timeline";
 import IntroBlock from "../components/page/frontpage/IntroBlock";
+
 export default {
   components: {
     Timeline,

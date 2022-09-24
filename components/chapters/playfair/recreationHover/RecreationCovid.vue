@@ -109,7 +109,7 @@ export default {
     };
   },
   props: {
-    dataFile: {
+    chartData: {
       type: Array,
     },
   },
@@ -124,7 +124,7 @@ export default {
   },
   methods: {
     tickFormatterX: function (tickVal) {
-      return this.dataFile[this.dataFile.length - tickVal].date.substring(
+      return this.chartData[this.chartData.length - tickVal].date.substring(
         5,
         10
       );
@@ -160,11 +160,11 @@ export default {
       var capita = 1000000; //1M
       var ukPopulation = 66650000; //66.65 million
       var usaPopulation = 328200000; //328.2 million
-      var maxX = this.dataFile.length;
+      var maxX = this.chartData.length;
 
       const newData = [];
       var idx = 0;
-      this.dataFile.forEach(function (d) {
+      this.chartData.forEach(function (d) {
         var newObj = { ukDeaths: 0, usDeaths: 0, date: 0 };
         newObj.ukDeaths = perCapita(
           capita,
@@ -203,7 +203,7 @@ export default {
       var xNums = [];
       for (
         var i = this.dateInterval;
-        i <= this.dataFile.length;
+        i <= this.chartData.length;
         i += this.dateInterval
       ) {
         xNums.push(i);
@@ -247,7 +247,7 @@ export default {
       return d3
         .scaleLinear()
         .range([0, (this.width / 11) * 10])
-        .domain([0, this.dataFile.length]);
+        .domain([0, this.chartData.length]);
     },
     yScale() {
       return d3

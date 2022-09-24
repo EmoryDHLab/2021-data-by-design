@@ -1,4 +1,3 @@
-import { defineNuxtPlugin } from "nuxt/app";
 import config from "~/tailwind.config";
 
 export default defineNuxtPlugin(() => {

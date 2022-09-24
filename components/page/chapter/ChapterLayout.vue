@@ -18,6 +18,11 @@
 </template>
 
 <script>
+import {
+  componentsFromDoc,
+  findSections,
+} from "~/lib/docs-cms/packages/google-docs-components";
+
 import ChapterTitle from "./nav/ChapterTitle.vue";
 import ChapterFooter from "./nav/ChapterFooter.vue";
 // import ChapterNav from "./nav/ChapterNav.vue";
@@ -102,7 +107,7 @@ export default {
         // https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
         // Loads the correct slots component from the chapter-slots folder. That component
         // handles the doc rendering, injecting the specified slots into the docs renderer.
-        return () => import(`@/components/chapter-slots/${this.config.id}`);
+        return () => import(`~/components/chapter-slots/${this.config.id}.vue`);
       }
     },
     theme() {

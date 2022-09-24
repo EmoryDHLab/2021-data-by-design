@@ -1,4 +1,6 @@
-import { defineNuxtConfig } from "nuxt";
+// Uncomment for bundle analysis
+// const BundleAnalyzerPlugin =
+//  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -20,16 +22,24 @@ export default defineNuxtConfig({
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ["@/assets/fonts.css"],
+  css: ["~/assets/fonts.css"],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/tailwindcss", "@nuxtjs/mdx"],
+  modules: ["@nuxtjs/tailwindcss"],
 
   target: "static",
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ["gsap"],
+    // If you want to inspect bundle size, uncomment below and
+    // the require line at the top of file.
+    //
+    // extend(config, { isClient }) {
+    //   if (isClient) {
+    //     config.plugins.push(new BundleAnalyzerPlugin());
+    //   }
+    // },
   },
 
   server: {
@@ -37,7 +47,12 @@ export default defineNuxtConfig({
   },
 
   generate: {
-    routes: ["/chapters/peabody", "/chapters/playfair", "/chapters/dubois"],
+    routes: [
+      "/chapters/brooks",
+      "/chapters/dubois",
+      "/chapters/peabody",
+      "/chapters/playfair",
+    ],
   },
 
   tailwindcss: {

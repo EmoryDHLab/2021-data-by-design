@@ -1,0 +1,29 @@
+{
+  "name": "docs-renderer-vue2",
+  "version": "0.3.0",
+  "main": "./dist/docsRenderer.common.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --target lib --name docsRenderer src/exports.ts",
+    "prepublish": "yarn build",
+    "yalc": "yalc push --scripts"
+  },
+  "files": [
+    "/dist"
+  ],
+  "dependencies": {
+    "google-docs-components": "workspace:*",
+    "vue": "^2.7.10"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-typescript": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
+    "typescript": "^4.8.3",
+    "vue-template-compiler": "^2.7.10"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

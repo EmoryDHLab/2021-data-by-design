@@ -1,0 +1,42 @@
+{
+  "name": "google-docs-components",
+  "version": "1.1.1",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "scripts": {
+    "prepublish": "yarn build",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && tsc -p tsconfig.build-cjs.json",
+    "yalc": "yalc push --scripts",
+    "watch": "watch 'yarn yalc' ./src"
+  },
+  "files": [
+    "/dist"
+  ],
+  "jest": {
+    "transform": {
+      "\\.[jt]sx?$": [
+        "babel-jest",
+        {
+          "rootMode": "upward"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "google-docs-parser": "workspace:*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/plugin-proposal-export-default-from": "^7.12.13",
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "@babel/preset-typescript": "^7.13.0",
+    "@babel/runtime": "^7.14.0",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.2",
+    "jest": "^27.0.4",
+    "typescript": "^4.3.2",
+    "watch": "^1.0.2"
+  }
+}

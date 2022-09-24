@@ -27,9 +27,27 @@ export default {
     },
   },
   brooks: {
-    doc: "179zM9VbyjZEah59yqZ2yUaECTaiFrZbe0i8zd_05gJ0",
+    doc: "1wxNazTNBy9eEPWXXk7niv_ZALz2rNvb8g9yKXLQLlqI",
     id: "brooks",
     navName: "Every Datapoint a Person",
+    theme: {
+      primaryColor: "#8C20E1",
+      primaryColorText: "black",
+    },
+  },
+  willard: {
+    doc: "1lfzPK_WEjEOsC08CjdTHRLUf-QF4s2xW1XbloToPD3Y",
+    id: "willard",
+    navName: "Narratives of Possession",
+    theme: {
+      primaryColor: "#8C20E1",
+      primaryColorText: "black",
+    },
+  },
+  labour: {
+    doc: "13S5SfeIhEsL7w27JRpff8nWy2YKxnB0Pjp5xyavjXxY",
+    id: "labour",
+    navName: "Labour",
     theme: {
       primaryColor: "#8C20E1",
       primaryColorText: "black",

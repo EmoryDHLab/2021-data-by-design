@@ -1,0 +1,15 @@
+{
+  "name": "docs-cms",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "yalc": "yarn workspaces foreach -pt run yalc"
+  },
+  "version": "1.0.0",
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.2"
+  }
+}
