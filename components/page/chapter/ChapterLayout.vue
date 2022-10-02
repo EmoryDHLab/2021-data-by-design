@@ -45,6 +45,9 @@ export default {
     config: {
       type: Object,
     },
+    chapterSlot: {
+      type: Object,
+    },
   },
   components: {
     ChapterTitle,
@@ -56,7 +59,7 @@ export default {
   provide() {
     return {
       theme: this.theme,
-      docsRenderer: this.docsRendererComponent,
+      chapterSlot: this.chapterSlot,
       docsComponents: this.docsComponents,
       componentData: this.componentData,
     };
@@ -102,14 +105,14 @@ export default {
     });
   },
   computed: {
-    docsRendererComponent() {
-      if (this.config.id) {
-        // https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
-        // Loads the correct slots component from the chapter-slots folder. That component
-        // handles the doc rendering, injecting the specified slots into the docs renderer.
-        return () => import(`~/components/chapter-slots/${this.config.id}.vue`);
-      }
-    },
+    // docsRendererComponent() {
+    //   if (this.config.id) {
+    //     // https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
+    //     // Loads the correct slots component from the chapter-slots folder. That component
+    //     // handles the doc rendering, injecting the specified slots into the docs renderer.
+    //     return () => import(`@/components/chapter-slots/${this.config.id}`);
+    //   }
+    // },
     theme() {
       return this.config.theme;
     },

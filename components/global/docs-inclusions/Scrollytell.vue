@@ -27,11 +27,10 @@
 
     <div v-if="!$isMobile" class="flex flex-row mx-3 lg:mx-12">
       <div class="flex-1 z-10 relative" ref="scrolly">
-        <div class="h-screen max-h-full" ref="buffer"></div>
         <div
           v-for="(i, zeroIndexed) in groups"
-          class="flex items-center"
-          :class="{ 'h-screen max-w-full': !collect, 'scroll-snap-child pr-12': snapRange }"
+          class="flex items-center pr-12"
+          :class="{ 'h-screen max-w-full': !collect, 'scroll-snap-child': snapRange }"
           :style="collectStyle(zeroIndexed)"
           ref="groups"
         >
@@ -39,7 +38,7 @@
             <slot :name="'group:' + i"></slot>
           </div>
         </div>
-        <div class="h-screen max-h-full" ref="endBuffer"></div>
+        <div class="h-1/2" ref="endBuffer"></div>
       </div>
 
       <div class="flex-1 h-screen max-h-full sticky top-0 z-10" ref="sticky">
@@ -141,7 +140,7 @@ export default {
       direction: undefined,
       progress: -1,
       leaveProgress: 0,
-      current: undefined,
+      current: 0,
     },
   }),
   computed: {
@@ -168,13 +167,6 @@ export default {
         height: this.totalHeightUnits,
       };
     },
-    // localVars() {
-    //   const gap = "600px";
-    //   return {
-    //     "--numGroups": this.groups,
-    //     "--gap": gap
-    //   }
-    // }
   },
   methods: {
     collectStyle(i) {
@@ -198,7 +190,6 @@ export default {
   mounted() {
     ScrollTrigger.create({
       trigger: this.$refs.background,
-      // endTrigger: this.$refs.screenBelow,
       start: "+20px bottom",
       end: "bottom top",
       onToggle: (instance) => {
@@ -238,12 +229,13 @@ export default {
       this.scrollData.current = 0;
       return;
     }
+
     this.totalHeight = this.$refs.scrolly.clientHeight;
     setTimeout(() => {
-      const groups = [this.$refs.buffer, ...this.$refs.groups];
+      const groups = this.$refs.groups;
 
       if (this.collect) {
-        let cumulative = 100;
+        let cumulative = 0;
         const cumulativeHeights = [];
         cumulativeHeights.push(cumulative);
         this.$refs.groups.forEach((el, i) => {
@@ -254,12 +246,12 @@ export default {
             start: "bottom bottom",
             end: `top ${cumulative}px`,
             onUpdate: ({ progress }) => (this.scrollData.progress = progress),
-            onEnter: (instance) => (this.scrollData.current = i),
-            onLeaveBack: (instance) => (this.scrollData.current = i - 1),
+            onEnter: (instance) => (this.scrollData.current = i + 1),
+            onLeaveBack: (instance) => (this.scrollData.current = i),
           });
         });
         ScrollTrigger.create({
-          trigger: this.$refs.groups[this.groups - 1],
+          trigger: this.$refs.groups[this.groups],
           start: `bottom ${cumulative}px`,
           end: "bottom top",
           onUpdate: ({ progress, direction, start, end }) => {
@@ -278,8 +270,8 @@ export default {
               this.scrollData.progress = progress;
               this.scrollData.direction = direction;
             },
-            onEnter: (instance) => (this.scrollData.current = i),
-            onLeaveBack: (instance) => (this.scrollData.current = i - 1),
+            onEnter: (instance) => (this.scrollData.current = i + 1),
+            onLeaveBack: (instance) => (this.scrollData.current = i ),
           });
         });
       }

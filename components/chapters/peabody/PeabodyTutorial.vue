@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full h-full flex flex-col gap-3 justify-center">
+  <div class="w-full h-full flex flex-col gap-3 justify-center py-6">
     <PeabodyGrid
-      :show-labels="scrollData.current > 0"
-      :show-squares="scrollData.current > 1"
-      :yearsData="yearsData()"
+      :show-labels="scrollData.current >= 0"
+      :show-squares="scrollData.current >= 0"
+      :yearsData="yearsData(peabody1600s)"
       @hoverStart="eventHovered"
       v-slot="{
         hoveredYear,
@@ -12,7 +12,7 @@
     >
       >
       <EventKeyBox
-        v-if="scrollData.current == 3"
+        v-if="scrollData.current == 2"
         v-show="Number.isInteger(hoveredYear) && hoveredYear >= 0"
         v-model="keyValue"
         :width="9.5"
@@ -22,27 +22,27 @@
         :drop-shadow="false"
       />
     </PeabodyGrid>
-    <div class="text-sm" :class="{ invisible: scrollData.current <= 2 }">
+    <div class="text-sm" :class="scrollData.current <= 1 ? 'hidden opacity-0 height-0' : ''">
       <span v-if="currentEvent.event"
         >{{ currentYear }}: {{ currentEvent.event }}</span
       >
-      <span v-else class="italic">Hover over an event</span>
+      <span v-else class="italic" :class="{ hidden: scrollData.current <= 1 }"></span>
     </div>
     <div
       class="flex flex-row w-full justify-between"
-      :class="{ invisible: scrollData.current <= 3 }"
+      :class="scrollData.current <= 1 ? 'hidden opacity-0' : ''"
     >
       <div
         v-for="{ actor, color } in actorsIn(peabody1600s)"
         class="flex flex-row text-sm gap-2"
-        :class="{ 'font-bold': highlightedActors.includes(actor) }"
+        :class="{ 'font-bold': highlightedActors.includes(actor), 'height-0': scrollData.current <= 1 }"
         :key="color"
       >
         <EventSquare :colors="[color]" class="w-4"></EventSquare>
         {{ actor }}
       </div>
     </div>
-    <EventLegend v-if="showKey" v-model="keyValue"></EventLegend>
+    <EventLegend :showing="showKey" v-model="keyValue"></EventLegend>
   </div>
 </template>
 
@@ -50,7 +50,6 @@
 import PeabodyGrid from "./grid/PeabodyGrid";
 import EventKeyBox from "./key/EventKeyBox";
 import EventLegend from "./key/EventLegend";
-import StaticData from "@/components/data-access/StaticData";
 import EventSquare from "./grid/EventSquare";
 import peabody1600s from "~/api/static/data/peabody1600s.json";
 import { actorsIn } from "./peabodyUtils";
@@ -79,7 +78,7 @@ export default {
   },
   computed: {
     showKey() {
-      return this.scrollData.current > 2;
+      return this.scrollData.current > 1;
     },
     highlightedActors() {
       return this.currentEvent.actors || [];
@@ -92,15 +91,21 @@ export default {
       this.currentEvent = event || {};
       this.currentYear = year;
     },
-    yearsData() {
-      if (this.scrollData.current === 4) {
-        return peabody1600s.filter((event) => event.squares === "full");
+    yearsData(staticData) {
+      if (this.scrollData.current == 3) {
+        return staticData.filter((event) => event.squares === "full");
       }
-      if (this.scrollData.current > 4) {
-        return peabody1600s;
+      if (this.scrollData.current > 3) {
+        return staticData;
       }
       return 1600;
     },
   },
 };
 </script>
+
+<style scoped>
+  div {
+    transition: height 1s ease, opacity 500ms ease;
+  }
+</style>
