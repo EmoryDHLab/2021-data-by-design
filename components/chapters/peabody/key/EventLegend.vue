@@ -1,10 +1,10 @@
 <template>
-  <div class="font-sans text-sm tracking-wide" :class="layoutClass">
+  <div class="font-sans text-sm tracking-wide w-full grid grid-cols-3 gap-y-8 gap-x-4" :class="showing ? 'h-52 opacity-100' : 'h-0 opacity-0'">
     <div
-      class="cursor-pointer flex flex-row gap-2 h-12 pl-2 border-l-2 border-transparent"
+      class="cursor-pointer flex flex-row gap-2 pl-2 border-l-2 border-transparent"
       v-for="(event, i) in legendText"
       :key="event"
-      :class="{ 'border-peabodyorange': value == i + 1 }"
+      :class="{ 'border-peabodyorange': value == i + 1, 'height-0': showing }"
       @mouseover="$emit('input', i + 1)"
     >
       <div>{{ i + 1 }}</div>
@@ -19,6 +19,10 @@
 <script>
 export default {
   props: {
+    showing: {
+      type: Boolean,
+      default: true
+    },
     legendText: {
       type: Array,
       validator(array) {
@@ -44,21 +48,23 @@ export default {
         return num >= 1 && num <= 9;
       },
     },
-  },
-  computed: {
-    layoutClass() {
-      return "w-full grid grid-cols-3 gap-y-8 gap-x-4";
-      // return "flex flex-col";
-    },
-  },
+  }
 };
 </script>
 
-<style scoped>
-div {
-  font-variant: small-caps;
-}
-.event-text {
-  font-variant: small-caps;
-}
+<style lang="postcss" scoped>
+  div {
+    font-variant: small-caps;
+  }
+
+  .opacity-0 {
+    div {
+      height: 0;
+      display: none;
+    }
+  }
+
+  .event-text {
+    font-variant: small-caps;
+  }
 </style>
