@@ -4,7 +4,6 @@
       v-if="docsData"
       :docData="docsData"
       :config="config"
-      :chapterSlot="duboisSlot"
     ></ChapterLayout>
   </div>
 </template>
@@ -13,7 +12,6 @@
 import ChapterLayout from "~/components/page/chapter/ChapterLayout";
 import chaptersConfig from "~/chaptersConfig";
 import docsData from "~/docs/dubois.json";
-import duboisSlot from "~/components/chapter-slots/dubois";
 
 export default {
   data() {
@@ -22,7 +20,6 @@ export default {
     return {
       docsData,
       config,
-      duboisSlot,
     };
   },
   computed: {},

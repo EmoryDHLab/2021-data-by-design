@@ -9,7 +9,7 @@
           :key="`${g}-${c}`"
           class="col-start-2 col-end-10"
         >
-          <Component :is="chapterSlot" :docContent="components"></Component>
+          <Component :is="docsRenderer" :docContent="components"></Component>
         </div>
       </template>
     </GridLayout>
@@ -46,7 +46,7 @@ export default {
     },
   },
   components: { MiddleSubgrid, SectionTitle, GridLayout, LeaderFollowPair },
-  inject: ["chapterSlot"],
+  inject: ["docsRenderer"],
   methods: {
     mobileGroups(renderGroup) {
       const order = ["components", "right", "left"];

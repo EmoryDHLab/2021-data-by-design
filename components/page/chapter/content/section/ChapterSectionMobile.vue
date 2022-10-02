@@ -8,7 +8,7 @@
         :key="i"
         class="col-start-2 col-end-10"
       >
-        <Component :is="chapterSlot" :docContent="components"></Component>
+        <Component :is="docsRenderer" :docContent="components"></Component>
       </div>
     </GridLayout>
   </div>
@@ -40,6 +40,6 @@ export default {
     },
   },
   components: { SectionTitle, GridLayout, LeaderFollowPair },
-  inject: ["chapterSlot"],
+  inject: ["docsRenderer"],
 };
 </script>

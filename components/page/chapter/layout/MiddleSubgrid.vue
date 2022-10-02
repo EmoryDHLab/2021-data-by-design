@@ -1,7 +1,7 @@
 <template>
   <GridLayout>
     <Component
-      :is="chapterSlot"
+      :is="docsRenderer"
       :docContent="docContent"
       class="contents middle-subgrid"
     ></Component>
@@ -13,7 +13,7 @@ import GridLayout from "./GridLayout";
 
 export default {
   components: { GridLayout },
-  inject: ["chapterSlot"],
+  inject: ["docsRenderer"],
   props: {
     docContent: Array,
   },

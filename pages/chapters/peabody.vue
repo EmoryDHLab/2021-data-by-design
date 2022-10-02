@@ -4,7 +4,6 @@
       v-if="docsData"
       :docData="docsData"
       :config="config"
-      :chapterSlot="peabodySlot"
     ></ChapterLayout>
   </div>
 </template>
@@ -13,7 +12,6 @@
 import ChapterLayout from "~/components/page/chapter/ChapterLayout";
 import chaptersConfig from "~/chaptersConfig";
 import docsData from "~/docs/peabody.json";
-import peabodySlot from "~/components/chapter-slots/peabody";
 
 export default {
   data() {
@@ -22,7 +20,6 @@ export default {
     return {
       docsData,
       config,
-      peabodySlot,
     };
   },
   computed: {},
