@@ -26,7 +26,7 @@
       <span v-if="currentEvent.event"
         >{{ currentYear }}: {{ currentEvent.event }}</span
       >
-      <span v-else class="italic" :class="{ hidden: scrollData.current <= 1 }"></span>
+      <span v-else class="italic">Hover over an event</span>
     </div>
     <div
       class="flex flex-row w-full justify-between"
