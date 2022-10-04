@@ -8,10 +8,8 @@
         :subtitle="metadata.subtitle"
       ></ChapterTitle>
     </template>
-    <ChapterNav></ChapterNav>
     <div v-if="docsComponents.loaded" class="chapter-flex flex bg-offwhite">
       <div class="h-full flex-grow"></div>
-      <ChapterContent :chapter-sections="chapterSections" />
       <div class="h-full flex-grow"></div>
     </div>
     <ChapterFooter v-if="!$isMobile"> </ChapterFooter>
@@ -27,8 +25,8 @@ import {
 
 import ChapterTitle from "./nav/ChapterTitle.vue";
 import ChapterFooter from "./nav/ChapterFooter.vue";
-import ChapterNav from "./nav/ChapterNav.vue";
-import ChapterContent from "./content/ChapterContent";
+// import ChapterNav from "./nav/ChapterNav.vue";
+// import ChapterContent from "./content/ChapterContent";
 import MobileTitleNav from "./nav/MobileTitleNav";
 import SiteFooter from "../sitewide/SiteFooter";
 
@@ -47,19 +45,21 @@ export default {
     config: {
       type: Object,
     },
+    chapterSlot: {
+      type: Object,
+    },
   },
   components: {
-    ChapterContent,
     ChapterTitle,
     MobileTitleNav,
-    ChapterNav,
+    //    ChapterNav,
     ChapterFooter,
     SiteFooter,
   },
   provide() {
     return {
       theme: this.theme,
-      docsRenderer: this.docsRendererComponent,
+      chapterSlot: this.chapterSlot,
       docsComponents: this.docsComponents,
       componentData: this.componentData,
     };
@@ -105,14 +105,14 @@ export default {
     });
   },
   computed: {
-    docsRendererComponent() {
-      if (this.config.id) {
-        // https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
-        // Loads the correct slots component from the chapter-slots folder. That component
-        // handles the doc rendering, injecting the specified slots into the docs renderer.
-        return () => import(`@/components/chapter-slots/${this.config.id}`);
-      }
-    },
+    // docsRendererComponent() {
+    //   if (this.config.id) {
+    //     // https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components
+    //     // Loads the correct slots component from the chapter-slots folder. That component
+    //     // handles the doc rendering, injecting the specified slots into the docs renderer.
+    //     return () => import(`@/components/chapter-slots/${this.config.id}`);
+    //   }
+    // },
     theme() {
       return this.config.theme;
     },
@@ -209,11 +209,7 @@ TODO: Delete safely
   --vertical-gap-medium: 120px;
   --vertical-gap-large: 200px;
 }
-.chapter-root .bg-theme {
-  background-color: var(--primaryColor);
-}
-
-.chapter-root .text-theme {
+.chapter-root .chapter-root .text-theme {
   color: var(--primaryColorText);
 }
 </style>

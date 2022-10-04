@@ -23,7 +23,7 @@
     <Captioned
       class="col-start-11 col-span-4 row-span-8 bg-nightingale_blue p-16"
     >
-      <img class="max-w-full" src="../../../assets/images/ch5-08b-amalg.jpg" />
+      <img class="max-w-full" src="/images/ch5-08b-amalg.jpg" />
       <template v-slot:caption>
         <span class="text-offwhite">
           The Amalgamation of White and Black elements of the population in the

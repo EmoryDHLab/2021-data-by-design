@@ -4,17 +4,13 @@
       {{ footnoteNumber }}
     </span>
     <span class="text-blue-400" v-if="show">
-      <DocsRenderer :docContent="componentData.footnotes[footnoteNumber]" />
+      <slot />
     </span>
   </span>
 </template>
 
 <script>
-import DocsRenderer from "../../docs-renderer/DocsRenderer.vue";
-
 export default {
-  inject: ["componentData"],
-  components: { DocsRenderer },
   props: {
     footnoteNumber: Number,
   },

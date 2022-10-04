@@ -1,7 +1,7 @@
 <template>
   <div>
     <SiteNav v-if="!$isMobile || !chapterStateInitialized"></SiteNav>
-    <Nuxt />
+    <slot />
   </div>
 </template>
 

@@ -3,14 +3,14 @@
     <Component
       ref="leftCol"
       class="left-col col-start-1 col-end-6 2xl:col-end-8 self-center grid grid-cols-7"
-      :is="docsRenderer"
+      :is="chapterSlot"
       :docContent="leftContent"
       @mounted="leftMounted"
     ></Component>
     <Component
       ref="rightCol"
       class="right-col col-span-full col-start-7 2xl:col-start-8 self-center grid grid-cols-7"
-      :is="docsRenderer"
+      :is="chapterSlot"
       :docContent="rightContent"
       @mounted="rightMounted"
     ></Component>
@@ -29,7 +29,7 @@ if (process.client) gsap.registerPlugin(ScrollTrigger);
 export default {
   name: "LeaderFollowPair",
   components: { GridLayout },
-  inject: ["docsRenderer"],
+  inject: ["chapterSlot"],
   props: {
     leftContent: {
       type: Array,

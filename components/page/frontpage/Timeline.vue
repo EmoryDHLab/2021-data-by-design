@@ -74,7 +74,7 @@
         :y="part1Start + 20"
         :x="pageWidth / 2 - 20 - 35"
         :width="arrowSize"
-        :xlink:href="require(`~/assets/ui/homepage/${shuffleIcon}.png`)"
+        :xlink:href="import(`~/assets/ui/homepage/${shuffleIcon}.png`)"
         @click="viewShuffle()"
         @mousedown="shuffleIcon = 'shuffle_click'"
         @mouseup="shuffleIcon = 'shuffle_unclick'"
@@ -84,7 +84,7 @@
         :y="part1Start + 20"
         :x="pageWidth / 2 - 20 + 35"
         :width="arrowSize"
-        :xlink:href="require(`~/assets/ui/homepage/${sortIcon}.png`)"
+        :xlink:href="import(`~/assets/ui/homepage/${sortIcon}.png`)"
         @click="viewSort()"
       ></image>
     </svg>
@@ -176,7 +176,7 @@ export default {
       return this.getImgPath(img.CHAPTER, img.FILE_NAME);
     },
     getImgPath(chapter, file_name) {
-      return require(`~/assets/images/${chapter}/${file_name}`);
+      return `/images/${chapter}/${file_name}`;
     },
     sortByYear(imgs) {
       const sorted = [...imgs];

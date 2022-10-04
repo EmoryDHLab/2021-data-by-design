@@ -1,16 +1,11 @@
 <template>
-  <GridLayout>
+  <div class="bg-theme bg-opacity-50 m-w-1/2 my-12">
     <div
-      class="chapter-title col-span-6 2xl:col-span-8 col-start-3 2xl:col-start-4 relative"
+      class="title-text p-4 relative font-william font-bold text-xl lg:text-4xl flex justify-center items-center"
     >
-      <div class="opacity-50 bg-theme w-full h-full absolute"></div>
-      <div
-        class="title-text p-4 relative font-william font-bold text-xl lg:text-4xl flex justify-center items-center"
-      >
-        <span>{{ title }}</span>
-      </div>
+      <span>{{ title }}</span>
     </div>
-  </GridLayout>
+  </div>
 </template>
 <script>
 import GridLayout from "../../layout/GridLayout.vue";
@@ -23,6 +18,16 @@ export default {
       type: String,
       required: true,
     },
+    color: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>
+
+<style>
+.bg-theme {
+  background-color: var(--primaryColor);
+}
+</style>

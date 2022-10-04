@@ -104,7 +104,7 @@ export default {
 .cardWillard:hover {
   background-size: cover;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../../../assets/images/ch4-13-willard.jpg") center;
+    url("/images/ch4-13-willard.jpg") center;
 }
 
 .cardDubois:hover {

@@ -74,24 +74,60 @@
 </template>
 
 <script>
-import ChapterSlots from "@/components/mixins/ChapterSlots";
 import PeabodyTutorial from "@/components/chapters/peabody/PeabodyTutorialOld.vue";
 import MoveBorder from "../global/MoveBorder";
 import MapScroller from "../global/MapScroller.vue";
 import Captioned from "../global/docs-inclusions/Captioned.vue";
 import HoverText from "../global/HoverText";
-import StaticData from "@/components/data-access/StaticData";
 import PeabodyGrid from "../chapters/peabody/grid/PeabodyGrid.vue";
 import EventKey from "../chapters/peabody/key/EventKeyBox";
 import EventLegend from "../chapters/peabody/key/EventLegend";
 import LocalImage from "../global/docs-inclusions/LocalImage";
+import DocsRenderer from "../docs-renderer/DocsRenderer";
 
 export default {
+  props: {
+    docContent: Array,
+  },
+  created() {
+    this.$store.commit("currentChapter/initializeChapterState", {
+      initialState: this.$options.chapterState,
+    });
+  },
+  mounted() {},
+  computed: {
+    chapterState() {
+      const obj = {};
+      Object.keys(this.$options.chapterState).forEach((key) =>
+        Object.defineProperty(obj, key, {
+          get: () => this.$store.state.currentChapter.chapterState[key],
+          set: (value) => {
+            this.$store.commit("currentChapter/updateChapterState", {
+              key,
+              value,
+            });
+          },
+          enumerable: true,
+        })
+      );
+      return obj;
+    },
+  },
   components: {
+    Slots: {
+      render(createElement) {
+        return createElement(DocsRenderer, {
+          props: {
+            docContent: this.$parent.docContent,
+          },
+          scopedSlots: this.$scopedSlots,
+          on: this.$parent.$listeners,
+        });
+      },
+    },
     LocalImage,
     EventLegend,
     EventKey,
-    StaticData,
     PeabodyTutorial,
     MapScroller,
     MoveBorder,
@@ -99,7 +135,6 @@ export default {
     HoverText,
     PeabodyGrid,
   },
-  mixins: [ChapterSlots],
   data() {
     return {
       selected: 1,

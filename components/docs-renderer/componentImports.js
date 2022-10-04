@@ -12,7 +12,9 @@ import * as Scrollytell from "~/components/global/docs-inclusions/Scrollytell";
 
 async function chapterModules(chapterId) {
   try {
-    const dynamicImport = await import(`~/components/chapters/${chapterId}`);
+    const dynamicImport = await import(
+      `~/components/chapters/${chapterId}/index.ts`
+    );
     return dynamicImport.default;
   } catch (e) {
     return [];
